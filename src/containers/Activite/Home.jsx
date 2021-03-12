@@ -54,7 +54,7 @@ function Home() {
       </form>
       <Grid container justify="center" spacing={2}>
         {animes.map(anime => (
-          <Grid item xs={3}>
+          <Grid item xs={6} md={3}>
             <AnimeCard {...anime} />
           </Grid>
         ))}

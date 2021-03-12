@@ -13,15 +13,11 @@ function Menu() {
   const links = [
     {
       path: "/app/home",
-      label: "Item One"
+      label: "Accueil"
     },
     {
       path: "/app/library",
-      label: "Item Two"
-    },
-    {
-      path: "/app/two",
-      label: "Item Three"
+      label: "Ma librairie"
     }
   ];
 
