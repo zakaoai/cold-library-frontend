@@ -8,6 +8,8 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import { green, red } from "@material-ui/core/colors";
 import AddIcon from "@material-ui/icons/Add";
+import useAnimeLibrary from "~/hooks/useAnimeLibrary";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -23,6 +25,7 @@ const useStyles = makeStyles(theme => ({
 
 export default function AnimeCard({ malId, title, url, imageUrl, type, episodes }) {
   const classes = useStyles();
+  const { anime, isFetching, doFetch, saveAnime, deleteAnime } = useAnimeLibrary(malId);
 
   return (
     <Card className={classes.root}>
@@ -37,8 +40,12 @@ export default function AnimeCard({ malId, title, url, imageUrl, type, episodes 
       />
       <CardMedia className={classes.media} image={imageUrl} title={title} onClick={() => (location.href = url)} />
       <CardActions disableSpacing>
-        <IconButton aria-label="add to server" title="Ajouter au Server">
-          <AddIcon style={{ color: green[500] }} />
+        <IconButton
+          aria-label="add to server"
+          title="Ajouter au Server"
+          onClick={() => (anime != undefined && deleteAnime()) || saveAnime()}
+          style={(anime != undefined && { color: red[500] }) || {}}>
+          <FavoriteIcon />
         </IconButton>
       </CardActions>
     </Card>

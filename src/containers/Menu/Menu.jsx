@@ -16,7 +16,7 @@ function Menu() {
       label: "Item One"
     },
     {
-      path: "/app/other",
+      path: "/app/library",
       label: "Item Two"
     },
     {
