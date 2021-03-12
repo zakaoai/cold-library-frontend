@@ -39,7 +39,7 @@ module.exports = {
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: "SSM Swagger Fetcher",
+      title: "Cold Library App",
       template: paths.src + "/index.html", // template file
       filename: "index.html" // output file
     })
