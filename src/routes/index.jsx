@@ -8,6 +8,7 @@ import Library from "~/containers/Activite/Library";
 
 /* Liste des Path à utiliser */
 import Home from "../containers/Activite/Home";
+import SearchActivity from "~/containers/Activite/SearchActivity";
 
 const Routing = () => (
   <>
@@ -15,6 +16,9 @@ const Routing = () => (
     <Switch>
       <Route path="/app/home">
         <Home />
+      </Route>
+      <Route path="/app/search">
+        <SearchActivity />
       </Route>
       <Route path="/app/library">
         <Library />

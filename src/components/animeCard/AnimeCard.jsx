@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
@@ -10,6 +10,7 @@ import { red } from "@material-ui/core/colors";
 
 import useAnimeLibrary from "~/hooks/useAnimeLibrary";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import HotColdSwitch from "./HotColdSwitch";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -27,6 +28,7 @@ const useStyles = makeStyles(theme => ({
 export default function AnimeCard({ malId, title, url, imageUrl, type, episodes }) {
   const classes = useStyles();
   const { anime, isFetching, doFetch, saveAnime, deleteAnime } = useAnimeLibrary(malId);
+  const [isCold, setIsCold] = useState(false);
 
   return (
     <Card className={classes.root}>
@@ -57,6 +59,7 @@ export default function AnimeCard({ malId, title, url, imageUrl, type, episodes 
           style={(anime != undefined && { color: red[500] }) || {}}>
           <FavoriteIcon />
         </IconButton>
+        {anime != undefined && <HotColdSwitch isCold={isCold} setIsCold={setIsCold} />}
       </CardActions>
     </Card>
   );

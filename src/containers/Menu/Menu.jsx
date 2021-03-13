@@ -16,6 +16,10 @@ function Menu() {
       label: "Accueil"
     },
     {
+      path: "/app/search",
+      label: "Recherche d'anime"
+    },
+    {
       path: "/app/library",
       label: "Ma librairie"
     }

@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import useLibrary from "~/hooks/useLibrary";
 
 /**
- * Activité d'accueil du projet
+ * Activité
  */
 function Home() {
   const useStyles = makeStyles(theme => ({
