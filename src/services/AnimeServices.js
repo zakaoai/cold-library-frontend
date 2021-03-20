@@ -1,78 +1,65 @@
-const path = "http://localhost:9000";
+const path = "http://localhost:9000/anime";
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
+const getOptions = {
+  headers,
+  method: "GET"
+};
+const deleteOptions = {
+  headers,
+  method: "DELETE"
+};
+const postOptions = {
+  headers,
+  method: "POST"
+};
+const putOptions = body => ({
+  headers,
+  method: "PUT",
+  body
+});
 
 const AnimeServices = {
   searchAnime: search => {
-    const urlSearch = `${path}/anime/search/${search}`;
-
-    const options = {
-      headers: {
-        Accept: "*/*"
-      },
-      method: "GET",
-      mode: "cors"
-    };
-
-    return fetch(urlSearch, options).then(data => data.json());
+    const urlSearch = `${path}/search/${search}`;
+    return fetch(urlSearch, getOptions).then(data => data.json());
   },
-  getAllLibrary: () => {
-    const urlSearch = `${path}/animeRepo`;
-
-    const options = {
-      headers: {
-        Accept: "*/*"
-      },
-      method: "GET",
-      mode: "cors"
-    };
-
-    return fetch(urlSearch, options).then(data => {
+  getAll: () => {
+    return fetch(path, getOptions).then(data => {
       return data.json();
     });
   },
-  findInLibraryByMalId: malId => {
-    const urlSearch = `${path}/anime/${malId}`;
-
-    const options = {
-      headers: {
-        Accept: "*/*"
-      },
-      method: "GET",
-      mode: "cors"
-    };
-
-    return fetch(urlSearch, options).then(data => {
+  get: malId => {
+    const urlSearch = `${path}/${malId}`;
+    return fetch(urlSearch, getOptions).then(data => {
       if (!data.ok && data.status === 404) return undefined;
       return data.json();
     });
   },
-  saveInLibrary: malId => {
-    const urlSearch = `${path}/anime/save/${malId}`;
-
-    const options = {
-      headers: {
-        Accept: "*/*"
-      },
-      method: "GET",
-      mode: "cors"
-    };
-
-    return fetch(urlSearch, options).then(data => data.json());
-  },
-  deleteFromLibrary: malId => {
-    const urlSearch = `${path}/anime/delete/${malId}`;
-
-    const options = {
-      headers: {
-        Accept: "*/*"
-      },
-      method: "DELETE",
-      mode: "cors"
-    };
-
-    return fetch(urlSearch, options).then(data => {
+  delete: malId => {
+    const urlSearch = `${path}/${malId}`;
+    return fetch(urlSearch, deleteOptions).then(data => {
       if (data.ok && data.status === 204) return undefined;
       else throw Error("Erreur de suppression");
     });
+  },
+  saveInLibrary: malId => {
+    const urlSearch = `${path}/${malId}`;
+    return fetch(urlSearch, postOptions).then(data => data.json());
+  },
+  updateStorageState: (malId, state) => {
+    const urlSearch = `${path}/${malId}/storage_state`;
+    return fetch(urlSearch, putOptions(state)).then(data => data.json());
+  },
+  updateLastAvaibleEpisode: (malId, lastAvaibleEpisode) => {
+    const urlSearch = `${path}/${malId}/last_avaible_episode`;
+    return fetch(urlSearch, putOptions(lastAvaibleEpisode)).then(data => data.json());
+  },
+  updateIsComplete: (malId, isComplete) => {
+    const urlSearch = `${path}/${malId}/is_complete`;
+    return fetch(urlSearch, putOptions(isComplete)).then(data => data.json());
   }
 };
 

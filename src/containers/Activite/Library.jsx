@@ -28,7 +28,7 @@ function Home() {
     <>
       <Grid container justify="center" spacing={2}>
         {animes.map(anime => (
-          <Grid item xs={3}>
+          <Grid key={anime.malId} item xs={3}>
             <AnimeCard {...anime} />
           </Grid>
         ))}

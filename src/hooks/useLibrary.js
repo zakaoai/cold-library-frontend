@@ -8,7 +8,7 @@ export default function useLibrary() {
 
   useEffect(() => {
     setIsFetching(true);
-    AnimeServices.getAllLibrary()
+    AnimeServices.getAll()
       .then(data => setAnimes(data))
       .finally(() => setIsFetching(false));
   }, [doReload]);

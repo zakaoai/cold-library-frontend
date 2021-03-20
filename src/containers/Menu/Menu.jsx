@@ -25,9 +25,11 @@ function Menu() {
     }
   ];
 
+  const tabsValue = links.some(link => link.path === location.pathname) ? location.pathname : false;
+
   return (
-    <AppBar position="static">
-      <Tabs aria-label="simple tabs example" value={location.pathname}>
+    <AppBar position="static" style={{ margin: 10 }}>
+      <Tabs aria-label="simple tabs example" value={tabsValue}>
         {links.map(link => (
           <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
         ))}

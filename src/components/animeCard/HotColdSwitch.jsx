@@ -70,19 +70,19 @@ const PurpleSwitch = withStyles({
   }
 })(Switch);
 
-export default function HotColdSwitch(isCold, setIsCold) {
+export default function HotColdSwitch({ isFluxFroid, doSwapStorageState }) {
   return (
     <FormGroup>
       <Typography component="div">
-        <Grid component="label" container alignItems="center" spacing={1}>
+        <Grid component="label" container alignItems="center" spacing={0}>
           <Grid item>
-            <WhatshotIcon style={(!isCold && { color: red[500] }) || {}} />
+            <WhatshotIcon style={(!isFluxFroid && { color: red[500] }) || {}} />
           </Grid>
           <Grid item>
-            <PurpleSwitch checked={isCold} onChange={() => setIsCold(a => !a) || {}} name="checkedC" />
+            <PurpleSwitch checked={isFluxFroid} onChange={() => doSwapStorageState()} name="checkedC" />
           </Grid>
           <Grid item>
-            <AcUnitIcon style={(isCold && { color: blue[500] }) || {}} />
+            <AcUnitIcon style={(isFluxFroid && { color: blue[500] }) || {}} />
           </Grid>
         </Grid>
       </Typography>
