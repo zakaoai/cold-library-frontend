@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import AnimeServices from "~/services/AnimeServices";
 
-export default function useAnimeLibrary(malId = undefined) {
+export default function useAnimeLibrary(malId = undefined, updateAnime) {
   const [reload, setReload] = useState(false);
   const [anime, setAnime] = useState(undefined);
   const [isFetching, setIsFetching] = useState(false);
@@ -10,13 +10,17 @@ export default function useAnimeLibrary(malId = undefined) {
   const [lastAvaibleEpisode, setLastAvaibleEpisode] = useState(undefined);
 
   useEffect(() => {
-    if (malId != undefined) {
+    if (malId != undefined && !isFetching) {
       setIsFetching(true);
       AnimeServices.get(malId)
         .then(data => setAnime(data))
         .finally(() => setIsFetching(false));
     }
   }, [malId, reload]);
+
+  useEffect(() => {
+    if (anime) updateAnime(anime);
+  }, [anime]);
 
   const doFetch = () => setReload(a => !a);
 
@@ -36,19 +40,19 @@ export default function useAnimeLibrary(malId = undefined) {
       } else {
         storageState = "FLUX_CHAUD";
       }
-      AnimeServices.updateStorageState(malId, storageState).then(() => doFetch());
+      AnimeServices.updateStorageState(malId, storageState).then(anime => setAnime(anime));
     }
   }, [swapStorageState]);
 
   useEffect(() => {
     if (anime != undefined) {
-      AnimeServices.updateIsComplete(malId, !anime.isComplete).then(() => doFetch());
+      AnimeServices.updateIsComplete(malId, !anime.isComplete).then(anime => setAnime(anime));
     }
   }, [swapIsComplete]);
 
   useEffect(() => {
     if (anime != undefined && lastAvaibleEpisode != undefined) {
-      AnimeServices.updateLastAvaibleEpisode(malId, lastAvaibleEpisode).then(() => doFetch());
+      AnimeServices.updateLastAvaibleEpisode(malId, lastAvaibleEpisode).then(anime => setAnime(anime));
     }
   }, [lastAvaibleEpisode]);
 

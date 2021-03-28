@@ -15,5 +15,8 @@ export default function useLibrary() {
 
   const doFetch = () => setDoReload(a => !a);
 
-  return { animes, isFetching, doFetch };
+  const updateAnime = updatedAnime =>
+    setAnimes(animes => animes.map(anime => (anime.malId === updatedAnime.malId ? updatedAnime : anime)));
+
+  return { animes, isFetching, doFetch, updateAnime };
 }
