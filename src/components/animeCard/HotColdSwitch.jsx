@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import { blue, red } from "@material-ui/core/colors";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AcUnitIcon from "@material-ui/icons/AcUnit";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
+import StorageState from "~/constants/StorageState";
 
 const PurpleSwitch = withStyles({
   root: {
@@ -70,7 +71,10 @@ const PurpleSwitch = withStyles({
   }
 })(Switch);
 
-export default function HotColdSwitch({ isFluxFroid, doSwapStorageState }) {
+export default function HotColdSwitch({ storageState, setStorageState }) {
+  const isFluxFroid = storageState === StorageState.FLUX_FROID;
+  const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID;
+
   return (
     <FormGroup>
       <Typography component="div">
@@ -79,7 +83,7 @@ export default function HotColdSwitch({ isFluxFroid, doSwapStorageState }) {
             <WhatshotIcon style={(!isFluxFroid && { color: red[500] }) || {}} />
           </Grid>
           <Grid item>
-            <PurpleSwitch checked={isFluxFroid} onChange={() => doSwapStorageState()} name="checkedC" />
+            <PurpleSwitch checked={isFluxFroid} onChange={() => setStorageState(nextStorageState)} />
           </Grid>
           <Grid item>
             <AcUnitIcon style={(isFluxFroid && { color: blue[500] }) || {}} />

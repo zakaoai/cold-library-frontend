@@ -2,8 +2,9 @@ import React from "react";
 import AnimeCardComponent from "./AnimeCardComponent";
 import AnimeServices from "~/services/AnimeServices";
 
-export default function AnimeLibraryWrapper({ anime, updateAnime }) {
-  const { malId } = anime;
+export default function AnimeSearchWrapper({ anime, updateAnime }) {
+  const { malId, title, url, imageUrl, type, nbEpisodes } = anime;
+  const defaultAnime = { malId, title, url, imageUrl, type, nbEpisodes };
   const setLastAvaibleEpisode = LastAvaibleEpisode =>
     AnimeServices.updateLastAvaibleEpisode(malId, LastAvaibleEpisode).then(updatedAnime => updateAnime(updatedAnime));
   const setIsComplete = isComplete =>
@@ -11,9 +12,11 @@ export default function AnimeLibraryWrapper({ anime, updateAnime }) {
   const setStorageState = storageState =>
     AnimeServices.updateStorageState(malId, storageState).then(updatedAnime => updateAnime(updatedAnime));
 
-  const deleteAnime = () => AnimeServices.delete(malId).then(() => updateAnime(undefined));
+  const deleteAnime = () => AnimeServices.delete(malId).then(() => updateAnime(defaultAnime));
 
-  const updateAnimeState = { setLastAvaibleEpisode, setIsComplete, setStorageState, deleteAnime };
+  const saveAnime = () => AnimeServices.saveInLibrary(malId).then(updatedAnime => updateAnime(updatedAnime));
+
+  const updateAnimeState = { setLastAvaibleEpisode, setIsComplete, setStorageState, deleteAnime, saveAnime };
 
   return <AnimeCardComponent anime={anime} showEpisodeLink updateAnimeState={updateAnimeState} />;
 }

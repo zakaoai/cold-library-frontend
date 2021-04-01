@@ -15,20 +15,19 @@ function Library() {
 
   const { animes, isFetching, doFetch, updateAnime } = useLibrary();
 
-  const [isFluxFroid, setfilterStorageState] = useState(false);
-  const updateFilterStorageState = () => setfilterStorageState(a => !a);
+  const [filterStorageState, setFilterStorageState] = useState(StorageState.FLUX_FROID);
 
   return (
     <>
       <AppBar position="relative" color="transparent">
-        <HotColdSwitch doSwapStorageState={updateFilterStorageState} isFluxFroid={isFluxFroid} />
+        <HotColdSwitch storageState={filterStorageState} setStorageState={setFilterStorageState} />
       </AppBar>
       <Grid container justify="center" spacing={2}>
         {animes
-          .filter(anime => anime.storageState === ((isFluxFroid && StorageState.FLUX_FROID) || StorageState.FLUX_CHAUD))
+          .filter(anime => anime.storageState === filterStorageState)
           .map(anime => (
             <Grid key={anime.malId} item xs={3}>
-              <AnimeLibraryWrapper {...anime} updateAnime={updateAnime} />
+              <AnimeLibraryWrapper anime={anime} updateAnime={updateAnime} />
             </Grid>
           ))}
       </Grid>

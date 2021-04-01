@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import useAnimeSearch from "~/hooks/useAnimeSearch";
-import AnimeCard from "~/components/animeCard/AnimeCard";
 import Grid from "@material-ui/core/Grid";
 import SearchForm from "~/components/SearchActivity/SearchForm";
+import AnimeSearchWrapper from "~/components/animeCard/AnimeSearchWrapper";
 
 /**
  * Activité
  */
 function SearchActivity() {
   const [searchValue, setSearchValue] = useState("");
-  const { animes, isFetching, setSearch } = useAnimeSearch();
+  const { animes, isFetching, setSearch, updateAnime } = useAnimeSearch();
 
   return (
     <>
@@ -17,7 +17,7 @@ function SearchActivity() {
       <Grid container justify="center" spacing={2}>
         {animes.map(anime => (
           <Grid item xs={6} md={3}>
-            <AnimeCard {...anime} />
+            <AnimeSearchWrapper anime={anime} updateAnime={updateAnime} />
           </Grid>
         ))}
       </Grid>

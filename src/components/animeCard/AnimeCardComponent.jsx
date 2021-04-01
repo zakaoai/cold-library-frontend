@@ -30,71 +30,35 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-export default function AnimeCardComponent({ anime = {}, showEpisodeLink, updateAnimeState }) {
+export default function AnimeCardComponent({ anime, showEpisodeLink, updateAnimeState }) {
   const classes = useStyles();
-  const { malId, title, url, imageUrl, type, nbEpisodes, storageState, isComplete, lastAvaibleEpisode } = anime;
-  const { deleteAnime, saveAnime, doSwapIsComplete, doSwapStorageState, setLastAvaibleEpisode } = updateAnimeState;
+  const { malId, title, url, imageUrl, type, nbEpisodes, storageState, isComplete, lastAvaibleEpisode } = anime || {};
+  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode } = updateAnimeState;
+  const isInLibrary = !!storageState;
 
   return (
     <Card className={classes.root}>
       <CardHeader
         className={classes.header}
-        avatar={
-          (type && (
-            <Avatar aria-label="type" className={classes.avatar} title={type}>
-              {type.substring(0, 3)}
-            </Avatar>
-          )) || <Skeleton animation="wave" variant="circle" width={40} height={40} />
-        }
-        action={
-          showEpisodeLink && (
-            <IconButton component={Link} to={`/app/anime/${malId}`}>
-              <MoreIcon />
-            </IconButton>
-          )
-        }
-        title={(title && title) || <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />}
-        subheader={
-          (nbEpisodes !== undefined && `Nb Episodes : ${nbEpisodes}`) || (
-            <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
-          )
-        }
+        avatar={<AnimeCardAvatar type={type} />}
+        action={showEpisodeLink && <AnimeCardLink malId={malId} />}
+        title={<AnimeCardTitle title={title} />}
+        subheader={<AnimeCardEpisodeNumber nbEpisodes={nbEpisodes} />}
       />
-      {(imageUrl && (
-        <CardMedia
-          component={"img"}
-          className={classes.media}
-          image={imageUrl}
-          title={title}
-          onClick={() => (location.href = url)}
-        />
-      )) || <Skeleton animation="wave" variant="rect" className={classes.media} />}
+      <AnimeCardImage url={url} imageUrl={imageUrl} title={title} />
 
       <CardActions disableSpacing>
         <Grid container alignItems="center">
           <Grid item xs={2}>
-            <IconButton
-              aria-label="add or delete to server"
-              title="Ajouter ou Supprimer du Server"
-              onClick={() => (anime != undefined && deleteAnime()) || saveAnime()}
-              style={(anime != undefined && { color: red[500] }) || {}}>
-              <FavoriteIcon />
-            </IconButton>
+            <InLibraryAction saveAnime={saveAnime} deleteAnime={deleteAnime} isInLibrary={isInLibrary} />
           </Grid>
-          {anime != undefined && (
+          {isInLibrary && (
             <>
               <Grid item xs={6}>
-                <HotColdSwitch isFluxFroid={storageState === "FLUX_FROID"} doSwapStorageState={doSwapStorageState} />
+                <HotColdSwitch storageState={storageState} setStorageState={setStorageState} />
               </Grid>
               <Grid item xs={2}>
-                <IconButton
-                  aria-label="all Anime is complete"
-                  title="Set as Complete"
-                  disabled={anime === undefined || nbEpisodes === 0}
-                  onClick={() => doSwapIsComplete()}
-                  style={(isComplete && { color: green[500] }) || {}}>
-                  <DoneAllIcon />
-                </IconButton>
+                <AnimeCompleteAction nbEpisodes={nbEpisodes} isComplete={isComplete} setIsComplete={setIsComplete} />
               </Grid>
               <Grid item xs={2}>
                 <LastAvaibleEpisode
@@ -107,5 +71,78 @@ export default function AnimeCardComponent({ anime = {}, showEpisodeLink, update
         </Grid>
       </CardActions>
     </Card>
+  );
+}
+
+function AnimeCardAvatar({ type }) {
+  const classes = useStyles();
+
+  return (
+    (type && (
+      <Avatar aria-label="type" className={classes.avatar} title={type}>
+        {type.substring(0, 3)}
+      </Avatar>
+    )) || <Skeleton animation="wave" variant="circle" width={40} height={40} />
+  );
+}
+
+function AnimeCardLink({ malId }) {
+  return (
+    <IconButton component={Link} to={`/app/anime/${malId}`}>
+      <MoreIcon />
+    </IconButton>
+  );
+}
+
+function AnimeCardTitle({ title }) {
+  return title || <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />;
+}
+
+function AnimeCardEpisodeNumber({ nbEpisodes }) {
+  return (
+    (nbEpisodes !== undefined && `Nb Episodes : ${nbEpisodes}`) || (
+      <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />
+    )
+  );
+}
+
+function AnimeCardImage({ url, imageUrl, title }) {
+  const classes = useStyles();
+
+  return (
+    (imageUrl && (
+      <CardMedia
+        component={"img"}
+        className={classes.media}
+        image={imageUrl}
+        title={title}
+        onClick={() => (location.href = url)}
+      />
+    )) || <Skeleton animation="wave" variant="rect" className={classes.media} />
+  );
+}
+
+function InLibraryAction({ saveAnime, deleteAnime, isInLibrary }) {
+  return (
+    <IconButton
+      aria-label="add or delete to server"
+      title="Ajouter ou Supprimer du Server"
+      onClick={() => (isInLibrary && deleteAnime()) || saveAnime()}
+      style={(isInLibrary && { color: red[500] }) || {}}>
+      <FavoriteIcon />
+    </IconButton>
+  );
+}
+
+function AnimeCompleteAction({ nbEpisodes, isComplete, setIsComplete }) {
+  return (
+    <IconButton
+      aria-label="all Anime is complete"
+      title="Set as Complete"
+      disabled={nbEpisodes === 0}
+      onClick={() => setIsComplete(!isComplete)}
+      style={(isComplete && { color: green[500] }) || {}}>
+      <DoneAllIcon />
+    </IconButton>
   );
 }
