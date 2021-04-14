@@ -1,0 +1,43 @@
+const path = malId => `http://localhost:9000/torrent/${malId}/episodes`;
+const headers = {
+  Accept: "application/json",
+  "Content-Type": "application/json"
+};
+const getOptions = {
+  headers,
+  method: "GET"
+};
+const deleteOptions = {
+  headers,
+  method: "DELETE"
+};
+const postOptions = {
+  headers,
+  method: "POST"
+};
+const putOptions = body => ({
+  headers,
+  method: "PUT",
+  body
+});
+
+const AnimeTorrentEpisodeService = {
+  getAnimeEpisodesTorrents: malId => {
+    return fetch(path(malId), getOptions).then(data => data.json());
+  },
+  searchAlternateEpisodeTorrent: malId => {
+    const url = `${path(malId)}/alternate`;
+    return fetch(url, getOptions).then(data => data.json());
+  },
+  replaceEpisodeTorrent: (malId, animeEpisodeTorrent) => {
+    const { episodeNumber } = animeEpisodeTorrent;
+    const url = `${path(malId)}/${episodeNumber}`;
+    return fetch(url, putOptions(animeEpisodeTorrent)).then(data => data.json());
+  },
+  scanEpisodeTorrent: malId => {
+    const url = `${path(malId)}/scan`;
+    return fetch(url, getOptions).then(data => data.json());
+  }
+};
+
+export default AnimeTorrentEpisodeService;

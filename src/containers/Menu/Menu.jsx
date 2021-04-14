@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { NavLink, useLocation } from "react-router-dom";
+import SiteMap from "~/routes/SiteMap";
 
 /**
  * Menu de l'application
@@ -10,20 +11,7 @@ import { NavLink, useLocation } from "react-router-dom";
 function Menu() {
   const location = useLocation();
 
-  const links = [
-    {
-      path: "/app/home",
-      label: "Accueil"
-    },
-    {
-      path: "/app/search",
-      label: "Recherche d'anime"
-    },
-    {
-      path: "/app/library",
-      label: "Ma librairie"
-    }
-  ];
+  const links = [SiteMap.ACCUEIL, SiteMap.RECHERCHE, SiteMap.LIBRAIRIE, SiteMap.TORRENT];
 
   const tabsValue = links.some(link => link.path === location.pathname) ? location.pathname : false;
 
