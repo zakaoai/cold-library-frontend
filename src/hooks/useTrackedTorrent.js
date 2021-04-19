@@ -32,7 +32,7 @@ export default function useTrackedTorrent() {
   const updateTrackedAnime = updatedTrackedAnime =>
     setTrackedTorrents(trackedAnimes =>
       trackedAnimes.map(trackedAnime =>
-        trackedAnime.malId === updatedTrackedAnime.malId ? updatedTrackedAnime : trackedAnime
+        trackedAnime.malId === updatedTrackedAnime.malId ? { ...trackedAnime, ...updatedTrackedAnime } : trackedAnime
       )
     );
 

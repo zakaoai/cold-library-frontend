@@ -1,4 +1,4 @@
-const path = `http://localhost:9000/torrent/`;
+const path = `http://localhost:9000/torrent`;
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json"
@@ -15,6 +15,11 @@ const postOptions = {
   headers,
   method: "POST"
 };
+const patchOption = body => ({
+  headers,
+  method: "PATCH",
+  body
+});
 const putOptions = body => ({
   headers,
   method: "PUT",
@@ -30,6 +35,14 @@ const TrackedAnimeTorrentService = {
   get: malId => {
     const urlSearch = `${path}/${malId}`;
     return fetch(urlSearch, getOptions).then(data => {
+      if (!data.ok && data.status === 404) return undefined;
+      return data.json();
+    });
+  },
+  update: (malId, trackedAnime) => {
+    const { searchWords, dayOfRelease } = trackedAnime;
+    const urlSearch = `${path}/${malId}`;
+    return fetch(urlSearch, patchOption(JSON.stringify({ malId, searchWords, dayOfRelease }))).then(data => {
       if (!data.ok && data.status === 404) return undefined;
       return data.json();
     });

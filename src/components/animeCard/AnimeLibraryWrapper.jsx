@@ -1,6 +1,7 @@
 import React from "react";
 import AnimeCardComponent from "./AnimeCardComponent";
 import AnimeServices from "~/services/AnimeServices";
+import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
 
 export default function AnimeLibraryWrapper({ anime, updateAnime }) {
   const { malId } = anime;
@@ -13,7 +14,20 @@ export default function AnimeLibraryWrapper({ anime, updateAnime }) {
 
   const deleteAnime = () => AnimeServices.delete(malId).then(() => updateAnime(undefined));
 
-  const updateAnimeState = { setLastAvaibleEpisode, setIsComplete, setStorageState, deleteAnime };
+  const trackAnime = () =>
+    TrackedAnimeTorrentService.saveInLibrary(malId).then(() => updateAnime({ malId, trackedTorrent: true }));
+
+  const unTrackAnime = () =>
+    TrackedAnimeTorrentService.delete(malId).then(() => updateAnime({ malId, trackedTorrent: false }));
+
+  const updateAnimeState = {
+    setLastAvaibleEpisode,
+    setIsComplete,
+    setStorageState,
+    deleteAnime,
+    trackAnime,
+    unTrackAnime
+  };
 
   return <AnimeCardComponent anime={anime} showEpisodeLink updateAnimeState={updateAnimeState} />;
 }

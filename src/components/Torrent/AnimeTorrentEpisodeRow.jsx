@@ -5,9 +5,24 @@ import { DateTime } from "luxon";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
+import formatByteSize from "~/utils/byteSize";
+import SearchIcon from "@material-ui/icons/Search";
 
-export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
-  const { episodeNumber, title, date, torrentLink, torrentId } = animeEpisodeTorrent;
+export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlternate }) {
+  const {
+    episodeNumber,
+    title,
+    date,
+    torrentLink,
+    torrentId,
+    torrentSize,
+    leechers,
+    seeders,
+    completed
+  } = animeEpisodeTorrent;
+
+  const [size, sizeType] = torrentSize.split(" ");
+
   const [year, month, day] = date;
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
   return (
@@ -19,7 +34,16 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
       <TableCell align="right">
         {date && DateTime.fromObject({ year, month, day }).setLocale("fr").toFormat("dd LLL yyyy")}
       </TableCell>
+      <TableCell component="th" scope="row">
+        {formatByteSize(size, sizeType)}
+      </TableCell>
+      <TableCell component="th" scope="row">
+        {leechers}/{seeders} ({completed})
+      </TableCell>
       <TableCell align="right">
+        <IconButton aria-label="scan" onClick={() => searchAlternate(episodeNumber)}>
+          <SearchIcon />
+        </IconButton>
         <IconButton aria-label="delete" href={torrentLink}>
           <GetAppIcon />
         </IconButton>

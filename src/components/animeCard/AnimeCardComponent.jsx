@@ -15,6 +15,7 @@ import LastAvaibleEpisode from "./LastAvaibleEpisode";
 import MoreIcon from "@material-ui/icons/More";
 import { Link } from "react-router-dom";
 import { Skeleton } from "@material-ui/lab";
+import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -32,8 +33,27 @@ const useStyles = makeStyles(theme => ({
 
 export default function AnimeCardComponent({ anime, showEpisodeLink, updateAnimeState }) {
   const classes = useStyles();
-  const { malId, title, url, imageUrl, type, nbEpisodes, storageState, isComplete, lastAvaibleEpisode } = anime || {};
-  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode } = updateAnimeState;
+  const {
+    malId,
+    title,
+    url,
+    imageUrl,
+    type,
+    nbEpisodes,
+    storageState,
+    isComplete,
+    lastAvaibleEpisode,
+    trackedTorrent
+  } = anime || {};
+  const {
+    deleteAnime,
+    saveAnime,
+    setIsComplete,
+    setStorageState,
+    setLastAvaibleEpisode,
+    trackAnime,
+    unTrackAnime
+  } = updateAnimeState;
   const isInLibrary = !!storageState;
 
   return (
@@ -41,7 +61,16 @@ export default function AnimeCardComponent({ anime, showEpisodeLink, updateAnime
       <CardHeader
         className={classes.header}
         avatar={<AnimeCardAvatar type={type} />}
-        action={showEpisodeLink && <AnimeCardLink malId={malId} />}
+        action={
+          <AnimeCardHeaderActions
+            showEpisodeLink={showEpisodeLink}
+            malId={malId}
+            isInLibrary={isInLibrary}
+            isAnimeTracked={trackedTorrent}
+            trackAnime={trackAnime}
+            unTrackAnime={unTrackAnime}
+          />
+        }
         title={<AnimeCardTitle title={title} />}
         subheader={<AnimeCardEpisodeNumber nbEpisodes={nbEpisodes} />}
       />
@@ -71,6 +100,29 @@ export default function AnimeCardComponent({ anime, showEpisodeLink, updateAnime
         </Grid>
       </CardActions>
     </Card>
+  );
+}
+
+function AnimeCardHeaderActions({ showEpisodeLink, malId, isInLibrary, isAnimeTracked, trackAnime, unTrackAnime }) {
+  return (
+    <>
+      {isInLibrary && (
+        <TrackedAnimeAction isAnimeTracked={isAnimeTracked} trackAnime={trackAnime} unTrackAnime={unTrackAnime} />
+      )}
+      {showEpisodeLink && <AnimeCardLink malId={malId} />}
+    </>
+  );
+}
+
+function TrackedAnimeAction({ isAnimeTracked, trackAnime, unTrackAnime }) {
+  return (
+    <IconButton
+      aria-label="Track or UnTrack Anime"
+      title="Ajouter ou Supprimer l'anime à la liste des torrents suivie"
+      onClick={() => (isAnimeTracked && unTrackAnime()) || trackAnime()}
+      style={(isAnimeTracked && { color: green[500] }) || {}}>
+      <CloudDownloadIcon />
+    </IconButton>
   );
 }
 

@@ -7,6 +7,8 @@ import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
 import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
 import SearchIcon from "@material-ui/icons/Search";
+import EditIcon from "@material-ui/icons/Edit";
+import DayOfWeek from "~/constants/DayOfWeek";
 
 const useRowStyles = makeStyles({
   root: {
@@ -16,11 +18,13 @@ const useRowStyles = makeStyles({
   }
 });
 
-export default function TrackedTorrentRow({ trackedTorrent, scanAnime }) {
+export default function TrackedTorrentRow({ trackedTorrent, scanAnime, editTrackedAnime, searchAlternate }) {
   const [open, setOpen] = React.useState(false);
   const classes = useRowStyles();
 
   const { torrents, title, dayOfRelease, lastAvaibleEpisode, searchWords, type, malId } = trackedTorrent;
+
+  const searchAlternateTorrent = torrent => searchAlternate(malId, torrent);
 
   return (
     <React.Fragment>
@@ -39,15 +43,20 @@ export default function TrackedTorrentRow({ trackedTorrent, scanAnime }) {
           {searchWords}
         </TableCell>
         <TableCell component="th" scope="row">
-          {dayOfRelease}
+          {DayOfWeek[dayOfRelease]}
         </TableCell>
         <TableCell component="th" scope="row">
+          <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)}>
+            <EditIcon />
+          </IconButton>
           <IconButton aria-label="scan" onClick={() => scanAnime(malId)}>
             <SearchIcon />
           </IconButton>
         </TableCell>
       </TableRow>
-      {torrents.length !== 0 && <AnimeTorrentEpisodeTable torrents={torrents} listOpen={open} />}
+      {torrents.length !== 0 && (
+        <AnimeTorrentEpisodeTable torrents={torrents} listOpen={open} searchAlternate={searchAlternateTorrent} />
+      )}
     </React.Fragment>
   );
 }

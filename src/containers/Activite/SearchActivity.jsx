@@ -16,7 +16,7 @@ function SearchActivity() {
       <SearchForm searchValue={searchValue} setSearchValue={setSearchValue} setSearch={setSearch} />
       <Grid container justify="center" spacing={2}>
         {animes.map(anime => (
-          <Grid item xs={6} md={3}>
+          <Grid item xs={6} md={3} key={anime.malId}>
             <AnimeSearchWrapper anime={anime} updateAnime={updateAnime} />
           </Grid>
         ))}

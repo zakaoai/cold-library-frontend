@@ -8,10 +8,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import AnimeTorrentEpisodeRow from "./AnimeTorrentEpisodeRow";
 
-export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
+export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlternate }) {
   return (
     <TableRow>
-      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+      <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
         <Collapse in={listOpen} timeout="auto" unmountOnExit>
           <Box margin={1}>
             <Table size="small" aria-label="purchases">
@@ -20,6 +20,8 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
                   <TableCell>Episode</TableCell>
                   <TableCell>Titre</TableCell>
                   <TableCell>Date</TableCell>
+                  <TableCell>Size</TableCell>
+                  <TableCell>Traffic</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -29,6 +31,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
                     <AnimeTorrentEpisodeRow
                       key={animeEpisodeTorrent.torrentId}
                       animeEpisodeTorrent={animeEpisodeTorrent}
+                      searchAlternate={searchAlternate}
                     />
                   ))}
               </TableBody>

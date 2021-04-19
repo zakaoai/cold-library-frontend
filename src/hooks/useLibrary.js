@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import AnimeServices from "~/services/AnimeServices";
+import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
 
 export default function useLibrary() {
   const [doReload, setDoReload] = useState(false);
@@ -9,6 +10,14 @@ export default function useLibrary() {
   useEffect(() => {
     setIsFetching(true);
     AnimeServices.getAll()
+      .then(async animes => {
+        const trackedAnimes = await TrackedAnimeTorrentService.getAll();
+        return animes.map(anime =>
+          trackedAnimes.some(trackedAnime => trackedAnime.malId === anime.malId)
+            ? { ...anime, trackedTorrent: true }
+            : anime
+        );
+      })
       .then(data => setAnimes(data))
       .finally(() => setIsFetching(false));
   }, [doReload]);
@@ -16,7 +25,9 @@ export default function useLibrary() {
   const doFetch = () => setDoReload(a => !a);
 
   const updateAnime = updatedAnime =>
-    setAnimes(animes => animes.map(anime => (anime.malId === updatedAnime.malId ? updatedAnime : anime)));
+    setAnimes(animes =>
+      animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
+    );
 
   return { animes, isFetching, doFetch, updateAnime };
 }

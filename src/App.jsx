@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Routing from "./routes";
 import { object } from "prop-types";
