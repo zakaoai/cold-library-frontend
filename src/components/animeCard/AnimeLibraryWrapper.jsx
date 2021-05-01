@@ -15,10 +15,20 @@ export default function AnimeLibraryWrapper({ anime, updateAnime }) {
   const deleteAnime = () => AnimeServices.delete(malId).then(() => updateAnime(undefined));
 
   const trackAnime = () =>
-    TrackedAnimeTorrentService.saveInLibrary(malId).then(() => updateAnime({ malId, trackedTorrent: true }));
+    TrackedAnimeTorrentService.saveInLibrary(malId).then(() =>
+      updateAnime({
+        malId,
+        trackedTorrent: true
+      })
+    );
 
   const unTrackAnime = () =>
-    TrackedAnimeTorrentService.delete(malId).then(() => updateAnime({ malId, trackedTorrent: false }));
+    TrackedAnimeTorrentService.delete(malId).then(() =>
+      updateAnime({
+        malId,
+        trackedTorrent: false
+      })
+    );
 
   const updateAnimeState = {
     setLastAvaibleEpisode,

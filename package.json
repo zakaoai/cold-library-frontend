@@ -7,6 +7,7 @@
   "scripts": {
     "build": "webpack --config build-utils/webpack.config.js --env env=prod",
     "build:analyze": "npm run build -- --env addon=bundleanalyze",
+    "lint": "eslint  --ignore-path .gitignore --fix .",
     "start": "webpack serve --config build-utils/webpack.config.js --env env=dev",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
