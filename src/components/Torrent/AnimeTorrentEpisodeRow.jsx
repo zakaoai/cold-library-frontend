@@ -41,7 +41,7 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlte
         {leechers}/{seeders} ({completed})
       </TableCell>
       <TableCell align="right">
-        <IconButton aria-label="scan" onClick={() => searchAlternate(episodeNumber)}>
+        <IconButton aria-label="scan" onClick={() => searchAlternate(animeEpisodeTorrent)}>
           <SearchIcon />
         </IconButton>
         <IconButton aria-label="delete" href={torrentLink}>
