@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { Skeleton } from "@material-ui/lab";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {},
   media: {
     cursor: "pointer",

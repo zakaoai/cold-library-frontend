@@ -17,7 +17,7 @@ import LastAvaibleEpisode from "./LastAvaibleEpisode";
 import MoreIcon from "@material-ui/icons/More";
 import { Link } from "react-router-dom";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {},
   media: {
     cursor: "pointer"
