@@ -25,14 +25,14 @@ const AnimeTorrentEpisodeService = {
   getAnimeEpisodesTorrents: malId => {
     return fetch(path(malId), getOptions).then(data => data.json());
   },
-  searchAlternateEpisodeTorrent: malId => {
-    const url = `${path(malId)}/alternate`;
+  searchAlternateEpisodeTorrent: (malId, episodeNumber) => {
+    const url = `${path(malId)}/${episodeNumber}/alternate`;
     return fetch(url, getOptions).then(data => data.json());
   },
   replaceEpisodeTorrent: (malId, animeEpisodeTorrent) => {
     const { episodeNumber } = animeEpisodeTorrent;
     const url = `${path(malId)}/${episodeNumber}`;
-    return fetch(url, putOptions(animeEpisodeTorrent)).then(data => data.json());
+    return fetch(url, putOptions(JSON.stringify(animeEpisodeTorrent))).then(data => data.json());
   },
   scanEpisodeTorrent: malId => {
     const url = `${path(malId)}/scan`;
