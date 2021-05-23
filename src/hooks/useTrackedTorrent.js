@@ -36,6 +36,25 @@ export default function useTrackedTorrent() {
       )
     );
 
+  const sortByEpisodeNumber = (epA, epB) => {
+    return epA.episodeNumber - epB.episodeNumber;
+  };
+
+  const updateEpisodeTrackedAnime = updatedEpisode =>
+    setTrackedTorrents(trackedAnimes =>
+      trackedAnimes.map(trackedAnime =>
+        trackedAnime.malId === updatedEpisode.malId
+          ? {
+              ...trackedAnime,
+              torrents: [
+                ...trackedAnime.torrents.filter(e => e.episodeNumber !== updatedEpisode.episodeNumber),
+                updatedEpisode
+              ].sort(sortByEpisodeNumber)
+            }
+          : trackedAnime
+      )
+    );
+
   const scanAnime = malId => {
     AnimeTorrentEpisodeService.scanEpisodeTorrent(malId).then(episodes =>
       setTrackedTorrents(trackedAnimes =>
@@ -48,5 +67,5 @@ export default function useTrackedTorrent() {
     );
   };
 
-  return { trackedTorrents, isFetching, doFetch, updateTrackedAnime, scanAnime };
+  return { trackedTorrents, isFetching, doFetch, updateTrackedAnime, scanAnime, updateEpisodeTrackedAnime };
 }
