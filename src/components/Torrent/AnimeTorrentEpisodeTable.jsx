@@ -21,7 +21,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlt
                   <TableCell>Titre</TableCell>
                   <TableCell>Date</TableCell>
                   <TableCell>Size</TableCell>
-                  <TableCell>Traffic</TableCell>
+                  <TableCell>Traffic ↓/↑/🗸</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>
@@ -29,7 +29,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlt
                 {torrents &&
                   torrents.map(animeEpisodeTorrent => (
                     <AnimeTorrentEpisodeRow
-                      key={animeEpisodeTorrent.torrentId}
+                      key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
                       animeEpisodeTorrent={animeEpisodeTorrent}
                       searchAlternate={searchAlternate}
                     />

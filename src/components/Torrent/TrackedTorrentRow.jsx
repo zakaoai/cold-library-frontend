@@ -27,7 +27,7 @@ export default function TrackedTorrentRow({ trackedTorrent, scanAnime, editTrack
   const searchAlternateTorrent = torrent => searchAlternate(malId, torrent);
 
   return (
-    <React.Fragment>
+    <>
       <TableRow className={classes.root}>
         <TableCell>{torrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}</TableCell>
         <TableCell component="th" scope="row">
@@ -57,7 +57,7 @@ export default function TrackedTorrentRow({ trackedTorrent, scanAnime, editTrack
       {torrents.length !== 0 && (
         <AnimeTorrentEpisodeTable torrents={torrents} listOpen={open} searchAlternate={searchAlternateTorrent} />
       )}
-    </React.Fragment>
+    </>
   );
 }
 
