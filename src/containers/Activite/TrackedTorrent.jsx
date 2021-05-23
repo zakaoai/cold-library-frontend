@@ -10,13 +10,21 @@ import useTrackedTorrent from "~/hooks/useTrackedTorrent";
 import TrackedTorrentRow from "~/components/Torrent/TrackedTorrentRow";
 import ModalEditTrackedTorrent from "~/components/Torrent/ModalEditTrackedTorrent";
 import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
+import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
 import ModalEditTrackedEpisode from "~/components/Torrent/ModalEditTrackedEpisode";
 
 /**
  * Activité
  */
 export default function TrackedTorrent() {
-  const { trackedTorrents, isFetching, doFetch, updateTrackedAnime, scanAnime } = useTrackedTorrent();
+  const {
+    trackedTorrents,
+    isFetching,
+    doFetch,
+    updateTrackedAnime,
+    scanAnime,
+    updateEpisodeTrackedAnime
+  } = useTrackedTorrent();
   const [showModal, setShowModal] = useState(false);
   const [showModalEp, setshowModalEp] = useState(false);
   const [editableTrackedAnime, setEditableTrackedAnime] = useState(undefined);
@@ -39,13 +47,19 @@ export default function TrackedTorrent() {
 
   const searchAlternate = (malId, torrentEpisode) => {
     setshowModalEp(true);
-    setAlternateTrackedEpisode(torrentEpisode);
+    setAlternateTrackedEpisode({ ...torrentEpisode, malId });
   };
 
   const patchTrackedAnime = trackedAnime =>
     TrackedAnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
       updateTrackedAnime(newTrackedAnime)
     );
+
+  const patchTrackedAnimeEpisode = animeEpisodeTorrent =>
+    AnimeTorrentEpisodeService.replaceEpisodeTorrent(
+      animeEpisodeTorrent.malId,
+      animeEpisodeTorrent
+    ).then(newAnimeEpisodeTorrent => updateEpisodeTrackedAnime(newAnimeEpisodeTorrent));
 
   return (
     <>
@@ -83,7 +97,14 @@ export default function TrackedTorrent() {
           updateTrackedAnime={patchTrackedAnime}
         />
       )}
-      {alternateTrackedEpisode && <ModalEditTrackedEpisode handleClose={handleCloseEp} open={showModalEp} />}
+      {alternateTrackedEpisode && (
+        <ModalEditTrackedEpisode
+          handleClose={handleCloseEp}
+          open={showModalEp}
+          trackedEpisode={alternateTrackedEpisode}
+          updateTrackedEpisode={patchTrackedAnimeEpisode}
+        />
+      )}
     </>
   );
 }

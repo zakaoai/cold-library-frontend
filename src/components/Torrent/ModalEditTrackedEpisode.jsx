@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -12,38 +12,115 @@ import TableBody from "@material-ui/core/TableBody";
 import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import Paper from "@material-ui/core/Paper";
-import { TablePagination } from "@material-ui/core";
+import { IconButton, makeStyles, Radio, TablePagination } from "@material-ui/core";
+import formatByteSize from "~/utils/byteSize";
+import InfoIcon from "@material-ui/icons/Info";
+import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
+
+const useStyles = makeStyles(theme => ({
+  table: {
+    minWidth: 650
+  },
+  paper: {
+    width: "100%",
+    marginBottom: theme.spacing(2)
+  }
+}));
 
 export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose, updateTrackedEpisode }) {
-  const handleModifier = () => {
-    updateTrackedEpisode({ ...trackedEpisode, searchWords: newSearchWords, dayOfRelease: newDayOfRelease });
-    handleClose();
+  const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState([]);
+
+  const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [page, setPage] = React.useState(0);
+  const classes = useStyles();
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
   };
 
-  const trackedEpisodeAlternates = [];
+  const handleChangeRowsPerPage = event => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const [selectedValue, setSelectedValue] = useState(undefined);
+
+  const handleChange = event => {
+    setSelectedValue(event.target.value);
+  };
+
+  const handleModifier = () => {
+    if (selectedValue) {
+      updateTrackedEpisode(trackedEpisodeAlternates.find(ep => ep.torrentId == selectedValue));
+      handleClose();
+    }
+  };
+
+  const {
+    malId,
+    episodeNumber,
+    title,
+    date = [],
+    torrentId,
+    torrentSize = "",
+    leechers,
+    seeders,
+    completed
+  } = trackedEpisode;
+  const [size, sizeType] = torrentSize.split(" ");
+  const [year, month, day] = date;
+  const nyaaLink = `https://nyaa.si/view/${torrentId}`;
+
+  useEffect(() => {
+    AnimeTorrentEpisodeService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list =>
+      setTrackedEpisodeAlternates(list)
+    );
+  }, [trackedEpisode]);
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle id="form-dialog-title">Modification du Torrent </DialogTitle>
+    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+      <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
       <DialogContent>
+        <TableRow>
+          <TableCell>{title}</TableCell>
+          <TableCell align="right">
+            {date && DateTime.fromObject({ year, month, day }).setLocale("fr").toFormat("dd LLL yyyy")}
+          </TableCell>
+          <TableCell component="th" scope="row">
+            {formatByteSize(size, sizeType)}
+          </TableCell>
+          <TableCell component="th" scope="row">
+            {leechers}/{seeders} ({completed})
+          </TableCell>
+          <TableCell component="th" scope="row">
+            <IconButton aria-label="delete" href={nyaaLink} alt={`Infos Torrent ${torrentId}`}>
+              <InfoIcon />
+            </IconButton>
+          </TableCell>
+        </TableRow>
         <Paper className={classes.paper}>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
                   <TableCell />
-                  <TableCell>Episode</TableCell>
                   <TableCell>Titre</TableCell>
                   <TableCell>Date</TableCell>
                   <TableCell>Size</TableCell>
                   <TableCell>Traffic</TableCell>
+                  <TableCell>infos</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
                 {trackedEpisodeAlternates
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map(trackedEpisode => (
-                    <TrackedEpisodeLine trackedEpisode={trackedEpisode} key={episode.episodeNumber} />
+                    <TrackedEpisodeLine
+                      trackedEpisode={trackedEpisode}
+                      key={`track-${trackedEpisode.torrentId}`}
+                      selectedValue={selectedValue}
+                      handleChange={handleChange}
+                    />
                   ))}
               </TableBody>
             </Table>
@@ -51,12 +128,14 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={animeEpisodes.length}
+            count={trackedEpisodeAlternates.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
-            labelDisplayedRows={({ page }) => `page ${page}/${Math.ceil(animeEpisodes.length / rowsPerPage) - 1}`}
+            labelDisplayedRows={({ page }) =>
+              `page ${page}/${Math.ceil(trackedEpisodeAlternates.length / rowsPerPage) - 1}`
+            }
           />
         </Paper>
       </DialogContent>
@@ -72,34 +151,18 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
   );
 }
 
-function TrackedEpisodeLine({ trackedEpisode }) {
-  const [selectedValue, setSelectedValue] = useState("a");
-
-  const handleChange = event => {
-    setSelectedValue(event.target.value);
-  };
-
-  const {
-    episodeNumber,
-    title,
-    date,
-    torrentLink,
-    torrentId,
-    torrentSize,
-    leechers,
-    seeders,
-    completed
-  } = trackedEpisode;
+function TrackedEpisodeLine({ trackedEpisode, selectedValue, handleChange }) {
+  const { title, date, torrentId, torrentSize, leechers, seeders, completed } = trackedEpisode;
 
   const [size, sizeType] = torrentSize.split(" ");
 
   const [year, month, day] = date;
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
   return (
-    <TableRow key={animeEpisodeTorrent.torrentId}>
+    <TableRow hover onClick={handleChange}>
       <TableCell component="th" scope="row">
         <Radio
-          checked={selectedValue === torrentId}
+          checked={selectedValue == torrentId}
           onChange={handleChange}
           value={torrentId}
           name="trackedEpisode"
@@ -116,13 +179,7 @@ function TrackedEpisodeLine({ trackedEpisode }) {
       <TableCell component="th" scope="row">
         {leechers}/{seeders} ({completed})
       </TableCell>
-      <TableCell align="right">
-        <IconButton aria-label="scan" onClick={() => searchAlternate(episodeNumber)}>
-          <SearchIcon />
-        </IconButton>
-        <IconButton aria-label="delete" href={torrentLink}>
-          <GetAppIcon />
-        </IconButton>
+      <TableCell component="th" scope="row">
         <IconButton aria-label="delete" href={nyaaLink} alt={`Infos Torrent ${torrentId}`}>
           <InfoIcon />
         </IconButton>
