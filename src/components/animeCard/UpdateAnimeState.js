@@ -1,10 +1,7 @@
-import React from "react";
-import AnimeCardComponent from "./AnimeCardComponent";
-import AnimeServices from "~/services/AnimeServices";
-import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
+const { default: AnimeServices } = require("~/services/AnimeServices");
+const { default: TrackedAnimeTorrentService } = require("~/services/TrackedAnimeTorrentService");
 
-export default function AnimeLibraryWrapper({ anime, updateAnime }) {
-  const { malId } = anime;
+const updateAnimeState = (malId, defaultAnime, updateAnime) => {
   const setLastAvaibleEpisode = LastAvaibleEpisode =>
     AnimeServices.updateLastAvaibleEpisode(malId, LastAvaibleEpisode).then(updatedAnime => updateAnime(updatedAnime));
   const setIsComplete = isComplete =>
@@ -12,7 +9,9 @@ export default function AnimeLibraryWrapper({ anime, updateAnime }) {
   const setStorageState = storageState =>
     AnimeServices.updateStorageState(malId, storageState).then(updatedAnime => updateAnime(updatedAnime));
 
-  const deleteAnime = () => AnimeServices.delete(malId).then(() => updateAnime(undefined));
+  const deleteAnime = () => AnimeServices.delete(malId).then(() => updateAnime(defaultAnime));
+
+  const saveAnime = () => AnimeServices.saveInLibrary(malId).then(updatedAnime => updateAnime(updatedAnime));
 
   const trackAnime = () =>
     TrackedAnimeTorrentService.saveInLibrary(malId).then(() =>
@@ -30,14 +29,15 @@ export default function AnimeLibraryWrapper({ anime, updateAnime }) {
       })
     );
 
-  const updateAnimeState = {
+  return {
     setLastAvaibleEpisode,
     setIsComplete,
     setStorageState,
     deleteAnime,
+    saveAnime,
     trackAnime,
     unTrackAnime
   };
+};
 
-  return <AnimeCardComponent anime={anime} showEpisodeLink updateAnimeState={updateAnimeState} />;
-}
+export default updateAnimeState;

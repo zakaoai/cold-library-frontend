@@ -7,16 +7,20 @@ export default function useLibrary() {
   const [animes, setAnimes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
+  const sortByTitle = (animeA, animeB) => animeA.title.localeCompare(animeB.title);
+
   useEffect(() => {
     setIsFetching(true);
     AnimeServices.getAll()
       .then(async animes => {
         const trackedAnimes = await TrackedAnimeTorrentService.getAll();
-        return animes.map(anime =>
-          trackedAnimes.some(trackedAnime => trackedAnime.malId === anime.malId)
-            ? { ...anime, trackedTorrent: true }
-            : anime
-        );
+        return animes
+          .sort(sortByTitle)
+          .map(anime =>
+            trackedAnimes.some(trackedAnime => trackedAnime.malId === anime.malId)
+              ? { ...anime, trackedTorrent: true }
+              : { ...anime, trackedTorrent: false }
+          );
       })
       .then(data => setAnimes(data))
       .finally(() => setIsFetching(false));

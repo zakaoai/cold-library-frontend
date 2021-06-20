@@ -1,4 +1,6 @@
-const path = malId => `http://localhost:9000/anime/${malId}/episodes`;
+import { API_BASE_URL } from "~/constants/config";
+
+const path = malId => `${API_BASE_URL}/anime/${malId}/episodes`;
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json"

@@ -1,4 +1,6 @@
-const path = "http://localhost:9000/anime";
+import { API_BASE_URL } from "~/constants/config";
+
+const path = `${API_BASE_URL}/anime`;
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json"

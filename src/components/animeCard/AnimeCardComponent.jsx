@@ -45,15 +45,8 @@ export default function AnimeCardComponent({ anime, showEpisodeLink, updateAnime
     lastAvaibleEpisode,
     trackedTorrent
   } = anime || {};
-  const {
-    deleteAnime,
-    saveAnime,
-    setIsComplete,
-    setStorageState,
-    setLastAvaibleEpisode,
-    trackAnime,
-    unTrackAnime
-  } = updateAnimeState;
+  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode, trackAnime, unTrackAnime } =
+    updateAnimeState;
   const isInLibrary = !!storageState;
 
   return (
@@ -162,15 +155,9 @@ function AnimeCardImage({ url, imageUrl, title }) {
   const classes = useStyles();
 
   return (
-    (imageUrl && (
-      <CardMedia
-        component={"img"}
-        className={classes.media}
-        image={imageUrl}
-        title={title}
-        onClick={() => (location.href = url)}
-      />
-    )) || <Skeleton animation="wave" variant="rect" className={classes.media} />
+    (imageUrl && <CardMedia component={"a"} className={classes.media} image={imageUrl} title={title} href={url} />) || (
+      <Skeleton animation="wave" variant="rect" className={classes.media} />
+    )
   );
 }
 
