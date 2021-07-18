@@ -1,14 +1,14 @@
 import React from "react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import Container from "@material-ui/core/Container";
 import Routing from "./routes";
 import { object } from "prop-types";
 
 const App = ({ history }) => (
   <Container>
-    <Router history={history}>
+    <BrowserRouter history={history}>
       <Routing />
-    </Router>
+    </BrowserRouter>
   </Container>
 );
 

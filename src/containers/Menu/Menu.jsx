@@ -3,6 +3,7 @@ import AppBar from "@material-ui/core/AppBar";
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import { NavLink, useLocation } from "react-router-dom";
+import SiteMap from "~/routes/SiteMap";
 
 /**
  * Menu de l'application
@@ -10,24 +11,13 @@ import { NavLink, useLocation } from "react-router-dom";
 function Menu() {
   const location = useLocation();
 
-  const links = [
-    {
-      path: "/app/home",
-      label: "Item One"
-    },
-    {
-      path: "/app/other",
-      label: "Item Two"
-    },
-    {
-      path: "/app/two",
-      label: "Item Three"
-    }
-  ];
+  const links = [SiteMap.ACCUEIL, SiteMap.RECHERCHE, SiteMap.LIBRAIRIE, SiteMap.TORRENT];
+
+  const tabsValue = links.some(link => link.path === location.pathname) ? location.pathname : false;
 
   return (
-    <AppBar position="static">
-      <Tabs aria-label="simple tabs example" value={location.pathname}>
+    <AppBar position="static" style={{ margin: 10 }}>
+      <Tabs aria-label="simple tabs example" value={tabsValue}>
         {links.map(link => (
           <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
         ))}
