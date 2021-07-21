@@ -16,7 +16,12 @@ function AnimeEpisode() {
     <>
       <Grid container justify="center" spacing={2}>
         <Grid item xs={3}>
-          <AnimeCardComponent anime={anime} updateAnimeState={updateAnimeState} />
+          <AnimeCardComponent
+            anime={anime}
+            updateAnimeState={updateAnimeState}
+            imageHeight={"100%"}
+            showAddOrRemoveFromLibrary={false}
+          />
         </Grid>
         <Grid item xs={9}>
           <EpisodeTable malId={malId} />

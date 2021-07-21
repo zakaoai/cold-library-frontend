@@ -2,7 +2,7 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import Menu from "../containers/Menu/Menu";
-import Library from "~/containers/Activite/Library";
+import AnimeLibrary from "~/containers/Activite/AnimeLibrary/AnimeLibrary";
 
 /* Composant de page NotFound */
 
@@ -25,7 +25,7 @@ const Routing = () => (
         <SearchActivity />
       </Route>
       <Route path={SiteMap.LIBRAIRIE.path}>
-        <Library />
+        <AnimeLibrary />
       </Route>
       <Route path={SiteMap.EPISODE.path}>
         <AnimeEpisode />

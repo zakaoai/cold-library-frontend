@@ -7,14 +7,14 @@ import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 
-export default function searchForm({ searchValue, setSearchValue, setSearch }) {
-  const useStyles = makeStyles(theme => ({
-    margin: {
-      margin: theme.spacing(1)
-    }
-  }));
+const styled = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1)
+  }
+}));
 
-  const classes = useStyles();
+export default function searchForm({ searchValue, setSearchValue, setSearch }) {
+  const classes = styled();
 
   const handleSubmit = event => {
     event.preventDefault();
