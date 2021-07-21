@@ -2,15 +2,15 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import Menu from "../containers/Menu/Menu";
-import AnimeLibrary from "~/containers/Activite/AnimeLibrary/AnimeLibrary";
+import AnimeLibraryActivity from "~/containers/Activite/AnimeLibrary/AnimeLibraryActivity";
 
 /* Composant de page NotFound */
 
 /* Liste des Path à utiliser */
-import Home from "../containers/Activite/Home";
-import SearchActivity from "~/containers/Activite/SearchActivity";
-import AnimeEpisode from "~/containers/Activite/AnimeEpisode";
-import TrackedTorrent from "~/containers/Activite/TrackedTorrent";
+import HomeActivity from "../containers/Activite/Home/HomeActivity";
+import SearchActivity from "~/containers/Activite/Search/SearchActivity";
+import AnimeEpisodeActivity from "~/containers/Activite/AnimeEpisode/AnimeEpisodeActivity";
+import TrackedTorrent from "~/containers/Activite/TrackedTorrent/TrackedTorrent";
 
 import SiteMap from "./SiteMap";
 
@@ -19,16 +19,16 @@ const Routing = () => (
     <Menu />
     <Switch>
       <Route path={SiteMap.ACCUEIL.path}>
-        <Home />
+        <HomeActivity />
       </Route>
       <Route path={SiteMap.RECHERCHE.path}>
         <SearchActivity />
       </Route>
       <Route path={SiteMap.LIBRAIRIE.path}>
-        <AnimeLibrary />
+        <AnimeLibraryActivity />
       </Route>
       <Route path={SiteMap.EPISODE.path}>
-        <AnimeEpisode />
+        <AnimeEpisodeActivity />
       </Route>
       <Route path={SiteMap.TORRENT.path}>
         <TrackedTorrent />

@@ -2,13 +2,10 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useParams } from "react-router";
 import useAnimeLibrary from "~/hooks/useAnimeLibrary";
-import EpisodeTable from "~/components/episode/EpisodeTable";
 import AnimeCardComponent from "~/components/animeCard/AnimeCardComponent";
+import EpisodeTable from "./EpisodeTable";
 
-/**
- * Activité
- */
-function AnimeEpisode() {
+function AnimeEpisodeActivity() {
   const { malId } = useParams();
   const { anime, isFetching, updateAnimeState, doFetch } = useAnimeLibrary(malId);
 
@@ -31,4 +28,4 @@ function AnimeEpisode() {
   );
 }
 
-export default AnimeEpisode;
+export default AnimeEpisodeActivity;

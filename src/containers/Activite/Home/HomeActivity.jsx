@@ -3,8 +3,8 @@ import React from "react";
 /**
  * Activité d'accueil du projet
  */
-function Home() {
+function HomeActivity() {
   return <>Bienvenue dans cette application de gestion de ma librairie</>;
 }
 
-export default Home;
+export default HomeActivity;

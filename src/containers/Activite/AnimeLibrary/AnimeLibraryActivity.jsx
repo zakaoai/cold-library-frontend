@@ -9,7 +9,7 @@ import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar";
 /**
  * Activité
  */
-function AnimeLibrary() {
+function AnimeLibraryActivity() {
   const { animes, isFetching, doFetch, updateAnime } = useLibrary();
 
   const [filterStorageState, setFilterStorageState] = useState(StorageState.FLUX_FROID);
@@ -44,4 +44,4 @@ function AnimeLibrary() {
   );
 }
 
-export default AnimeLibrary;
+export default AnimeLibraryActivity;

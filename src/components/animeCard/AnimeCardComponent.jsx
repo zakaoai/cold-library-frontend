@@ -5,7 +5,7 @@ import CardHeader from "@material-ui/core/CardHeader";
 import CardActions from "@material-ui/core/CardActions";
 
 import Grid from "@material-ui/core/Grid";
-import HotColdSwitch from "./HotColdSwitch";
+import HotColdSwitch from "../HotColdSwitch/HotColdSwitch";
 import LastAvaibleEpisode from "./LastAvaibleEpisode";
 import AnimeCompleteButton from "./AnimeCompleteButton";
 import InLibraryButton from "./InLibraryButton";

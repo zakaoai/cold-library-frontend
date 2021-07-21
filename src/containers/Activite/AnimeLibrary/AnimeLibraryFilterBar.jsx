@@ -1,6 +1,6 @@
 import { AppBar, Checkbox, Grid, IconButton } from "@material-ui/core";
 import React from "react";
-import HotColdSwitch from "~/components/animeCard/HotColdSwitch";
+import HotColdSwitch from "~/components/HotColdSwitch/HotColdSwitch";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import { green } from "@material-ui/core/colors";
 

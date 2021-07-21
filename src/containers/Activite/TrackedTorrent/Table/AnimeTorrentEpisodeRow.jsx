@@ -9,17 +9,8 @@ import formatByteSize from "~/utils/byteSize";
 import SearchIcon from "@material-ui/icons/Search";
 
 export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlternate }) {
-  const {
-    episodeNumber,
-    title,
-    date,
-    torrentLink,
-    torrentId,
-    torrentSize,
-    leechers,
-    seeders,
-    completed
-  } = animeEpisodeTorrent;
+  const { episodeNumber, title, date, torrentLink, torrentId, torrentSize, leechers, seeders, completed } =
+    animeEpisodeTorrent;
 
   const [size, sizeType] = torrentSize.split(" ");
 
