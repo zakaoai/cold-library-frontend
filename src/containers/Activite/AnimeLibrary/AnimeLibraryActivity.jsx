@@ -5,6 +5,7 @@ import useLibrary from "~/hooks/useLibrary";
 import StorageState from "~/constants/StorageState";
 import AnimeWrapper from "~/components/animeCard/AnimeWrapper";
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar";
+import { Paper } from "@material-ui/core";
 
 /**
  * Activité
@@ -31,11 +32,12 @@ function AnimeLibraryActivity() {
   return (
     <>
       <AnimeLibraryFilterBar storageState={storageState} trackedAnime={trackedAnime} />
-      <Grid container justify="center" spacing={2}>
+
+      <Grid container justify="center" spacing={1}>
         {animes
           .filter(anime => anime.storageState === filterStorageState && filterTrackedAnimeFunc(anime.trackedTorrent))
           .map(anime => (
-            <Grid key={anime.malId} item xs={3}>
+            <Grid key={anime.malId} item md={3} xs={12} sm={6}>
               <AnimeWrapper anime={anime} updateAnime={updateAnime} />
             </Grid>
           ))}

@@ -1,4 +1,4 @@
-import { AppBar, Checkbox, Grid, IconButton } from "@material-ui/core";
+import { AppBar, Box, Checkbox, Grid, IconButton } from "@material-ui/core";
 import React from "react";
 import HotColdSwitch from "~/components/HotColdSwitch/HotColdSwitch";
 import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
@@ -10,21 +10,23 @@ const AnimeLibraryFilterBar = ({ storageState, trackedAnime }) => {
     trackedAnime;
 
   return (
-    <AppBar position="relative" color="transparent">
-      <Grid container>
-        <Grid item xs={2}>
-          <HotColdSwitch storageState={filterStorageState} setStorageState={setFilterStorageState} />
+    <Box mb={1}>
+      <AppBar position="relative" color="transparent">
+        <Grid container>
+          <Grid item xs={2}>
+            <HotColdSwitch storageState={filterStorageState} setStorageState={setFilterStorageState} />
+          </Grid>
+          <Grid item xs={2}>
+            <Checkbox checked={isFilterTrackedAnimeApplied} onChange={onChangeApplyFilterTrackedAnime} />
+            <IconButton
+              onClick={() => setFilterTrackedAnime(a => !a)}
+              style={(filterTrackedAnime && { color: green[500] }) || {}}>
+              <CloudDownloadIcon />
+            </IconButton>
+          </Grid>
         </Grid>
-        <Grid item xs={2}>
-          <Checkbox checked={isFilterTrackedAnimeApplied} onChange={onChangeApplyFilterTrackedAnime} />
-          <IconButton
-            onClick={() => setFilterTrackedAnime(a => !a)}
-            style={(filterTrackedAnime && { color: green[500] }) || {}}>
-            <CloudDownloadIcon />
-          </IconButton>
-        </Grid>
-      </Grid>
-    </AppBar>
+      </AppBar>
+    </Box>
   );
 };
 
