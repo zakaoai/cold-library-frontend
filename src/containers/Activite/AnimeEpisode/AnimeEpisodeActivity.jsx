@@ -12,15 +12,15 @@ function AnimeEpisodeActivity() {
   return (
     <>
       <Grid container justifyContent="center" spacing={2}>
-        <Grid item xs={3}>
+        <Grid item xs={12} md={3}>
           <AnimeCardComponent
             anime={anime}
             updateAnimeState={updateAnimeState}
-            imageHeight={"100%"}
+            imageHeight={"300px"}
             showAddOrRemoveFromLibrary={false}
           />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={9}>
           <EpisodeTable malId={malId} />
         </Grid>
       </Grid>
