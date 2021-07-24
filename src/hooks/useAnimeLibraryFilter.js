@@ -7,7 +7,9 @@ const useAnimeLibraryFilter = function () {
   const defaultFilters = {
     filterStorageState: StorageState.FLUX_FROID,
     filterTrackedAnime: false,
-    isFilterTrackedAnimeApplied: false
+    filterCompletedAnime: false,
+    isFilterTrackedAnimeApplied: false,
+    isFilterCompleteApplied: false
   };
 
   const [filterStorageState, setFilterStorageState] = useState(
@@ -33,6 +35,15 @@ const useAnimeLibraryFilter = function () {
   const filterCompleteFunc = isComplete =>
     !isFilterCompleteApplied || (isFilterCompleteApplied && isComplete === filterComplete);
 
+  // func that set all filter to default
+  const resetFilters = () => {
+    setFilterStorageState(defaultFilters.filterStorageState);
+    setFilterTrackedAnime(defaultFilters.filterTrackedAnime);
+    setIsFilterTrackedAnimeApplied(defaultFilters.isFilterTrackedAnimeApplied);
+    setFilterComplete(defaultFilters.filterComplete);
+    setIsFilterCompleteApplied(defaultFilters.isFilterCompleteApplied);
+  };
+
   useEffect(() => {
     filters.filterStorageState = filterStorageState;
     filters.filterTrackedAnime = filterTrackedAnime;
@@ -56,7 +67,8 @@ const useAnimeLibraryFilter = function () {
       setFilterTrackedAnime,
       setIsFilterTrackedAnimeApplied,
       setFilterComplete,
-      setIsFilterCompleteApplied
+      setIsFilterCompleteApplied,
+      resetFilters
     },
     filterFunc
   };

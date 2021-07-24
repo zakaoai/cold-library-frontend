@@ -13,8 +13,6 @@ function AnimeLibraryActivity() {
   const { animes, isFetching, doFetch, updateAnime } = useLibrary();
   const { filtersState, filterFunc } = useAnimeLibraryFilter();
 
-  console.log("filterFunc", filterFunc);
-  console.log("filtersState", filtersState);
   return (
     <>
       <AnimeLibraryFilterBar filtersState={filtersState} />

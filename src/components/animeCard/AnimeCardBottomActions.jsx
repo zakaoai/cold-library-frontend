@@ -8,7 +8,7 @@ import LastAvaibleEpisode from "./LastAvaibleEpisode";
 
 const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnimeState }) => {
   const { nbEpisodes, storageState, isComplete, lastAvaibleEpisode, trackedTorrent } = anime || {};
-  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode, trackAnime, unTrackAnime } =
+  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode, trackAnime } =
     updateAnimeState;
   const isInLibrary = !!storageState;
 
@@ -31,11 +31,7 @@ const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnime
             <LastAvaibleEpisode lastAvaibleEpisode={lastAvaibleEpisode} setLastAvaibleEpisode={setLastAvaibleEpisode} />
           </Grid>
           <Grid item xs={2}>
-            <AnimeCardTrackedButton
-              isAnimeTracked={trackedTorrent}
-              trackAnime={trackAnime}
-              unTrackAnime={unTrackAnime}
-            />
+            <AnimeCardTrackedButton isAnimeTracked={trackedTorrent} trackAnime={trackAnime} />
           </Grid>
         </>
       )}
