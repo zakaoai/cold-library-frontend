@@ -7,24 +7,18 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import useTrackedTorrent from "~/hooks/useTrackedTorrent";
-import TrackedTorrentRow from "~/components/Torrent/TrackedTorrentRow";
-import ModalEditTrackedTorrent from "~/components/Torrent/ModalEditTrackedTorrent";
+import TrackedTorrentRow from "./Table/TrackedTorrentRow";
+import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
 import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
 import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
-import ModalEditTrackedEpisode from "~/components/Torrent/ModalEditTrackedEpisode";
+import ModalEditTrackedEpisode from "./Modal/ModalEditTrackedEpisode";
 
 /**
  * Activité
  */
 export default function TrackedTorrent() {
-  const {
-    trackedTorrents,
-    isFetching,
-    doFetch,
-    updateTrackedAnime,
-    scanAnime,
-    updateEpisodeTrackedAnime
-  } = useTrackedTorrent();
+  const { trackedTorrents, isFetching, doFetch, updateTrackedAnime, scanAnime, updateEpisodeTrackedAnime } =
+    useTrackedTorrent();
   const [showModal, setShowModal] = useState(false);
   const [showModalEp, setshowModalEp] = useState(false);
   const [editableTrackedAnime, setEditableTrackedAnime] = useState(undefined);
@@ -56,10 +50,9 @@ export default function TrackedTorrent() {
     );
 
   const patchTrackedAnimeEpisode = animeEpisodeTorrent =>
-    AnimeTorrentEpisodeService.replaceEpisodeTorrent(
-      animeEpisodeTorrent.malId,
-      animeEpisodeTorrent
-    ).then(newAnimeEpisodeTorrent => updateEpisodeTrackedAnime(newAnimeEpisodeTorrent));
+    AnimeTorrentEpisodeService.replaceEpisodeTorrent(animeEpisodeTorrent.malId, animeEpisodeTorrent).then(
+      newAnimeEpisodeTorrent => updateEpisodeTrackedAnime(newAnimeEpisodeTorrent)
+    );
 
   return (
     <>

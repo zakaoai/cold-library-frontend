@@ -2,23 +2,25 @@ import React from "react";
 import Grid from "@material-ui/core/Grid";
 import { useParams } from "react-router";
 import useAnimeLibrary from "~/hooks/useAnimeLibrary";
-import EpisodeTable from "~/components/episode/EpisodeTable";
 import AnimeCardComponent from "~/components/animeCard/AnimeCardComponent";
+import EpisodeTable from "./EpisodeTable";
 
-/**
- * Activité
- */
-function AnimeEpisode() {
+function AnimeEpisodeActivity() {
   const { malId } = useParams();
   const { anime, isFetching, updateAnimeState, doFetch } = useAnimeLibrary(malId);
 
   return (
     <>
-      <Grid container justify="center" spacing={2}>
-        <Grid item xs={3}>
-          <AnimeCardComponent anime={anime} updateAnimeState={updateAnimeState} />
+      <Grid container justifyContent="center" spacing={2}>
+        <Grid item xs={12} md={3}>
+          <AnimeCardComponent
+            anime={anime}
+            updateAnimeState={updateAnimeState}
+            imageHeight={"300px"}
+            showAddOrRemoveFromLibrary={false}
+          />
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={12} md={9}>
           <EpisodeTable malId={malId} />
         </Grid>
       </Grid>
@@ -26,4 +28,4 @@ function AnimeEpisode() {
   );
 }
 
-export default AnimeEpisode;
+export default AnimeEpisodeActivity;

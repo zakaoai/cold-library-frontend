@@ -131,8 +131,8 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
             count={trackedEpisodeAlternates.length}
             rowsPerPage={rowsPerPage}
             page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
             labelDisplayedRows={({ page }) =>
               `page ${page}/${Math.ceil(trackedEpisodeAlternates.length / rowsPerPage) - 1}`
             }

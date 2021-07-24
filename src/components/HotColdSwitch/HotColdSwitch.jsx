@@ -78,16 +78,13 @@ export default function HotColdSwitch({ storageState, setStorageState }) {
   return (
     <FormGroup>
       <Typography component="div">
-        <Grid component="label" container alignItems="center" spacing={0}>
-          <Grid item>
-            <WhatshotIcon style={(!isFluxFroid && { color: red[500] }) || {}} />
-          </Grid>
-          <Grid item>
-            <PurpleSwitch checked={isFluxFroid} onChange={() => setStorageState(nextStorageState)} />
-          </Grid>
-          <Grid item>
-            <AcUnitIcon style={(isFluxFroid && { color: blue[500] }) || {}} />
-          </Grid>
+        <Grid item>
+          <PurpleSwitch
+            icon={<WhatshotIcon style={{ color: red.A100 }} />}
+            checkedIcon={<AcUnitIcon style={{ color: blue[200] }} />}
+            checked={isFluxFroid}
+            onChange={() => setStorageState(nextStorageState)}
+          />
         </Grid>
       </Typography>
     </FormGroup>

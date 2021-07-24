@@ -13,21 +13,20 @@ const updateAnimeState = (malId, defaultAnime, updateAnime) => {
 
   const saveAnime = () => AnimeServices.saveInLibrary(malId).then(updatedAnime => updateAnime(updatedAnime));
 
-  const trackAnime = () =>
-    TrackedAnimeTorrentService.saveInLibrary(malId).then(() =>
+  const trackAnime = trackedTorrent => {
+    let trackedPromise = null;
+    if (trackedTorrent) {
+      trackedPromise = TrackedAnimeTorrentService.saveInLibrary(malId);
+    } else {
+      trackedPromise = TrackedAnimeTorrentService.delete(malId);
+    }
+    trackedPromise.then(() =>
       updateAnime({
         malId,
-        trackedTorrent: true
+        trackedTorrent: trackedTorrent
       })
     );
-
-  const unTrackAnime = () =>
-    TrackedAnimeTorrentService.delete(malId).then(() =>
-      updateAnime({
-        malId,
-        trackedTorrent: false
-      })
-    );
+  };
 
   return {
     setLastAvaibleEpisode,
@@ -35,8 +34,7 @@ const updateAnimeState = (malId, defaultAnime, updateAnime) => {
     setStorageState,
     deleteAnime,
     saveAnime,
-    trackAnime,
-    unTrackAnime
+    trackAnime
   };
 };
 

@@ -64,8 +64,8 @@ export default function EpisodeTable({ malId }) {
         count={animeEpisodes.length}
         rowsPerPage={rowsPerPage}
         page={page}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
         labelDisplayedRows={({ page }) => `page ${page}/${Math.ceil(animeEpisodes.length / rowsPerPage) - 1}`}
       />
     </Paper>
