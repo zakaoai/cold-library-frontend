@@ -15,22 +15,22 @@ const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnime
   return (
     <Grid container alignItems="center">
       {showAddOrRemoveFromLibrary && (
-        <Grid item xs={2}>
+        <Grid item>
           <InLibraryButton saveAnime={saveAnime} deleteAnime={deleteAnime} isInLibrary={isInLibrary} />
         </Grid>
       )}
       {isInLibrary && (
         <>
-          <Grid item xs={3}>
+          <Grid item>
             <HotColdSwitch storageState={storageState} setStorageState={setStorageState} />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item>
             <AnimeCompleteButton nbEpisodes={nbEpisodes} isComplete={isComplete} setIsComplete={setIsComplete} />
           </Grid>
-          <Grid item xs={3}>
+          <Grid item xs={2}>
             <LastAvaibleEpisode lastAvaibleEpisode={lastAvaibleEpisode} setLastAvaibleEpisode={setLastAvaibleEpisode} />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item>
             <AnimeCardTrackedButton isAnimeTracked={trackedTorrent} trackAnime={trackAnime} />
           </Grid>
         </>
