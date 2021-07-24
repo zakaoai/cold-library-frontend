@@ -11,7 +11,7 @@ function AnimeEpisodeActivity() {
 
   return (
     <>
-      <Grid container justify="center" spacing={2}>
+      <Grid container justifyContent="center" spacing={2}>
         <Grid item xs={3}>
           <AnimeCardComponent
             anime={anime}
