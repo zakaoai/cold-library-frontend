@@ -27,13 +27,15 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlt
               </TableHead>
               <TableBody>
                 {torrents &&
-                  torrents.map(animeEpisodeTorrent => (
-                    <AnimeTorrentEpisodeRow
-                      key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
-                      animeEpisodeTorrent={animeEpisodeTorrent}
-                      searchAlternate={searchAlternate}
-                    />
-                  ))}
+                  torrents
+                    .sort((a, b) => a.episodeNumber - b.episodeNumber)
+                    .map(animeEpisodeTorrent => (
+                      <AnimeTorrentEpisodeRow
+                        key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
+                        animeEpisodeTorrent={animeEpisodeTorrent}
+                        searchAlternate={searchAlternate}
+                      />
+                    ))}
               </TableBody>
             </Table>
           </Box>
