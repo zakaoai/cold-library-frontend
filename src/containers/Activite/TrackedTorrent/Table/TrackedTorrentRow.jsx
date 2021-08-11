@@ -37,7 +37,7 @@ export default function TrackedTorrentRow({ trackedTorrent, scanAnime, editTrack
           {type}
         </TableCell>
         <TableCell component="th" scope="row">
-          {lastAvaibleEpisode}
+          {lastEpisodeOnServer}
         </TableCell>
         <TableCell component="th" scope="row">
           {searchWords}
