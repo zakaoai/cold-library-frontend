@@ -1,10 +1,8 @@
 import { AppBar, Box, Checkbox, Grid, IconButton } from "@material-ui/core";
 import React from "react";
 import HotColdSwitch from "~/components/HotColdSwitch/HotColdSwitch";
-import CloudDownloadIcon from "@material-ui/icons/CloudDownload";
 import ReplayIcon from "@material-ui/icons/Replay";
 
-import { green } from "@material-ui/core/colors";
 import AnimeCompleteButton from "~/components/animeCard/AnimeCompleteButton";
 import AnimeCardTrackedButton from "~/components/animeCard/AnimeCardTrackedButton";
 
@@ -13,13 +11,13 @@ const AnimeLibraryFilterBar = ({ filtersState }) => {
     filterStorageState,
     filterTrackedAnime,
     isFilterTrackedAnimeApplied,
-    filterComplete,
-    isFilterCompleteApplied,
-    setFilterComplete,
+    filterCompletedAnime,
+    isFilterCompletedAnimeApplied,
+    setFilterCompletedAnime,
     setFilterStorageState,
     setFilterTrackedAnime,
     setIsFilterTrackedAnimeApplied,
-    setIsFilterCompleteApplied,
+    setIsFilterCompleteAnimeApplied,
     resetFilters
   } = filtersState;
 
@@ -37,8 +35,11 @@ const AnimeLibraryFilterBar = ({ filtersState }) => {
             <AnimeCardTrackedButton isAnimeTracked={filterTrackedAnime} trackAnime={setFilterTrackedAnime} />
           </Grid>
           <Grid item>
-            <Checkbox checked={isFilterCompleteApplied} onChange={() => setIsFilterCompleteApplied(a => !a)} />
-            <AnimeCompleteButton isComplete={filterComplete} setIsComplete={setFilterComplete} />
+            <Checkbox
+              checked={isFilterCompletedAnimeApplied}
+              onChange={() => setIsFilterCompleteAnimeApplied(a => !a)}
+            />
+            <AnimeCompleteButton isComplete={filterCompletedAnime} setIsComplete={setFilterCompletedAnime} />
           </Grid>
           <Grid item>
             <IconButton onClick={() => resetFilters()} title={"Reset"}>
