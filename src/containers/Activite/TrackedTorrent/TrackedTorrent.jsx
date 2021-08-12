@@ -10,28 +10,19 @@ import useTrackedTorrent from "~/hooks/useTrackedTorrent";
 import TrackedTorrentRow from "./Table/TrackedTorrentRow";
 import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
 import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
-import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
-import ModalEditTrackedEpisode from "./Modal/ModalEditTrackedEpisode";
 
 /**
  * Activité
  */
 export default function TrackedTorrent() {
-  const { trackedTorrents, isFetching, doFetch, updateTrackedAnime, scanAnime, updateEpisodeTrackedAnime } =
-    useTrackedTorrent();
+  const { trackedTorrents, updateTrackedAnime } = useTrackedTorrent();
   const [showModal, setShowModal] = useState(false);
-  const [showModalEp, setshowModalEp] = useState(false);
+
   const [editableTrackedAnime, setEditableTrackedAnime] = useState(undefined);
-  const [alternateTrackedEpisode, setAlternateTrackedEpisode] = useState(undefined);
 
   const handleClose = () => {
     setShowModal(false);
     setEditableTrackedAnime(undefined);
-  };
-
-  const handleCloseEp = () => {
-    setshowModalEp(false);
-    setAlternateTrackedEpisode(undefined);
   };
 
   const editTrackedAnime = trackedTorrent => {
@@ -39,19 +30,9 @@ export default function TrackedTorrent() {
     setShowModal(true);
   };
 
-  const searchAlternate = (malId, torrentEpisode) => {
-    setshowModalEp(true);
-    setAlternateTrackedEpisode({ ...torrentEpisode, malId });
-  };
-
   const patchTrackedAnime = trackedAnime =>
     TrackedAnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
       updateTrackedAnime(newTrackedAnime)
-    );
-
-  const patchTrackedAnimeEpisode = animeEpisodeTorrent =>
-    AnimeTorrentEpisodeService.replaceEpisodeTorrent(animeEpisodeTorrent.malId, animeEpisodeTorrent).then(
-      newAnimeEpisodeTorrent => updateEpisodeTrackedAnime(newAnimeEpisodeTorrent)
     );
 
   return (
@@ -74,9 +55,7 @@ export default function TrackedTorrent() {
               <TrackedTorrentRow
                 key={trackedTorrent.malId}
                 trackedTorrent={trackedTorrent}
-                scanAnime={scanAnime}
                 editTrackedAnime={editTrackedAnime}
-                searchAlternate={searchAlternate}
               />
             ))}
           </TableBody>
@@ -88,14 +67,6 @@ export default function TrackedTorrent() {
           open={showModal}
           trackedTorrent={editableTrackedAnime}
           updateTrackedAnime={patchTrackedAnime}
-        />
-      )}
-      {alternateTrackedEpisode && (
-        <ModalEditTrackedEpisode
-          handleClose={handleCloseEp}
-          open={showModalEp}
-          trackedEpisode={alternateTrackedEpisode}
-          updateTrackedEpisode={patchTrackedAnimeEpisode}
         />
       )}
     </>
