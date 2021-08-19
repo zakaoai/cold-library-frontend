@@ -14,6 +14,8 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import FiberNewIcon from "@material-ui/icons/FiberNew";
 import { green } from "@material-ui/core/colors";
 import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
+import Tooltip from "@material-ui/core/Tooltip";
 
 const useRowStyles = makeStyles({
   root: {
@@ -24,7 +26,7 @@ const useRowStyles = makeStyles({
 });
 
 export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) {
-  const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId } = trackedTorrent;
+  const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
 
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -44,6 +46,8 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
   );
 
   const isNewEpisode = showedTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0;
+
+  const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) === -1;
 
   const handleCloseEp = () => {
     setShowModal(false);
@@ -76,7 +80,16 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
           <IconButton aria-label="scan" onClick={() => scanEpisodes()}>
             <SearchIcon />
           </IconButton>
-          {isNewEpisode && <FiberNewIcon fontSize="large" style={{ color: green[500] }} />}
+          {isNewEpisode && (
+            <Tooltip title="New">
+              <FiberNewIcon fontSize="large" style={{ color: green[500] }} />
+            </Tooltip>
+          )}
+          {isComplete && (
+            <Tooltip title="Complete">
+              <DoneAllIcon alt="Complete" fontSize="large" style={{ color: green[500] }} />
+            </Tooltip>
+          )}
         </TableCell>
       </TableRow>
       {showedTorrents.length !== 0 && (
