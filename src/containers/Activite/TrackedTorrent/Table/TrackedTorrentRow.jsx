@@ -16,6 +16,7 @@ import { green } from "@material-ui/core/colors";
 import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Tooltip from "@material-ui/core/Tooltip";
+import { NavLink } from "react-router-dom";
 
 const useRowStyles = makeStyles({
   root: {
@@ -59,7 +60,7 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
       <TableRow className={classes.root}>
         <TableCell>{showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}</TableCell>
         <TableCell component="th" scope="row">
-          {title} {isFetching ? <CircularProgress /> : null}
+          <NavLink to={`/app/anime/${malId}`}>{title}</NavLink> {isFetching ? <CircularProgress /> : null}
         </TableCell>
         <TableCell component="th" scope="row">
           {type}
