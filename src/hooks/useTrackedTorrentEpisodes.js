@@ -4,7 +4,6 @@ import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
 const useTrackedTorrentEpisodes = malId => {
   const [episodes, setEpisodes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
-  const [doFetch, setDoFetch] = useState(false);
 
   useEffect(() => {
     setIsFetching(true);
@@ -12,7 +11,7 @@ const useTrackedTorrentEpisodes = malId => {
       setEpisodes(data);
       setIsFetching(false);
     });
-  }, [doFetch]);
+  }, []);
 
   const patchTrackedAnimeEpisode = animeEpisodeTorrent =>
     AnimeTorrentEpisodeService.replaceEpisodeTorrent(malId, animeEpisodeTorrent).then(updatedEpisode =>
@@ -22,7 +21,14 @@ const useTrackedTorrentEpisodes = malId => {
       ])
     );
 
-  return { episodes, isFetching, scanEpisodes: () => setDoFetch(a => !a), patchTrackedAnimeEpisode };
+  const scanEpisodes = () => {
+    setIsFetching(true);
+    AnimeTorrentEpisodeService.scanEpisodeTorrent(malId)
+      .then(episodes => setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes]))
+      .finally(() => setIsFetching(false));
+  };
+
+  return { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode };
 };
 
 export default useTrackedTorrentEpisodes;
