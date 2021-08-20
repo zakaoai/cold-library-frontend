@@ -4,7 +4,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
-import TableCell from "@material-ui/core/TableCell";
 import TableRow from "@material-ui/core/TableRow";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -15,6 +14,9 @@ import { makeStyles, TablePagination } from "@material-ui/core";
 import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
 import TrackedEpisodeLine from "./TrackedEpisodeLine";
 import usePagination from "~/hooks/usePagination";
+import useSortTable from "~/hooks/useSortTable";
+import FilterHeaderCell from "~/components/FilterHeaderCell/FilterHeaderCell";
+import { formatByteSize, getBytesSize } from "~/utils/byteSize";
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -31,6 +33,18 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(trackedEpisodeAlternates);
+
+  const sortObj = useSortTable();
+  const { sortFunction } = sortObj;
+
+  const headCells = [
+    { id: "empty", filter: false },
+    { id: "title", filter: true, label: "Titre" },
+    { id: "date", filter: true, label: "Date" },
+    { id: "byteSize", filter: true, label: "Size" },
+    { id: "traffic", label: "Traffic" },
+    { id: "infos", label: "Infos" }
+  ];
 
   const classes = useStyles();
 
@@ -55,35 +69,44 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
     );
   }, [trackedEpisode]);
 
+  const addSize = row => {
+    const torrentSizeSplit = row.torrentSize.split(" ");
+    const byteSize = getBytesSize(...torrentSizeSplit);
+    const displaySize = formatByteSize(...torrentSizeSplit);
+
+    return { ...row, byteSize, displaySize };
+  };
+
+  const trackedEpisodeAlternatesWithSize = trackedEpisodeAlternates.map(row => addSize(row));
+
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
       <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
       <DialogContent>
         <TableContainer component={Paper}>
-          <TrackedEpisodeLine trackedEpisode={trackedEpisode} />
+          <TrackedEpisodeLine trackedEpisode={addSize(trackedEpisode)} />
         </TableContainer>
         <Paper className={classes.paper}>
           <TableContainer component={Paper}>
             <Table className={classes.table} aria-label="simple table">
               <TableHead>
                 <TableRow>
-                  <TableCell />
-                  <TableCell>Titre</TableCell>
-                  <TableCell>Date</TableCell>
-                  <TableCell>Size</TableCell>
-                  <TableCell>Traffic</TableCell>
-                  <TableCell>infos</TableCell>
+                  {headCells.map(cell => (
+                    <FilterHeaderCell key={cell.id} {...cell} {...sortObj} />
+                  ))}
                 </TableRow>
               </TableHead>
               <TableBody>
-                {trackedEpisodeAlternates.slice(sliceBegin, sliceEnd).map(trackedEpisode => (
-                  <TrackedEpisodeLine
-                    trackedEpisode={trackedEpisode}
-                    key={`track-${trackedEpisode.torrentId}`}
-                    selectedValue={selectedValue}
-                    handleChange={handleChange}
-                  />
-                ))}
+                {sortFunction(trackedEpisodeAlternatesWithSize)
+                  .slice(sliceBegin, sliceEnd)
+                  .map(trackedEpisode => (
+                    <TrackedEpisodeLine
+                      trackedEpisode={trackedEpisode}
+                      key={`track-${trackedEpisode.torrentId}`}
+                      selectedValue={selectedValue}
+                      handleChange={handleChange}
+                    />
+                  ))}
               </TableBody>
             </Table>
           </TableContainer>

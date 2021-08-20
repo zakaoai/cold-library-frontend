@@ -1,13 +1,10 @@
 import React from "react";
 import { IconButton, Radio, TableCell, TableRow } from "@material-ui/core";
-import formatByteSize from "~/utils/byteSize";
-import InfoIcon from "@material-ui/icons/Info";
+import LinkIcon from "@material-ui/icons/Link";
 import { DateTime } from "luxon";
 
 const TrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
-  const { title, date, torrentId, torrentSize, leechers, seeders, completed } = trackedEpisode;
-
-  const [size, sizeType] = torrentSize.split(" ");
+  const { title, date, torrentId, displaySize, leechers, seeders, completed } = trackedEpisode;
 
   const [year, month, day] = date;
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
@@ -29,14 +26,14 @@ const TrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => 
         {date && DateTime.fromObject({ year, month, day }).setLocale("fr").toFormat("dd LLL yyyy")}
       </TableCell>
       <TableCell component="th" scope="row">
-        {formatByteSize(size, sizeType)}
+        {displaySize}
       </TableCell>
       <TableCell component="th" scope="row">
         {leechers}/{seeders} ({completed})
       </TableCell>
       <TableCell component="th" scope="row">
         <IconButton aria-label="delete" href={nyaaLink} alt={`Infos Torrent ${torrentId}`}>
-          <InfoIcon />
+          <LinkIcon />
         </IconButton>
       </TableCell>
     </TableRow>

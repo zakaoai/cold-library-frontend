@@ -5,7 +5,7 @@ import { DateTime } from "luxon";
 import GetAppIcon from "@material-ui/icons/GetApp";
 import IconButton from "@material-ui/core/IconButton";
 import InfoIcon from "@material-ui/icons/Info";
-import formatByteSize from "~/utils/byteSize";
+import { formatByteSize } from "~/utils/byteSize";
 import SearchIcon from "@material-ui/icons/Search";
 
 export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlternate }) {
