@@ -1,14 +1,23 @@
 import { useEffect, useState } from "react";
 import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
+import { formatByteSize, getBytesSize } from "~/utils/byteSize";
 
 const useTrackedTorrentEpisodes = malId => {
   const [episodes, setEpisodes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
+  const addSize = row => {
+    const torrentSizeSplit = row.torrentSize.split(" ");
+    const byteSize = getBytesSize(...torrentSizeSplit);
+    const displaySize = formatByteSize(...torrentSizeSplit);
+
+    return { ...row, byteSize, displaySize };
+  };
+
   useEffect(() => {
     setIsFetching(true);
-    AnimeTorrentEpisodeService.getAnimeEpisodesTorrents(malId).then(data => {
-      setEpisodes(data);
+    AnimeTorrentEpisodeService.getAnimeEpisodesTorrents(malId).then(trackedEpisodes => {
+      setEpisodes(trackedEpisodes.map(episode => addSize(episode)));
       setIsFetching(false);
     });
   }, []);
@@ -17,14 +26,16 @@ const useTrackedTorrentEpisodes = malId => {
     AnimeTorrentEpisodeService.replaceEpisodeTorrent(malId, animeEpisodeTorrent).then(updatedEpisode =>
       setEpisodes(episodes => [
         ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
-        updatedEpisode
+        addSize(updatedEpisode)
       ])
     );
 
   const scanEpisodes = () => {
     setIsFetching(true);
     AnimeTorrentEpisodeService.scanEpisodeTorrent(malId)
-      .then(episodes => setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes]))
+      .then(episodes =>
+        setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => addSize(episode))])
+      )
       .finally(() => setIsFetching(false));
   };
 

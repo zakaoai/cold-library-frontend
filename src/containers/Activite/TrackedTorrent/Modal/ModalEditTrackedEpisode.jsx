@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
@@ -11,12 +11,11 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles, TablePagination } from "@material-ui/core";
-import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
-import TrackedEpisodeLine from "./TrackedEpisodeLine";
 import usePagination from "~/hooks/usePagination";
 import useSortTable from "~/hooks/useSortTable";
 import FilterHeaderCell from "~/components/FilterHeaderCell/FilterHeaderCell";
-import { formatByteSize, getBytesSize } from "~/utils/byteSize";
+import useAlternateTrackedTorrentEpisode from "~/hooks/useAlternateTrackedTorrentEpisode";
+import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine";
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -29,10 +28,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose, updateTrackedEpisode }) {
-  const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState([]);
+  const { episodeNumber } = trackedEpisode;
+  const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue } = useAlternateTrackedTorrentEpisode(
+    trackedEpisode,
+    updateTrackedEpisode,
+    handleClose
+  );
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
-    usePagination(trackedEpisodeAlternates);
+    usePagination(alternateTrackedEpisodes);
 
   const sortObj = useSortTable();
   const { sortFunction } = sortObj;
@@ -48,43 +52,12 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
 
   const classes = useStyles();
 
-  const [selectedValue, setSelectedValue] = useState(undefined);
-
-  const handleChange = event => {
-    setSelectedValue(event.target.value);
-  };
-
-  const handleModifier = () => {
-    if (selectedValue) {
-      updateTrackedEpisode(trackedEpisodeAlternates.find(ep => ep.torrentId == selectedValue));
-      handleClose();
-    }
-  };
-
-  const { malId, episodeNumber } = trackedEpisode;
-
-  useEffect(() => {
-    AnimeTorrentEpisodeService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list =>
-      setTrackedEpisodeAlternates(list)
-    );
-  }, [trackedEpisode]);
-
-  const addSize = row => {
-    const torrentSizeSplit = row.torrentSize.split(" ");
-    const byteSize = getBytesSize(...torrentSizeSplit);
-    const displaySize = formatByteSize(...torrentSizeSplit);
-
-    return { ...row, byteSize, displaySize };
-  };
-
-  const trackedEpisodeAlternatesWithSize = trackedEpisodeAlternates.map(row => addSize(row));
-
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
       <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
       <DialogContent>
         <TableContainer component={Paper}>
-          <TrackedEpisodeLine trackedEpisode={addSize(trackedEpisode)} />
+          <AlternateTrackedEpisodeLine trackedEpisode={trackedEpisode} />
         </TableContainer>
         <Paper className={classes.paper}>
           <TableContainer component={Paper}>
@@ -97,10 +70,10 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sortFunction(trackedEpisodeAlternatesWithSize)
+                {sortFunction(alternateTrackedEpisodes)
                   .slice(sliceBegin, sliceEnd)
                   .map(trackedEpisode => (
-                    <TrackedEpisodeLine
+                    <AlternateTrackedEpisodeLine
                       trackedEpisode={trackedEpisode}
                       key={`track-${trackedEpisode.torrentId}`}
                       selectedValue={selectedValue}
@@ -113,7 +86,7 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
           <TablePagination
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
-            count={trackedEpisodeAlternates.length}
+            count={alternateTrackedEpisodes.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}

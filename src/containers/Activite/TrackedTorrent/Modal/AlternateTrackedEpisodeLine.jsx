@@ -3,7 +3,7 @@ import { IconButton, Radio, TableCell, TableRow } from "@material-ui/core";
 import LinkIcon from "@material-ui/icons/Link";
 import { DateTime } from "luxon";
 
-const TrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
+const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
   const { title, date, torrentId, displaySize, leechers, seeders, completed } = trackedEpisode;
 
   const [year, month, day] = date;
@@ -40,4 +40,4 @@ const TrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => 
   );
 };
 
-export default TrackedEpisodeLine;
+export default AlternateTrackedEpisodeLine;
