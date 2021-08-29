@@ -42,9 +42,12 @@ const TrackedAnimeTorrentService = {
     });
   },
   update: (malId, trackedAnime) => {
-    const { searchWords, dayOfRelease } = trackedAnime;
+    const { searchWords, dayOfRelease, lastEpisodeOnServer } = trackedAnime;
     const urlSearch = `${path}/${malId}`;
-    return fetch(urlSearch, patchOption(JSON.stringify({ malId, searchWords, dayOfRelease }))).then(data => {
+    return fetch(
+      urlSearch,
+      patchOption(JSON.stringify({ malId, searchWords, dayOfRelease, lastEpisodeOnServer }))
+    ).then(data => {
       if (!data.ok && data.status === 404) return undefined;
       return data.json();
     });

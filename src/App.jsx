@@ -4,9 +4,9 @@ import Container from "@material-ui/core/Container";
 import Routing from "./routes";
 import { object } from "prop-types";
 
-const App = ({ history }) => (
+const App = () => (
   <Container>
-    <BrowserRouter history={history}>
+    <BrowserRouter>
       <Routing />
     </BrowserRouter>
   </Container>

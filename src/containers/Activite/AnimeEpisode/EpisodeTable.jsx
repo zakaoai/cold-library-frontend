@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -10,6 +10,7 @@ import Paper from "@material-ui/core/Paper";
 import EpisodeLine from "./EpisodeLine";
 import useAnimeEpisode from "~/hooks/useAnimeEpisode";
 import { TablePagination } from "@material-ui/core";
+import usePagination from "~/hooks/usePagination";
 
 const useStyles = makeStyles(theme => ({
   table: {
@@ -22,20 +23,11 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function EpisodeTable({ malId }) {
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [page, setPage] = React.useState(0);
   const classes = useStyles();
 
   const { animeEpisodes } = useAnimeEpisode(malId);
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
+  const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
+    usePagination(animeEpisodes);
 
   console.log("anime length", animeEpisodes.length);
   console.log("rowsPerPage", rowsPerPage);
@@ -52,7 +44,7 @@ export default function EpisodeTable({ malId }) {
             </TableRow>
           </TableHead>
           <TableBody>
-            {animeEpisodes.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map(episode => (
+            {animeEpisodes.slice(sliceBegin, sliceEnd).map(episode => (
               <EpisodeLine episode={episode} key={episode.episodeNumber} />
             ))}
           </TableBody>
@@ -66,7 +58,7 @@ export default function EpisodeTable({ malId }) {
         page={page}
         onPageChange={handleChangePage}
         onRowsPerPageChange={handleChangeRowsPerPage}
-        labelDisplayedRows={({ page }) => `page ${page}/${Math.ceil(animeEpisodes.length / rowsPerPage) - 1}`}
+        labelDisplayedRows={labelTemplate}
       />
     </Paper>
   );

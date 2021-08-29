@@ -3,13 +3,14 @@ import StorageState from "~/constants/StorageState";
 
 // Filter list of anime and store filters in localStorage
 const useAnimeLibraryFilter = function () {
-  const filters = JSON.parse(localStorage.getItem("animeLibraryFilters")) || {};
+  const [filters, setFilters] = useState(JSON.parse(localStorage.getItem("animeLibraryFilters")) || {});
+
   const defaultFilters = {
     filterStorageState: StorageState.FLUX_FROID,
     filterTrackedAnime: false,
     filterCompletedAnime: false,
     isFilterTrackedAnimeApplied: false,
-    isFilterCompleteApplied: false
+    isFilterCompletedAnimeApplied: false
   };
 
   const [filterStorageState, setFilterStorageState] = useState(
@@ -22,35 +23,32 @@ const useAnimeLibraryFilter = function () {
     filters.isFilterTrackedAnimeApplied || defaultFilters.isFilterTrackedAnimeApplied
   );
 
-  const [filterComplete, setFilterComplete] = useState(filters.filterComplete || defaultFilters.filterComplete);
-  const [isFilterCompleteApplied, setIsFilterCompleteApplied] = useState(
-    filters.isFilterCompleteApplied || defaultFilters.isFilterCompleteApplied
+  const [filterCompletedAnime, setFilterCompletedAnime] = useState(
+    filters.filterCompletedAnime || defaultFilters.filterCompletedAnime
+  );
+  const [isFilterCompletedAnimeApplied, setIsFilterCompleteAnimeApplied] = useState(
+    filters.isFilterCompletedAnimeApplied || defaultFilters.isFilterCompletedAnimeApplied
   );
 
   const [filterFunc, setFilterFunc] = useState(() => () => true);
-
-  const filterTrackedAnimeFunc = isTracked =>
-    !isFilterTrackedAnimeApplied || (isFilterTrackedAnimeApplied && isTracked === filterTrackedAnime);
-
-  const filterCompleteFunc = isComplete =>
-    !isFilterCompleteApplied || (isFilterCompleteApplied && isComplete === filterComplete);
 
   // func that set all filter to default
   const resetFilters = () => {
     setFilterStorageState(defaultFilters.filterStorageState);
     setFilterTrackedAnime(defaultFilters.filterTrackedAnime);
     setIsFilterTrackedAnimeApplied(defaultFilters.isFilterTrackedAnimeApplied);
-    setFilterComplete(defaultFilters.filterComplete);
-    setIsFilterCompleteApplied(defaultFilters.isFilterCompleteApplied);
+    setFilterCompletedAnime(defaultFilters.filterCompletedAnime);
+    setIsFilterCompleteAnimeApplied(defaultFilters.isFilterCompletedAnimeApplied);
   };
 
   useEffect(() => {
-    filters.filterStorageState = filterStorageState;
-    filters.filterTrackedAnime = filterTrackedAnime;
-    filters.isFilterTrackedAnimeApplied = isFilterTrackedAnimeApplied;
-    filters.filterComplete = filterComplete;
-    filters.isFilterCompleteApplied = isFilterCompleteApplied;
     localStorage.setItem("animeLibraryFilters", JSON.stringify(filters));
+
+    const filterTrackedAnimeFunc = isTracked =>
+      !isFilterTrackedAnimeApplied || (isFilterTrackedAnimeApplied && isTracked === filterTrackedAnime);
+
+    const filterCompleteFunc = isComplete =>
+      !isFilterCompletedAnimeApplied || (isFilterCompletedAnimeApplied && isComplete === filterCompletedAnime);
 
     setFilterFunc(
       () => anime =>
@@ -58,7 +56,23 @@ const useAnimeLibraryFilter = function () {
         filterTrackedAnimeFunc(anime.trackedTorrent) &&
         filterCompleteFunc(anime.isComplete)
     );
-  }, [filterStorageState, filterTrackedAnime, isFilterTrackedAnimeApplied, filterComplete, isFilterCompleteApplied]);
+  }, [filters]);
+
+  useEffect(() => {
+    setFilters({
+      filterStorageState,
+      filterTrackedAnime,
+      filterCompletedAnime,
+      isFilterTrackedAnimeApplied,
+      isFilterCompletedAnimeApplied
+    });
+  }, [
+    filterStorageState,
+    filterTrackedAnime,
+    isFilterTrackedAnimeApplied,
+    filterCompletedAnime,
+    isFilterCompletedAnimeApplied
+  ]);
 
   return {
     filtersState: {
@@ -66,8 +80,8 @@ const useAnimeLibraryFilter = function () {
       setFilterStorageState,
       setFilterTrackedAnime,
       setIsFilterTrackedAnimeApplied,
-      setFilterComplete,
-      setIsFilterCompleteApplied,
+      setFilterCompletedAnime,
+      setIsFilterCompleteAnimeApplied,
       resetFilters
     },
     filterFunc

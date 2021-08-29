@@ -23,7 +23,7 @@ const updateAnimeState = (malId, defaultAnime, updateAnime) => {
     trackedPromise.then(() =>
       updateAnime({
         malId,
-        trackedTorrent: trackedTorrent
+        trackedTorrent: !!trackedTorrent
       })
     );
   };
