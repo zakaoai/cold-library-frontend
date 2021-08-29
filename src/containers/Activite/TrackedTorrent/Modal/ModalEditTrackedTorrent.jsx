@@ -8,11 +8,21 @@ import Button from "@material-ui/core/Button";
 import MenuItem from "@material-ui/core/MenuItem";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Controller, useForm } from "react-hook-form";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: "100%"
+    }
+  }
+}));
 
 export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, handleClose, updateTrackedAnime }) {
   const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = trackedTorrent;
 
-  console.log("dayOfRelease", dayOfRelease);
+  const classes = useStyles();
 
   const defaultValues = {
     searchWords,
@@ -44,12 +54,12 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <DialogTitle id="form-dialog-title">Modification du Torrent {title}</DialogTitle>
+      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+        <DialogTitle id="EditTorrent">Modification du Torrent {title}</DialogTitle>
         <DialogContent>
-          <InputLabel id="searchWords">Mots recherché</InputLabel>
           <TextField
-            labelId="searchWords"
+            label="Mots recherché"
+            id="searchWords"
             autoFocus
             margin="dense"
             fullWidth
@@ -61,9 +71,9 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
               })
             }}
           />
-          <InputLabel id="lastEpisodeOnServer">Dernier Episode sur le serveur</InputLabel>
           <TextField
-            labelId="lastEpisodeOnServer"
+            label="Dernier Episode sur le serveur"
+            id="lastEpisodeOnServer"
             margin="dense"
             type="number"
             fullWidth
@@ -76,7 +86,6 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
               })
             }}
           />
-          <InputLabel id="dayOfRelease">Jour de sortie</InputLabel>
           <Controller
             name="dayOfRelease"
             control={control}
@@ -84,8 +93,10 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
             rules={{ required: "Champs requis" }}
             render={({ field: { onChange, value } }) => (
               <TextField
+                label="Jour de sortie"
+                id="dayOfRelease"
                 select
-                labelId="dayOfRelease"
+                name="dayOfRelease"
                 error={errors.dayOfRelease}
                 helperText={errors.dayOfRelease !== undefined ? errors.dayOfRelease.message : ""}
                 value={value}
