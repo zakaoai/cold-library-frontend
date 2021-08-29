@@ -22,7 +22,7 @@ const SearchForm = ({ setSearch }) => {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton color="primary" type="submit" aria-label="submit" component="span">
+              <IconButton color="primary" type="submit" aria-label="submit">
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
