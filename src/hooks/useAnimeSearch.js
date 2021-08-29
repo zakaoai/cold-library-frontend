@@ -16,7 +16,9 @@ export default function useAnimeSearch(initialSearch = "") {
   }, [search]);
 
   const updateAnime = updatedAnime =>
-    setAnimes(animes => animes.map(anime => (anime.malId === updatedAnime.malId ? updatedAnime : anime)));
+    setAnimes(animes =>
+      animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
+    );
 
   return { animes, isFetching, setSearch, updateAnime };
 }
