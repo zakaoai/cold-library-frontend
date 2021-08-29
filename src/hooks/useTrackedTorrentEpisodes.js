@@ -39,7 +39,14 @@ const useTrackedTorrentEpisodes = malId => {
       .finally(() => setIsFetching(false));
   };
 
-  return { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode };
+  const searchPack = () => {
+    setIsFetching(true);
+    AnimeTorrentEpisodeService.scanPackTorrent(malId)
+      .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, addSize(episode)]))
+      .finally(() => setIsFetching(false));
+  };
+
+  return { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack };
 };
 
 export default useTrackedTorrentEpisodes;

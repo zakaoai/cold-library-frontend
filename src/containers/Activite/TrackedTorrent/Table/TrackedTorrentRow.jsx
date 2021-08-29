@@ -17,6 +17,7 @@ import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Tooltip from "@material-ui/core/Tooltip";
 import { NavLink } from "react-router-dom";
+import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
 
 const useRowStyles = makeStyles({
   root: {
@@ -35,7 +36,7 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
 
   const classes = useRowStyles();
 
-  const { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode } = useTrackedTorrentEpisodes(malId);
+  const { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack } = useTrackedTorrentEpisodes(malId);
 
   const searchAlternateTorrent = torrent => {
     setselectedEpisodeAlternate(torrent);
@@ -49,6 +50,8 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
   const isNewEpisode = showedTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0;
 
   const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) === -1;
+
+  const isPackInList = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1;
 
   const handleCloseEp = () => {
     setShowModal(false);
@@ -75,6 +78,11 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
           {DayOfWeek[dayOfRelease]}
         </TableCell>
         <TableCell component="th" scope="row">
+          {!isPackInList && (
+            <IconButton aria-label="download pack" onClick={() => searchPack()}>
+              <CreateNewFolderIcon />
+            </IconButton>
+          )}
           <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)}>
             <EditIcon />
           </IconButton>
