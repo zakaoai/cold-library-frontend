@@ -18,6 +18,7 @@ import DoneAllIcon from "@material-ui/icons/DoneAll";
 import Tooltip from "@material-ui/core/Tooltip";
 import { NavLink } from "react-router-dom";
 import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
+import { useEffect } from "react";
 
 const useRowStyles = makeStyles({
   root: {
@@ -27,7 +28,7 @@ const useRowStyles = makeStyles({
   }
 });
 
-export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) {
+export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, doScan }) {
   const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
 
   const [open, setOpen] = useState(false);
@@ -37,6 +38,12 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime }) 
   const classes = useRowStyles();
 
   const { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack } = useTrackedTorrentEpisodes(malId);
+
+  useEffect(() => {
+    if (doScan != undefined) {
+      scanEpisodes();
+    }
+  }, [doScan]);
 
   const searchAlternateTorrent = torrent => {
     setselectedEpisodeAlternate(torrent);

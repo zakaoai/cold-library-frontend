@@ -10,6 +10,7 @@ import useTrackedTorrent from "~/hooks/useTrackedTorrent";
 import TrackedTorrentRow from "./Table/TrackedTorrentRow";
 import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
 import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
+import TrackedTorrentBar from "./TrackedTorrentBar";
 
 /**
  * Activité
@@ -17,6 +18,7 @@ import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
 export default function TrackedTorrent() {
   const { trackedTorrents, updateTrackedAnime } = useTrackedTorrent();
   const [showModal, setShowModal] = useState(false);
+  const [doScan, setDoScan] = useState(undefined);
 
   const [editableTrackedAnime, setEditableTrackedAnime] = useState(undefined);
 
@@ -37,6 +39,7 @@ export default function TrackedTorrent() {
 
   return (
     <>
+      <TrackedTorrentBar scanAll={() => setDoScan(a => !a)} />
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
@@ -56,6 +59,7 @@ export default function TrackedTorrent() {
                 key={trackedTorrent.malId}
                 trackedTorrent={trackedTorrent}
                 editTrackedAnime={editTrackedAnime}
+                doScan={doScan}
               />
             ))}
           </TableBody>
