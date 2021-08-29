@@ -5,12 +5,12 @@ import IconButton from "@material-ui/core/IconButton";
 import { useForm } from "react-hook-form";
 import TextField from "@material-ui/core/TextField";
 
-const SearchForm = ({ setSearch }) => {
+const SearchForm = ({ setSearch, defaultSearch }) => {
   const {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm();
+  } = useForm({ defaultValues: { search: defaultSearch } });
   const onSubmit = ({ search }) => setSearch(search);
 
   return (

@@ -4,16 +4,18 @@ import Grid from "@material-ui/core/Grid";
 import SearchForm from "~/containers/Activite/Search/SearchForm";
 import AnimeWrapper from "~/components/animeCard/AnimeWrapper";
 import { CircularProgress } from "@material-ui/core";
+import { useLocation } from "react-router-dom";
 
 /**
  * Activité
  */
 function SearchActivity() {
-  const { animes, isFetching, setSearch, updateAnime } = useAnimeSearch();
+  const search = new URLSearchParams(useLocation().search).get("search");
+  const { animes, isFetching, error, setSearch, updateAnime } = useAnimeSearch(search);
 
   return (
     <>
-      <SearchForm setSearch={setSearch} />
+      <SearchForm setSearch={setSearch} defaultSearch={search} />
       <Grid container justifyContent="center" spacing={2}>
         {isFetching ? (
           <CircularProgress />
@@ -24,6 +26,7 @@ function SearchActivity() {
             </Grid>
           ))
         )}
+        {!isFetching && error && <div>{error}</div>}
       </Grid>
     </>
   );
