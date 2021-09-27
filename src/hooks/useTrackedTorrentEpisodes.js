@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
-import { formatByteSize, getBytesSize } from "~/utils/byteSize";
+import AnimeTorrentEpisodeService from "services/AnimeTorrentEpisodeService";
+import { formatByteSize, getBytesSize } from "utils/byteSize";
 
 const useTrackedTorrentEpisodes = malId => {
   const [episodes, setEpisodes] = useState([]);

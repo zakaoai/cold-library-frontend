@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import AnimeEpisodeService from "~/services/AnimeEpisodeService";
+import AnimeEpisodeService from "services/AnimeEpisodeService";
 
 export default function useAnimeEpisode(malId) {
   const [animeEpisodes, setAnimeEpisodes] = useState([]);

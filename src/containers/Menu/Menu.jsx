@@ -1,5 +1,5 @@
 import React from "react";
-import SiteMap from "~/routes/SiteMap";
+import SiteMap from "routes/SiteMap";
 import MenuMobile from "./MenuMobile";
 import MenuDesktop from "./MenuDesktop";
 

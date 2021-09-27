@@ -11,10 +11,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles, TablePagination } from "@material-ui/core";
-import usePagination from "~/hooks/usePagination";
-import useSortTable from "~/hooks/useSortTable";
-import FilterHeaderCell from "~/components/FilterHeaderCell/FilterHeaderCell";
-import useAlternateTrackedTorrentEpisode from "~/hooks/useAlternateTrackedTorrentEpisode";
+import usePagination from "hooks/usePagination";
+import useSortTable from "hooks/useSortTable";
+import FilterHeaderCell from "components/FilterHeaderCell/FilterHeaderCell";
+import useAlternateTrackedTorrentEpisode from "hooks/useAlternateTrackedTorrentEpisode";
 import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine";
 
 const useStyles = makeStyles(theme => ({

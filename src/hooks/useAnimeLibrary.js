@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import AnimeServices from "~/services/AnimeServices";
-import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
+import AnimeServices from "services/AnimeServices";
+import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
 
 export default function useAnimeLibrary(malId) {
   const [anime, setAnime] = useState(undefined);

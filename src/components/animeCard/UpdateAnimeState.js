@@ -1,5 +1,5 @@
-const { default: AnimeServices } = require("~/services/AnimeServices");
-const { default: TrackedAnimeTorrentService } = require("~/services/TrackedAnimeTorrentService");
+const { default: AnimeServices } = require("services/AnimeServices");
+const { default: TrackedAnimeTorrentService } = require("services/TrackedAnimeTorrentService");
 
 const updateAnimeState = (malId, defaultAnime, updateAnime) => {
   const setLastAvaibleEpisode = LastAvaibleEpisode =>

@@ -6,10 +6,10 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import useTrackedTorrent from "~/hooks/useTrackedTorrent";
+import useTrackedTorrent from "hooks/useTrackedTorrent";
 import TrackedTorrentRow from "./Table/TrackedTorrentRow";
 import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
-import TrackedAnimeTorrentService from "~/services/TrackedAnimeTorrentService";
+import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
 import TrackedTorrentBar from "./TrackedTorrentBar";
 
 /**

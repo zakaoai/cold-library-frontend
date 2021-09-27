@@ -7,7 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import AcUnitIcon from "@material-ui/icons/AcUnit";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
-import StorageState from "~/constants/StorageState";
+import StorageState from "constants/StorageState";
 
 const PurpleSwitch = withStyles({
   root: {

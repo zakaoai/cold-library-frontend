@@ -8,9 +8,9 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import EpisodeLine from "./EpisodeLine";
-import useAnimeEpisode from "~/hooks/useAnimeEpisode";
+import useAnimeEpisode from "hooks/useAnimeEpisode";
 import { TablePagination } from "@material-ui/core";
-import usePagination from "~/hooks/usePagination";
+import usePagination from "hooks/usePagination";
 
 const useStyles = makeStyles(theme => ({
   table: {

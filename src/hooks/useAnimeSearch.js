@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
-import AnimeServices from "~/services/AnimeServices";
+import AnimeServices from "services/AnimeServices";
 
 export default function useAnimeSearch(initialSearch = "") {
   const history = useHistory();

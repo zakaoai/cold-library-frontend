@@ -2,15 +2,15 @@ import React from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 
 import Menu from "../containers/Menu/Menu";
-import AnimeLibraryActivity from "~/containers/Activite/AnimeLibrary/AnimeLibraryActivity";
+import AnimeLibraryActivity from "containers/Activite/AnimeLibrary/AnimeLibraryActivity";
 
 /* Composant de page NotFound */
 
 /* Liste des Path à utiliser */
 import HomeActivity from "../containers/Activite/Home/HomeActivity";
-import SearchActivity from "~/containers/Activite/Search/SearchActivity";
-import AnimeEpisodeActivity from "~/containers/Activite/AnimeEpisode/AnimeEpisodeActivity";
-import TrackedTorrent from "~/containers/Activite/TrackedTorrent/TrackedTorrent";
+import SearchActivity from "containers/Activite/Search/SearchActivity";
+import AnimeEpisodeActivity from "containers/Activite/AnimeEpisode/AnimeEpisodeActivity";
+import TrackedTorrent from "containers/Activite/TrackedTorrent/TrackedTorrent";
 
 import SiteMap from "./SiteMap";
 
