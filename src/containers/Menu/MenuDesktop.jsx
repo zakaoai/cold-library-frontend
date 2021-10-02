@@ -4,7 +4,7 @@ import { NavLink, useLocation } from "react-router-dom";
 
 const MenuDesktop = ({ links }) => {
   const location = useLocation();
-  const tabsValue = links.some(link => link.path === location.pathname) ? location.pathname : false;
+  const tabsValue = links.map(link => link.path).find(path => location.pathname.includes(path)) || false;
 
   return (
     <Hidden smDown>

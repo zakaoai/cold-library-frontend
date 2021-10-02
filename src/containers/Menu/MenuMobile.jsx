@@ -95,7 +95,7 @@ const MenuMobile = ({ links }) => {
             <MenuIcon />
           </IconButton>
           {links
-            .filter(link => link.path === location.pathname)
+            .filter(link => location.pathname.includes(link.path))
             .map(link => (
               <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
             ))}
