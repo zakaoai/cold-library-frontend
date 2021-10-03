@@ -1,13 +1,13 @@
 import React from "react";
 
-import { IconButton } from "@material-ui/core";
+import { IconButton } from "@mui/material";
 import { Link } from "react-router-dom";
 
-import MoreIcon from "@material-ui/icons/More";
+import MoreIcon from "@mui/icons-material/More";
 
 function AnimeCardLink({ malId }) {
   return (
-    <IconButton component={Link} to={`/app/anime/${malId}`}>
+    <IconButton component={Link} to={`/app/anime/${malId}`} size="large">
       <MoreIcon />
     </IconButton>
   );

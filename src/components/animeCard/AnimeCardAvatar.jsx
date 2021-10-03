@@ -1,7 +1,8 @@
 import React from "react";
-import { Avatar, makeStyles } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
-import { red } from "@material-ui/core/colors";
+import { Avatar } from "@mui/material";
+import makeStyles from "@mui/styles/makeStyles";
+import { Skeleton } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 const useStyles = makeStyles(() => ({
   avatar: {
@@ -17,7 +18,7 @@ function AnimeCardAvatar({ type }) {
       <Avatar aria-label="type" className={classes.avatar} title={type}>
         {type.substring(0, 3)}
       </Avatar>
-    )) || <Skeleton animation="wave" variant="circle" width={40} height={40} />
+    )) || <Skeleton animation="wave" variant="circular" width={40} height={40} />
   );
 }
 

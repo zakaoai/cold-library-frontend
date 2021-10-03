@@ -1,9 +1,9 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import { useParams } from "react-router";
 import useAnimeLibrary from "hooks/useAnimeLibrary";
 import EpisodeTable from "./EpisodeTable";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import AnimeWrapper from "components/animeCard/AnimeWrapper";
 
 function AnimeEpisodeActivity() {

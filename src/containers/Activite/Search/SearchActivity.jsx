@@ -1,9 +1,9 @@
 import React from "react";
 import useAnimeSearch from "hooks/useAnimeSearch";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 import SearchForm from "containers/Activite/Search/SearchForm";
 import AnimeWrapper from "components/animeCard/AnimeWrapper";
-import { CircularProgress } from "@material-ui/core";
+import { CircularProgress } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
 /**

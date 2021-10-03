@@ -1,5 +1,5 @@
 import React from "react";
-const { TableCell, TableSortLabel } = require("@material-ui/core");
+const { TableCell, TableSortLabel } = require("@mui/material");
 
 const FilterHeaderCell = ({ id, filter, label, orderBy, order, sortBy }) => {
   return (

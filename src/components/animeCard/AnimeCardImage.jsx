@@ -1,6 +1,6 @@
 import React from "react";
-import { CardMedia } from "@material-ui/core";
-import { Skeleton } from "@material-ui/lab";
+import { CardMedia } from "@mui/material";
+import { Skeleton } from "@mui/material";
 
 function AnimeCardImage({ url, imageUrl, title, imageHeight = "190px" }) {
   return (
@@ -8,7 +8,7 @@ function AnimeCardImage({ url, imageUrl, title, imageHeight = "190px" }) {
       <a href={url}>
         <CardMedia component={"img"} style={{ maxHeight: imageHeight }} src={imageUrl} title={title} />
       </a>
-    )) || <Skeleton animation="wave" variant="rect" height={190} />
+    )) || <Skeleton animation="wave" variant="rectangular" height={190} />
   );
 }
 

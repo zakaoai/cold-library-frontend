@@ -1,6 +1,6 @@
 import React from "react";
-import { Skeleton } from "@material-ui/lab";
-import { Typography } from "@material-ui/core";
+import { Skeleton } from "@mui/material";
+import { Typography } from "@mui/material";
 
 function AnimeCardTitle({ title }) {
   return (

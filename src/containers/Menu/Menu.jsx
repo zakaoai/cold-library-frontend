@@ -1,6 +1,6 @@
 import React from "react";
 import SiteMap from "routes/SiteMap";
-import MenuMobile from "./MenuMobile";
+import MenuMobile from "./MenuMobile/MenuMobile";
 import MenuDesktop from "./MenuDesktop";
 
 /**

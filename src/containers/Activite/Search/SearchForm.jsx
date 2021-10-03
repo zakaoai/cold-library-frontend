@@ -1,9 +1,9 @@
 import React from "react";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import SearchIcon from "@material-ui/icons/Search";
-import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@mui/material/InputAdornment";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
 import { useForm } from "react-hook-form";
-import TextField from "@material-ui/core/TextField";
+import TextField from "@mui/material/TextField";
 
 const SearchForm = ({ setSearch, defaultSearch }) => {
   const {
@@ -22,7 +22,7 @@ const SearchForm = ({ setSearch, defaultSearch }) => {
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">
-              <IconButton color="primary" type="submit" aria-label="submit">
+              <IconButton color="primary" type="submit" aria-label="submit" size="large">
                 <SearchIcon />
               </IconButton>
             </InputAdornment>
