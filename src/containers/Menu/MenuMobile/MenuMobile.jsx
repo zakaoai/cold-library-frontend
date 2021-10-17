@@ -17,7 +17,7 @@ const MenuMobile = ({ links }) => {
 
   return (
     <Hidden mdUp>
-      <AppBar position="static" style={{ "margin-bottom": 10 }}>
+      <AppBar position="static" style={{ marginBottom: 10 }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => setOpen(true)} size="large">
             <MenuIcon />
