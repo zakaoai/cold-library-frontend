@@ -19,7 +19,7 @@ function AnimeLibraryActivity() {
 
       <Grid container justifyContent="center" spacing={1}>
         {animes.filter(filterFunc).map(anime => (
-          <Grid key={anime.malId} item md={3} xs={12} sm={6}>
+          <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
             <AnimeWrapper anime={anime} showEpisodeLink updateAnime={updateAnime} />
           </Grid>
         ))}

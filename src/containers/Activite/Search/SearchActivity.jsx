@@ -21,7 +21,7 @@ function SearchActivity() {
           <CircularProgress />
         ) : (
           animes.map(anime => (
-            <Grid item xs={6} md={3} key={anime.malId}>
+            <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
               <AnimeWrapper anime={anime} showEpisodeLink={!!anime.storageState} updateAnime={updateAnime} />
             </Grid>
           ))
