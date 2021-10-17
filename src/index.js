@@ -1,4 +1,3 @@
-import { AppContainer } from "react-hot-loader";
 import { createBrowserHistory } from "history";
 import React from "react";
 import ReactDOM from "react-dom";
@@ -12,12 +11,9 @@ const history = createBrowserHistory({
   basename: `${serverPath}`
 });
 
-ReactDOM.render(
-  <AppContainer>
-    <App history={history} />
-  </AppContainer>,
-  document.getElementById("app")
-);
+ReactDOM.render(<App history={history} />, document.getElementById("app"));
 
 // Reload components
-module.hot.accept();
+if (module.hot) {
+  module.hot.accept();
+}
