@@ -21,7 +21,7 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlte
       </TableCell>
       <TableCell>
         <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>
-          <Typography nowrap>{title}</Typography>
+          <Typography>{title}</Typography>
         </div>
       </TableCell>
       <TableCell align="right">
