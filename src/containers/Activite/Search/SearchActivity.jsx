@@ -1,9 +1,9 @@
 import React from "react";
-import useAnimeSearch from "~/hooks/useAnimeSearch";
-import Grid from "@material-ui/core/Grid";
-import SearchForm from "~/containers/Activite/Search/SearchForm";
-import AnimeWrapper from "~/components/animeCard/AnimeWrapper";
-import { CircularProgress } from "@material-ui/core";
+import useAnimeSearch from "hooks/useAnimeSearch";
+import Grid from "@mui/material/Grid";
+import SearchForm from "containers/Activite/Search/SearchForm";
+import AnimeWrapper from "components/animeCard/AnimeWrapper";
+import { CircularProgress } from "@mui/material";
 import { useLocation } from "react-router-dom";
 
 /**
@@ -21,7 +21,7 @@ function SearchActivity() {
           <CircularProgress />
         ) : (
           animes.map(anime => (
-            <Grid item xs={6} md={3} key={anime.malId}>
+            <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
               <AnimeWrapper anime={anime} showEpisodeLink={!!anime.storageState} updateAnime={updateAnime} />
             </Grid>
           ))

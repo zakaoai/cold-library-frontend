@@ -1,6 +1,6 @@
 import React from "react";
-import { IconButton, Radio, TableCell, TableRow } from "@material-ui/core";
-import LinkIcon from "@material-ui/icons/Link";
+import { IconButton, Radio, TableCell, TableRow } from "@mui/material";
+import LinkIcon from "@mui/icons-material/Link";
 import { DateTime } from "luxon";
 
 const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
@@ -32,7 +32,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
         {leechers}/{seeders} ({completed})
       </TableCell>
       <TableCell component="th" scope="row">
-        <IconButton aria-label="delete" href={nyaaLink} alt={`Infos Torrent ${torrentId}`}>
+        <IconButton aria-label="delete" href={nyaaLink} alt={`Infos Torrent ${torrentId}`} size="large">
           <LinkIcon />
         </IconButton>
       </TableCell>

@@ -1,7 +1,7 @@
 import React from "react";
-import { IconButton } from "@material-ui/core";
-import DoneAllIcon from "@material-ui/icons/DoneAll";
-import { green } from "@material-ui/core/colors";
+import { IconButton } from "@mui/material";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import { green } from "@mui/material/colors";
 
 function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete }) {
   const isDisabled = nbEpisodes === 0;
@@ -15,7 +15,8 @@ function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete }) {
       title="Set as Complete"
       disabled={isDisabled}
       onClick={() => setIsComplete(!isComplete)}
-      style={(isComplete && { color: green[500] }) || {}}>
+      style={(isComplete && { color: green[500] }) || {}}
+      size="large">
       <DoneAllIcon />
     </IconButton>
   );

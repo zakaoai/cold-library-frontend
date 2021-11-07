@@ -1,10 +1,10 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid";
+import Grid from "@mui/material/Grid";
 
-import useLibrary from "~/hooks/useLibrary";
-import AnimeWrapper from "~/components/animeCard/AnimeWrapper";
+import useLibrary from "hooks/useLibrary";
+import AnimeWrapper from "components/animeCard/AnimeWrapper";
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar";
-import useAnimeLibraryFilter from "~/hooks/useAnimeLibraryFilter";
+import useAnimeLibraryFilter from "hooks/useAnimeLibraryFilter";
 
 /**
  * Activité
@@ -19,7 +19,7 @@ function AnimeLibraryActivity() {
 
       <Grid container justifyContent="center" spacing={1}>
         {animes.filter(filterFunc).map(anime => (
-          <Grid key={anime.malId} item md={3} xs={12} sm={6}>
+          <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
             <AnimeWrapper anime={anime} showEpisodeLink updateAnime={updateAnime} />
           </Grid>
         ))}

@@ -1,4 +1,4 @@
-import { Grid } from "@material-ui/core";
+import { Grid } from "@mui/material";
 import React from "react";
 import HotColdSwitch from "../HotColdSwitch/HotColdSwitch";
 import AnimeCardTrackedButton from "./AnimeCardTrackedButton";
@@ -15,22 +15,22 @@ const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnime
   return (
     <Grid container alignItems="center">
       {showAddOrRemoveFromLibrary && (
-        <Grid item>
+        <Grid item xs={2}>
           <InLibraryButton saveAnime={saveAnime} deleteAnime={deleteAnime} isInLibrary={isInLibrary} />
         </Grid>
       )}
       {isInLibrary && (
         <>
-          <Grid item>
+          <Grid item xs={3}>
             <HotColdSwitch storageState={storageState} setStorageState={setStorageState} />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <AnimeCompleteButton nbEpisodes={nbEpisodes} isComplete={isComplete} setIsComplete={setIsComplete} />
           </Grid>
-          <Grid item xs={2}>
+          <Grid item xs={3}>
             <LastAvaibleEpisode lastAvaibleEpisode={lastAvaibleEpisode} setLastAvaibleEpisode={setLastAvaibleEpisode} />
           </Grid>
-          <Grid item>
+          <Grid item xs={2}>
             <AnimeCardTrackedButton isAnimeTracked={trackedTorrent} trackAnime={trackAnime} />
           </Grid>
         </>

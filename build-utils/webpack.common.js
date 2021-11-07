@@ -32,9 +32,7 @@ module.exports = {
   },
   resolve: {
     extensions: ["*", ".js", ".jsx"],
-    alias: {
-      "~": paths.src
-    }
+    modules: [paths.src, "node_modules"]
   },
   plugins: [
     new CleanWebpackPlugin(),

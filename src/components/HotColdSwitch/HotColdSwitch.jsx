@@ -1,13 +1,13 @@
 import React from "react";
-import { withStyles } from "@material-ui/core/styles";
-import { blue, red } from "@material-ui/core/colors";
-import FormGroup from "@material-ui/core/FormGroup";
-import Switch from "@material-ui/core/Switch";
-import Grid from "@material-ui/core/Grid";
-import Typography from "@material-ui/core/Typography";
-import AcUnitIcon from "@material-ui/icons/AcUnit";
-import WhatshotIcon from "@material-ui/icons/Whatshot";
-import StorageState from "~/constants/StorageState";
+import withStyles from "@mui/styles/withStyles";
+import { blue, red } from "@mui/material/colors";
+import FormGroup from "@mui/material/FormGroup";
+import Switch from "@mui/material/Switch";
+import Grid from "@mui/material/Grid";
+import Typography from "@mui/material/Typography";
+import AcUnitIcon from "@mui/icons-material/AcUnit";
+import WhatshotIcon from "@mui/icons-material/Whatshot";
+import StorageState from "constants/StorageState";
 
 const PurpleSwitch = withStyles({
   root: {

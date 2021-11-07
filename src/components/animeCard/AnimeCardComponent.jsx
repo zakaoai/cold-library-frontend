@@ -1,8 +1,8 @@
 import React from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardActions from "@material-ui/core/CardActions";
+import makeStyles from "@mui/styles/makeStyles";
+import Card from "@mui/material/Card";
+import CardHeader from "@mui/material/CardHeader";
+import CardActions from "@mui/material/CardActions";
 import AnimeCardImage from "./AnimeCardImage";
 import AnimeCardEpisodeNumber from "./AnimeCardEpisodeNumber";
 import AnimeCardTitle from "./AnimeCardTitle";

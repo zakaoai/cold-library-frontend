@@ -1,5 +1,5 @@
-import AnimeTorrentEpisodeService from "~/services/AnimeTorrentEpisodeService";
-import { formatByteSize, getBytesSize } from "~/utils/byteSize";
+import AnimeTorrentEpisodeService from "services/AnimeTorrentEpisodeService";
+import { formatByteSize, getBytesSize } from "utils/byteSize";
 
 const { useState, useEffect } = require("react");
 

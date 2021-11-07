@@ -1,23 +1,23 @@
 import React, { useState } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
-import TableCell from "@material-ui/core/TableCell";
-import TableRow from "@material-ui/core/TableRow";
-import KeyboardArrowDownIcon from "@material-ui/icons/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@material-ui/icons/KeyboardArrowUp";
+import makeStyles from "@mui/styles/makeStyles";
+import IconButton from "@mui/material/IconButton";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
-import SearchIcon from "@material-ui/icons/Search";
-import EditIcon from "@material-ui/icons/Edit";
-import DayOfWeek from "~/constants/DayOfWeek";
-import useTrackedTorrentEpisodes from "~/hooks/useTrackedTorrentEpisodes";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import FiberNewIcon from "@material-ui/icons/FiberNew";
-import { green } from "@material-ui/core/colors";
+import SearchIcon from "@mui/icons-material/Search";
+import EditIcon from "@mui/icons-material/Edit";
+import DayOfWeek from "constants/DayOfWeek";
+import useTrackedTorrentEpisodes from "hooks/useTrackedTorrentEpisodes";
+import CircularProgress from "@mui/material/CircularProgress";
+import FiberNewIcon from "@mui/icons-material/FiberNew";
+import { green } from "@mui/material/colors";
 import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
-import DoneAllIcon from "@material-ui/icons/DoneAll";
-import Tooltip from "@material-ui/core/Tooltip";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
+import Tooltip from "@mui/material/Tooltip";
 import { NavLink } from "react-router-dom";
-import CreateNewFolderIcon from "@material-ui/icons/CreateNewFolder";
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import { useEffect } from "react";
 
 const useRowStyles = makeStyles({
@@ -86,14 +86,14 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
         </TableCell>
         <TableCell component="th" scope="row">
           {!isPackInList && (
-            <IconButton aria-label="download pack" onClick={() => searchPack()}>
+            <IconButton aria-label="download pack" onClick={() => searchPack()} size="large">
               <CreateNewFolderIcon />
             </IconButton>
           )}
-          <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)}>
+          <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)} size="large">
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="scan" onClick={() => scanEpisodes()}>
+          <IconButton aria-label="scan" onClick={() => scanEpisodes()} size="large">
             <SearchIcon />
           </IconButton>
           {isNewEpisode && (
