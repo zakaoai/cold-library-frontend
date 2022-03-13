@@ -12,7 +12,6 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlte
   const { episodeNumber, title, date, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent;
 
-  const [year, month, day] = date;
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
   return (
     <TableRow key={animeEpisodeTorrent.torrentId}>
@@ -24,9 +23,7 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlte
           <Typography>{title}</Typography>
         </div>
       </TableCell>
-      <TableCell align="right">
-        {date && DateTime.fromObject({ year, month, day }).setLocale("fr").toFormat("dd LLL yyyy")}
-      </TableCell>
+      <TableCell align="right">{date && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
       <TableCell component="th" scope="row">
         {displaySize}
       </TableCell>

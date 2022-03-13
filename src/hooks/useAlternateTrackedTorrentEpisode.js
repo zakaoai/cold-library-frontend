@@ -23,7 +23,7 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode, updateTrackedEpisode,
 
   useEffect(() => {
     AnimeTorrentEpisodeService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list =>
-      setTrackedEpisodeAlternates(list)
+      setTrackedEpisodeAlternates(list.map(ep => ({ ...ep, date: new Date(ep.date) })))
     );
   }, [trackedEpisode]);
 

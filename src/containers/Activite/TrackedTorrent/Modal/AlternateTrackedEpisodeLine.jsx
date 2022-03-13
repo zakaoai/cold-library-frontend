@@ -6,7 +6,6 @@ import { DateTime } from "luxon";
 const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
   const { title, date, torrentId, displaySize, leechers, seeders, completed } = trackedEpisode;
 
-  const [year, month, day] = date;
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
   return (
     <TableRow hover={!!handleChange} onClick={handleChange}>
@@ -22,9 +21,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
         </TableCell>
       )}
       <TableCell>{title}</TableCell>
-      <TableCell align="right">
-        {date && DateTime.fromObject({ year, month, day }).setLocale("fr").toFormat("dd LLL yyyy")}
-      </TableCell>
+      <TableCell align="right">{date && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
       <TableCell component="th" scope="row">
         {displaySize}
       </TableCell>

@@ -6,18 +6,18 @@ const useTrackedTorrentEpisodes = malId => {
   const [episodes, setEpisodes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
-  const addSize = row => {
-    const torrentSizeSplit = row.torrentSize.split(" ");
+  const formatEpisode = ep => {
+    const torrentSizeSplit = ep.torrentSize.split(" ");
     const byteSize = getBytesSize(...torrentSizeSplit);
     const displaySize = formatByteSize(...torrentSizeSplit);
 
-    return { ...row, byteSize, displaySize };
+    return { ...ep, byteSize, displaySize, date: new Date(ep.date) };
   };
 
   useEffect(() => {
     setIsFetching(true);
     AnimeTorrentEpisodeService.getAnimeEpisodesTorrents(malId).then(trackedEpisodes => {
-      setEpisodes(trackedEpisodes.map(episode => addSize(episode)));
+      setEpisodes(trackedEpisodes.map(episode => formatEpisode(episode)));
       setIsFetching(false);
     });
   }, []);
@@ -26,7 +26,7 @@ const useTrackedTorrentEpisodes = malId => {
     AnimeTorrentEpisodeService.replaceEpisodeTorrent(malId, animeEpisodeTorrent).then(updatedEpisode =>
       setEpisodes(episodes => [
         ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
-        addSize(updatedEpisode)
+        formatEpisode(updatedEpisode)
       ])
     );
 
@@ -34,7 +34,7 @@ const useTrackedTorrentEpisodes = malId => {
     setIsFetching(true);
     AnimeTorrentEpisodeService.scanEpisodeTorrent(malId)
       .then(episodes =>
-        setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => addSize(episode))])
+        setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => formatEpisode(episode))])
       )
       .finally(() => setIsFetching(false));
   };
@@ -42,7 +42,7 @@ const useTrackedTorrentEpisodes = malId => {
   const searchPack = () => {
     setIsFetching(true);
     AnimeTorrentEpisodeService.scanPackTorrent(malId)
-      .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, addSize(episode)]))
+      .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
       .finally(() => setIsFetching(false));
   };
 
