@@ -1,5 +1,4 @@
 import React from "react";
-import makeStyles from "@mui/styles/makeStyles";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -12,19 +11,7 @@ import useAnimeEpisode from "hooks/useAnimeEpisode";
 import { TablePagination } from "@mui/material";
 import usePagination from "hooks/usePagination";
 
-const useStyles = makeStyles(theme => ({
-  table: {
-    minWidth: 650
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2)
-  }
-}));
-
 export default function EpisodeTable({ malId }) {
-  const classes = useStyles();
-
   const { animeEpisodes } = useAnimeEpisode(malId);
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(animeEpisodes);
@@ -33,9 +20,9 @@ export default function EpisodeTable({ malId }) {
   console.log("rowsPerPage", rowsPerPage);
 
   return (
-    <Paper className={classes.paper}>
+    <Paper sx={{ width: "100%", marginBottom: "16px" }}>
       <TableContainer component={Paper}>
-        <Table className={classes.table} aria-label="simple table">
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell align="center">Numéro</TableCell>

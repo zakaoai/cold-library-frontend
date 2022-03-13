@@ -11,22 +11,11 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import Paper from "@mui/material/Paper";
 import { TablePagination } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
 import usePagination from "hooks/usePagination";
 import useSortTable from "hooks/useSortTable";
 import FilterHeaderCell from "components/FilterHeaderCell/FilterHeaderCell";
 import useAlternateTrackedTorrentEpisode from "hooks/useAlternateTrackedTorrentEpisode";
 import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine";
-
-const useStyles = makeStyles(theme => ({
-  table: {
-    minWidth: 650
-  },
-  paper: {
-    width: "100%",
-    marginBottom: theme.spacing(2)
-  }
-}));
 
 export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose, updateTrackedEpisode }) {
   const { episodeNumber } = trackedEpisode;
@@ -51,8 +40,6 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
     { id: "infos", label: "Infos" }
   ];
 
-  const classes = useStyles();
-
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
       <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
@@ -60,9 +47,9 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
         <TableContainer component={Paper}>
           <AlternateTrackedEpisodeLine trackedEpisode={trackedEpisode} />
         </TableContainer>
-        <Paper className={classes.paper}>
+        <Paper sx={{ width: "100%", marginBottom: "16px" }}>
           <TableContainer component={Paper}>
-            <Table className={classes.table} aria-label="simple table">
+            <Table sx={{ minWidth: 650 }}>
               <TableHead>
                 <TableRow>
                   {headCells.map(cell => (

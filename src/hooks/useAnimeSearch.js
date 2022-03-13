@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router";
 import AnimeServices from "services/AnimeServices";
+import SiteMap from "routes/SiteMap";
 
 export default function useAnimeSearch(initialSearch = "") {
-  const history = useHistory();
+  const navigate = useNavigate();
   const [search, setSearch] = useState(initialSearch);
   const [animes, setAnimes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
@@ -12,10 +13,8 @@ export default function useAnimeSearch(initialSearch = "") {
   useEffect(() => {
     if (search != "" && search != undefined) {
       setIsFetching(true);
-      history.push({
-        pathname: "/app/search",
-        search: `?search=${search}`
-      });
+      navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` });
+
       AnimeServices.searchAnime(search)
         .then(data => {
           if (data.error) {

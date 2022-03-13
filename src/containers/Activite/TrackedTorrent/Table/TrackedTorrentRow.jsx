@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import makeStyles from "@mui/styles/makeStyles";
+import React, { useState, useEffect } from "react";
 import IconButton from "@mui/material/IconButton";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -18,15 +17,6 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import Tooltip from "@mui/material/Tooltip";
 import { NavLink } from "react-router-dom";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import { useEffect } from "react";
-
-const useRowStyles = makeStyles({
-  root: {
-    "& > *": {
-      borderBottom: "unset"
-    }
-  }
-});
 
 export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, doScan }) {
   const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
@@ -34,8 +24,6 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedEpisodeAlternate, setselectedEpisodeAlternate] = useState(undefined);
-
-  const classes = useRowStyles();
 
   const { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack } = useTrackedTorrentEpisodes(malId);
 
@@ -67,7 +55,7 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
 
   return (
     <>
-      <TableRow className={classes.root}>
+      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>{showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}</TableCell>
         <TableCell component="th" scope="row">
           <NavLink to={`/app/anime/${malId}`}>{title}</NavLink> {isFetching ? <CircularProgress /> : null}

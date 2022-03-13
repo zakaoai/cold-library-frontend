@@ -6,23 +6,11 @@ import DialogTitle from "@mui/material/DialogTitle";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
-import InputLabel from "@mui/material/InputLabel";
 import { Controller, useForm } from "react-hook-form";
-import makeStyles from "@mui/styles/makeStyles";
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: "100%"
-    }
-  }
-}));
+import Box from "@mui/material/Box";
 
 export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, handleClose, updateTrackedAnime }) {
   const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = trackedTorrent;
-
-  const classes = useStyles();
 
   const defaultValues = {
     searchWords,
@@ -54,7 +42,12 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
 
   return (
     <Dialog open={open} onClose={handleClose}>
-      <form className={classes.root} onSubmit={handleSubmit(onSubmit)}>
+      <Box
+        component="form"
+        sx={{
+          "& .MuiTextField-root": { m: 1, width: "100%" }
+        }}
+        onSubmit={handleSubmit(onSubmit)}>
         <DialogTitle id="EditTorrent">Modification du Torrent {title}</DialogTitle>
         <DialogContent>
           <TextField
@@ -118,7 +111,7 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
             Modifier
           </Button>
         </DialogActions>
-      </form>
+      </Box>
     </Dialog>
   );
 }

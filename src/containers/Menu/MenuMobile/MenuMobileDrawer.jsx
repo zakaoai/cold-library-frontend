@@ -1,48 +1,27 @@
 import React from "react";
-
 import { NavLink } from "react-router-dom";
-import { Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, useTheme } from "@mui/material";
-import makeStyles from "@mui/styles/makeStyles";
+import { Box, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, useTheme } from "@mui/material";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-const drawerWidth = 240;
-const useStyles = makeStyles(theme => ({
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    padding: theme.spacing(0, 1),
-    // necessary for content to be below app bar
-    ...theme.mixins.toolbar,
-    justifyContent: "flex-end"
-  }
-}));
-
 const MenuMobileDrawer = ({ handleClose, links, open }) => {
-  const classes = useStyles();
   const theme = useTheme();
 
   return (
-    <Drawer
-      className={classes.drawer}
-      onClose={handleClose}
-      anchor="left"
-      open={open}
-      classes={{
-        paper: classes.drawerPaper
-      }}>
-      <div className={classes.drawerHeader}>
+    <Drawer sx={{ width: 240, flexShrink: 0, paper: { width: 240 } }} onClose={handleClose} anchor="left" open={open}>
+      <Box
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          padding: theme.spacing(0, 1),
+          // necessary for content to be below app bar
+          ...theme.mixins.toolbar,
+          justifyContent: "flex-end"
+        }}>
         <IconButton onClick={handleClose} size="large">
           {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
         </IconButton>
-      </div>
+      </Box>
       <Divider />
       <List>
         {links.map(link => (

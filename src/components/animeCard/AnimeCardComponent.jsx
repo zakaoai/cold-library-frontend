@@ -1,5 +1,4 @@
 import React from "react";
-import makeStyles from "@mui/styles/makeStyles";
 import Card from "@mui/material/Card";
 import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
@@ -10,14 +9,6 @@ import AnimeCardAvatar from "./AnimeCardAvatar";
 import AnimeCardHeaderActions from "./AnimeCardHeaderActions";
 import AnimeCardBottomActions from "./AnimeCardBottomActions";
 
-const useStyles = makeStyles(() => ({
-  root: {},
-
-  header: {
-    height: "100px"
-  }
-}));
-
 export default function AnimeCardComponent({
   anime,
   showEpisodeLink,
@@ -25,13 +16,12 @@ export default function AnimeCardComponent({
   imageHeight,
   showAddOrRemoveFromLibrary = true
 }) {
-  const classes = useStyles();
   const { malId, title, url, imageUrl, type, nbEpisodes } = anime || {};
 
   return (
-    <Card className={classes.root}>
+    <Card>
       <CardHeader
-        className={classes.header}
+        sx={{ height: "100px" }}
         avatar={<AnimeCardAvatar type={type} />}
         action={<AnimeCardHeaderActions showEpisodeLink={showEpisodeLink} malId={malId} />}
         title={<AnimeCardTitle title={title} />}
