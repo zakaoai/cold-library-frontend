@@ -16,9 +16,6 @@ export default function EpisodeTable({ malId }) {
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(animeEpisodes);
 
-  console.log("anime length", animeEpisodes.length);
-  console.log("rowsPerPage", rowsPerPage);
-
   return (
     <Paper sx={{ width: "100%", marginBottom: "16px" }}>
       <TableContainer component={Paper}>
