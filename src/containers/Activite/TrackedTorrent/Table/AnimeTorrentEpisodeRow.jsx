@@ -7,8 +7,9 @@ import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import SearchIcon from "@mui/icons-material/Search";
 import { Typography } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
 
-export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlternate }) {
+export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlternate, deleteTorrent }) {
   const { episodeNumber, title, date, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent;
 
@@ -39,6 +40,9 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlte
         </IconButton>
         <IconButton aria-label="torrent info" href={nyaaLink} alt={`Infos Torrent ${torrentId}`} size="large">
           <InfoIcon />
+        </IconButton>
+        <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent(episodeNumber)} size="large">
+          <DeleteIcon />
         </IconButton>
       </TableCell>
     </TableRow>

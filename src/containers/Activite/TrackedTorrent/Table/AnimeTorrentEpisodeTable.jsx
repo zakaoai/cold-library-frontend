@@ -8,7 +8,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import AnimeTorrentEpisodeRow from "./AnimeTorrentEpisodeRow";
 
-export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlternate }) {
+export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlternate, deleteTorrent }) {
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
@@ -34,6 +34,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen, searchAlt
                         key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
                         animeEpisodeTorrent={animeEpisodeTorrent}
                         searchAlternate={searchAlternate}
+                        deleteTorrent={deleteTorrent}
                       />
                     ))}
               </TableBody>

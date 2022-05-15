@@ -46,7 +46,14 @@ const useTrackedTorrentEpisodes = malId => {
       .finally(() => setIsFetching(false));
   };
 
-  return { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack };
+  const deleteTorrent = episodeNumber => {
+    setIsFetching(true);
+    AnimeTorrentEpisodeService.deleteTorrent(malId, episodeNumber)
+      .then(() => setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber)))
+      .finally(() => setIsFetching(false));
+  };
+
+  return { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack, deleteTorrent };
 };
 
 export default useTrackedTorrentEpisodes;
