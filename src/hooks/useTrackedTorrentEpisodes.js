@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import AnimeTorrentEpisodeService from "services/AnimeTorrentEpisodeService";
 import { formatByteSize, getBytesSize } from "utils/byteSize";
 
-const useTrackedTorrentEpisodes = malId => {
+const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
   const [episodes, setEpisodes] = useState([]);
   const [isFetching, setIsFetching] = useState(false);
 
@@ -53,7 +53,19 @@ const useTrackedTorrentEpisodes = malId => {
       .finally(() => setIsFetching(false));
   };
 
-  return { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack, deleteTorrent };
+  const scanNextEpisode = useCallback(() => {
+    if (
+      episodes.sort((a, b) => a.episodeNumber - b.episodeNumber)[episodes.length - 1].episodeNumber ===
+      lastEpisodeOnServer
+    ) {
+      setIsFetching(true);
+      AnimeTorrentEpisodeService.scanNextEpisodeTorrent(malId)
+        .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
+        .finally(() => setIsFetching(false));
+    }
+  }, [lastEpisodeOnServer, episodes]);
+
+  return { episodes, isFetching, scanEpisodes, scanNextEpisode, patchTrackedAnimeEpisode, searchPack, deleteTorrent };
 };
 
 export default useTrackedTorrentEpisodes;

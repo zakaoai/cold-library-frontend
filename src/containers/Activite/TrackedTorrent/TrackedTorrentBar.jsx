@@ -11,6 +11,9 @@ const TrackedTorrentBar = ({ scanAll }) => {
             <Button variant="outlined" onClick={() => scanAll()} startIcon={<SearchIcon />}>
               Scan All
             </Button>
+            <Button variant="outlined" onClick={() => scanAll()} startIcon={<SearchIcon />}>
+              Scan Next
+            </Button>
           </Grid>
         </Grid>
       </AppBar>
