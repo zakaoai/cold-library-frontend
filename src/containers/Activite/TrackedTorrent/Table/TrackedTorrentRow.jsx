@@ -17,22 +17,29 @@ import DoneAllIcon from "@mui/icons-material/DoneAll";
 import Tooltip from "@mui/material/Tooltip";
 import { NavLink } from "react-router-dom";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 
-export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, doScan }) {
+export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, doScan, doScanNext }) {
   const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
 
   const [open, setOpen] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [selectedEpisodeAlternate, setselectedEpisodeAlternate] = useState(undefined);
 
-  const { episodes, isFetching, scanEpisodes, patchTrackedAnimeEpisode, searchPack, deleteTorrent } =
-    useTrackedTorrentEpisodes(malId);
+  const { episodes, isFetching, scanEpisodes, scanNextEpisode, patchTrackedAnimeEpisode, searchPack, deleteTorrent } =
+    useTrackedTorrentEpisodes(malId, lastEpisodeOnServer);
 
   useEffect(() => {
     if (doScan != undefined) {
       scanEpisodes();
     }
   }, [doScan]);
+
+  useEffect(() => {
+    if (doScanNext != undefined) {
+      scanNextEpisode();
+    }
+  }, [doScanNext]);
 
   const searchAlternateTorrent = torrent => {
     setselectedEpisodeAlternate(torrent);
@@ -45,7 +52,7 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
 
   const isNewEpisode = showedTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0;
 
-  const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) === -1;
+  const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) !== -1;
 
   const isPackInList = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1;
 
@@ -82,8 +89,11 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
           <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)} size="large">
             <EditIcon />
           </IconButton>
-          <IconButton aria-label="scan" onClick={() => scanEpisodes()} size="large">
+          <IconButton aria-label="scan all" onClick={() => scanEpisodes()} size="large">
             <SearchIcon />
+          </IconButton>
+          <IconButton aria-label="scan next" onClick={() => scanNextEpisode()} size="large">
+            <SavedSearchIcon />
           </IconButton>
           {isNewEpisode && (
             <Tooltip title="New">
