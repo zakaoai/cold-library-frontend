@@ -43,6 +43,10 @@ const AnimeTorrentEpisodeService = {
   scanPackTorrent: malId => {
     const url = `${path(malId)}/scanPack`;
     return fetch(url, getOptions).then(data => data.json());
+  },
+  deleteTorrent: (malId, episodeNumber) => {
+    const url = `${path(malId)}/${episodeNumber}`;
+    return fetch(url, deleteOptions);
   }
 };
 
