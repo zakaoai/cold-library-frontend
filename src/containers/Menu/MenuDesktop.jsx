@@ -1,4 +1,4 @@
-import { AppBar, Hidden, Tab, Tabs } from "@mui/material";
+import { AppBar, Box, Hidden, Tab, Tabs } from "@mui/material";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -22,10 +22,12 @@ const MenuDesktop = ({ links }) => {
           {links.map(link => (
             <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
           ))}
+          <Box sx={{ display: "flex", justifyContent: "flex-end", flexGrow: 1 }}>
+            <IconButton onClick={toggleColorMode} color="inherit">
+              {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+            </IconButton>
+          </Box>
         </Tabs>
-        <IconButton sx={{ ml: 1 }} onClick={toggleColorMode} color="inherit">
-          {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-        </IconButton>
       </AppBar>
     </Hidden>
   );

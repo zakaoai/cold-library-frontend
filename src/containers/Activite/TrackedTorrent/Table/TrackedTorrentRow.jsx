@@ -18,6 +18,7 @@ import Tooltip from "@mui/material/Tooltip";
 import { NavLink } from "react-router-dom";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
+import { Link } from "@mui/material";
 
 export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, doScan, doScanNext }) {
   const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
@@ -66,7 +67,10 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>{showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}</TableCell>
         <TableCell component="th" scope="row">
-          <NavLink to={`/app/anime/${malId}`}>{title}</NavLink> {isFetching ? <CircularProgress /> : null}
+          <Link to={`/app/anime/${malId}`} component={NavLink}>
+            <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>{title}</div>
+          </Link>
+          {isFetching ? <CircularProgress /> : null}
         </TableCell>
         <TableCell component="th" scope="row">
           {type}

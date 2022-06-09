@@ -12,10 +12,11 @@ const App = () => {
       <StyledEngineProvider injectFirst>
         <Box
           sx={{
-            height: "95vh",
-            display: "flex",
+            position: "absolute",
             width: "100%",
-
+            minHeight: "100%",
+            top: 0,
+            left: 0,
             bgcolor: "background.default",
             color: "text.primary"
           }}>
