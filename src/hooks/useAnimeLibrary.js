@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AnimeServices from "services/AnimeServices";
 import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
 
@@ -17,9 +17,14 @@ export default function useAnimeLibrary(malId) {
 
   const updateAnime = updatedAnime => setAnime(anime => ({ ...anime, ...updatedAnime }));
 
+  const updateAnimeInfos = useCallback(() => {
+    AnimeServices.update(malId).then(updateAnime);
+  }, []);
+
   return {
     anime,
     isFetching,
-    updateAnime
+    updateAnime,
+    updateAnimeInfos
   };
 }
