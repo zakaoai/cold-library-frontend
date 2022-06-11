@@ -28,11 +28,7 @@ const AnimeServices = {
     const urlSearch = `${path}/search/${search}`;
     return fetch(urlSearch, getOptions).then(data => data.json());
   },
-  getAll: () => {
-    return fetch(path, getOptions).then(data => {
-      return data.json();
-    });
-  },
+  getAll: () => fetch(path, getOptions).then(data => data.json()),
   get: malId => {
     const urlSearch = `${path}/${malId}`;
     return fetch(urlSearch, getOptions).then(data => {
@@ -62,7 +58,8 @@ const AnimeServices = {
   updateIsComplete: (malId, isComplete) => {
     const urlSearch = `${path}/${malId}/is_complete`;
     return fetch(urlSearch, putOptions(isComplete)).then(data => data.json());
-  }
+  },
+  update: malId => fetch(`${path}/${malId}/update`, getOptions).then(data => data.json())
 };
 
 export default AnimeServices;
