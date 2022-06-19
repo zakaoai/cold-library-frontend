@@ -79,7 +79,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
     ) {
       setIsFetching(true);
       AnimeTorrentEpisodeService.scanNextEpisodeTorrent(malId)
-        .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
+        .then(episode => episode && setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
         .finally(() => setIsFetching(false));
     }
   }, [lastEpisodeOnServer, episodes, setEpisodes, setIsFetching]);
