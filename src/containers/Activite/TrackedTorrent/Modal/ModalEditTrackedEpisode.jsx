@@ -17,11 +17,11 @@ import FilterHeaderCell from "components/FilterHeaderCell/FilterHeaderCell";
 import useAlternateTrackedTorrentEpisode from "hooks/useAlternateTrackedTorrentEpisode";
 import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine";
 
-export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose, updateTrackedEpisode }) {
+export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose }) {
   const { episodeNumber } = trackedEpisode;
   const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue } = useAlternateTrackedTorrentEpisode(
     trackedEpisode,
-    updateTrackedEpisode,
+
     handleClose
   );
 
@@ -45,7 +45,11 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
       <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
       <DialogContent>
         <TableContainer component={Paper}>
-          <AlternateTrackedEpisodeLine trackedEpisode={trackedEpisode} />
+          <Table>
+            <TableBody>
+              <AlternateTrackedEpisodeLine trackedEpisode={trackedEpisode} />
+            </TableBody>
+          </Table>
         </TableContainer>
         <Paper sx={{ width: "100%", marginBottom: "16px" }}>
           <TableContainer component={Paper}>
