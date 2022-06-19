@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import IconButton from "@mui/material/IconButton";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
@@ -19,13 +19,30 @@ import { NavLink } from "react-router-dom";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import SavedSearchIcon from "@mui/icons-material/SavedSearch";
 import { Link } from "@mui/material";
+import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
+import { TrackedTorrentRowProvider } from "context/TrackedTorrentRowContext";
 
-export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, doScan, doScanNext }) {
+export default function TrackedTorrentRow({ trackedTorrent }) {
+  const {
+    doScan,
+    doScanNext,
+    setEditableTrackedAnime,
+    setShowModal: setShowModalTrackedAnime
+  } = useTrackedTorrentContext();
+
   const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
 
+  const editTrackedAnime = useCallback(
+    trackedTorrent => {
+      setEditableTrackedAnime(trackedTorrent);
+      setShowModalTrackedAnime(true);
+    },
+    [setEditableTrackedAnime, setShowModalTrackedAnime]
+  );
+
   const [open, setOpen] = useState(false);
-  const [showModal, setShowModal] = useState(false);
-  const [selectedEpisodeAlternate, setselectedEpisodeAlternate] = useState(undefined);
+  const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false);
+  const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState(undefined);
 
   const { episodes, isFetching, scanEpisodes, scanNextEpisode, patchTrackedAnimeEpisode, searchPack, deleteTorrent } =
     useTrackedTorrentEpisodes(malId, lastEpisodeOnServer);
@@ -42,11 +59,6 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
     }
   }, [doScanNext]);
 
-  const searchAlternateTorrent = torrent => {
-    setselectedEpisodeAlternate(torrent);
-    setShowModal(true);
-  };
-
   const showedTorrents = episodes.filter(
     ({ episodeNumber }) => episodeNumber >= lastEpisodeOnServer || episodeNumber === 0
   );
@@ -57,13 +69,20 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
 
   const isPackInList = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1;
 
-  const handleCloseEp = () => {
-    setShowModal(false);
-    setselectedEpisodeAlternate(undefined);
-  };
+  const handleCloseEpAlternateModal = useCallback(() => {
+    setShowModalAlternateEpisode(false);
+    setSelectedEpisodeAlternate(undefined);
+  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate]);
 
   return (
-    <>
+    <TrackedTorrentRowProvider
+      value={{
+        trackedTorrent,
+        deleteTorrent,
+        setSelectedEpisodeAlternate,
+        setShowModalAlternateEpisode,
+        patchTrackedAnimeEpisode
+      }}>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell>{showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}</TableCell>
         <TableCell component="th" scope="row">
@@ -111,23 +130,15 @@ export default function TrackedTorrentRow({ trackedTorrent, editTrackedAnime, do
           )}
         </TableCell>
       </TableRow>
-      {showedTorrents.length !== 0 && (
-        <AnimeTorrentEpisodeTable
-          torrents={showedTorrents}
-          listOpen={open}
-          searchAlternate={searchAlternateTorrent}
-          deleteTorrent={deleteTorrent}
-        />
-      )}
+      {showedTorrents.length !== 0 && <AnimeTorrentEpisodeTable torrents={showedTorrents} listOpen={open} />}
       {selectedEpisodeAlternate && (
         <ModalEditTrackedEpisode
-          handleClose={handleCloseEp}
-          open={showModal}
+          handleClose={handleCloseEpAlternateModal}
+          open={showModalAlternateEpisode}
           trackedEpisode={selectedEpisodeAlternate}
-          updateTrackedEpisode={patchTrackedAnimeEpisode}
         />
       )}
-    </>
+    </TrackedTorrentRowProvider>
   );
 }
 

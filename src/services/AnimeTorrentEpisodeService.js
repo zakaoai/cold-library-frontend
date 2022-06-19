@@ -46,7 +46,12 @@ const AnimeTorrentEpisodeService = {
   },
   scanNextEpisodeTorrent: malId => {
     const url = `${path(malId)}/scanNext`;
-    return fetch(url, getOptions).then(data => data.json());
+    return fetch(url, getOptions)
+      .then(data => data.json())
+      .catch(a =>
+        // TODO: handle error le temps de setup la 204
+        console.log(a)
+      );
   },
   deleteTorrent: (malId, episodeNumber) => {
     const url = `${path(malId)}/${episodeNumber}`;

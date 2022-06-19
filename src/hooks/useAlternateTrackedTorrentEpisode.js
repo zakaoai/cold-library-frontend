@@ -1,9 +1,11 @@
+import { useTrackedTorrentRowContext } from "context/TrackedTorrentRowContext";
 import AnimeTorrentEpisodeService from "services/AnimeTorrentEpisodeService";
 import { formatByteSize, getBytesSize } from "utils/byteSize";
 
 const { useState, useEffect } = require("react");
 
-const useAlternateTrackedTorrentEpisode = (trackedEpisode, updateTrackedEpisode, handleClose) => {
+const useAlternateTrackedTorrentEpisode = (trackedEpisode, handleClose) => {
+  const { patchTrackedAnimeEpisode: updateTrackedEpisode } = useTrackedTorrentRowContext();
   const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState([]);
 
   const [selectedValue, setSelectedValue] = useState(undefined);

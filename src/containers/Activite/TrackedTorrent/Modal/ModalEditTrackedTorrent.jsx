@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -8,10 +8,21 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import { Controller, useForm } from "react-hook-form";
 import Box from "@mui/material/Box";
+import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
+import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
 
-export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, handleClose, updateTrackedAnime }) {
+export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, handleClose }) {
   const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = trackedTorrent;
 
+  const { updateTrackedAnime: patchAnime } = useTrackedTorrentContext();
+
+  const updateTrackedAnime = useCallback(
+    trackedAnime =>
+      TrackedAnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
+        patchAnime(newTrackedAnime)
+      ),
+    [patchAnime]
+  );
   const defaultValues = {
     searchWords,
     lastEpisodeOnServer,
@@ -24,10 +35,14 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
     handleSubmit,
     formState: { errors }
   } = useForm({ defaultValues });
-  const onSubmit = ({ searchWords, dayOfRelease, lastEpisodeOnServer }) => {
-    updateTrackedAnime({ ...trackedTorrent, searchWords, dayOfRelease, lastEpisodeOnServer });
-    handleClose();
-  };
+
+  const onSubmit = useCallback(
+    ({ searchWords, dayOfRelease, lastEpisodeOnServer }) => {
+      updateTrackedAnime({ ...trackedTorrent, searchWords, dayOfRelease, lastEpisodeOnServer });
+      handleClose();
+    },
+    [updateTrackedAnime, trackedTorrent, handleClose]
+  );
 
   const days = [
     { value: undefined, libelle: "Choisir un jour" },

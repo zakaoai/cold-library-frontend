@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import { DateTime } from "luxon";
@@ -8,16 +8,47 @@ import InfoIcon from "@mui/icons-material/Info";
 import SearchIcon from "@mui/icons-material/Search";
 import { Typography } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useTrackedTorrentRowContext } from "context/TrackedTorrentRowContext";
+import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
+import Link from "@mui/material/Link";
+import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
 
-export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent, searchAlternate, deleteTorrent }) {
+export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
   const { episodeNumber, title, date, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent;
+
+  const { updateTrackedAnime } = useTrackedTorrentContext();
+
+  const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode, deleteTorrent, trackedTorrent } =
+    useTrackedTorrentRowContext();
+
+  const updateTrackedAnimeEpisode = useCallback(
+    episodeNumber => {
+      TrackedAnimeTorrentService.update(trackedTorrent.malId, {
+        ...trackedTorrent,
+        lastEpisodeOnServer: episodeNumber
+      }).then(updatedAnime => updateTrackedAnime(updatedAnime));
+    },
+    [updateTrackedAnime]
+  );
+
+  const searchAlternate = torrent => {
+    setSelectedEpisodeAlternate(torrent);
+    setShowModalAlternateEpisode(true);
+  };
 
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
   return (
     <TableRow key={animeEpisodeTorrent.torrentId}>
       <TableCell component="th" scope="row">
-        {episodeNumber}
+        <Link
+          component="button"
+          variant="body2"
+          onClick={() => {
+            updateTrackedAnimeEpisode(episodeNumber);
+          }}>
+          {episodeNumber}
+        </Link>
       </TableCell>
       <TableCell>
         <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>

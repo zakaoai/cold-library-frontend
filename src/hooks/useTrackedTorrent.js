@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import AnimeServices from "services/AnimeServices";
 import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
 
@@ -24,12 +24,15 @@ export default function useTrackedTorrent() {
       .finally(() => setIsFetching(false));
   }, []);
 
-  const updateTrackedAnime = updatedTrackedAnime =>
-    setTrackedTorrents(trackedAnimes =>
-      trackedAnimes.map(trackedAnime =>
-        trackedAnime.malId === updatedTrackedAnime.malId ? { ...trackedAnime, ...updatedTrackedAnime } : trackedAnime
-      )
-    );
+  const updateTrackedAnime = useCallback(
+    updatedTrackedAnime =>
+      setTrackedTorrents(trackedAnimes =>
+        trackedAnimes.map(trackedAnime =>
+          trackedAnime.malId === updatedTrackedAnime.malId ? { ...trackedAnime, ...updatedTrackedAnime } : trackedAnime
+        )
+      ),
+    [setTrackedTorrents]
+  );
 
   return { trackedTorrents, isFetching, updateTrackedAnime };
 }
