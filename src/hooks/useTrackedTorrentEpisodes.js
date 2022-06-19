@@ -22,48 +22,67 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
     });
   }, []);
 
-  const patchTrackedAnimeEpisode = animeEpisodeTorrent =>
-    AnimeTorrentEpisodeService.replaceEpisodeTorrent(malId, animeEpisodeTorrent).then(updatedEpisode =>
-      setEpisodes(episodes => [
-        ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
-        formatEpisode(updatedEpisode)
-      ])
-    );
+  const patchTrackedAnimeEpisode = useCallback(
+    animeEpisodeTorrent => {
+      if (!isFetching) {
+        setIsFetching(true);
+        AnimeTorrentEpisodeService.replaceEpisodeTorrent(malId, animeEpisodeTorrent)
+          .then(updatedEpisode =>
+            setEpisodes(episodes => [
+              ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
+              formatEpisode(updatedEpisode)
+            ])
+          )
+          .finally(() => setIsFetching(false));
+      }
+    },
+    [isFetching, setEpisodes, setIsFetching]
+  );
 
-  const scanEpisodes = () => {
-    setIsFetching(true);
-    AnimeTorrentEpisodeService.scanEpisodeTorrent(malId)
-      .then(episodes =>
-        setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => formatEpisode(episode))])
-      )
-      .finally(() => setIsFetching(false));
-  };
+  const scanEpisodes = useCallback(() => {
+    if (!isFetching) {
+      setIsFetching(true);
+      AnimeTorrentEpisodeService.scanEpisodeTorrent(malId)
+        .then(episodes =>
+          setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => formatEpisode(episode))])
+        )
+        .finally(() => setIsFetching(false));
+    }
+  }, [isFetching, setEpisodes, setIsFetching]);
 
-  const searchPack = () => {
-    setIsFetching(true);
-    AnimeTorrentEpisodeService.scanPackTorrent(malId)
-      .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
-      .finally(() => setIsFetching(false));
-  };
+  const searchPack = useCallback(() => {
+    if (!isFetching) {
+      setIsFetching(true);
+      AnimeTorrentEpisodeService.scanPackTorrent(malId)
+        .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
+        .finally(() => setIsFetching(false));
+    }
+  }, [isFetching, setEpisodes, setIsFetching]);
 
-  const deleteTorrent = episodeNumber => {
-    setIsFetching(true);
-    AnimeTorrentEpisodeService.deleteTorrent(malId, episodeNumber)
-      .then(() => setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber)))
-      .finally(() => setIsFetching(false));
-  };
+  const deleteTorrent = useCallback(
+    episodeNumber => {
+      if (!isFetching) {
+        setIsFetching(true);
+        AnimeTorrentEpisodeService.deleteTorrent(malId, episodeNumber)
+          .then(() => setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber)))
+          .finally(() => setIsFetching(false));
+      }
+    },
+    [isFetching, setEpisodes, setIsFetching]
+  );
 
   const scanNextEpisode = useCallback(() => {
     if (
+      episodes.length === 0 ||
       episodes.sort((a, b) => a.episodeNumber - b.episodeNumber)[episodes.length - 1].episodeNumber ===
-      lastEpisodeOnServer
+        lastEpisodeOnServer
     ) {
       setIsFetching(true);
       AnimeTorrentEpisodeService.scanNextEpisodeTorrent(malId)
         .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
         .finally(() => setIsFetching(false));
     }
-  }, [lastEpisodeOnServer, episodes]);
+  }, [lastEpisodeOnServer, episodes, setEpisodes, setIsFetching]);
 
   return { episodes, isFetching, scanEpisodes, scanNextEpisode, patchTrackedAnimeEpisode, searchPack, deleteTorrent };
 };

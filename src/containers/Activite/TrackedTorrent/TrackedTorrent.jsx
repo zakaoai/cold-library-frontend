@@ -9,8 +9,8 @@ import Paper from "@mui/material/Paper";
 import useTrackedTorrent from "hooks/useTrackedTorrent";
 import TrackedTorrentRow from "./Table/TrackedTorrentRow";
 import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
-import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
 import TrackedTorrentBar from "./TrackedTorrentBar";
+import { TrackedTorrentProvider } from "context/TrackedTorrentContext";
 
 /**
  * Activité
@@ -19,6 +19,7 @@ export default function TrackedTorrent() {
   const { trackedTorrents, updateTrackedAnime } = useTrackedTorrent();
   const [showModal, setShowModal] = useState(false);
   const [doScan, setDoScan] = useState(undefined);
+  const [doScanNext, setDoScanNext] = useState(undefined);
 
   const [editableTrackedAnime, setEditableTrackedAnime] = useState(undefined);
 
@@ -27,21 +28,20 @@ export default function TrackedTorrent() {
     setEditableTrackedAnime(undefined);
   };
 
-  const editTrackedAnime = trackedTorrent => {
-    setEditableTrackedAnime(trackedTorrent);
-    setShowModal(true);
-  };
-
-  const patchTrackedAnime = trackedAnime =>
-    TrackedAnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
-      updateTrackedAnime(newTrackedAnime)
-    );
-
   return (
-    <>
-      <TrackedTorrentBar scanAll={() => setDoScan(a => !a)} />
+    <TrackedTorrentProvider
+      value={{
+        updateTrackedAnime,
+        doScan,
+        setDoScan,
+        doScanNext,
+        setDoScanNext,
+        setEditableTrackedAnime,
+        setShowModal
+      }}>
+      <TrackedTorrentBar />
       <TableContainer component={Paper}>
-        <Table aria-label="collapsible table">
+        <Table>
           <TableHead>
             <TableRow>
               <TableCell />
@@ -55,24 +55,14 @@ export default function TrackedTorrent() {
           </TableHead>
           <TableBody>
             {trackedTorrents.map(trackedTorrent => (
-              <TrackedTorrentRow
-                key={trackedTorrent.malId}
-                trackedTorrent={trackedTorrent}
-                editTrackedAnime={editTrackedAnime}
-                doScan={doScan}
-              />
+              <TrackedTorrentRow key={trackedTorrent.malId} trackedTorrent={trackedTorrent} />
             ))}
           </TableBody>
         </Table>
       </TableContainer>
       {editableTrackedAnime && (
-        <ModalEditTrackedTorrent
-          handleClose={handleClose}
-          open={showModal}
-          trackedTorrent={editableTrackedAnime}
-          updateTrackedAnime={patchTrackedAnime}
-        />
+        <ModalEditTrackedTorrent handleClose={handleClose} open={showModal} trackedTorrent={editableTrackedAnime} />
       )}
-    </>
+    </TrackedTorrentProvider>
   );
 }

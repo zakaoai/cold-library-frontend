@@ -6,7 +6,7 @@ const path = malId => `${API_BASE_URL}/anime/${malId}/episodes`;
 const AnimeEpisodeService = {
   getAll: malId =>
     get(path(malId)).catch(a => {
-      console.log("Erreur de récupération des épisodes", a);
+      console.error("Erreur de récupération des épisodes", a);
       throw a;
     })
 };
