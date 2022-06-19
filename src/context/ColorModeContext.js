@@ -1,12 +1,15 @@
 import React, { createContext, useContext, useMemo, useState } from "react";
-
+import useMediaQuery from "@mui/material/useMediaQuery";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const ColorModeContext = createContext(null);
 
 export const ColorModeProvider = ({ children }) => {
-  const [colorMode, setColorMode] = useState("light");
-  console.log("🚀 ~ file: ColorModeContext.js ~ line 9 ~ ColorModeProvider ~ colorMode", colorMode);
+  const prefersLightMode = useMediaQuery("(prefers-color-scheme: light)");
+
+  const defaultColorMode = useMemo(() => (prefersLightMode ? "light" : "dark"), [prefersLightMode]);
+
+  const [colorMode, setColorMode] = useState(defaultColorMode);
 
   const toggleColorMode = () => {
     setColorMode(colorMode === "light" ? "dark" : "light");
