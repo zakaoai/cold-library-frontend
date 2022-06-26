@@ -19,11 +19,12 @@ import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine";
 
 export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose }) {
   const { episodeNumber } = trackedEpisode;
-  const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue } = useAlternateTrackedTorrentEpisode(
-    trackedEpisode,
+  const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue, updatedTrackedEpisode } =
+    useAlternateTrackedTorrentEpisode(
+      trackedEpisode,
 
-    handleClose
-  );
+      handleClose
+    );
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(alternateTrackedEpisodes);
@@ -47,7 +48,7 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
         <TableContainer component={Paper}>
           <Table>
             <TableBody>
-              <AlternateTrackedEpisodeLine trackedEpisode={trackedEpisode} />
+              <AlternateTrackedEpisodeLine trackedEpisode={updatedTrackedEpisode} />
             </TableBody>
           </Table>
         </TableContainer>
