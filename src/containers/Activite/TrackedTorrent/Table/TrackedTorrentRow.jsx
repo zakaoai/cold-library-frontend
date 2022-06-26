@@ -44,8 +44,16 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
   const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false);
   const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState(undefined);
 
-  const { episodes, isFetching, scanEpisodes, scanNextEpisode, patchTrackedAnimeEpisode, searchPack, deleteTorrent } =
-    useTrackedTorrentEpisodes(malId, lastEpisodeOnServer);
+  const {
+    episodes,
+    isFetching,
+    scanEpisodes,
+    scanNextEpisode,
+    patchTrackedAnimeEpisode,
+    searchPack,
+    deleteTorrent,
+    setEpisodes
+  } = useTrackedTorrentEpisodes(malId, lastEpisodeOnServer);
 
   useEffect(() => {
     if (doScan != undefined) {
@@ -77,6 +85,7 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
   return (
     <TrackedTorrentRowProvider
       value={{
+        setEpisodes,
         trackedTorrent,
         deleteTorrent,
         setSelectedEpisodeAlternate,

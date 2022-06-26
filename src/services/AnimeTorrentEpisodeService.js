@@ -56,6 +56,10 @@ const AnimeTorrentEpisodeService = {
   deleteTorrent: (malId, episodeNumber) => {
     const url = `${path(malId)}/${episodeNumber}`;
     return fetch(url, deleteOptions);
+  },
+  updateTorrent: (malId, episodeNumber) => {
+    const url = `${path(malId)}/${episodeNumber}/update`;
+    return fetch(url, getOptions).then(data => data.json());
   }
 };
 
