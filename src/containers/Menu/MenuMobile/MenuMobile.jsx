@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AppBar from "@mui/material/AppBar";
 import { useLocation } from "react-router-dom";
-import { Box, Hidden, IconButton, Tab, Toolbar } from "@mui/material";
+import { Box, IconButton, Paper, Tab, Toolbar } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import { useTheme } from "@mui/material/styles";
 import { useColorMode } from "context/ColorModeContext";
@@ -22,7 +22,7 @@ const MenuMobile = ({ links }) => {
   const handleClose = () => setOpen(false);
 
   return (
-    <Hidden mdUp>
+    <Paper sx={{ display: { xs: "block", md: "none" } }}>
       <AppBar position="static" style={{ marginBottom: 10 }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => setOpen(true)} size="large">
@@ -41,7 +41,7 @@ const MenuMobile = ({ links }) => {
         </Toolbar>
       </AppBar>
       <MenuMobileDrawer open={open} links={links} handleClose={handleClose} />
-    </Hidden>
+    </Paper>
   );
 };
 

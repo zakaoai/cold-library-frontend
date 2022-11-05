@@ -1,4 +1,4 @@
-import { AppBar, Box, Hidden, Tab, Tabs } from "@mui/material";
+import { AppBar, Box, Paper, Tab, Tabs } from "@mui/material";
 import React from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
@@ -16,7 +16,7 @@ const MenuDesktop = ({ links }) => {
   const { toggleColorMode } = useColorMode();
 
   return (
-    <Hidden mdDown>
+    <Paper sx={{ display: { xs: "none", md: "block" } }}>
       <AppBar position="static" style={{ marginBottom: 10 }}>
         <Tabs aria-label="simple tabs example" value={tabsValue} indicatorColor="secondary" textColor="inherit">
           {links.map(link => (
@@ -29,7 +29,7 @@ const MenuDesktop = ({ links }) => {
           </Box>
         </Tabs>
       </AppBar>
-    </Hidden>
+    </Paper>
   );
 };
 
