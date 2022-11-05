@@ -1,44 +1,29 @@
-import React, { useState, useEffect, useCallback } from "react";
-import IconButton from "@mui/material/IconButton";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
+
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+
 import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
-import SearchIcon from "@mui/icons-material/Search";
-import EditIcon from "@mui/icons-material/Edit";
 import DayOfWeek from "constants/DayOfWeek";
 import useTrackedTorrentEpisodes from "hooks/useTrackedTorrentEpisodes";
 import CircularProgress from "@mui/material/CircularProgress";
-import FiberNewIcon from "@mui/icons-material/FiberNew";
-import { green } from "@mui/material/colors";
+
 import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import Tooltip from "@mui/material/Tooltip";
+
 import { NavLink } from "react-router-dom";
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import SavedSearchIcon from "@mui/icons-material/SavedSearch";
-import { Link } from "@mui/material";
+
+import { Link, useMediaQuery } from "@mui/material";
 import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
 import { TrackedTorrentRowProvider } from "context/TrackedTorrentRowContext";
+import TrackedTorrentActions from "./TrackedTorrentActions";
+import ArrowCollapse from "components/ArrowCollapse/ArrowCollapse";
+
+import { useTheme } from "@emotion/react";
 
 export default function TrackedTorrentRow({ trackedTorrent }) {
-  const {
-    doScan,
-    doScanNext,
-    setEditableTrackedAnime,
-    setShowModal: setShowModalTrackedAnime
-  } = useTrackedTorrentContext();
+  const { doScan, doScanNext } = useTrackedTorrentContext();
 
-  const { title, dayOfRelease, lastEpisodeOnServer, searchWords, type, malId, nbEpisodes } = trackedTorrent;
-
-  const editTrackedAnime = useCallback(
-    trackedTorrent => {
-      setEditableTrackedAnime(trackedTorrent);
-      setShowModalTrackedAnime(true);
-    },
-    [setEditableTrackedAnime, setShowModalTrackedAnime]
-  );
+  const { lastEpisodeOnServer, malId } = trackedTorrent;
 
   const [open, setOpen] = useState(false);
   const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false);
@@ -67,20 +52,18 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
     }
   }, [doScanNext]);
 
-  const showedTorrents = episodes.filter(
-    ({ episodeNumber }) => episodeNumber >= lastEpisodeOnServer || episodeNumber === 0
+  const showedTorrents = useMemo(
+    () => episodes.filter(({ episodeNumber }) => episodeNumber >= lastEpisodeOnServer || episodeNumber === 0),
+    [episodes, lastEpisodeOnServer]
   );
-
-  const isNewEpisode = showedTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0;
-
-  const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) !== -1;
-
-  const isPackInList = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1;
 
   const handleCloseEpAlternateModal = useCallback(() => {
     setShowModalAlternateEpisode(false);
     setSelectedEpisodeAlternate(undefined);
   }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate]);
+
+  const theme = useTheme();
+  const isUpToMd = useMediaQuery(theme.breakpoints.up("md"));
 
   return (
     <TrackedTorrentRowProvider
@@ -90,55 +73,30 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
         deleteTorrent,
         setSelectedEpisodeAlternate,
         setShowModalAlternateEpisode,
-        patchTrackedAnimeEpisode
+        patchTrackedAnimeEpisode,
+        searchPack,
+        showedTorrents
       }}>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell>{showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}</TableCell>
-        <TableCell component="th" scope="row">
-          <Link to={`/app/anime/${malId}`} component={NavLink}>
-            <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>{title}</div>
-          </Link>
-          {isFetching ? <CircularProgress /> : null}
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {type}
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {lastEpisodeOnServer}
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {searchWords}
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {DayOfWeek[dayOfRelease]}
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {!isPackInList && (
-            <IconButton aria-label="download pack" onClick={() => searchPack()} size="large">
-              <CreateNewFolderIcon />
-            </IconButton>
-          )}
-          <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)} size="large">
-            <EditIcon />
-          </IconButton>
-          <IconButton aria-label="scan all" onClick={() => scanEpisodes()} size="large">
-            <SearchIcon />
-          </IconButton>
-          <IconButton aria-label="scan next" onClick={() => scanNextEpisode()} size="large">
-            <SavedSearchIcon />
-          </IconButton>
-          {isNewEpisode && (
-            <Tooltip title="New">
-              <FiberNewIcon fontSize="large" style={{ color: green[500] }} />
-            </Tooltip>
-          )}
-          {isComplete && (
-            <Tooltip title="Complete">
-              <DoneAllIcon alt="Complete" fontSize="large" style={{ color: green[500] }} />
-            </Tooltip>
-          )}
-        </TableCell>
-      </TableRow>
+      {isUpToMd && (
+        <TrackedTorrentRowDesktop
+          showedTorrents={showedTorrents}
+          open={open}
+          setOpen={setOpen}
+          isFetching={isFetching}
+          {...trackedTorrent}
+        />
+      )}
+
+      {!isUpToMd && (
+        <TrackedTorrentRowMobile
+          showedTorrents={showedTorrents}
+          open={open}
+          setOpen={setOpen}
+          isFetching={isFetching}
+          {...trackedTorrent}
+        />
+      )}
+
       {showedTorrents.length !== 0 && <AnimeTorrentEpisodeTable torrents={showedTorrents} listOpen={open} />}
       {selectedEpisodeAlternate && (
         <ModalEditTrackedEpisode
@@ -151,10 +109,114 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
   );
 }
 
-function ArrowCollapse({ open, setOpen }) {
-  return (
-    <IconButton aria-label="expand row" size="small" onClick={() => setOpen(!open)}>
-      {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
-    </IconButton>
-  );
-}
+const TrackedTorrentRowMobile = ({
+  showedTorrents,
+  open,
+  setOpen,
+  malId,
+  title,
+  isFetching,
+  type,
+  lastEpisodeOnServer,
+  searchWords,
+  dayOfRelease
+}) => (
+  <>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell component="th" scope="row">
+        Anime
+      </TableCell>
+      <TableCell component="th" scope="row">
+        <Link to={`/app/anime/${malId}`} component={NavLink}>
+          <div style={{ overflow: "hidden", textOverflow: "ellipsis" }}>{title}</div>
+        </Link>
+        {isFetching ? <CircularProgress /> : null}
+      </TableCell>
+    </TableRow>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell component="th" scope="row">
+        Type
+      </TableCell>
+      <TableCell component="th" scope="row">
+        {type}
+      </TableCell>
+    </TableRow>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell component="th" scope="row">
+        Last ep
+      </TableCell>
+      <TableCell component="th" scope="row">
+        {lastEpisodeOnServer}
+      </TableCell>
+    </TableRow>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell component="th" scope="row">
+        Mots recherché
+      </TableCell>
+      <TableCell component="th" scope="row">
+        {searchWords}
+      </TableCell>
+    </TableRow>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell component="th" scope="row">
+        Jour de sortie
+      </TableCell>
+      <TableCell component="th" scope="row">
+        {DayOfWeek[dayOfRelease]}
+      </TableCell>
+    </TableRow>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell component="th" scope="row">
+        Actions
+      </TableCell>
+      <TableCell component="th" scope="row">
+        <TrackedTorrentActions />
+      </TableCell>
+    </TableRow>
+    <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+      <TableCell colSpan={2}>
+        {showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}
+      </TableCell>
+    </TableRow>
+  </>
+);
+
+const TrackedTorrentRowDesktop = ({
+  showedTorrents,
+  setOpen,
+  open,
+  malId,
+  title,
+  isFetching,
+  type,
+  lastEpisodeOnServer,
+  searchWords,
+  dayOfRelease
+}) => (
+  <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
+    <TableCell component="th">
+      {showedTorrents.length !== 0 && <ArrowCollapse open={open} setOpen={setOpen} />}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      <Link to={`/app/anime/${malId}`} component={NavLink}>
+        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>{title}</div>
+      </Link>
+      {isFetching ? <CircularProgress /> : null}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      {type}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      {lastEpisodeOnServer}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      {searchWords}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      {DayOfWeek[dayOfRelease]}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      <TrackedTorrentActions />
+    </TableCell>
+  </TableRow>
+);
