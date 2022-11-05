@@ -15,7 +15,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
         <Collapse in={listOpen} timeout="auto" unmountOnExit>
           <Box margin={1}>
             <Table size="small" aria-label="purchases">
-              <TableHead>
+              <TableHead sx={{ display: { xs: "none", md: "revert" } }}>
                 <TableRow>
                   <TableCell>Episode</TableCell>
                   <TableCell>Titre</TableCell>

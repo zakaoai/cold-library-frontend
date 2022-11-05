@@ -12,58 +12,161 @@ import { useTrackedTorrentRowContext } from "context/TrackedTorrentRowContext";
 import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
 import Link from "@mui/material/Link";
 import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
+import useMediaQuery from "@mui/material/useMediaQuery";
+import { useTheme } from "@emotion/react";
 
 export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
-  const { episodeNumber, title, date, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
-    animeEpisodeTorrent;
+  const { episodeNumber, torrentId } = animeEpisodeTorrent;
 
   const { updateTrackedAnime } = useTrackedTorrentContext();
 
   const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode, deleteTorrent, trackedTorrent } =
     useTrackedTorrentRowContext();
 
-  const updateTrackedAnimeEpisode = useCallback(
-    episodeNumber => {
-      TrackedAnimeTorrentService.update(trackedTorrent.malId, {
-        ...trackedTorrent,
-        lastEpisodeOnServer: episodeNumber
-      }).then(updatedAnime => updateTrackedAnime(updatedAnime));
-    },
-    [updateTrackedAnime]
-  );
+  const updateTrackedAnimeEpisode = useCallback(() => {
+    TrackedAnimeTorrentService.update(trackedTorrent.malId, {
+      ...trackedTorrent,
+      lastEpisodeOnServer: episodeNumber
+    }).then(updatedAnime => updateTrackedAnime(updatedAnime));
+  }, [updateTrackedAnime, episodeNumber]);
 
-  const searchAlternate = torrent => {
-    setSelectedEpisodeAlternate(torrent);
+  const searchAlternate = useCallback(() => {
+    setSelectedEpisodeAlternate(animeEpisodeTorrent);
     setShowModalAlternateEpisode(true);
-  };
+  }, [setSelectedEpisodeAlternate, setShowModalAlternateEpisode, animeEpisodeTorrent]);
 
   const nyaaLink = `https://nyaa.si/view/${torrentId}`;
-  return (
-    <TableRow key={animeEpisodeTorrent.torrentId}>
+
+  const theme = useTheme();
+  const isUpToMd = useMediaQuery(theme.breakpoints.up("md"));
+
+  return isUpToMd ? (
+    <AnimeTorrentEpisodeRowDesktop
+      updateTrackedAnimeEpisode={updateTrackedAnimeEpisode}
+      searchAlternate={searchAlternate}
+      nyaaLink={nyaaLink}
+      deleteTorrent={deleteTorrent}
+      {...animeEpisodeTorrent}
+    />
+  ) : (
+    <AnimeTorrentEpisodeRowMobile
+      updateTrackedAnimeEpisode={updateTrackedAnimeEpisode}
+      searchAlternate={searchAlternate}
+      nyaaLink={nyaaLink}
+      deleteTorrent={deleteTorrent}
+      {...animeEpisodeTorrent}
+    />
+  );
+}
+
+const AnimeTorrentEpisodeRowDesktop = ({
+  updateTrackedAnimeEpisode,
+  searchAlternate,
+  deleteTorrent,
+  episodeNumber,
+  title,
+  date,
+  torrentLink,
+  torrentId,
+  displaySize,
+  leechers,
+  seeders,
+  completed,
+  nyaaLink
+}) => (
+  <TableRow key={torrentId}>
+    <TableCell component="th" scope="row">
+      <Link component="button" variant="body2" onClick={updateTrackedAnimeEpisode}>
+        {episodeNumber}
+      </Link>
+    </TableCell>
+    <TableCell>
+      <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>
+        <Typography>{title}</Typography>
+      </div>
+    </TableCell>
+    <TableCell align="right">{date && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
+    <TableCell component="th" scope="row">
+      {displaySize}
+    </TableCell>
+    <TableCell component="th" scope="row">
+      {leechers}/{seeders} ({completed})
+    </TableCell>
+    <TableCell align="right">
+      <IconButton aria-label="search alternate" onClick={searchAlternate} size="large">
+        <SearchIcon />
+      </IconButton>
+      <IconButton aria-label="download" href={torrentLink} alt={`Download Torrent ${torrentId}`} size="large">
+        <GetAppIcon />
+      </IconButton>
+      <IconButton aria-label="torrent info" href={nyaaLink} alt={`Infos Torrent ${torrentId}`} size="large">
+        <InfoIcon />
+      </IconButton>
+      <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent(episodeNumber)} size="large">
+        <DeleteIcon />
+      </IconButton>
+    </TableCell>
+  </TableRow>
+);
+
+const AnimeTorrentEpisodeRowMobile = ({
+  updateTrackedAnimeEpisode,
+  searchAlternate,
+  deleteTorrent,
+  episodeNumber,
+  title,
+  date,
+  torrentLink,
+  torrentId,
+  displaySize,
+  leechers,
+  seeders,
+  completed,
+  nyaaLink
+}) => (
+  <>
+    <TableRow key={torrentId + "Episode"}>
       <TableCell component="th" scope="row">
-        <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            updateTrackedAnimeEpisode(episodeNumber);
-          }}>
+        Episode
+      </TableCell>
+      <TableCell component="th" scope="row">
+        <Link component="button" variant="body2" onClick={updateTrackedAnimeEpisode}>
           {episodeNumber}
         </Link>
       </TableCell>
+    </TableRow>
+    <TableRow key={torrentId + "Titre"}>
+      <TableCell>Titre</TableCell>
       <TableCell>
-        <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>
-          <Typography>{title}</Typography>
-        </div>
+        <Typography sx={{ overflow: "hidden", textOverflow: "ellipsis" }}>{title.replaceAll("_", " ")}</Typography>
       </TableCell>
-      <TableCell align="right">{date && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
+    </TableRow>
+    <TableRow key={torrentId + "Date"}>
+      <TableCell>Date</TableCell>
+      <TableCell>{date && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
+    </TableRow>
+    <TableRow key={torrentId + "Size"}>
+      <TableCell component="th" scope="row">
+        Size
+      </TableCell>
       <TableCell component="th" scope="row">
         {displaySize}
       </TableCell>
+    </TableRow>
+    <TableRow key={torrentId + "Traffic"}>
       <TableCell component="th" scope="row">
-        {leechers}/{seeders} ({completed})
+        Traffic
       </TableCell>
-      <TableCell align="right">
-        <IconButton aria-label="search alternate" onClick={() => searchAlternate(animeEpisodeTorrent)} size="large">
+      <TableCell component="th" scope="row">
+        {leechers} ↓ /{seeders} ↑ ({completed} 🗸)
+      </TableCell>
+    </TableRow>
+    <TableRow key={torrentId + "Actions"}>
+      <TableCell component="th" scope="row">
+        Actions
+      </TableCell>
+      <TableCell>
+        <IconButton aria-label="search alternate" onClick={searchAlternate} size="large">
           <SearchIcon />
         </IconButton>
         <IconButton aria-label="download" href={torrentLink} alt={`Download Torrent ${torrentId}`} size="large">
@@ -77,5 +180,5 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
         </IconButton>
       </TableCell>
     </TableRow>
-  );
-}
+  </>
+);

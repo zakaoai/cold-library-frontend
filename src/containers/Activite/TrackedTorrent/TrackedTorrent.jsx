@@ -11,6 +11,7 @@ import TrackedTorrentRow from "./Table/TrackedTorrentRow";
 import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
 import TrackedTorrentBar from "./TrackedTorrentBar";
 import { TrackedTorrentProvider } from "context/TrackedTorrentContext";
+import TrackedTorrentTable from "./Table/TrackedTorrentTable";
 
 /**
  * Activité
@@ -41,24 +42,7 @@ export default function TrackedTorrent() {
       }}>
       <TrackedTorrentBar />
       <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell>Anime</TableCell>
-              <TableCell>Type</TableCell>
-              <TableCell>Last ep</TableCell>
-              <TableCell>Mots recherché</TableCell>
-              <TableCell>Jour de sortie</TableCell>
-              <TableCell>Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {trackedTorrents.map(trackedTorrent => (
-              <TrackedTorrentRow key={trackedTorrent.malId} trackedTorrent={trackedTorrent} />
-            ))}
-          </TableBody>
-        </Table>
+        <TrackedTorrentTable trackedTorrents={trackedTorrents} />
       </TableContainer>
       {editableTrackedAnime && (
         <ModalEditTrackedTorrent handleClose={handleClose} open={showModal} trackedTorrent={editableTrackedAnime} />
