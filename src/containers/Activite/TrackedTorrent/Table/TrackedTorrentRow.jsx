@@ -75,7 +75,9 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
         setShowModalAlternateEpisode,
         patchTrackedAnimeEpisode,
         searchPack,
-        showedTorrents
+        showedTorrents,
+        scanEpisodes,
+        scanNextEpisode
       }}>
       {isUpToMd && (
         <TrackedTorrentRowDesktop
