@@ -1,12 +1,12 @@
-import React from "react";
-import { blue, red } from "@mui/material/colors";
-import FormGroup from "@mui/material/FormGroup";
-import Switch from "@mui/material/Switch";
-import Grid from "@mui/material/Grid";
-import Typography from "@mui/material/Typography";
+import StorageState from "@/constants/StorageState";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
-import StorageState from "constants/StorageState";
+import FormGroup from "@mui/material/FormGroup";
+import Grid from "@mui/material/Grid";
+import Switch from "@mui/material/Switch";
+import Typography from "@mui/material/Typography";
+import blue from "@mui/material/colors/blue";
+import red from "@mui/material/colors/red";
 import { styled } from "@mui/material/styles";
 
 const MaterialUISwitch = styled(Switch)(() => ({

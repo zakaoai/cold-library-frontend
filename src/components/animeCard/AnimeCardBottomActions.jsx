@@ -1,5 +1,4 @@
-import { Grid } from "@mui/material";
-import React from "react";
+import Grid from "@mui/material/Grid";
 import HotColdSwitch from "../HotColdSwitch/HotColdSwitch";
 import AnimeCardTrackedButton from "./AnimeCardTrackedButton";
 import AnimeCompleteButton from "./AnimeCompleteButton";

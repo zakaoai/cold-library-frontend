@@ -1,6 +1,6 @@
+import AnimeTorrentEpisodeService from "@/services/AnimeTorrentEpisodeService";
+import { formatEpisode } from "@/utils/torrentEpisode";
 import { useCallback, useEffect, useState } from "react";
-import AnimeTorrentEpisodeService from "services/AnimeTorrentEpisodeService";
-import { formatEpisode } from "utils/torrentEpisode";
 
 const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
   const [episodes, setEpisodes] = useState([]);

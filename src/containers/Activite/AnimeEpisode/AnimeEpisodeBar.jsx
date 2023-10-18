@@ -1,6 +1,5 @@
-import { AppBar, Box, Button, Grid } from "@mui/material";
-import React from "react";
 import SearchIcon from "@mui/icons-material/Search";
+import { AppBar, Box, Button, Grid } from "@mui/material";
 
 const AnimeEpisodeBar = ({ update }) => {
   return (

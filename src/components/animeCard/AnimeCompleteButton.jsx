@@ -1,7 +1,6 @@
-import React from "react";
-import { IconButton } from "@mui/material";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-import { green } from "@mui/material/colors";
+import IconButton from "@mui/material/IconButton";
+import green from "@mui/material/colors/green";
 
 function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete }) {
   const isDisabled = nbEpisodes === 0;

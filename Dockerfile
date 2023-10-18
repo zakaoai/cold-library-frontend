@@ -1,5 +1,5 @@
 #### Stage 1: Build the react application
-FROM node:16.2.0-alpine as build
+FROM node:lts-alpine as build
 
 RUN npm install -g npm@latest
 
@@ -12,20 +12,20 @@ WORKDIR /app
 # the dependencies. This is a separate step so the dependencies
 # will be cached unless changes to one of those two files
 # are made.
-COPY package.json package-lock.json ./
-RUN npm install
+COPY package.json yarn.lock ./
+RUN yarn install
 
 # Copy the main application
 COPY . ./
 
 # Build the application
-RUN npm run build
+RUN yarn run build
 
 #### Stage 2: Serve the React application from Nginx
-FROM nginx:1.20.0-alpine
+FROM nginx:alpine-slim
 
 # Copy the react build from Stage 1
-COPY --from=build /app/build /var/www
+COPY --from=build /app/dist /var/www
 
 # Copy our custom nginx config
 COPY nginx.conf /etc/nginx/nginx.conf

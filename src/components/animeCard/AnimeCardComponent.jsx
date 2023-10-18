@@ -1,13 +1,12 @@
-import React from "react";
 import Card from "@mui/material/Card";
-import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
-import AnimeCardImage from "./AnimeCardImage";
-import AnimeCardEpisodeNumber from "./AnimeCardEpisodeNumber";
-import AnimeCardTitle from "./AnimeCardTitle";
+import CardHeader from "@mui/material/CardHeader";
 import AnimeCardAvatar from "./AnimeCardAvatar";
-import AnimeCardHeaderActions from "./AnimeCardHeaderActions";
 import AnimeCardBottomActions from "./AnimeCardBottomActions";
+import AnimeCardEpisodeNumber from "./AnimeCardEpisodeNumber";
+import AnimeCardHeaderActions from "./AnimeCardHeaderActions";
+import AnimeCardImage from "./AnimeCardImage";
+import AnimeCardTitle from "./AnimeCardTitle";
 
 export default function AnimeCardComponent({
   anime,

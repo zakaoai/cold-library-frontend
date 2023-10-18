@@ -1,5 +1,5 @@
-import React from "react";
-const { TableCell, TableSortLabel } = require("@mui/material");
+import TableCell from "@mui/material/TableCell";
+import TableSortLabel from "@mui/material/TableSortLabel";
 
 const FilterHeaderCell = ({ id, filter, label, orderBy, order, sortBy }) => {
   return (

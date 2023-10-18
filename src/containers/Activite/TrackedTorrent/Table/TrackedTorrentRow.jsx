@@ -1,22 +1,22 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
-import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
-import DayOfWeek from "constants/DayOfWeek";
-import useTrackedTorrentEpisodes from "hooks/useTrackedTorrentEpisodes";
+import DayOfWeek from "@/constants/DayOfWeek";
+import useTrackedTorrentEpisodes from "@/hooks/useTrackedTorrentEpisodes";
 import CircularProgress from "@mui/material/CircularProgress";
+import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
 
 import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
 
 import { NavLink } from "react-router-dom";
 
+import ArrowCollapse from "@/components/ArrowCollapse/ArrowCollapse";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
+import { TrackedTorrentRowProvider } from "@/context/TrackedTorrentRowContext";
 import { Link, useMediaQuery } from "@mui/material";
-import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
-import { TrackedTorrentRowProvider } from "context/TrackedTorrentRowContext";
 import TrackedTorrentActions from "./TrackedTorrentActions";
-import ArrowCollapse from "components/ArrowCollapse/ArrowCollapse";
 
 import { useTheme } from "@emotion/react";
 

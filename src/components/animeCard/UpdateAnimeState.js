@@ -1,5 +1,5 @@
-const { default: AnimeServices } = require("services/AnimeServices");
-const { default: TrackedAnimeTorrentService } = require("services/TrackedAnimeTorrentService");
+import AnimeServices from "@/services/AnimeServices";
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
 
 const updateAnimeState = (malId, defaultAnime, updateAnime) => {
   const setLastAvaibleEpisode = LastAvaibleEpisode =>

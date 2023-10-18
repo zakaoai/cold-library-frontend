@@ -1,10 +1,9 @@
-import React from "react";
 import Grid from "@mui/material/Grid";
 
-import useLibrary from "hooks/useLibrary";
-import AnimeWrapper from "components/animeCard/AnimeWrapper";
+import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
+import useAnimeLibraryFilter from "@/hooks/useAnimeLibraryFilter";
+import useLibrary from "@/hooks/useLibrary";
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar";
-import useAnimeLibraryFilter from "hooks/useAnimeLibraryFilter";
 
 /**
  * Activité

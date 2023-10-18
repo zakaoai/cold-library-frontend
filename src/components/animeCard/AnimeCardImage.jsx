@@ -1,6 +1,5 @@
-import React from "react";
-import { CardMedia } from "@mui/material";
-import { Skeleton } from "@mui/material";
+import CardMedia from "@mui/material/CardMedia";
+import Skeleton from "@mui/material/Skeleton";
 
 function AnimeCardImage({ url, imageUrl, title, imageHeight = "190px" }) {
   return (

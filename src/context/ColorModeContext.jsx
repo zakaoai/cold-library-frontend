@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useMemo, useState } from "react";
+import { ThemeProvider, createTheme } from "@mui/material";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { createTheme, ThemeProvider } from "@mui/material";
+import { createContext, useContext, useMemo, useState } from "react";
 
 const ColorModeContext = createContext(null);
 
