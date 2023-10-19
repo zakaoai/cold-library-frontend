@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "constants/config";
+import { API_BASE_URL } from "@/constants/config";
 import { get } from "./request/request";
 
 const path = malId => `${API_BASE_URL}/anime/${malId}/episodes`;

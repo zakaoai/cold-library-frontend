@@ -1,15 +1,15 @@
-import IconButton from "@mui/material/IconButton";
-import React, { useCallback } from "react";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
+import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import SavedSearchIcon from "@mui/icons-material/SavedSearch";
-import EditIcon from "@mui/icons-material/Edit";
-import SearchIcon from "@mui/icons-material/Search";
-import FiberNewIcon from "@mui/icons-material/FiberNew";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
+import EditIcon from "@mui/icons-material/Edit";
+import FiberNewIcon from "@mui/icons-material/FiberNew";
+import SavedSearchIcon from "@mui/icons-material/SavedSearch";
+import SearchIcon from "@mui/icons-material/Search";
+import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import { green } from "@mui/material/colors";
-import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
-import { useTrackedTorrentRowContext } from "context/TrackedTorrentRowContext";
+import { useCallback } from "react";
 
 const TrackedTorrentActions = () => {
   const { setEditableTrackedAnime, setShowModal: setShowModalTrackedAnime } = useTrackedTorrentContext();

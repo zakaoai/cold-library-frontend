@@ -1,9 +1,9 @@
-import React from "react";
-import InputAdornment from "@mui/material/InputAdornment";
 import SearchIcon from "@mui/icons-material/Search";
 import IconButton from "@mui/material/IconButton";
-import { useForm } from "react-hook-form";
+import InputAdornment from "@mui/material/InputAdornment";
 import TextField from "@mui/material/TextField";
+
+import { useForm } from "react-hook-form";
 
 const SearchForm = ({ setSearch, defaultSearch }) => {
   const {

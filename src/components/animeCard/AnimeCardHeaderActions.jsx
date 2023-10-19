@@ -1,4 +1,3 @@
-import React from "react";
 import AnimeCardLink from "./AnimeCardLink";
 
 function AnimeCardHeaderActions({ showEpisodeLink, malId }) {

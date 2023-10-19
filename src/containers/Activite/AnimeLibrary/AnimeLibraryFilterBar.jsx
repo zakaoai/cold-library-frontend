@@ -1,10 +1,9 @@
-import { AppBar, Box, Checkbox, Grid, IconButton } from "@mui/material";
-import React from "react";
-import HotColdSwitch from "components/HotColdSwitch/HotColdSwitch";
+import HotColdSwitch from "@/components/HotColdSwitch/HotColdSwitch";
 import ReplayIcon from "@mui/icons-material/Replay";
+import { AppBar, Box, Checkbox, Grid, IconButton } from "@mui/material";
 
-import AnimeCompleteButton from "components/animeCard/AnimeCompleteButton";
-import AnimeCardTrackedButton from "components/animeCard/AnimeCardTrackedButton";
+import AnimeCardTrackedButton from "@/components/animeCard/AnimeCardTrackedButton";
+import AnimeCompleteButton from "@/components/animeCard/AnimeCompleteButton";
 
 const AnimeLibraryFilterBar = ({ filtersState }) => {
   const {

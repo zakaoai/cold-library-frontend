@@ -1,7 +1,7 @@
-import { AppBar, Box, Button, Grid } from "@mui/material";
-import React, { useCallback } from "react";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
 import SearchIcon from "@mui/icons-material/Search";
-import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
+import { AppBar, Box, Button, Grid } from "@mui/material";
+import { useCallback } from "react";
 
 const TrackedTorrentBar = () => {
   const { setDoScan, setDoScanNext } = useTrackedTorrentContext();

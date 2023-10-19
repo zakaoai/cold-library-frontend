@@ -1,5 +1,6 @@
-import React, { useState } from "react";
-import { Button, TextField } from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import { useState } from "react";
 
 export default function LastAvaibleEpisode({ lastAvaibleEpisode, setLastAvaibleEpisode }) {
   const [isEditMode, setisEditMode] = useState(false);

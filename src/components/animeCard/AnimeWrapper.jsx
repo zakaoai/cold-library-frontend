@@ -1,4 +1,3 @@
-import React from "react";
 import AnimeCardComponent from "./AnimeCardComponent";
 import updateAnimeState from "./UpdateAnimeState";
 

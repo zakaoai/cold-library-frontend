@@ -1,15 +1,15 @@
-import React, { useCallback } from "react";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import TextField from "@mui/material/TextField";
-import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
+import TextField from "@mui/material/TextField";
+import { useCallback } from "react";
 import { Controller, useForm } from "react-hook-form";
-import Box from "@mui/material/Box";
-import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
-import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
 
 export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, handleClose }) {
   const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = trackedTorrent;

@@ -1,5 +1,5 @@
+import StorageState from "@/constants/StorageState";
 import { useEffect, useState } from "react";
-import StorageState from "constants/StorageState";
 
 // Filter list of anime and store filters in localStorage
 const useAnimeLibraryFilter = function () {

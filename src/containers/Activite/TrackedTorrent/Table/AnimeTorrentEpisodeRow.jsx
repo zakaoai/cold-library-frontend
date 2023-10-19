@@ -1,19 +1,19 @@
-import React, { useCallback } from "react";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import { DateTime } from "luxon";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
+import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
+import { useTheme } from "@emotion/react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import GetAppIcon from "@mui/icons-material/GetApp";
-import IconButton from "@mui/material/IconButton";
 import InfoIcon from "@mui/icons-material/Info";
 import SearchIcon from "@mui/icons-material/Search";
 import { Typography } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import { useTrackedTorrentRowContext } from "context/TrackedTorrentRowContext";
-import { useTrackedTorrentContext } from "context/TrackedTorrentContext";
+import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
+import TableCell from "@mui/material/TableCell";
+import TableRow from "@mui/material/TableRow";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useTheme } from "@emotion/react";
+import { DateTime } from "luxon";
+import { useCallback } from "react";
 
 export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
   const { episodeNumber, torrentId } = animeEpisodeTorrent;

@@ -1,6 +1,5 @@
-import React from "react";
-import { IconButton, Radio, TableCell, TableRow } from "@mui/material";
 import LinkIcon from "@mui/icons-material/Link";
+import { IconButton, Radio, TableCell, TableRow } from "@mui/material";
 import { DateTime } from "luxon";
 
 const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {

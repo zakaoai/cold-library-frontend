@@ -1,7 +1,7 @@
-import React from "react";
-import SiteMap from "routes/SiteMap";
-import MenuMobile from "./MenuMobile/MenuMobile";
+import SiteMap from "@/routes/SiteMap";
+
 import MenuDesktop from "./MenuDesktop";
+import MenuMobile from "./MenuMobile/MenuMobile";
 
 /**
  * Menu de l'application

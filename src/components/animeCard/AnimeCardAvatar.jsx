@@ -1,7 +1,5 @@
-import React from "react";
-
-import { red } from "@mui/material/colors";
 import { Avatar, Skeleton } from "@mui/material";
+import { red } from "@mui/material/colors";
 
 function AnimeCardAvatar({ type }) {
   return (

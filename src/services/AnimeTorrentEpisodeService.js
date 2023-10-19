@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "constants/config";
+import { API_BASE_URL } from "@/constants/config";
 
 const path = malId => `${API_BASE_URL}/torrent/${malId}/episodes`;
 const headers = {

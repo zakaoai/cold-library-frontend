@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
+import SiteMap from "@/routes/SiteMap";
+import AnimeServices from "@/services/AnimeServices";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import AnimeServices from "services/AnimeServices";
-import SiteMap from "routes/SiteMap";
 
 export default function useAnimeSearch(initialSearch = "") {
   const navigate = useNavigate();

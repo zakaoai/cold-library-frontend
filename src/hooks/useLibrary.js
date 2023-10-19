@@ -1,6 +1,6 @@
-import { useState, useEffect } from "react";
-import AnimeServices from "services/AnimeServices";
-import TrackedAnimeTorrentService from "services/TrackedAnimeTorrentService";
+import AnimeServices from "@/services/AnimeServices";
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
+import { useEffect, useState } from "react";
 
 export default function useLibrary() {
   const [doReload, setDoReload] = useState(false);

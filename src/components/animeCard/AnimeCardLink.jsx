@@ -1,6 +1,4 @@
-import React from "react";
-
-import { IconButton } from "@mui/material";
+import IconButton from "@mui/material/IconButton";
 import { Link } from "react-router-dom";
 
 import MoreIcon from "@mui/icons-material/More";

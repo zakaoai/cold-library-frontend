@@ -1,11 +1,11 @@
-import React from "react";
+import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
+import useAnimeLibrary from "@/hooks/useAnimeLibrary";
+import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
+
 import { useParams } from "react-router";
-import useAnimeLibrary from "hooks/useAnimeLibrary";
-import EpisodeTable from "./EpisodeTable";
-import { CircularProgress } from "@mui/material";
-import AnimeWrapper from "components/animeCard/AnimeWrapper";
 import AnimeEpisodeBar from "./AnimeEpisodeBar";
+import EpisodeTable from "./EpisodeTable";
 
 function AnimeEpisodeActivity() {
   const { malId } = useParams();

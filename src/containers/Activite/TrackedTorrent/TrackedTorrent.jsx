@@ -1,17 +1,11 @@
-import React, { useState } from "react";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import { TrackedTorrentProvider } from "@/context/TrackedTorrentContext";
+import useTrackedTorrent from "@/hooks/useTrackedTorrent";
 import Paper from "@mui/material/Paper";
-import useTrackedTorrent from "hooks/useTrackedTorrent";
-import TrackedTorrentRow from "./Table/TrackedTorrentRow";
+import TableContainer from "@mui/material/TableContainer";
+import { useState } from "react";
 import ModalEditTrackedTorrent from "./Modal/ModalEditTrackedTorrent";
-import TrackedTorrentBar from "./TrackedTorrentBar";
-import { TrackedTorrentProvider } from "context/TrackedTorrentContext";
 import TrackedTorrentTable from "./Table/TrackedTorrentTable";
+import TrackedTorrentBar from "./TrackedTorrentBar";
 
 /**
  * Activité

@@ -1,6 +1,5 @@
-import React from "react";
-import { IconButton } from "@mui/material";
-import { green } from "@mui/material/colors";
+import IconButton from "@mui/material/IconButton";
+import green from "@mui/material/colors/green";
 
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload";
 
