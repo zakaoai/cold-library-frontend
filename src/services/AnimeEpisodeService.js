@@ -1,11 +1,9 @@
-import { API_BASE_URL } from "@/constants/config";
+import api from "./api";
 import { get } from "./request/request";
-
-const path = malId => `${API_BASE_URL}/anime/${malId}/episodes`;
 
 const AnimeEpisodeService = {
   getAll: malId =>
-    get(path(malId)).catch(a => {
+    get(api.animeEpisode.getAll(malId)).catch(a => {
       console.error("Erreur de récupération des épisodes", a);
       throw a;
     })
