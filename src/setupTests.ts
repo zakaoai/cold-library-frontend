@@ -1,7 +1,6 @@
-import matchers from "@testing-library/jest-dom/matchers";
-import { afterAll, beforeAll, expect } from "vitest";
+import "@testing-library/jest-dom/vitest";
+import { afterAll, beforeAll } from "vitest";
 import { server } from "./mocks/server";
-//expect.extend(matchers);
 
 beforeAll(() => {
   // Establish requests interception layer before all tests.
