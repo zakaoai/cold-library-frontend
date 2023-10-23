@@ -24,7 +24,7 @@ const App = () => (
             bgcolor: "background.default",
             color: "text.primary"
           }}>
-          <Container>
+          <Container sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
             <RouterProvider router={router} />
           </Container>
         </Box>

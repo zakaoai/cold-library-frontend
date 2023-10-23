@@ -6,6 +6,9 @@ import eslint from "vite-plugin-eslint";
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(), eslint()],
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version)
+  },
   build: {
     target: "esnext"
   },

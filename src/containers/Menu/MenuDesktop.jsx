@@ -16,8 +16,8 @@ const MenuDesktop = ({ links }) => {
   const { toggleColorMode } = useColorMode();
 
   return (
-    <Paper sx={{ display: { xs: "none", md: "block" } }}>
-      <AppBar position="static" style={{ marginBottom: 10 }}>
+    <Paper sx={{ display: { xs: "none", md: "block", marginBottom: "10px" } }}>
+      <AppBar position="static">
         <Tabs aria-label="simple tabs example" value={tabsValue} indicatorColor="secondary" textColor="inherit">
           {links.map(link => (
             <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
