@@ -1,4 +1,4 @@
-import AnimeTorrentEpisodeService from "@/services/AnimeTorrentEpisodeService";
+import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService";
 import { formatEpisode } from "@/utils/torrentEpisode";
 import { useCallback, useEffect, useState } from "react";
 
@@ -8,7 +8,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
 
   useEffect(() => {
     setIsFetching(true);
-    AnimeTorrentEpisodeService.getAnimeEpisodesTorrents(malId).then(trackedEpisodes => {
+    AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId).then(trackedEpisodes => {
       setEpisodes(trackedEpisodes.map(episode => formatEpisode(episode)));
       setIsFetching(false);
     });
@@ -18,7 +18,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
     animeEpisodeTorrent => {
       if (!isFetching) {
         setIsFetching(true);
-        AnimeTorrentEpisodeService.replaceEpisodeTorrent(malId, animeEpisodeTorrent)
+        AnimeEpisodeTorrentService.replaceEpisodeTorrent(malId, animeEpisodeTorrent)
           .then(updatedEpisode =>
             setEpisodes(episodes => [
               ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
@@ -34,7 +34,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
   const scanEpisodes = useCallback(() => {
     if (!isFetching) {
       setIsFetching(true);
-      AnimeTorrentEpisodeService.scanEpisodeTorrent(malId)
+      AnimeEpisodeTorrentService.scanEpisodeTorrent(malId)
         .then(episodes =>
           setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => formatEpisode(episode))])
         )
@@ -45,7 +45,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
   const searchPack = useCallback(() => {
     if (!isFetching) {
       setIsFetching(true);
-      AnimeTorrentEpisodeService.scanPackTorrent(malId)
+      AnimeEpisodeTorrentService.scanPackTorrent(malId)
         .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
         .finally(() => setIsFetching(false));
     }
@@ -55,7 +55,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
     episodeNumber => {
       if (!isFetching) {
         setIsFetching(true);
-        AnimeTorrentEpisodeService.deleteTorrent(malId, episodeNumber)
+        AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber)
           .then(() => setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber)))
           .finally(() => setIsFetching(false));
       }
@@ -70,7 +70,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
         lastEpisodeOnServer
     ) {
       setIsFetching(true);
-      AnimeTorrentEpisodeService.scanNextEpisodeTorrent(malId)
+      AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId)
         .then(episode => episode && setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
         .finally(() => setIsFetching(false));
     }

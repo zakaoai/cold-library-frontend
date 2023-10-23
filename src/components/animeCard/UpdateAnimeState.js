@@ -1,4 +1,4 @@
-import AnimeServices from "@/services/AnimeServices";
+import AnimeServices from "@/services/AnimeService";
 import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
 
 const updateAnimeState = (malId, defaultAnime, updateAnime) => {

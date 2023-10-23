@@ -1,5 +1,5 @@
 import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
-import AnimeTorrentEpisodeService from "@/services/AnimeTorrentEpisodeService";
+import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService";
 import { formatByteSize, getBytesSize } from "@/utils/byteSize";
 import { formatEpisode } from "@/utils/torrentEpisode";
 
@@ -28,12 +28,12 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode, handleClose) => {
   const { malId, episodeNumber } = trackedEpisode;
 
   useEffect(() => {
-    AnimeTorrentEpisodeService.updateTorrent(malId, episodeNumber).then(episode => {
+    AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
       setUpdatedTrackedEpisode(formatEpisode(episode));
       setEpisodes(episodes => episodes.map(ep => (ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep)));
     });
 
-    AnimeTorrentEpisodeService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list =>
+    AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list =>
       setTrackedEpisodeAlternates(list.map(ep => ({ ...ep, date: new Date(ep.date) })))
     );
   }, [trackedEpisode]);

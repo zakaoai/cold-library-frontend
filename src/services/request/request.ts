@@ -20,14 +20,20 @@ const putOptions = <TBody>(body: TBody) => ({
   method: "PUT",
   body: JSON.stringify(body)
 });
+const patchOption = <TBody>(body: TBody) => ({
+  headers,
+  method: "PATCH",
+  body: JSON.stringify(body)
+});
 
 const onResponse = (data: Response) => {
-  if (data.ok && data.status === 200) return data.json();
+  if (data.ok && [200, 204].includes(data.status)) return data.json();
   else throw data;
 };
 
 export const get = <TResponse>(url: string): Promise<TResponse> => fetch(url, getOptions).then<TResponse>(onResponse);
-
+export const patch = <Tbody, TResponse>(url: string, body: Tbody): Promise<TResponse> =>
+  fetch(url, patchOption(body)).then<TResponse>(onResponse);
 export const post = <Tbody, TResponse>(url: string, body: Tbody): Promise<TResponse> =>
   fetch(url, postOptions(body)).then<TResponse>(onResponse);
 export const put = <Tbody, TResponse>(url: string, body: Tbody) =>

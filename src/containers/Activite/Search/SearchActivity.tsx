@@ -4,18 +4,15 @@ import useAnimeSearch from "@/hooks/useAnimeSearch";
 import { CircularProgress } from "@mui/material";
 import Grid from "@mui/material/Grid";
 
-import { useLocation } from "react-router-dom";
-
 /**
  * Activité
  */
 function SearchActivity() {
-  const search = new URLSearchParams(useLocation().search).get("search");
-  const { animes, isFetching, error, setSearch, updateAnime } = useAnimeSearch(search);
+  const { animes, isFetching, error, form, searchAnime, updateAnime } = useAnimeSearch();
 
   return (
     <>
-      <SearchForm setSearch={setSearch} defaultSearch={search} />
+      <SearchForm searchAnime={searchAnime} form={form} />
       <Grid container justifyContent="center" spacing={2}>
         {isFetching ? (
           <CircularProgress />
