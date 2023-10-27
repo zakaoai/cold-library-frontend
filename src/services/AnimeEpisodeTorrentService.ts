@@ -4,7 +4,7 @@ import { deleteRequest, get, put } from "./request/request";
 
 const AnimeEpisodeTorrentService = {
   getAnimeEpisodesTorrents: (malId: number) =>
-    get<AnimeEpisodeTorrentDTO>(api.animeTorrentEpisode.getAnimeEpisodesTorrents(malId)),
+    get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAnimeEpisodesTorrents(malId)),
   searchAlternateEpisodeTorrent: (malId: number, episodeNumber: number) =>
     get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.searchAlternateEpisodeTorrent(malId, episodeNumber)),
   replaceEpisodeTorrent: (malId: number, animeEpisodeTorrent: AnimeEpisodeTorrentDTO) =>

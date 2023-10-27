@@ -1,5 +1,5 @@
 import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
-import useAnimeLibrary from "@/hooks/useAnimeLibrary";
+import useAnimeLibrary from "@/hooks/containers/AnimeEpisode/useAnimeLibrary";
 import CircularProgress from "@mui/material/CircularProgress";
 import Grid from "@mui/material/Grid";
 

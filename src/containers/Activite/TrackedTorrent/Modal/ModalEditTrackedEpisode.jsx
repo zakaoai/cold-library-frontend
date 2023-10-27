@@ -1,7 +1,7 @@
 import FilterHeaderCell from "@/components/FilterHeaderCell/FilterHeaderCell";
-import useAlternateTrackedTorrentEpisode from "@/hooks/useAlternateTrackedTorrentEpisode";
+import useAlternateTrackedTorrentEpisode from "@/hooks/containers/TrackedTorrent/Modal/useAlternateTrackedTorrentEpisode";
+import useSortTable from "@/hooks/containers/TrackedTorrent/Modal/useSortTable";
 import usePagination from "@/hooks/usePagination";
-import useSortTable from "@/hooks/useSortTable";
 import { TablePagination } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";

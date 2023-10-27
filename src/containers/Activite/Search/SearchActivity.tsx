@@ -1,6 +1,6 @@
 import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
 import SearchForm from "@/containers/Activite/Search/SearchForm";
-import useAnimeSearch from "@/hooks/useAnimeSearch";
+import useAnimeSearch from "@/hooks/containers/Search/useAnimeSearch";
 import { CircularProgress } from "@mui/material";
 import Grid from "@mui/material/Grid";
 

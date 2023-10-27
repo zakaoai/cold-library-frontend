@@ -1,9 +1,11 @@
+import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO";
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService";
 import { formatEpisode } from "@/utils/torrentEpisode";
-import { useCallback, useEffect, useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
-const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
-  const [episodes, setEpisodes] = useState([]);
+const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => {
+  const [episodes, setEpisodes] = useState<AnimeEpisodeTorrentDTO[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -15,7 +17,7 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
   }, []);
 
   const patchTrackedAnimeEpisode = useCallback(
-    animeEpisodeTorrent => {
+    (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) => {
       if (!isFetching) {
         setIsFetching(true);
         AnimeEpisodeTorrentService.replaceEpisodeTorrent(malId, animeEpisodeTorrent)
@@ -51,38 +53,67 @@ const useTrackedTorrentEpisodes = (malId, lastEpisodeOnServer) => {
     }
   }, [isFetching, setEpisodes, setIsFetching]);
 
-  const deleteTorrent = useCallback(
-    episodeNumber => {
-      if (!isFetching) {
-        setIsFetching(true);
-        AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber)
-          .then(() => setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber)))
-          .finally(() => setIsFetching(false));
-      }
-    },
-    [isFetching, setEpisodes, setIsFetching]
+  const deleteTorrentCall = useCallback(
+    (episodeNumber: number) => AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber),
+    []
   );
 
-  const scanNextEpisode = useCallback(() => {
-    if (
+  const onSuccessDeleteTorrent = useCallback(
+    (_: void, episodeNumber: number) => {
+      setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber));
+    },
+    [setEpisodes]
+  );
+
+  const onErrorDeleteTorrent = useCallback(() => {
+    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId);
+  }, []);
+
+  const { isPending: isdDeleteTorrentPending, mutate: deleteTorrent } = useMutation({
+    mutationFn: deleteTorrentCall,
+    onSuccess: onSuccessDeleteTorrent,
+    onError: onErrorDeleteTorrent
+  });
+
+  const onSuccessScanNextEpisodeTorrent = useCallback(
+    (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) => {
+      setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)]);
+    },
+    [setEpisodes]
+  );
+
+  const onErrorScanNextEpisodeTorrent = useCallback(() => {
+    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId);
+  }, []);
+
+  const { isPending: isScanNextEpisodePending, mutate: scanNextEpisode } = useMutation<
+    AnimeEpisodeTorrentDTO,
+    unknown,
+    string
+  >({
+    mutationFn: () => AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId),
+    onSuccess: onSuccessScanNextEpisodeTorrent,
+    onError: onErrorScanNextEpisodeTorrent
+  });
+
+  const isScanNextEpisodeAvaible = useMemo(
+    () =>
       episodes.length === 0 ||
       episodes.sort((a, b) => a.episodeNumber - b.episodeNumber)[episodes.length - 1].episodeNumber ===
-        lastEpisodeOnServer
-    ) {
-      setIsFetching(true);
-      AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId)
-        .then(episode => episode && setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
-        .finally(() => setIsFetching(false));
-    }
-  }, [lastEpisodeOnServer, episodes, setEpisodes, setIsFetching]);
+        lastEpisodeOnServer,
+    [episodes]
+  );
 
   return {
     episodes,
     isFetching,
     scanEpisodes,
+    isScanNextEpisodePending,
+    isScanNextEpisodeAvaible,
     scanNextEpisode,
     patchTrackedAnimeEpisode,
     searchPack,
+    isdDeleteTorrentPending,
     deleteTorrent,
     setEpisodes
   };

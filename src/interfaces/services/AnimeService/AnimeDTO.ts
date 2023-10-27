@@ -11,4 +11,5 @@ export interface AnimeDTO {
   storageState?: StorageState;
   isComplete?: boolean;
   lastAvaibleEpisode?: number;
+  trackedTorrent?: boolean; // Not in DTO used for interface
 }

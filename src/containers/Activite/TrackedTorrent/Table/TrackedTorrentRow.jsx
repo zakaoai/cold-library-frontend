@@ -4,7 +4,7 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 
 import DayOfWeek from "@/constants/DayOfWeek";
-import useTrackedTorrentEpisodes from "@/hooks/useTrackedTorrentEpisodes";
+import useTrackedTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useTrackedTorrentEpisodes";
 import CircularProgress from "@mui/material/CircularProgress";
 import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
 

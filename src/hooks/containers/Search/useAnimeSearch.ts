@@ -24,7 +24,8 @@ export default function useAnimeSearch() {
     navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` });
     return AnimeServices.searchAnime(search);
   }, []);
-  const onSucessSearchAnime = useCallback(
+
+  const onSuccessSearchAnime = useCallback(
     (animes: AnimeDTO[]) => {
       setAnimes(animes);
     },
@@ -34,8 +35,9 @@ export default function useAnimeSearch() {
     setError("Une erreur est survenue lors de la recherche");
   }, [setError]);
 
-  const { isLoading, mutate: searchAnime } = useMutation(getSearchAnime, {
-    onSuccess: onSucessSearchAnime,
+  const { isPending, mutate: searchAnime } = useMutation<AnimeDTO[], unknown, string>({
+    mutationFn: getSearchAnime,
+    onSuccess: onSuccessSearchAnime,
     onError: onErrorSearchAnime
   });
 
@@ -50,5 +52,5 @@ export default function useAnimeSearch() {
       animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
     );
 
-  return { animes, error, isFetching: isLoading, form, searchAnime, updateAnime };
+  return { animes, error, isFetching: isPending, form, searchAnime, updateAnime };
 }

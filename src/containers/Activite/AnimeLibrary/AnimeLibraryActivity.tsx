@@ -1,15 +1,15 @@
 import Grid from "@mui/material/Grid";
 
 import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
-import useAnimeLibraryFilter from "@/hooks/useAnimeLibraryFilter";
-import useLibrary from "@/hooks/useLibrary";
+import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter";
+import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary";
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar";
 
 /**
  * Activité
  */
 function AnimeLibraryActivity() {
-  const { animes, isFetching, doFetch, updateAnime } = useLibrary();
+  const { animes, updateAnime } = useLibrary();
   const { filtersState, filterFunc } = useAnimeLibraryFilter();
 
   return (

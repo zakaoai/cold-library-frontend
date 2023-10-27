@@ -1,5 +1,5 @@
 import { TrackedTorrentProvider } from "@/context/TrackedTorrentContext";
-import useTrackedTorrent from "@/hooks/useTrackedTorrent";
+import useTrackedTorrent from "@/hooks/containers/TrackedTorrent/useTrackedTorrent";
 import Paper from "@mui/material/Paper";
 import TableContainer from "@mui/material/TableContainer";
 import { useState } from "react";
