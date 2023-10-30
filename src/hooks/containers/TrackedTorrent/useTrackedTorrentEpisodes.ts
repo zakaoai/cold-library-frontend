@@ -1,58 +1,96 @@
+import { AnimeEpisodeTorrentDisplay } from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay";
 import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO";
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService";
 import { formatEpisode } from "@/utils/torrentEpisode";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => {
-  const [episodes, setEpisodes] = useState<AnimeEpisodeTorrentDTO[]>([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const [episodes, setEpisodes] = useState<AnimeEpisodeTorrentDisplay[]>([]);
+
+  // Get
+  const { isFetched: allTorentsFetched, data: torrentsEpisode } = useQuery({
+    queryKey: ["torrents", malId],
+    queryFn: () => AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId)
+  });
 
   useEffect(() => {
-    setIsFetching(true);
-    AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId).then(trackedEpisodes => {
-      setEpisodes(trackedEpisodes.map(episode => formatEpisode(episode)));
-      setIsFetching(false);
-    });
+    if (allTorentsFetched && torrentsEpisode != undefined) {
+      setEpisodes(torrentsEpisode.map(episode => formatEpisode(episode)));
+    }
   }, []);
 
-  const patchTrackedAnimeEpisode = useCallback(
-    (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) => {
-      if (!isFetching) {
-        setIsFetching(true);
-        AnimeEpisodeTorrentService.replaceEpisodeTorrent(malId, animeEpisodeTorrent)
-          .then(updatedEpisode =>
-            setEpisodes(episodes => [
-              ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
-              formatEpisode(updatedEpisode)
-            ])
-          )
-          .finally(() => setIsFetching(false));
-      }
-    },
-    [isFetching, setEpisodes, setIsFetching]
+  // Patch Episode
+  const patchTrackedAnimeEpisodeCall = useCallback(
+    (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) =>
+      AnimeEpisodeTorrentService.replaceEpisodeTorrent(malId, animeEpisodeTorrent),
+    []
   );
 
-  const scanEpisodes = useCallback(() => {
-    if (!isFetching) {
-      setIsFetching(true);
-      AnimeEpisodeTorrentService.scanEpisodeTorrent(malId)
-        .then(episodes =>
-          setEpisodes(currentEpisodes => [...currentEpisodes, ...episodes.map(episode => formatEpisode(episode))])
-        )
-        .finally(() => setIsFetching(false));
-    }
-  }, [isFetching, setEpisodes, setIsFetching]);
+  const onSuccessPatchTrackedAnimeEpisode = useCallback(
+    (updatedEpisode: AnimeEpisodeTorrentDTO) => {
+      setEpisodes(episodes => [
+        ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
+        formatEpisode(updatedEpisode)
+      ]);
+    },
+    [setEpisodes]
+  );
 
-  const searchPack = useCallback(() => {
-    if (!isFetching) {
-      setIsFetching(true);
-      AnimeEpisodeTorrentService.scanPackTorrent(malId)
-        .then(episode => setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(episode)]))
-        .finally(() => setIsFetching(false));
-    }
-  }, [isFetching, setEpisodes, setIsFetching]);
+  const onErroPatchTrackedAnimeEpisode = useCallback(() => {
+    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId);
+  }, []);
 
+  const { isPending: isPatchTrackedAnimeEpisodePending, mutate: patchTrackedAnimeEpisode } = useMutation({
+    mutationKey: ["torrent", malId],
+    mutationFn: patchTrackedAnimeEpisodeCall,
+    onSuccess: onSuccessPatchTrackedAnimeEpisode,
+    onError: onErroPatchTrackedAnimeEpisode
+  });
+
+  // Scan All Episode
+  const scanEpisodesCall = useCallback(() => AnimeEpisodeTorrentService.scanEpisodeTorrent(malId), []);
+
+  const onSuccessScanEpisodes = useCallback(
+    (newEpisodes: AnimeEpisodeTorrentDTO[]) => {
+      setEpisodes(currentEpisodes => [...currentEpisodes, ...newEpisodes.map(episode => formatEpisode(episode))]);
+    },
+    [setEpisodes]
+  );
+
+  const onErrorScanEpisodes = useCallback(() => {
+    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId);
+  }, []);
+
+  const { isPending: isScanEpisodesPending, mutate: scanEpisodes } = useMutation({
+    mutationKey: ["torrent", malId],
+    mutationFn: scanEpisodesCall,
+    onSuccess: onSuccessScanEpisodes,
+    onError: onErrorScanEpisodes
+  });
+
+  // Search Pack
+  const searchPackCall = useCallback(() => AnimeEpisodeTorrentService.scanPackTorrent(malId), []);
+
+  const onSuccessSearchPack = useCallback(
+    (newEpisode: AnimeEpisodeTorrentDTO) => {
+      setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(newEpisode)]);
+    },
+    [setEpisodes]
+  );
+
+  const onErrorSearchPack = useCallback(() => {
+    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId);
+  }, []);
+
+  const { isPending: isSearchPackPending, mutate: searchPack } = useMutation({
+    mutationKey: ["torrent", malId, 0],
+    mutationFn: searchPackCall,
+    onSuccess: onSuccessSearchPack,
+    onError: onErrorSearchPack
+  });
+
+  // Delete
   const deleteTorrentCall = useCallback(
     (episodeNumber: number) => AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber),
     []
@@ -75,6 +113,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     onError: onErrorDeleteTorrent
   });
 
+  // Scan Next
   const onSuccessScanNextEpisodeTorrent = useCallback(
     (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) => {
       setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)]);
@@ -106,12 +145,15 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   return {
     episodes,
-    isFetching,
+    isFetching: !allTorentsFetched,
+    isScanEpisodesPending,
     scanEpisodes,
     isScanNextEpisodePending,
     isScanNextEpisodeAvaible,
     scanNextEpisode,
+    isPatchTrackedAnimeEpisodePending,
     patchTrackedAnimeEpisode,
+    isSearchPackPending,
     searchPack,
     isdDeleteTorrentPending,
     deleteTorrent,
