@@ -1,4 +1,4 @@
-import StorageState from "@/constants/StorageState";
+import StorageState from "@/enums/StorageState";
 import AcUnitIcon from "@mui/icons-material/AcUnit";
 import WhatshotIcon from "@mui/icons-material/Whatshot";
 import FormGroup from "@mui/material/FormGroup";

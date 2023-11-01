@@ -1,8 +1,10 @@
-import StorageState from "@/constants/StorageState";
+import StorageState from "@/enums/StorageState";
+import { Filters } from "@/interfaces/containers/Activite/AnimeLibrary/Filters";
+import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO";
 import { useEffect, useState } from "react";
 
 // Filter list of anime and store filters in localStorage
-const useAnimeLibraryFilter = function () {
+const useAnimeLibraryFilter = () => {
   const defaultFilters = {
     filterStorageState: StorageState.FLUX_FROID,
     filterTrackedAnime: false,
@@ -11,12 +13,12 @@ const useAnimeLibraryFilter = function () {
     isFilterCompletedAnimeApplied: false
   };
 
-  const [filters, setFilters] = useState({
+  const [filters, setFilters] = useState<Filters>({
     ...defaultFilters,
-    ...JSON.parse(localStorage.getItem("animeLibraryFilters"))
+    ...JSON.parse(localStorage.getItem("animeLibraryFilters") ?? "")
   });
 
-  const [filterFunc, setFilterFunc] = useState(() => () => false);
+  const [filterFunc, setFilterFunc] = useState<(_: AnimeDTO) => boolean>(() => () => false);
 
   // func that set all filter to default
   const resetFilters = () => {
@@ -34,21 +36,21 @@ const useAnimeLibraryFilter = function () {
       filterCompletedAnime
     } = filters;
 
-    const filterTrackedAnimeFunc = isTracked =>
+    const filterTrackedAnimeFunc = (isTracked: boolean) =>
       !isFilterTrackedAnimeApplied || (isFilterTrackedAnimeApplied && isTracked === filterTrackedAnime);
 
-    const filterCompleteFunc = isComplete =>
+    const filterCompleteFunc = (isComplete: boolean) =>
       !isFilterCompletedAnimeApplied || (isFilterCompletedAnimeApplied && isComplete === filterCompletedAnime);
 
     setFilterFunc(
-      () => anime =>
+      () => (anime: AnimeDTO) =>
         anime.storageState === filterStorageState &&
-        filterTrackedAnimeFunc(anime.trackedTorrent) &&
-        filterCompleteFunc(anime.isComplete)
+        filterTrackedAnimeFunc(anime.trackedTorrent ?? false) &&
+        filterCompleteFunc(anime.isComplete ?? false)
     );
   }, [filters]);
 
-  const setFilterStorageState = state => setFilters(f => ({ ...f, filterStorageState: state }));
+  const setFilterStorageState = (state: StorageState) => setFilters(f => ({ ...f, filterStorageState: state }));
   const alternateFilterTrackedAnime = () => setFilters(f => ({ ...f, filterTrackedAnime: !f.filterTrackedAnime }));
   const alternateIsFilterTrackedAnimeApplied = () =>
     setFilters(f => ({ ...f, isFilterTrackedAnimeApplied: !f.isFilterTrackedAnimeApplied }));

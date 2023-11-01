@@ -1,11 +1,12 @@
 import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
+import { TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO";
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService";
 import { formatByteSize, getBytesSize } from "@/utils/byteSize";
 import { formatEpisode } from "@/utils/torrentEpisode";
 
 import { useCallback, useEffect, useState } from "react";
 
-const useAlternateTrackedTorrentEpisode = (trackedEpisode, handleClose) => {
+const useAlternateTrackedTorrentEpisode = (trackedEpisode: TrackedAnimeTorrentDTO, handleClose: () => void) => {
   const { patchTrackedAnimeEpisode: updateTrackedEpisode, setEpisodes } = useTrackedTorrentRowContext();
   const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState([]);
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(trackedEpisode);

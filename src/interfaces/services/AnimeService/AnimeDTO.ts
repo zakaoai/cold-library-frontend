@@ -1,5 +1,5 @@
 import { AnimeType } from "@/enums/AnimeType";
-import { StorageState } from "@/enums/StorageState";
+import StorageState from "@/enums/StorageState";
 
 export interface AnimeDTO {
   malId: number;
