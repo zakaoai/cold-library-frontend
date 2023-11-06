@@ -1,27 +1,31 @@
-import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
-import { TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO";
+import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext";
+import { ModalAnimeEpisodeTorrentDisplay } from "@/interfaces/containers/Activite/TrackedTorrent/ModalEditTrackedEpisode/AnimeEpisodeTorrentDisplay";
+import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO";
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService";
 import { formatByteSize, getBytesSize } from "@/utils/byteSize";
 import { formatEpisode } from "@/utils/torrentEpisode";
 
 import { useCallback, useEffect, useState } from "react";
 
-const useAlternateTrackedTorrentEpisode = (trackedEpisode: TrackedAnimeTorrentDTO, handleClose: () => void) => {
+const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDTO, handleClose: () => void) => {
   const { patchTrackedAnimeEpisode: updateTrackedEpisode, setEpisodes } = useTrackedTorrentRowContext();
-  const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState([]);
+  const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState<ModalAnimeEpisodeTorrentDisplay[]>([]);
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(trackedEpisode);
 
-  const [selectedValue, setSelectedValue] = useState(undefined);
+  const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined);
 
   const handleChange = useCallback(
-    event => {
+    (event: React.ChangeEvent<HTMLInputElement>) => {
       setSelectedValue(event.target.value);
     },
     [setSelectedValue]
   );
   const handleModifier = useCallback(() => {
     if (selectedValue) {
-      updateTrackedEpisode(trackedEpisodeAlternates.find(ep => ep.torrentId == selectedValue));
+      const updatedTrackedEpisodeAlternate = trackedEpisodeAlternates.find(
+        ep => ep.torrentId.toString() == selectedValue
+      );
+      if (updatedTrackedEpisodeAlternate != undefined) updateTrackedEpisode(updatedTrackedEpisodeAlternate);
       handleClose();
     }
   }, [updateTrackedEpisode, selectedValue]);
@@ -39,7 +43,7 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode: TrackedAnimeTorrentDT
     );
   }, [trackedEpisode]);
 
-  const addSize = row => {
+  const addSize = (row: ModalAnimeEpisodeTorrentDisplay) => {
     const torrentSizeSplit = row.torrentSize.split(" ");
     const byteSize = getBytesSize(...torrentSizeSplit);
     const displaySize = formatByteSize(...torrentSizeSplit);

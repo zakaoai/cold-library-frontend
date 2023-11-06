@@ -14,10 +14,11 @@ import { NavLink } from "react-router-dom";
 
 import ArrowCollapse from "@/components/ArrowCollapse/ArrowCollapse";
 import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
-import { TrackedTorrentRowProvider } from "@/context/TrackedTorrentRowContext";
+
 import { Link, useMediaQuery } from "@mui/material";
 import TrackedTorrentActions from "./TrackedTorrentActions";
 
+import { TrackedTorrentRowProvider } from "@/context/TrackedTorrentRowProvider";
 import { useTheme } from "@emotion/react";
 
 export default function TrackedTorrentRow({ trackedTorrent }) {

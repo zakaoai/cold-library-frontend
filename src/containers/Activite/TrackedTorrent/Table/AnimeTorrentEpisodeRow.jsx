@@ -1,5 +1,6 @@
 import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
-import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
+import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext";
+
 import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
 import { useTheme } from "@emotion/react";
 import DeleteIcon from "@mui/icons-material/Delete";

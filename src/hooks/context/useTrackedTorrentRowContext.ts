@@ -1,4 +1,4 @@
-import { TrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
+import TrackedTorrentRowContext from "@/context/TrackedTorrentRowContext";
 import { useContext } from "react";
 
 export const useTrackedTorrentRowContext = () => {

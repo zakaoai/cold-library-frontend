@@ -1,5 +1,5 @@
 import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
-import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
+import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import EditIcon from "@mui/icons-material/Edit";
