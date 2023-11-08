@@ -1,14 +1,14 @@
-import "./App.css";
+import "./App.css"
 
-import { ColorModeProvider } from "@/context/ColorModeContext";
-import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
-import { StyledEngineProvider } from "@mui/material/styles";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { RouterProvider } from "react-router-dom";
-import { router } from "./routes/index.ts";
+import { ColorModeProvider } from "@/context/ColorModeContext"
+import Box from "@mui/material/Box"
+import Container from "@mui/material/Container"
+import { StyledEngineProvider } from "@mui/material/styles"
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+import { RouterProvider } from "react-router-dom"
+import { router } from "./routes/index.ts"
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient()
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -31,6 +31,6 @@ const App = () => (
       </StyledEngineProvider>
     </ColorModeProvider>
   </QueryClientProvider>
-);
+)
 
-export default App;
+export default App

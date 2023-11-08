@@ -1,15 +1,15 @@
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO";
-import { TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO";
-import AnimeServices from "@/services/AnimeService";
-import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
-import { QueryObserverResult, useQueries } from "@tanstack/react-query";
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO"
+import AnimeServices from "@/services/AnimeService"
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService"
+import { useQueries, type QueryObserverResult } from "@tanstack/react-query"
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 
 export default function useLibrary() {
-  const [animes, setAnimes] = useState<AnimeDTO[]>([]);
+  const [animes, setAnimes] = useState<AnimeDTO[]>([])
 
-  const sortByTitle = (animeA: AnimeDTO, animeB: AnimeDTO) => animeA.title.localeCompare(animeB.title);
+  const sortByTitle = (animeA: AnimeDTO, animeB: AnimeDTO) => animeA.title.localeCompare(animeB.title)
 
   const combine = ([animes, trackedAnimes]: [
     QueryObserverResult<AnimeDTO[], unknown>,
@@ -24,26 +24,27 @@ export default function useLibrary() {
       ),
     isFetched: [animes, trackedAnimes].every(result => result.isFetched),
     isFetching: [animes, trackedAnimes].some(result => result.isFetching)
-  });
+  })
 
   const { data, isFetched, isFetching } = useQueries({
     queries: [
-      { queryKey: ["api.anime.getAll"], queryFn: () => AnimeServices.getAll() },
-      { queryKey: ["api.trackedAnimeTorrent.getAll"], queryFn: () => TrackedAnimeTorrentService.getAll() }
+      { queryKey: ["api.anime.getAll"], queryFn: async () => await AnimeServices.getAll() },
+      { queryKey: ["api.trackedAnimeTorrent.getAll"], queryFn: async () => await TrackedAnimeTorrentService.getAll() }
     ],
     combine
-  });
+  })
 
   useEffect(() => {
     if (isFetched && data != undefined) {
-      setAnimes(data);
+      setAnimes(data)
     }
-  }, [isFetched]);
+  }, [isFetched])
 
-  const updateAnime = (updatedAnime: { malId: number }) =>
+  const updateAnime = (updatedAnime: { malId: number }) => {
     setAnimes(animes =>
       animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
-    );
+    )
+  }
 
-  return { animes, isFetching, updateAnime };
+  return { animes, isFetching, updateAnime }
 }

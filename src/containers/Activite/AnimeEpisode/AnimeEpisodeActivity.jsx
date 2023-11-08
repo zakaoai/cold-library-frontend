@@ -1,15 +1,15 @@
-import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
-import useAnimeLibrary from "@/hooks/containers/AnimeEpisode/useAnimeLibrary";
-import CircularProgress from "@mui/material/CircularProgress";
-import Grid from "@mui/material/Grid";
+import AnimeWrapper from "@/components/animeCard/AnimeWrapper"
+import useAnimeLibrary from "@/hooks/containers/AnimeEpisode/useAnimeLibrary"
+import CircularProgress from "@mui/material/CircularProgress"
+import Grid from "@mui/material/Grid"
 
-import { useParams } from "react-router";
-import AnimeEpisodeBar from "./AnimeEpisodeBar";
-import EpisodeTable from "./EpisodeTable";
+import { useParams } from "react-router"
+import AnimeEpisodeBar from "./AnimeEpisodeBar"
+import EpisodeTable from "./EpisodeTable"
 
 function AnimeEpisodeActivity() {
-  const { malId } = useParams();
-  const { anime, isFetching, updateAnime, updateAnimeInfos } = useAnimeLibrary(malId);
+  const { malId } = useParams()
+  const { anime, isFetching, updateAnime, updateAnimeInfos } = useAnimeLibrary(malId)
 
   return (
     <>
@@ -37,7 +37,7 @@ function AnimeEpisodeActivity() {
         )}
       </Grid>
     </>
-  );
+  )
 }
 
-export default AnimeEpisodeActivity;
+export default AnimeEpisodeActivity

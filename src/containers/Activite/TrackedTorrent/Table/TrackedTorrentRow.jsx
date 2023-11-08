@@ -1,34 +1,34 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react"
 
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
+import TableCell from "@mui/material/TableCell"
+import TableRow from "@mui/material/TableRow"
 
-import DayOfWeek from "@/constants/DayOfWeek";
-import useTrackedTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useTrackedTorrentEpisodes";
-import CircularProgress from "@mui/material/CircularProgress";
-import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable";
+import DayOfWeek from "@/constants/DayOfWeek"
+import useTrackedTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useTrackedTorrentEpisodes"
+import CircularProgress from "@mui/material/CircularProgress"
+import AnimeTorrentEpisodeTable from "./AnimeTorrentEpisodeTable"
 
-import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode";
+import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode"
 
-import { NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom"
 
-import ArrowCollapse from "@/components/ArrowCollapse/ArrowCollapse";
-import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
+import ArrowCollapse from "@/components/ArrowCollapse/ArrowCollapse"
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
 
-import { Link, useMediaQuery } from "@mui/material";
-import TrackedTorrentActions from "./TrackedTorrentActions";
+import { Link, useMediaQuery } from "@mui/material"
+import TrackedTorrentActions from "./TrackedTorrentActions"
 
-import { TrackedTorrentRowProvider } from "@/context/TrackedTorrentRowProvider";
-import { useTheme } from "@emotion/react";
+import { TrackedTorrentRowProvider } from "@/context/TrackedTorrentRowProvider"
+import { useTheme } from "@emotion/react"
 
 export default function TrackedTorrentRow({ trackedTorrent }) {
-  const { doScan, doScanNext } = useTrackedTorrentContext();
+  const { doScan, doScanNext } = useTrackedTorrentContext()
 
-  const { lastEpisodeOnServer, malId } = trackedTorrent;
+  const { lastEpisodeOnServer, malId } = trackedTorrent
 
-  const [open, setOpen] = useState(false);
-  const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false);
-  const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState(undefined);
+  const [open, setOpen] = useState(false)
+  const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false)
+  const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState(undefined)
 
   const {
     episodes,
@@ -39,32 +39,32 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
     searchPack,
     deleteTorrent,
     setEpisodes
-  } = useTrackedTorrentEpisodes(malId, lastEpisodeOnServer);
+  } = useTrackedTorrentEpisodes(malId, lastEpisodeOnServer)
 
   useEffect(() => {
     if (doScan != undefined) {
-      scanEpisodes();
+      scanEpisodes()
     }
-  }, [doScan]);
+  }, [doScan])
 
   useEffect(() => {
     if (doScanNext != undefined) {
-      scanNextEpisode();
+      scanNextEpisode()
     }
-  }, [doScanNext]);
+  }, [doScanNext])
 
   const showedTorrents = useMemo(
     () => episodes.filter(({ episodeNumber }) => episodeNumber >= lastEpisodeOnServer || episodeNumber === 0),
     [episodes, lastEpisodeOnServer]
-  );
+  )
 
   const handleCloseEpAlternateModal = useCallback(() => {
-    setShowModalAlternateEpisode(false);
-    setSelectedEpisodeAlternate(undefined);
-  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate]);
+    setShowModalAlternateEpisode(false)
+    setSelectedEpisodeAlternate(undefined)
+  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
 
-  const theme = useTheme();
-  const isUpToMd = useMediaQuery(theme.breakpoints.up("md"));
+  const theme = useTheme()
+  const isUpToMd = useMediaQuery(theme.breakpoints.up("md"))
 
   return (
     <TrackedTorrentRowProvider
@@ -109,7 +109,7 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
         />
       )}
     </TrackedTorrentRowProvider>
-  );
+  )
 }
 
 const TrackedTorrentRowMobile = ({
@@ -182,7 +182,7 @@ const TrackedTorrentRowMobile = ({
       </TableCell>
     </TableRow>
   </>
-);
+)
 
 const TrackedTorrentRowDesktop = ({
   showedTorrents,
@@ -222,4 +222,4 @@ const TrackedTorrentRowDesktop = ({
       <TrackedTorrentActions />
     </TableCell>
   </TableRow>
-);
+)

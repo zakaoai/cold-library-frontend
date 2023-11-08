@@ -1,5 +1,5 @@
-import CardMedia from "@mui/material/CardMedia";
-import Skeleton from "@mui/material/Skeleton";
+import CardMedia from "@mui/material/CardMedia"
+import Skeleton from "@mui/material/Skeleton"
 
 function AnimeCardImage({ url, imageUrl, title, imageHeight = "190px" }) {
   return (
@@ -8,7 +8,7 @@ function AnimeCardImage({ url, imageUrl, title, imageHeight = "190px" }) {
         <CardMedia component={"img"} style={{ maxHeight: imageHeight }} src={imageUrl} title={title} />
       </a>
     )) || <Skeleton animation="wave" variant="rectangular" height={190} />
-  );
+  )
 }
 
-export default AnimeCardImage;
+export default AnimeCardImage

@@ -1,9 +1,9 @@
-import StorageState from "@/enums/StorageState";
+import type StorageState from "@/enums/StorageState"
 
 export interface Filters {
-  filterStorageState: StorageState;
-  filterTrackedAnime: boolean;
-  filterCompletedAnime: boolean;
-  isFilterTrackedAnimeApplied: boolean;
-  isFilterCompletedAnimeApplied: boolean;
+  filterStorageState: StorageState
+  filterTrackedAnime: boolean
+  filterCompletedAnime: boolean
+  isFilterTrackedAnimeApplied: boolean
+  isFilterCompletedAnimeApplied: boolean
 }

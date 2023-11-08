@@ -1,12 +1,12 @@
-import Box from "@mui/material/Box";
-import Collapse from "@mui/material/Collapse";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import Box from "@mui/material/Box"
+import Collapse from "@mui/material/Collapse"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
 
-import AnimeTorrentEpisodeRow from "./AnimeTorrentEpisodeRow";
+import AnimeTorrentEpisodeRow from "./AnimeTorrentEpisodeRow"
 
 export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
   return (
@@ -26,20 +26,19 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {torrents &&
-                  torrents
-                    .sort((a, b) => a.episodeNumber - b.episodeNumber)
-                    .map(animeEpisodeTorrent => (
-                      <AnimeTorrentEpisodeRow
-                        key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
-                        animeEpisodeTorrent={animeEpisodeTorrent}
-                      />
-                    ))}
+                {torrents
+                  ?.sort((a, b) => a.episodeNumber - b.episodeNumber)
+                  .map(animeEpisodeTorrent => (
+                    <AnimeTorrentEpisodeRow
+                      key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
+                      animeEpisodeTorrent={animeEpisodeTorrent}
+                    />
+                  ))}
               </TableBody>
             </Table>
           </Box>
         </Collapse>
       </TableCell>
     </TableRow>
-  );
+  )
 }

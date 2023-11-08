@@ -1,11 +1,11 @@
-import LinkIcon from "@mui/icons-material/Link";
-import { IconButton, Radio, TableCell, TableRow } from "@mui/material";
-import { DateTime } from "luxon";
+import LinkIcon from "@mui/icons-material/Link"
+import { IconButton, Radio, TableCell, TableRow } from "@mui/material"
+import { DateTime } from "luxon"
 
 const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
-  const { title, date, torrentId, displaySize, leechers, seeders, completed } = trackedEpisode;
+  const { title, dateObj: date, torrentId, displaySize, leechers, seeders, completed } = trackedEpisode
 
-  const nyaaLink = `https://nyaa.si/view/${torrentId}`;
+  const nyaaLink = `https://nyaa.si/view/${torrentId}`
   return (
     <TableRow hover={!!handleChange} onClick={handleChange}>
       {handleChange && (
@@ -33,7 +33,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
         </IconButton>
       </TableCell>
     </TableRow>
-  );
-};
+  )
+}
 
-export default AlternateTrackedEpisodeLine;
+export default AlternateTrackedEpisodeLine

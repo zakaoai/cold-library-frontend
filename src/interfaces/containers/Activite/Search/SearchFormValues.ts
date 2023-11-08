@@ -1,3 +1,3 @@
 export default interface SearchFormValues {
-  search: string;
+  search: string
 }

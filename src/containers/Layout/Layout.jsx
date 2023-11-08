@@ -1,9 +1,9 @@
-import Menu from "@/containers/Menu/Menu";
-import Container from "@mui/material/Container";
-import { Suspense } from "react";
+import Menu from "@/containers/Menu/Menu"
+import Container from "@mui/material/Container"
+import { Suspense } from "react"
 
-import { Outlet } from "react-router";
-import Footer from "../Footer/Footer";
+import { Outlet } from "react-router"
+import Footer from "../Footer/Footer"
 
 const Layout = () => (
   <>
@@ -15,6 +15,6 @@ const Layout = () => (
     </Suspense>
     <Footer />
   </>
-);
+)
 
-export default Layout;
+export default Layout

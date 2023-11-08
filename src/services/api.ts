@@ -1,4 +1,4 @@
-import { API_BASE_URL } from "@/constants/config";
+import { API_BASE_URL } from "@/constants/config"
 
 const api = {
   animeEpisode: {
@@ -36,6 +36,6 @@ const api = {
     delete: (malId: number) => `${API_BASE_URL}/torrent/${malId}`,
     saveInLibrary: (malId: number) => `${API_BASE_URL}/torrent/${malId}`
   }
-};
+}
 
-export default api;
+export default api

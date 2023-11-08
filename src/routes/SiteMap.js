@@ -19,6 +19,6 @@ const SiteMap = {
     path: "/app/torrent",
     label: "Mes Torrents"
   }
-};
+}
 
-export default SiteMap;
+export default SiteMap

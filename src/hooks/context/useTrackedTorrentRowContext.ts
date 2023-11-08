@@ -1,10 +1,10 @@
-import TrackedTorrentRowContext from "@/context/TrackedTorrentRowContext";
-import { useContext } from "react";
+import TrackedTorrentRowContext from "@/context/TrackedTorrentRowContext"
+import { useContext } from "react"
 
 export const useTrackedTorrentRowContext = () => {
-  const context = useContext(TrackedTorrentRowContext);
+  const context = useContext(TrackedTorrentRowContext)
   if (context === undefined) {
-    throw new Error("useTrackedTorrentRowContext must be used within a TrackedTorrentRowProvider");
+    throw new Error("useTrackedTorrentRowContext must be used within a TrackedTorrentRowProvider")
   }
-  return context;
-};
+  return context
+}

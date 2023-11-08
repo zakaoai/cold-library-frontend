@@ -1,16 +1,16 @@
-import Grid from "@mui/material/Grid";
+import Grid from "@mui/material/Grid"
 
-import AnimeWrapper from "@/components/animeCard/AnimeWrapper";
-import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter";
-import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary";
-import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar";
+import AnimeWrapper from "@/components/animeCard/AnimeWrapper"
+import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter"
+import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
+import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
 
 /**
  * Activité
  */
 function AnimeLibraryActivity() {
-  const { animes, updateAnime } = useLibrary();
-  const { filtersState, filterFunc } = useAnimeLibraryFilter();
+  const { animes, updateAnime } = useLibrary()
+  const { filtersState, filterFunc } = useAnimeLibraryFilter()
 
   return (
     <>
@@ -24,7 +24,7 @@ function AnimeLibraryActivity() {
         ))}
       </Grid>
     </>
-  );
+  )
 }
 
-export default AnimeLibraryActivity;
+export default AnimeLibraryActivity

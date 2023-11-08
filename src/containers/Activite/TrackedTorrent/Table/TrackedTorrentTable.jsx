@@ -1,10 +1,10 @@
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
 
-import TrackedTorrentRow from "./TrackedTorrentRow";
+import TrackedTorrentRow from "./TrackedTorrentRow"
 
 const TrackedTorrentTable = ({ trackedTorrents }) => {
   return (
@@ -26,7 +26,7 @@ const TrackedTorrentTable = ({ trackedTorrents }) => {
         ))}
       </TableBody>
     </Table>
-  );
-};
+  )
+}
 
-export default TrackedTorrentTable;
+export default TrackedTorrentTable

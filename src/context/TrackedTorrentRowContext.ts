@@ -1,6 +1,6 @@
-import type TrackedTorrentRowContext from "@/interfaces/contexts/TrackedTorrentRowContext";
-import { createContext } from "react";
+import type ITrackedTorrentRowContext from "@/interfaces/contexts/TrackedTorrentRowContext"
+import { createContext } from "react"
 
-const TrackedTorrentRowContext = createContext<TrackedTorrentRowContext>({});
+const TrackedTorrentRowContext = createContext<ITrackedTorrentRowContext | undefined>(undefined)
 
-export default TrackedTorrentRowContext;
+export default TrackedTorrentRowContext

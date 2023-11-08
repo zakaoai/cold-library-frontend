@@ -1,20 +1,20 @@
-import useAnimeEpisode from "@/hooks/containers/AnimeEpisode/useAnimeEpisode";
-import usePagination from "@/hooks/usePagination";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+import useAnimeEpisode from "@/hooks/containers/AnimeEpisode/useAnimeEpisode"
+import usePagination from "@/hooks/usePagination"
+import Paper from "@mui/material/Paper"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableCell from "@mui/material/TableCell"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TablePagination from "@mui/material/TablePagination"
+import TableRow from "@mui/material/TableRow"
 
-import EpisodeLine from "./EpisodeLine";
+import EpisodeLine from "./EpisodeLine"
 
 export default function EpisodeTable({ malId }) {
-  const { animeEpisodes } = useAnimeEpisode(malId);
+  const { animeEpisodes } = useAnimeEpisode(malId)
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
-    usePagination(animeEpisodes);
+    usePagination(animeEpisodes)
 
   return (
     <Paper sx={{ width: "100%", marginBottom: "16px" }}>
@@ -45,5 +45,5 @@ export default function EpisodeTable({ malId }) {
         labelDisplayedRows={labelTemplate}
       />
     </Paper>
-  );
+  )
 }

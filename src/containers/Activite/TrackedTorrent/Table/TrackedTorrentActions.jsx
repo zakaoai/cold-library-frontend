@@ -1,50 +1,70 @@
-import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
-import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext";
-import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import EditIcon from "@mui/icons-material/Edit";
-import FiberNewIcon from "@mui/icons-material/FiberNew";
-import SavedSearchIcon from "@mui/icons-material/SavedSearch";
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
-import Tooltip from "@mui/material/Tooltip";
-import { green } from "@mui/material/colors";
-import { useCallback } from "react";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
+import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext"
+import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
+import DoneAllIcon from "@mui/icons-material/DoneAll"
+import EditIcon from "@mui/icons-material/Edit"
+import FiberNewIcon from "@mui/icons-material/FiberNew"
+import SavedSearchIcon from "@mui/icons-material/SavedSearch"
+import SearchIcon from "@mui/icons-material/Search"
+import IconButton from "@mui/material/IconButton"
+import Tooltip from "@mui/material/Tooltip"
+import { green } from "@mui/material/colors"
+import { useCallback } from "react"
 
 const TrackedTorrentActions = () => {
-  const { setEditableTrackedAnime, setShowModal: setShowModalTrackedAnime } = useTrackedTorrentContext();
+  const { setEditableTrackedAnime, setShowModal: setShowModalTrackedAnime } = useTrackedTorrentContext()
 
-  const { trackedTorrent, showedTorrents, searchPack, scanEpisodes, scanNextEpisode } = useTrackedTorrentRowContext();
-  const { nbEpisodes, lastEpisodeOnServer } = trackedTorrent;
+  const { trackedTorrent, showedTorrents, searchPack, scanEpisodes, scanNextEpisode } = useTrackedTorrentRowContext()
+  const { nbEpisodes, lastEpisodeOnServer } = trackedTorrent
 
   const editTrackedAnime = useCallback(
     trackedTorrent => {
-      setEditableTrackedAnime(trackedTorrent);
-      setShowModalTrackedAnime(true);
+      setEditableTrackedAnime(trackedTorrent)
+      setShowModalTrackedAnime(true)
     },
     [setEditableTrackedAnime, setShowModalTrackedAnime]
-  );
+  )
 
-  const isNewEpisode = showedTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0;
+  const isNewEpisode = showedTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0
 
-  const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) !== -1;
+  const isComplete = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) !== -1
 
-  const isPackInList = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1;
+  const isPackInList = showedTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1
 
   return (
     <>
       {!isPackInList && (
-        <IconButton aria-label="download pack" onClick={() => searchPack()} size="large">
+        <IconButton
+          aria-label="download pack"
+          onClick={() => {
+            searchPack()
+          }}
+          size="large">
           <CreateNewFolderIcon />
         </IconButton>
       )}
-      <IconButton aria-label="scan" onClick={() => editTrackedAnime(trackedTorrent)} size="large">
+      <IconButton
+        aria-label="scan"
+        onClick={() => {
+          editTrackedAnime(trackedTorrent)
+        }}
+        size="large">
         <EditIcon />
       </IconButton>
-      <IconButton aria-label="scan all" onClick={() => scanEpisodes()} size="large">
+      <IconButton
+        aria-label="scan all"
+        onClick={() => {
+          scanEpisodes()
+        }}
+        size="large">
         <SearchIcon />
       </IconButton>
-      <IconButton aria-label="scan next" onClick={() => scanNextEpisode()} size="large">
+      <IconButton
+        aria-label="scan next"
+        onClick={() => {
+          scanNextEpisode()
+        }}
+        size="large">
         <SavedSearchIcon />
       </IconButton>
       {isNewEpisode && (
@@ -58,7 +78,7 @@ const TrackedTorrentActions = () => {
         </Tooltip>
       )}
     </>
-  );
-};
+  )
+}
 
-export default TrackedTorrentActions;
+export default TrackedTorrentActions

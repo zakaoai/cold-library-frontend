@@ -1,17 +1,17 @@
-import SearchFormValues from "@/interfaces/containers/Activite/Search/SearchFormValues";
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO";
-import SearchIcon from "@mui/icons-material/Search";
-import IconButton from "@mui/material/IconButton";
-import InputAdornment from "@mui/material/InputAdornment";
-import TextField from "@mui/material/TextField";
-import { UseMutateFunction } from "@tanstack/react-query";
-import { useCallback } from "react";
+import type SearchFormValues from "@/interfaces/containers/Activite/Search/SearchFormValues"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import SearchIcon from "@mui/icons-material/Search"
+import IconButton from "@mui/material/IconButton"
+import InputAdornment from "@mui/material/InputAdornment"
+import TextField from "@mui/material/TextField"
+import { type UseMutateFunction } from "@tanstack/react-query"
+import { useCallback } from "react"
 
-import { UseFormReturn } from "react-hook-form";
+import { type UseFormReturn } from "react-hook-form"
 
 interface SearchFormProps {
-  searchAnime: UseMutateFunction<AnimeDTO[], unknown, string, unknown>;
-  form: UseFormReturn<SearchFormValues, unknown, undefined>;
+  searchAnime: UseMutateFunction<AnimeDTO[], unknown, string, unknown>
+  form: UseFormReturn<SearchFormValues, unknown, undefined>
 }
 
 const SearchForm = ({ searchAnime, form }: SearchFormProps) => {
@@ -19,13 +19,18 @@ const SearchForm = ({ searchAnime, form }: SearchFormProps) => {
     register,
     handleSubmit,
     formState: { errors }
-  } = form;
-  const onSubmit = useCallback(({ search }: SearchFormValues) => searchAnime(search), [searchAnime]);
+  } = form
+  const onSubmit = useCallback(
+    ({ search }: SearchFormValues) => {
+      searchAnime(search)
+    },
+    [searchAnime]
+  )
 
   const searchInput = register("search", {
     required: "Champs requis",
     minLength: { value: 3, message: "La recherche doit faire 3 caractères minimum" }
-  });
+  })
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -45,7 +50,7 @@ const SearchForm = ({ searchAnime, form }: SearchFormProps) => {
         }}
       />
     </form>
-  );
-};
+  )
+}
 
-export default SearchForm;
+export default SearchForm

@@ -1,12 +1,12 @@
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO";
-import { TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO";
-import AnimeServices from "@/services/AnimeService";
-import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
-import { QueryObserverResult, useQueries } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO"
+import AnimeServices from "@/services/AnimeService"
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService"
+import { useQueries, type QueryObserverResult } from "@tanstack/react-query"
+import { useCallback, useEffect, useState } from "react"
 
 export default function useTrackedTorrent() {
-  const [trackedTorrents, setTrackedTorrents] = useState<(TrackedAnimeTorrentDTO & Partial<AnimeDTO>)[]>([]);
+  const [trackedTorrents, setTrackedTorrents] = useState<Array<TrackedAnimeTorrentDTO & Partial<AnimeDTO>>>([])
 
   const combine = ([animes, trackedAnimes]: [
     QueryObserverResult<AnimeDTO[], unknown>,
@@ -18,31 +18,32 @@ export default function useTrackedTorrent() {
     })),
     isFetched: [animes, trackedAnimes].every(result => result.isFetched),
     isFetching: [animes, trackedAnimes].some(result => result.isFetching)
-  });
+  })
 
   const { data, isFetched, isFetching } = useQueries({
     queries: [
-      { queryKey: ["api.anime.getAll"], queryFn: () => AnimeServices.getAll() },
-      { queryKey: ["api.trackedAnimeTorrent.getAll"], queryFn: () => TrackedAnimeTorrentService.getAll() }
+      { queryKey: ["api.anime.getAll"], queryFn: async () => await AnimeServices.getAll() },
+      { queryKey: ["api.trackedAnimeTorrent.getAll"], queryFn: async () => await TrackedAnimeTorrentService.getAll() }
     ],
     combine
-  });
+  })
 
   useEffect(() => {
     if (isFetched && data != undefined) {
-      setTrackedTorrents(data);
+      setTrackedTorrents(data)
     }
-  }, [isFetched]);
+  }, [isFetched])
 
   const updateTrackedAnime = useCallback(
-    (updatedTrackedAnime: TrackedAnimeTorrentDTO & Partial<AnimeDTO>) =>
+    (updatedTrackedAnime: TrackedAnimeTorrentDTO & Partial<AnimeDTO>) => {
       setTrackedTorrents(trackedAnimes =>
         trackedAnimes.map(trackedAnime =>
           trackedAnime.malId === updatedTrackedAnime.malId ? { ...trackedAnime, ...updatedTrackedAnime } : trackedAnime
         )
-      ),
+      )
+    },
     [setTrackedTorrents]
-  );
+  )
 
-  return { trackedTorrents, isFetching, updateTrackedAnime };
+  return { trackedTorrents, isFetching, updateTrackedAnime }
 }

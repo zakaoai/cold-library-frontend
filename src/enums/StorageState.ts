@@ -3,4 +3,4 @@ enum StorageState {
   FLUX_CHAUD = "FLUX_CHAUD"
 }
 
-export default StorageState;
+export default StorageState

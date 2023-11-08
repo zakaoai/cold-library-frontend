@@ -1,8 +1,8 @@
-import { DayOfWeek } from "@/enums/DayOfWeek";
+import { type DayOfWeek } from "@/enums/DayOfWeek"
 
 export interface TrackedAnimeTorrentDTO {
-  malId: number;
-  lastEpisodeOnServer: number;
-  searchWords: string;
-  dayOfRelease: DayOfWeek;
+  malId: number
+  lastEpisodeOnServer: number
+  searchWords: string
+  dayOfRelease: DayOfWeek
 }
