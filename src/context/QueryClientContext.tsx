@@ -4,14 +4,19 @@ import {
   QueryClient,
   QueryClientProvider as ReactQueryClientProvider
 } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 
 import { useCallback, type PropsWithChildren } from "react"
 
 const QueryClientProvider = ({ children }: PropsWithChildren) => {
-  const onErrorConnection = useCallback((error: Error) => {
-    // notification.warning({ message: "Vous avez été deconnecté du serveur" })
-    console.log("Une erreur est arrivé")
-  }, [])
+  const { enqueueSnackbar } = useSnackbar()
+
+  const onErrorConnection = useCallback(
+    (error: Error) => {
+      enqueueSnackbar("Une erreur est survenue")
+    },
+    [enqueueSnackbar]
+  )
 
   const queryClient = new QueryClient({
     queryCache: new QueryCache({

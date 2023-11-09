@@ -8,7 +8,8 @@ export default function useAnimeEpisode(malId: number) {
 
   const { data, isFetched, isFetching } = useQuery({
     queryKey: ["api.animeEpisode.getAll", malId],
-    queryFn: async () => await AnimeEpisodeService.getAll(malId)
+    queryFn: async () => await AnimeEpisodeService.getAll(malId),
+    retry: false
   })
 
   useEffect(() => {

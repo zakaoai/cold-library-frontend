@@ -19,8 +19,9 @@ export default function useAnimeLibrary(malId: number) {
 
   const { data, isFetched, isFetching } = useQueries({
     queries: [
-      { queryKey: ["api.anime.get", malId], queryFn: async () => await AnimeServices.get(malId) },
+      { retry: false, queryKey: ["api.anime.get", malId], queryFn: async () => await AnimeServices.get(malId) },
       {
+        retry: false,
         queryKey: ["api.trackedAnimeTorrent.get", malId],
         queryFn: async () => await TrackedAnimeTorrentService.get(malId)
       }

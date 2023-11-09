@@ -11,7 +11,8 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
   // Get
   const { isFetched: allTorentsFetched, data: torrentsEpisode } = useQuery({
     queryKey: ["torrents", malId],
-    queryFn: async () => await AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId)
+    queryFn: async () => await AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId),
+    retry: false
   })
 
   useEffect(() => {

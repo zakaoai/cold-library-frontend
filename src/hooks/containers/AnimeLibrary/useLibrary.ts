@@ -28,8 +28,12 @@ export default function useLibrary() {
 
   const { data, isFetched, isFetching } = useQueries({
     queries: [
-      { queryKey: ["api.anime.getAll"], queryFn: async () => await AnimeServices.getAll() },
-      { queryKey: ["api.trackedAnimeTorrent.getAll"], queryFn: async () => await TrackedAnimeTorrentService.getAll() }
+      { retry: false, queryKey: ["api.anime.getAll"], queryFn: async () => await AnimeServices.getAll() },
+      {
+        retry: false,
+        queryKey: ["api.trackedAnimeTorrent.getAll"],
+        queryFn: async () => await TrackedAnimeTorrentService.getAll()
+      }
     ],
     combine
   })

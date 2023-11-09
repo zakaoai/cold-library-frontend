@@ -1,3 +1,5 @@
+import ResponseError from "@/interfaces/services/ResponseError"
+
 const headers = {
   Accept: "application/json",
   "Content-Type": "application/json"
@@ -26,9 +28,9 @@ const patchOption = <TBody>(body: TBody) => ({
   body: JSON.stringify(body)
 })
 
-const onResponse = async (data: Response) => {
-  if (data.ok && [200, 204].includes(data.status)) return await data.json()
-  else throw data
+const onResponse = async (response: Response) => {
+  if (response.ok && [200, 204].includes(response.status)) return await response.json()
+  else throw new ResponseError("Bad fetch response", response)
 }
 
 export const get = async <TResponse>(url: string): Promise<TResponse> =>
