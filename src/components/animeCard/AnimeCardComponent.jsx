@@ -1,12 +1,12 @@
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardHeader from "@mui/material/CardHeader";
-import AnimeCardAvatar from "./AnimeCardAvatar";
-import AnimeCardBottomActions from "./AnimeCardBottomActions";
-import AnimeCardEpisodeNumber from "./AnimeCardEpisodeNumber";
-import AnimeCardHeaderActions from "./AnimeCardHeaderActions";
-import AnimeCardImage from "./AnimeCardImage";
-import AnimeCardTitle from "./AnimeCardTitle";
+import Card from "@mui/material/Card"
+import CardActions from "@mui/material/CardActions"
+import CardHeader from "@mui/material/CardHeader"
+import AnimeCardAvatar from "./AnimeCardAvatar"
+import AnimeCardBottomActions from "./AnimeCardBottomActions"
+import AnimeCardEpisodeNumber from "./AnimeCardEpisodeNumber"
+import AnimeCardHeaderActions from "./AnimeCardHeaderActions"
+import AnimeCardImage from "./AnimeCardImage"
+import AnimeCardTitle from "./AnimeCardTitle"
 
 export default function AnimeCardComponent({
   anime,
@@ -15,7 +15,7 @@ export default function AnimeCardComponent({
   imageHeight,
   showAddOrRemoveFromLibrary = true
 }) {
-  const { malId, title, url, imageUrl, type, nbEpisodes } = anime || {};
+  const { malId, title, url, imageUrl, type, nbEpisodes } = anime || {}
 
   return (
     <Card>
@@ -36,5 +36,5 @@ export default function AnimeCardComponent({
         />
       </CardActions>
     </Card>
-  );
+  )
 }

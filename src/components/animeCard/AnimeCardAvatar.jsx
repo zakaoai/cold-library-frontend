@@ -1,5 +1,5 @@
-import { Avatar, Skeleton } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { Avatar, Skeleton } from "@mui/material"
+import { red } from "@mui/material/colors"
 
 function AnimeCardAvatar({ type }) {
   return (
@@ -8,7 +8,7 @@ function AnimeCardAvatar({ type }) {
         {type.substring(0, 3)}
       </Avatar>
     )) || <Skeleton animation="wave" variant="circular" width={40} height={40} />
-  );
+  )
 }
 
-export default AnimeCardAvatar;
+export default AnimeCardAvatar

@@ -1,5 +1,5 @@
-import SearchIcon from "@mui/icons-material/Search";
-import { AppBar, Box, Button, Grid } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search"
+import { AppBar, Box, Button, Grid } from "@mui/material"
 
 const AnimeEpisodeBar = ({ update }) => {
   return (
@@ -14,7 +14,7 @@ const AnimeEpisodeBar = ({ update }) => {
         </Grid>
       </AppBar>
     </Box>
-  );
-};
+  )
+}
 
-export default AnimeEpisodeBar;
+export default AnimeEpisodeBar

@@ -1,9 +1,9 @@
-import HotColdSwitch from "@/components/HotColdSwitch/HotColdSwitch";
-import ReplayIcon from "@mui/icons-material/Replay";
-import { AppBar, Box, Checkbox, Grid, IconButton } from "@mui/material";
+import HotColdSwitch from "@/components/HotColdSwitch/HotColdSwitch"
+import ReplayIcon from "@mui/icons-material/Replay"
+import { AppBar, Box, Checkbox, Grid, IconButton } from "@mui/material"
 
-import AnimeCardTrackedButton from "@/components/animeCard/AnimeCardTrackedButton";
-import AnimeCompleteButton from "@/components/animeCard/AnimeCompleteButton";
+import AnimeCardTrackedButton from "@/components/animeCard/AnimeCardTrackedButton"
+import AnimeCompleteButton from "@/components/animeCard/AnimeCompleteButton"
 
 const AnimeLibraryFilterBar = ({ filtersState }) => {
   const {
@@ -18,7 +18,7 @@ const AnimeLibraryFilterBar = ({ filtersState }) => {
     alternateFilterCompletedAnime,
     alternateIsFilterCompleteAnimeApplied,
     resetFilters
-  } = filtersState;
+  } = filtersState
   return (
     <Box mb={1}>
       <AppBar position="relative" color="transparent">
@@ -42,7 +42,7 @@ const AnimeLibraryFilterBar = ({ filtersState }) => {
         </Grid>
       </AppBar>
     </Box>
-  );
-};
+  )
+}
 
-export default AnimeLibraryFilterBar;
+export default AnimeLibraryFilterBar

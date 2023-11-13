@@ -1,13 +1,13 @@
-import StorageState from "@/constants/StorageState";
-import AcUnitIcon from "@mui/icons-material/AcUnit";
-import WhatshotIcon from "@mui/icons-material/Whatshot";
-import FormGroup from "@mui/material/FormGroup";
-import Grid from "@mui/material/Grid";
-import Switch from "@mui/material/Switch";
-import Typography from "@mui/material/Typography";
-import blue from "@mui/material/colors/blue";
-import red from "@mui/material/colors/red";
-import { styled } from "@mui/material/styles";
+import StorageState from "@/enums/StorageState"
+import AcUnitIcon from "@mui/icons-material/AcUnit"
+import WhatshotIcon from "@mui/icons-material/Whatshot"
+import FormGroup from "@mui/material/FormGroup"
+import Grid from "@mui/material/Grid"
+import Switch from "@mui/material/Switch"
+import Typography from "@mui/material/Typography"
+import blue from "@mui/material/colors/blue"
+import red from "@mui/material/colors/red"
+import { styled } from "@mui/material/styles"
 
 const MaterialUISwitch = styled(Switch)(() => ({
   width: 80,
@@ -71,11 +71,11 @@ const MaterialUISwitch = styled(Switch)(() => ({
       }
     }
   }
-}));
+}))
 
 export default function HotColdSwitch({ storageState, setStorageState }) {
-  const isFluxFroid = storageState === StorageState.FLUX_FROID;
-  const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID;
+  const isFluxFroid = storageState === StorageState.FLUX_FROID
+  const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID
 
   return (
     <FormGroup>
@@ -90,5 +90,5 @@ export default function HotColdSwitch({ storageState, setStorageState }) {
         </Grid>
       </Typography>
     </FormGroup>
-  );
+  )
 }

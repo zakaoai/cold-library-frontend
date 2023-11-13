@@ -6,6 +6,6 @@ const DayOfWeek = {
   FRIDAY: "Vendredi",
   SATURDAY: "Samedi",
   SUNDAY: "Dimanche"
-};
+}
 
-export default DayOfWeek;
+export default DayOfWeek

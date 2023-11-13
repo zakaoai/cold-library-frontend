@@ -1,11 +1,11 @@
-import DoneAllIcon from "@mui/icons-material/DoneAll";
-import IconButton from "@mui/material/IconButton";
-import green from "@mui/material/colors/green";
+import DoneAllIcon from "@mui/icons-material/DoneAll"
+import IconButton from "@mui/material/IconButton"
+import green from "@mui/material/colors/green"
 
 function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete }) {
-  const isDisabled = nbEpisodes === 0;
+  const isDisabled = nbEpisodes === 0
   if (isDisabled && isComplete) {
-    setIsComplete(false);
+    setIsComplete(false)
   }
 
   return (
@@ -18,7 +18,7 @@ function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete }) {
       size="large">
       <DoneAllIcon />
     </IconButton>
-  );
+  )
 }
 
-export default AnimeCompleteButton;
+export default AnimeCompleteButton

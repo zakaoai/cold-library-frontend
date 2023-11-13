@@ -1,9 +1,9 @@
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import { DateTime } from "luxon";
+import TableCell from "@mui/material/TableCell"
+import TableRow from "@mui/material/TableRow"
+import { DateTime } from "luxon"
 
 export default function EpisodeLine({ episode }) {
-  const { episodeNumber, title, dateSortie } = episode;
+  const { episodeNumber, title, dateSortie } = episode
 
   return (
     <TableRow hover key={episodeNumber}>
@@ -13,5 +13,5 @@ export default function EpisodeLine({ episode }) {
         {dateSortie && DateTime.fromSeconds(dateSortie).setLocale("fr").toFormat("dd LLL yyyy")}
       </TableCell>
     </TableRow>
-  );
+  )
 }

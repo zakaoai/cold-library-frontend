@@ -1,15 +1,14 @@
-import Grid from "@mui/material/Grid";
-import HotColdSwitch from "../HotColdSwitch/HotColdSwitch";
-import AnimeCardTrackedButton from "./AnimeCardTrackedButton";
-import AnimeCompleteButton from "./AnimeCompleteButton";
-import InLibraryButton from "./InLibraryButton";
-import LastAvaibleEpisode from "./LastAvaibleEpisode";
+import Grid from "@mui/material/Grid"
+import HotColdSwitch from "../HotColdSwitch/HotColdSwitch"
+import AnimeCardTrackedButton from "./AnimeCardTrackedButton"
+import AnimeCompleteButton from "./AnimeCompleteButton"
+import InLibraryButton from "./InLibraryButton"
+import LastAvaibleEpisode from "./LastAvaibleEpisode"
 
 const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnimeState }) => {
-  const { nbEpisodes, storageState, isComplete, lastAvaibleEpisode, trackedTorrent } = anime || {};
-  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode, trackAnime } =
-    updateAnimeState;
-  const isInLibrary = !!storageState;
+  const { nbEpisodes, storageState, isComplete, lastAvaibleEpisode, trackedTorrent } = anime || {}
+  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode, trackAnime } = updateAnimeState
+  const isInLibrary = !!storageState
 
   return (
     <Grid container alignItems="center">
@@ -35,7 +34,7 @@ const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnime
         </>
       )}
     </Grid>
-  );
-};
+  )
+}
 
-export default AnimeCardBottomActions;
+export default AnimeCardBottomActions

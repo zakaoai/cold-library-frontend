@@ -1,44 +1,45 @@
-import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext";
-import { useTrackedTorrentRowContext } from "@/context/TrackedTorrentRowContext";
-import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService";
-import { useTheme } from "@emotion/react";
-import DeleteIcon from "@mui/icons-material/Delete";
-import GetAppIcon from "@mui/icons-material/GetApp";
-import InfoIcon from "@mui/icons-material/Info";
-import SearchIcon from "@mui/icons-material/Search";
-import { Typography } from "@mui/material";
-import IconButton from "@mui/material/IconButton";
-import Link from "@mui/material/Link";
-import TableCell from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { DateTime } from "luxon";
-import { useCallback } from "react";
+import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
+import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext"
+
+import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService"
+import { useTheme } from "@emotion/react"
+import DeleteIcon from "@mui/icons-material/Delete"
+import GetAppIcon from "@mui/icons-material/GetApp"
+import InfoIcon from "@mui/icons-material/Info"
+import SearchIcon from "@mui/icons-material/Search"
+import { Typography } from "@mui/material"
+import IconButton from "@mui/material/IconButton"
+import Link from "@mui/material/Link"
+import TableCell from "@mui/material/TableCell"
+import TableRow from "@mui/material/TableRow"
+import useMediaQuery from "@mui/material/useMediaQuery"
+import { DateTime } from "luxon"
+import { useCallback } from "react"
 
 export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
-  const { episodeNumber, torrentId } = animeEpisodeTorrent;
+  const { episodeNumber, torrentId } = animeEpisodeTorrent
 
-  const { updateTrackedAnime } = useTrackedTorrentContext();
+  const { updateTrackedAnime } = useTrackedTorrentContext()
 
   const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode, deleteTorrent, trackedTorrent } =
-    useTrackedTorrentRowContext();
+    useTrackedTorrentRowContext()
 
   const updateTrackedAnimeEpisode = useCallback(() => {
     TrackedAnimeTorrentService.update(trackedTorrent.malId, {
       ...trackedTorrent,
       lastEpisodeOnServer: episodeNumber
-    }).then(updatedAnime => updateTrackedAnime(updatedAnime));
-  }, [updateTrackedAnime, episodeNumber]);
+    }).then(updatedAnime => updateTrackedAnime(updatedAnime))
+  }, [updateTrackedAnime, episodeNumber])
 
   const searchAlternate = useCallback(() => {
-    setSelectedEpisodeAlternate(animeEpisodeTorrent);
-    setShowModalAlternateEpisode(true);
-  }, [setSelectedEpisodeAlternate, setShowModalAlternateEpisode, animeEpisodeTorrent]);
+    setSelectedEpisodeAlternate(animeEpisodeTorrent)
+    setShowModalAlternateEpisode(true)
+  }, [setSelectedEpisodeAlternate, setShowModalAlternateEpisode, animeEpisodeTorrent])
 
-  const nyaaLink = `https://nyaa.si/view/${torrentId}`;
+  const nyaaLink = `https://nyaa.si/view/${torrentId}`
 
-  const theme = useTheme();
-  const isUpToMd = useMediaQuery(theme.breakpoints.up("md"));
+  const theme = useTheme()
+  const isUpToMd = useMediaQuery(theme.breakpoints.up("md"))
 
   return isUpToMd ? (
     <AnimeTorrentEpisodeRowDesktop
@@ -56,7 +57,7 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
       deleteTorrent={deleteTorrent}
       {...animeEpisodeTorrent}
     />
-  );
+  )
 }
 
 const AnimeTorrentEpisodeRowDesktop = ({
@@ -107,7 +108,7 @@ const AnimeTorrentEpisodeRowDesktop = ({
       </IconButton>
     </TableCell>
   </TableRow>
-);
+)
 
 const AnimeTorrentEpisodeRowMobile = ({
   updateTrackedAnimeEpisode,
@@ -181,4 +182,4 @@ const AnimeTorrentEpisodeRowMobile = ({
       </TableCell>
     </TableRow>
   </>
-);
+)

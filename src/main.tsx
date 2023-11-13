@@ -1,19 +1,22 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
-import "./index.css";
+import * as React from "react"
+import { createRoot } from "react-dom/client"
+import App from "./App.tsx"
+import "./index.css"
 
 const prepare = async (): Promise<void> => {
   if (import.meta.env.DEV) {
-    const { worker } = await import("./mocks/browser");
-    worker.start();
+    const { worker } = await import("./mocks/browser")
+    void worker.start()
   }
-};
+}
 
-await prepare().then(() =>
-  ReactDOM.createRoot(document.getElementById("root")!).render(
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  )
-);
+const rootDom = document.getElementById("root")
+if (rootDom != null) {
+  await prepare().finally(() => {
+    createRoot(rootDom).render(
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    )
+  })
+}

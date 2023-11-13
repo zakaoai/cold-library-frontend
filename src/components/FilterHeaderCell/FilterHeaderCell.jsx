@@ -1,5 +1,5 @@
-import TableCell from "@mui/material/TableCell";
-import TableSortLabel from "@mui/material/TableSortLabel";
+import TableCell from "@mui/material/TableCell"
+import TableSortLabel from "@mui/material/TableSortLabel"
 
 const FilterHeaderCell = ({ id, filter, label, orderBy, order, sortBy }) => {
   return (
@@ -12,7 +12,7 @@ const FilterHeaderCell = ({ id, filter, label, orderBy, order, sortBy }) => {
         label
       )}
     </TableCell>
-  );
-};
+  )
+}
 
-export default FilterHeaderCell;
+export default FilterHeaderCell

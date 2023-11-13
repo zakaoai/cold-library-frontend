@@ -1,45 +1,45 @@
-import FilterHeaderCell from "@/components/FilterHeaderCell/FilterHeaderCell";
-import useAlternateTrackedTorrentEpisode from "@/hooks/useAlternateTrackedTorrentEpisode";
-import usePagination from "@/hooks/usePagination";
-import useSortTable from "@/hooks/useSortTable";
-import { TablePagination } from "@mui/material";
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogTitle from "@mui/material/DialogTitle";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
+import FilterHeaderCell from "@/components/FilterHeaderCell/FilterHeaderCell"
+import useAlternateTrackedTorrentEpisode from "@/hooks/containers/TrackedTorrent/Modal/useAlternateTrackedTorrentEpisode"
+import useSortTable from "@/hooks/containers/TrackedTorrent/Modal/useSortTable"
+import usePagination from "@/hooks/usePagination"
+import { TablePagination } from "@mui/material"
+import Button from "@mui/material/Button"
+import Dialog from "@mui/material/Dialog"
+import DialogActions from "@mui/material/DialogActions"
+import DialogContent from "@mui/material/DialogContent"
+import DialogTitle from "@mui/material/DialogTitle"
+import Paper from "@mui/material/Paper"
+import Table from "@mui/material/Table"
+import TableBody from "@mui/material/TableBody"
+import TableContainer from "@mui/material/TableContainer"
+import TableHead from "@mui/material/TableHead"
+import TableRow from "@mui/material/TableRow"
 
-import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine";
+import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine"
 
 export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose }) {
-  const { episodeNumber } = trackedEpisode;
+  const { episodeNumber } = trackedEpisode
   const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue, updatedTrackedEpisode } =
     useAlternateTrackedTorrentEpisode(
       trackedEpisode,
 
       handleClose
-    );
+    )
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
-    usePagination(alternateTrackedEpisodes);
+    usePagination(alternateTrackedEpisodes)
 
-  const sortObj = useSortTable();
-  const { sortFunction } = sortObj;
+  const sortObj = useSortTable()
+  const { sortFunction } = sortObj
 
   const headCells = [
     { id: "empty", filter: false },
     { id: "title", filter: true, label: "Titre" },
-    { id: "date", filter: true, label: "Date" },
+    { id: "dateObj", filter: true, label: "Date" },
     { id: "byteSize", filter: true, label: "Size" },
     { id: "traffic", label: "Traffic" },
     { id: "infos", label: "Infos" }
-  ];
+  ]
 
   return (
     <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
@@ -97,5 +97,5 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
         </Button>
       </DialogActions>
     </Dialog>
-  );
+  )
 }

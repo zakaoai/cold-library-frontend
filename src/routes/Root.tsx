@@ -1,18 +1,18 @@
-import { lazy } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { lazy } from "react"
+import { Navigate, Route, Routes } from "react-router-dom"
 
-import AnimeLibraryActivity from "@/containers/Activite/AnimeLibrary/AnimeLibraryActivity";
+import AnimeLibraryActivity from "@/containers/Activite/AnimeLibrary/AnimeLibraryActivity"
+
+import Layout from "@/containers/Layout/Layout"
+import SiteMap from "./SiteMap"
 
 /* Composant de page NotFound */
 
 /* Liste des Path à utiliser */
-const AnimeEpisodeActivity = lazy(() => import("@/containers/Activite/AnimeEpisode/AnimeEpisodeActivity"));
-const HomeActivity = lazy(() => import("@/containers/Activite/Home/HomeActivity"));
-const SearchActivity = lazy(() => import("@/containers/Activite/Search/SearchActivity"));
-const TrackedTorrent = lazy(() => import("@/containers/Activite/TrackedTorrent/TrackedTorrent"));
-
-import Layout from "@/containers/Layout/Layout";
-import SiteMap from "./SiteMap";
+const AnimeEpisodeActivity = lazy(async () => await import("@/containers/Activite/AnimeEpisode/AnimeEpisodeActivity"))
+const HomeActivity = lazy(async () => await import("@/containers/Activite/Home/HomeActivity"))
+const SearchActivity = lazy(async () => await import("@/containers/Activite/Search/SearchActivity"))
+const TrackedTorrent = lazy(async () => await import("@/containers/Activite/TrackedTorrent/TrackedTorrent"))
 
 const Root = () => {
   return (
@@ -27,7 +27,7 @@ const Root = () => {
 
       <Route path="*" element={<Navigate replace to={SiteMap.ACCUEIL.path} />} />
     </Routes>
-  );
-};
+  )
+}
 
-export default Root;
+export default Root

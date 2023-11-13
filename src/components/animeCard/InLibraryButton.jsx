@@ -1,7 +1,7 @@
-import IconButton from "@mui/material/IconButton";
+import IconButton from "@mui/material/IconButton"
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import { red } from "@mui/material/colors";
+import FavoriteIcon from "@mui/icons-material/Favorite"
+import { red } from "@mui/material/colors"
 
 function InLibraryButton({ saveAnime, deleteAnime, isInLibrary }) {
   return (
@@ -13,7 +13,7 @@ function InLibraryButton({ saveAnime, deleteAnime, isInLibrary }) {
       size="large">
       <FavoriteIcon />
     </IconButton>
-  );
+  )
 }
 
-export default InLibraryButton;
+export default InLibraryButton

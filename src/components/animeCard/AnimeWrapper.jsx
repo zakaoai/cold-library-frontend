@@ -1,8 +1,8 @@
-import AnimeCardComponent from "./AnimeCardComponent";
-import updateAnimeState from "./UpdateAnimeState";
+import AnimeCardComponent from "./AnimeCardComponent"
+import updateAnimeState from "./UpdateAnimeState"
 
 export default function AnimeWrapper({ anime, updateAnime, ...others }) {
-  const { malId, title, url, imageUrl, type, nbEpisodes } = anime;
+  const { malId, title, url, imageUrl, type, nbEpisodes } = anime
   const defaultAnime = {
     malId,
     title,
@@ -13,7 +13,7 @@ export default function AnimeWrapper({ anime, updateAnime, ...others }) {
     storageState: undefined,
     isComplete: undefined,
     lastAvaibleEpisode: undefined
-  };
+  }
 
   return (
     <AnimeCardComponent
@@ -21,5 +21,5 @@ export default function AnimeWrapper({ anime, updateAnime, ...others }) {
       updateAnimeState={updateAnimeState(malId, defaultAnime, updateAnime)}
       {...others}
     />
-  );
+  )
 }
