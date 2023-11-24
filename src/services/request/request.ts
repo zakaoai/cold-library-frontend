@@ -29,8 +29,13 @@ const patchOption = <TBody>(body: TBody) => ({
 })
 
 const onResponse = async (response: Response) => {
-  if (response.ok && [200, 204].includes(response.status)) return await response.json()
-  else throw new ResponseError("Bad fetch response", response)
+  if (response.ok && [200, 204].includes(response.status)) {
+    if (response.status === 204 || response.headers.get("Content-Length") == "0") {
+      return Promise.resolve(null)
+    }
+
+    return await response.json()
+  } else throw new ResponseError("Bad fetch response", response)
 }
 
 export const get = async <TResponse>(url: string): Promise<TResponse> =>

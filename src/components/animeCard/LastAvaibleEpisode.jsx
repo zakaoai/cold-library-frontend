@@ -12,7 +12,7 @@ export default function LastAvaibleEpisode({ lastAvaibleEpisode, setLastAvaibleE
         id="standard-number"
         label="Number"
         size="small"
-        fullWidth
+        fullWidth={true}
         value={numberFieldValue}
         autoFocus
         type="number"
