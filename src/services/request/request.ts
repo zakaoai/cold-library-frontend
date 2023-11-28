@@ -12,20 +12,23 @@ const deleteOptions = {
   headers,
   method: "DELETE"
 }
+
+const handleBody = <TBody>(body: TBody) => (typeof body === "string" ? body : JSON.stringify(body))
+
 const postOptions = <TBody>(body: TBody) => ({
   headers,
   method: "POST",
-  body: JSON.stringify(body)
+  body: handleBody(body)
 })
 const putOptions = <TBody>(body: TBody) => ({
   headers,
   method: "PUT",
-  body: JSON.stringify(body)
+  body: handleBody(body)
 })
 const patchOption = <TBody>(body: TBody) => ({
   headers,
   method: "PATCH",
-  body: JSON.stringify(body)
+  body: handleBody(body)
 })
 
 const onResponse = async (response: Response) => {
