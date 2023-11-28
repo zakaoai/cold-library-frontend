@@ -13,6 +13,7 @@ const QueryClientProvider = ({ children }: PropsWithChildren) => {
 
   const onErrorConnection = useCallback(
     (_error: Error) => {
+      console.log(_error)
       enqueueSnackbar("Une erreur est survenue")
     },
     [enqueueSnackbar]

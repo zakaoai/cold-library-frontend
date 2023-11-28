@@ -1,4 +1,4 @@
-import { AppBar, Box, Paper, Tab, Tabs } from "@mui/material"
+import { AppBar, Paper, Tab, Tabs, Toolbar } from "@mui/material"
 
 import { NavLink, useLocation } from "react-router-dom"
 
@@ -18,16 +18,21 @@ const MenuDesktop = ({ links }) => {
   return (
     <Paper sx={{ display: { xs: "none", md: "block", marginBottom: "10px" } }}>
       <AppBar position="static">
-        <Tabs aria-label="simple tabs example" value={tabsValue} indicatorColor="secondary" textColor="inherit">
-          {links.map(link => (
-            <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
-          ))}
-          <Box sx={{ display: "flex", justifyContent: "flex-end", flexGrow: 1 }}>
-            <IconButton onClick={toggleColorMode} color="inherit">
-              {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Box>
-        </Tabs>
+        <Toolbar>
+          <Tabs
+            aria-label="simple tabs example"
+            value={tabsValue}
+            indicatorColor="secondary"
+            textColor="inherit"
+            sx={{ flexGrow: 1 }}>
+            {links.map(link => (
+              <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
+            ))}
+          </Tabs>
+          <IconButton onClick={toggleColorMode}>
+            {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+        </Toolbar>
       </AppBar>
     </Paper>
   )
