@@ -12,20 +12,23 @@ const deleteOptions = {
   headers,
   method: "DELETE"
 }
+
+const handleBody = <TBody>(body: TBody) => (typeof body === "string" ? body : JSON.stringify(body))
+
 const postOptions = <TBody>(body: TBody) => ({
   headers,
   method: "POST",
-  body: JSON.stringify(body)
+  body: handleBody(body)
 })
 const putOptions = <TBody>(body: TBody) => ({
   headers,
   method: "PUT",
-  body: JSON.stringify(body)
+  body: handleBody(body)
 })
 const patchOption = <TBody>(body: TBody) => ({
   headers,
   method: "PATCH",
-  body: JSON.stringify(body)
+  body: handleBody(body)
 })
 
 const onResponse = async (response: Response) => {
@@ -46,4 +49,4 @@ export const post = async <Tbody, TResponse>(url: string, body: Tbody): Promise<
   await fetch(url, postOptions(body)).then<TResponse>(onResponse)
 export const put = async <Tbody, TResponse>(url: string, body: Tbody) =>
   await fetch(url, putOptions(body)).then<TResponse>(onResponse)
-export const deleteRequest = async (url: string) => await fetch(url, deleteOptions).then(onResponse)
+export const deleteRequest = async (url: string) => await fetch(url, deleteOptions).then<void>(onResponse)

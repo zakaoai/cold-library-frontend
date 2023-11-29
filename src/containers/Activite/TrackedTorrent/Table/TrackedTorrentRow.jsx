@@ -34,21 +34,24 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
     episodes,
     isFetching,
     scanEpisodes,
+    isScanEpisodesPending,
     scanNextEpisode,
     patchTrackedAnimeEpisode,
     searchPack,
     deleteTorrent,
-    setEpisodes
+    setEpisodes,
+    isScanNextEpisodeAvaible,
+    isScanNextEpisodePending
   } = useTrackedTorrentEpisodes(malId, lastEpisodeOnServer)
 
   useEffect(() => {
-    if (doScan != undefined) {
+    if (doScan != undefined && !isScanEpisodesPending) {
       scanEpisodes()
     }
   }, [doScan])
 
   useEffect(() => {
-    if (doScanNext != undefined) {
+    if (doScanNext != undefined && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
       scanNextEpisode()
     }
   }, [doScanNext])

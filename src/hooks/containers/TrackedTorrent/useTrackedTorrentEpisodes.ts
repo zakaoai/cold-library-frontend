@@ -1,5 +1,6 @@
 import { type AnimeEpisodeTorrentDisplay } from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation, useQuery } from "@tanstack/react-query"
@@ -9,11 +10,21 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
   const [episodes, setEpisodes] = useState<AnimeEpisodeTorrentDisplay[]>([])
 
   // Get
-  const { isFetched: allTorentsFetched, data: torrentsEpisode } = useQuery({
+  const {
+    isFetched: allTorentsFetched,
+    data: torrentsEpisode,
+    isError: isErrorGetAnimeEpisodesTorrents
+  } = useQuery<AnimeEpisodeTorrentDTO[], ResponseError>({
     queryKey: ["torrents", malId],
     queryFn: async () => await AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId),
     retry: false
   })
+
+  useEffect(() => {
+    if (isErrorGetAnimeEpisodesTorrents) {
+      console.error("Une erreur est survenue lors de la récupération des torrents de l'anime %s", malId)
+    }
+  }, [isErrorGetAnimeEpisodesTorrents, malId])
 
   useEffect(() => {
     if (allTorentsFetched && torrentsEpisode !== undefined) {
@@ -25,7 +36,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
   const patchTrackedAnimeEpisodeCall = useCallback(
     async (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) =>
       await AnimeEpisodeTorrentService.replaceEpisodeTorrent(malId, animeEpisodeTorrent),
-    []
+    [malId]
   )
 
   const onSuccessPatchTrackedAnimeEpisode = useCallback(
@@ -38,19 +49,27 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     [setEpisodes]
   )
 
-  const onErroPatchTrackedAnimeEpisode = useCallback(() => {
-    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId)
-  }, [])
+  const onErrorPatchTrackedAnimeEpisode = useCallback(
+    (error: ResponseError, episode: AnimeEpisodeTorrentDTO) => {
+      console.error(
+        "Une erreur est survenue lors du patch de l'episode %s tracked de l'anime %s avec le status %s",
+        episode.episodeNumber,
+        malId,
+        error.response.status
+      )
+    },
+    [malId]
+  )
 
   const { isPending: isPatchTrackedAnimeEpisodePending, mutate: patchTrackedAnimeEpisode } = useMutation({
     mutationKey: ["torrent", malId],
     mutationFn: patchTrackedAnimeEpisodeCall,
     onSuccess: onSuccessPatchTrackedAnimeEpisode,
-    onError: onErroPatchTrackedAnimeEpisode
+    onError: onErrorPatchTrackedAnimeEpisode
   })
 
   // Scan All Episode
-  const scanEpisodesCall = useCallback(async () => await AnimeEpisodeTorrentService.scanEpisodeTorrent(malId), [])
+  const scanEpisodesCall = useCallback(async () => await AnimeEpisodeTorrentService.scanEpisodeTorrent(malId), [malId])
 
   const onSuccessScanEpisodes = useCallback(
     (newEpisodes: AnimeEpisodeTorrentDTO[]) => {
@@ -59,9 +78,16 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     [setEpisodes]
   )
 
-  const onErrorScanEpisodes = useCallback(() => {
-    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId)
-  }, [])
+  const onErrorScanEpisodes = useCallback(
+    (error: ResponseError) => {
+      console.error(
+        "Une erreur est survenue lors du scan des episodes de l'anime %s avec le status %s",
+        malId,
+        error.response.status
+      )
+    },
+    [malId]
+  )
 
   const { isPending: isScanEpisodesPending, mutate: scanEpisodes } = useMutation({
     mutationKey: ["torrent", malId],
@@ -80,9 +106,16 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     [setEpisodes]
   )
 
-  const onErrorSearchPack = useCallback(() => {
-    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId)
-  }, [])
+  const onErrorSearchPack = useCallback(
+    (error: ResponseError) => {
+      console.error(
+        "Une erreur est survenue lors du scan du pack de l'anime %s avec le status %s",
+        malId,
+        error.response.status
+      )
+    },
+    [malId]
+  )
 
   const { isPending: isSearchPackPending, mutate: searchPack } = useMutation({
     mutationKey: ["torrent", malId, 0],
@@ -94,7 +127,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
   // Delete
   const deleteTorrentCall = useCallback(
     async (episodeNumber: number) => await AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber),
-    []
+    [malId]
   )
 
   const onSuccessDeleteTorrent = useCallback(
@@ -104,11 +137,19 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     [setEpisodes]
   )
 
-  const onErrorDeleteTorrent = useCallback(() => {
-    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId)
-  }, [])
+  const onErrorDeleteTorrent = useCallback(
+    (error: ResponseError, episodeNumber: number) => {
+      console.error(
+        "Une erreur est survenue lors de la supression du torrent episode %s de l'anime %s avec le status %s",
+        episodeNumber,
+        malId,
+        error.response.status
+      )
+    },
+    [malId]
+  )
 
-  const { isPending: isdDeleteTorrentPending, mutate: deleteTorrent } = useMutation({
+  const { isPending: isdDeleteTorrentPending, mutate: deleteTorrent } = useMutation<void, ResponseError, number>({
     mutationFn: deleteTorrentCall,
     onSuccess: onSuccessDeleteTorrent,
     onError: onErrorDeleteTorrent
@@ -122,13 +163,20 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     [setEpisodes]
   )
 
-  const onErrorScanNextEpisodeTorrent = useCallback(() => {
-    console.error("Une erreur est survenue lors du scan du prochain episode de l'anime %s", malId)
-  }, [])
+  const onErrorScanNextEpisodeTorrent = useCallback(
+    (error: ResponseError) => {
+      console.error(
+        "Une erreur est survenue lors du scan du prochain episode de l'anime %s avec le status %s",
+        malId,
+        error.response.status
+      )
+    },
+    [malId]
+  )
 
   const { isPending: isScanNextEpisodePending, mutate: scanNextEpisode } = useMutation<
     AnimeEpisodeTorrentDTO,
-    unknown,
+    ResponseError,
     string
   >({
     mutationFn: async () => await AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId),
@@ -141,7 +189,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
       episodes.length === 0 ||
       episodes.sort((a, b) => a.episodeNumber - b.episodeNumber)[episodes.length - 1].episodeNumber ===
         lastEpisodeOnServer,
-    [episodes]
+    [episodes, lastEpisodeOnServer]
   )
 
   return {

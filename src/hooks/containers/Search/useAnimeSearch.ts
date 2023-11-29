@@ -20,10 +20,13 @@ export default function useAnimeSearch() {
 
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const getSearchAnime = useCallback(async (search: string) => {
-    navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` })
-    return await AnimeServices.searchAnime(search)
-  }, [])
+  const getSearchAnime = useCallback(
+    async (search: string) => {
+      navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` })
+      return await AnimeServices.searchAnime(search)
+    },
+    [navigate]
+  )
 
   const onSuccessSearchAnime = useCallback(
     (animes: AnimeDTO[]) => {
@@ -47,7 +50,7 @@ export default function useAnimeSearch() {
     }
   }, [])
 
-  const updateAnime = (updatedAnime: AnimeDTO) => {
+  const updateAnime = (updatedAnime: Partial<AnimeDTO> & Pick<AnimeDTO, "malId">) => {
     setAnimes(animes =>
       animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
     )
