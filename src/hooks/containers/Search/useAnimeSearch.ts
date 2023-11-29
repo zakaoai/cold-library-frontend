@@ -20,10 +20,13 @@ export default function useAnimeSearch() {
 
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const getSearchAnime = useCallback(async (search: string) => {
-    navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` })
-    return await AnimeServices.searchAnime(search)
-  }, [])
+  const getSearchAnime = useCallback(
+    async (search: string) => {
+      navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` })
+      return await AnimeServices.searchAnime(search)
+    },
+    [navigate]
+  )
 
   const onSuccessSearchAnime = useCallback(
     (animes: AnimeDTO[]) => {
