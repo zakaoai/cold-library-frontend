@@ -47,7 +47,7 @@ export default function useAnimeSearch() {
     }
   }, [])
 
-  const updateAnime = (updatedAnime: AnimeDTO) => {
+  const updateAnime = (updatedAnime: Partial<AnimeDTO> & Pick<AnimeDTO, "malId">) => {
     setAnimes(animes =>
       animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
     )

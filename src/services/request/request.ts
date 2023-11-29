@@ -49,4 +49,4 @@ export const post = async <Tbody, TResponse>(url: string, body: Tbody): Promise<
   await fetch(url, postOptions(body)).then<TResponse>(onResponse)
 export const put = async <Tbody, TResponse>(url: string, body: Tbody) =>
   await fetch(url, putOptions(body)).then<TResponse>(onResponse)
-export const deleteRequest = async (url: string) => await fetch(url, deleteOptions).then(onResponse)
+export const deleteRequest = async (url: string) => await fetch(url, deleteOptions).then<void>(onResponse)

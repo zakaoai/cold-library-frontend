@@ -10,8 +10,8 @@ const AnimeServices = {
   saveInLibrary: async (malId: number) => await post<undefined, AnimeDTO>(api.anime.saveInLibrary(malId), undefined),
   updateStorageState: async (malId: number, state: string) =>
     await put<string, AnimeDTO>(api.anime.updateStorageState(malId), state),
-  updateLastAvaibleEpisode: async (malId: number, lastAvaibleEpisode: string) =>
-    await put<string, AnimeDTO>(api.anime.updateLastAvaibleEpisode(malId), lastAvaibleEpisode),
+  updateLastAvaibleEpisode: async (malId: number, lastAvaibleEpisode: number) =>
+    await put<number, AnimeDTO>(api.anime.updateLastAvaibleEpisode(malId), lastAvaibleEpisode),
   updateIsComplete: async (malId: number, isComplete: boolean) =>
     await put<boolean, AnimeDTO>(api.anime.updateIsComplete(malId), isComplete),
   update: async (malId: number) => await get<AnimeDTO>(api.anime.update(malId))
