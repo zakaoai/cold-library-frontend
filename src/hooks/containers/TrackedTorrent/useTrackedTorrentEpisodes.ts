@@ -157,8 +157,9 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   // Scan Next
   const onSuccessScanNextEpisodeTorrent = useCallback(
-    (animeEpisodeTorrent: AnimeEpisodeTorrentDTO) => {
-      setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
+    (animeEpisodeTorrent?: AnimeEpisodeTorrentDTO) => {
+      if (animeEpisodeTorrent != undefined)
+        setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
     },
     [setEpisodes]
   )

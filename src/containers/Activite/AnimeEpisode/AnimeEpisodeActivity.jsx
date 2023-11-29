@@ -3,7 +3,7 @@ import useAnimeLibrary from "@/hooks/containers/AnimeEpisode/useAnimeLibrary"
 import CircularProgress from "@mui/material/CircularProgress"
 import Grid from "@mui/material/Grid"
 
-import { useParams } from "react-router"
+import { useParams } from "react-router-dom"
 import AnimeEpisodeBar from "./AnimeEpisodeBar"
 import EpisodeTable from "./EpisodeTable"
 

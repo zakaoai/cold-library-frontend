@@ -5,8 +5,7 @@ import AnimeServices from "@/services/AnimeService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
-import { useNavigate } from "react-router"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 
 export default function useAnimeSearch() {
   const { search: browserSearch } = useLocation()

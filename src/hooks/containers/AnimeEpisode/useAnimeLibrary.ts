@@ -12,9 +12,9 @@ export default function useAnimeLibrary(malId: number) {
     QueryObserverResult<AnimeDTO, unknown>,
     QueryObserverResult<TrackedAnimeTorrentDTO, unknown>
   ]) => ({
-    data: anime.data ? { ...anime.data, trackedTorrent: !!trackedAnime.data } : undefined,
-    isFetched: [anime, trackedAnime].every(result => result.isFetched),
-    isFetching: [anime, trackedAnime].some(result => result.isFetching)
+    data: anime?.data ? { ...anime.data, trackedTorrent: !!trackedAnime.data } : undefined,
+    isFetched: [anime, trackedAnime].every(result => result?.isFetched),
+    isFetching: [anime, trackedAnime].some(result => result?.isFetching)
   })
 
   const { data, isFetched, isFetching } = useQueries({

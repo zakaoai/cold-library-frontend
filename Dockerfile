@@ -2,6 +2,7 @@
 FROM node:lts-alpine as build
 
 RUN npm install -g npm@latest
+RUN corepack enable | corepack prepare yarn@stable --activate
 
 # Configure the main working directory inside the docker image.
 # This is the base directory used in any further RUN, COPY, and ENTRYPOINT

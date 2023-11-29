@@ -12,12 +12,12 @@ export default function useTrackedTorrent() {
     QueryObserverResult<AnimeDTO[], unknown>,
     QueryObserverResult<TrackedAnimeTorrentDTO[], unknown>
   ]) => ({
-    data: trackedAnimes.data?.map(trackedAnime => ({
+    data: trackedAnimes?.data?.map(trackedAnime => ({
       ...trackedAnime,
       ...animes.data?.find(anime => trackedAnime.malId === anime.malId)
     })),
-    isFetched: [animes, trackedAnimes].every(result => result.isFetched),
-    isFetching: [animes, trackedAnimes].some(result => result.isFetching)
+    isFetched: [animes, trackedAnimes].every(result => result?.isFetched),
+    isFetching: [animes, trackedAnimes].some(result => result?.isFetching)
   })
 
   const { data, isFetched, isFetching } = useQueries({

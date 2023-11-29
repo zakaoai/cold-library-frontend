@@ -15,15 +15,15 @@ export default function useLibrary() {
     QueryObserverResult<AnimeDTO[], unknown>,
     QueryObserverResult<TrackedAnimeTorrentDTO[], unknown>
   ]) => ({
-    data: animes.data
+    data: animes?.data
       ?.sort(sortByTitle)
       ?.map(anime =>
         trackedAnimes.data?.some(trackedAnime => trackedAnime.malId === anime.malId)
           ? { ...anime, trackedTorrent: true }
           : { ...anime, trackedTorrent: false }
       ),
-    isFetched: [animes, trackedAnimes].every(result => result.isFetched),
-    isFetching: [animes, trackedAnimes].some(result => result.isFetching)
+    isFetched: [animes, trackedAnimes].every(result => result?.isFetched),
+    isFetching: [animes, trackedAnimes].some(result => result?.isFetching)
   })
 
   const { data, isFetched, isFetching } = useQueries({
