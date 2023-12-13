@@ -4,6 +4,7 @@ import { NavLink, useLocation } from "react-router-dom"
 
 import IconButton from "@mui/material/IconButton"
 
+import Auth0AccountMenu from "@/components/Auth0Button/Auth0AccountMenu"
 import { useColorMode } from "@/context/ColorModeContext"
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 import Brightness7Icon from "@mui/icons-material/Brightness7"
@@ -32,6 +33,7 @@ const MenuDesktop = ({ links }) => {
           <IconButton onClick={toggleColorMode}>
             {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
           </IconButton>
+          <Auth0AccountMenu />
         </Toolbar>
       </AppBar>
     </Paper>

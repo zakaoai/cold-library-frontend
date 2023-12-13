@@ -7,7 +7,8 @@ import Container from "@mui/material/Container"
 import { StyledEngineProvider } from "@mui/material/styles"
 import { SnackbarProvider } from "notistack"
 import { RouterProvider } from "react-router-dom"
-import { router } from "./routes/index.ts"
+
+import { router } from "./routes"
 
 const App = () => (
   <SnackbarProvider>

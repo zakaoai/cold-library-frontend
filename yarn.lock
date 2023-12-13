@@ -29,6 +29,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@auth0/auth0-react@npm:^2.2.3":
+  version: 2.2.3
+  resolution: "@auth0/auth0-react@npm:2.2.3"
+  dependencies:
+    "@auth0/auth0-spa-js": "npm:^2.1.2"
+  peerDependencies:
+    react: ^16.11.0 || ^17 || ^18
+    react-dom: ^16.11.0 || ^17 || ^18
+  checksum: 6db93a198178ce21e2c29f7771f5c3f35ba3da59a305809eb9bd2d23b0cf72ec61f8b430fc4f7852eeeba675f17ecc48c988a8f26bae8aaff904a445202cc2b8
+  languageName: node
+  linkType: hard
+
+"@auth0/auth0-spa-js@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "@auth0/auth0-spa-js@npm:2.1.2"
+  checksum: fb3a6b2ca2782a2f4aa03afe539a042076d0683c3f08e87a3bf93c6db6ad89f79441cb525f768b8bd3bb0c6b240833390bb2e06055ae30e9edf02575233ed4c7
+  languageName: node
+  linkType: hard
+
 "@babel/code-frame@npm:^7.0.0, @babel/code-frame@npm:^7.10.4, @babel/code-frame@npm:^7.22.13, @babel/code-frame@npm:^7.23.5":
   version: 7.23.5
   resolution: "@babel/code-frame@npm:7.23.5"
@@ -2500,6 +2519,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "cold-library-frontend@workspace:."
   dependencies:
+    "@auth0/auth0-react": "npm:^2.2.3"
     "@emotion/react": "npm:^11.11.1"
     "@emotion/styled": "npm:^11.11.0"
     "@hookform/resolvers": "npm:^3.3.2"
