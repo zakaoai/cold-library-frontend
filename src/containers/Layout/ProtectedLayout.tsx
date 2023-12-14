@@ -11,7 +11,7 @@ const ProtectedLayout = () => {
     if (!isAuthenticated) {
       enqueueSnackbar<"error">("Vous devez être connecter")
     }
-  }, [])
+  }, [enqueueSnackbar, isAuthenticated])
 
   return isAuthenticated ? <Outlet /> : <Navigate replace to={SiteMap.ACCUEIL.path} />
 }

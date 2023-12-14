@@ -29,7 +29,7 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
       ...trackedTorrent,
       lastEpisodeOnServer: episodeNumber
     }).then(updatedAnime => updateTrackedAnime(updatedAnime))
-  }, [updateTrackedAnime, episodeNumber])
+  }, [trackedTorrent, episodeNumber, updateTrackedAnime])
 
   const searchAlternate = useCallback(() => {
     setSelectedEpisodeAlternate(animeEpisodeTorrent)

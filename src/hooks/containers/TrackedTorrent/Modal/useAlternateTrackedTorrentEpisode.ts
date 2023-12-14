@@ -28,7 +28,7 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDT
       if (updatedTrackedEpisodeAlternate != undefined) updateTrackedEpisode(updatedTrackedEpisodeAlternate)
       handleClose()
     }
-  }, [updateTrackedEpisode, selectedValue])
+  }, [selectedValue, trackedEpisodeAlternates, updateTrackedEpisode, handleClose])
 
   const { malId, episodeNumber } = trackedEpisode
 
@@ -51,7 +51,7 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDT
         )
       }
     })
-  }, [trackedEpisode])
+  }, [episodeNumber, malId, setEpisodes, trackedEpisode])
 
   return {
     handleChange,

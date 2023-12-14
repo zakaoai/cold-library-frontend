@@ -42,7 +42,7 @@ export default function useLibrary() {
     if (isFetched && data != undefined) {
       setAnimes(data)
     }
-  }, [isFetched])
+  }, [data, isFetched])
 
   const updateAnime = (updatedAnime: { malId: number }) => {
     setAnimes(animes =>

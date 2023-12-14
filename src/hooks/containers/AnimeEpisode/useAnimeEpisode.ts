@@ -16,7 +16,7 @@ export default function useAnimeEpisode(malId: number) {
     if (isFetched && data !== undefined) {
       setAnimeEpisodes(data)
     }
-  }, [isFetched])
+  }, [data, isFetched])
 
   return { animeEpisodes, isFetching }
 }
