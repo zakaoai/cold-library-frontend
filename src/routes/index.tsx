@@ -1,4 +1,4 @@
-import Auth0Layout from "@/containers/Layout/Auth0Layout"
+import ContextLayout from "@/containers/Layout/ContextLayout"
 import Layout from "@/containers/Layout/Layout"
 import SiteMap from "@/routes/SiteMap"
 import { Navigate, Route, createBrowserRouter, createRoutesFromElements } from "react-router-dom"
@@ -17,7 +17,7 @@ const AnimeLibraryActivity = lazy(async () => await import("@/containers/Activit
 
 export const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<Auth0Layout />}>
+    <Route element={<ContextLayout />}>
       <Route element={<Layout />}>
         <Route index path={SiteMap.ACCUEIL.path} element={<HomeActivity />} />
         <Route element={<ProtectedLayout />}>

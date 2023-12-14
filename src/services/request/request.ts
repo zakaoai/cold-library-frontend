@@ -1,38 +1,33 @@
 import ResponseError from "@/interfaces/services/ResponseError"
 
-const headers = () => {
-  const token = sessionStorage.getItem("token")
-  const headers: [string, string][] = [
-    ["Accept", "application/json"],
-    ["Content-Type", "application/json"]
-  ]
-  if (token != null) headers.push(["Authorization", `Bearer ${token}`])
+export const headers: [string, string][] = [
+  ["Accept", "application/json"],
+  ["Content-Type", "application/json"]
+]
 
-  return headers
-}
 const getOptions = () => ({
-  headers: headers(),
+  headers: headers,
   method: "GET"
 })
 const deleteOptions = () => ({
-  headers: headers(),
+  headers: headers,
   method: "DELETE"
 })
 
 const handleBody = <TBody>(body: TBody) => (typeof body === "string" ? body : JSON.stringify(body))
 
 const postOptions = <TBody>(body: TBody) => ({
-  headers: headers(),
+  headers: headers,
   method: "POST",
   body: handleBody(body)
 })
 const putOptions = <TBody>(body: TBody) => ({
-  headers: headers(),
+  headers: headers,
   method: "PUT",
   body: handleBody(body)
 })
 const patchOption = <TBody>(body: TBody) => ({
-  headers: headers(),
+  headers: headers,
   method: "PATCH",
   body: handleBody(body)
 })

@@ -55,7 +55,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
         "Une erreur est survenue lors du patch de l'episode %s tracked de l'anime %s avec le status %s",
         episode.episodeNumber,
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -83,7 +83,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
       console.error(
         "Une erreur est survenue lors du scan des episodes de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -111,7 +111,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
       console.error(
         "Une erreur est survenue lors du scan du pack de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -143,7 +143,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
         "Une erreur est survenue lors de la supression du torrent episode %s de l'anime %s avec le status %s",
         episodeNumber,
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -169,7 +169,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
       console.error(
         "Une erreur est survenue lors du scan du prochain episode de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]

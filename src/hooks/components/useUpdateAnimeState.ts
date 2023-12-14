@@ -25,7 +25,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de la mise à jour du LastAvaibleEpisode de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -52,7 +52,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de la mise à jour de l'état isComplete de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -77,7 +77,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de la mise à jour du storage state de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -101,7 +101,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de la supression l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -121,7 +121,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de l'enregistrement de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -150,7 +150,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de l'enregistrement de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
@@ -182,7 +182,7 @@ const useUpdateAnimeState = (
       console.error(
         "Une erreur est survenue lors de l'enregistrement de l'anime %s avec le status %s",
         malId,
-        error.response.status
+        error?.response?.status
       )
     },
     [malId]
