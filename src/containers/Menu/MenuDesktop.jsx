@@ -20,12 +20,7 @@ const MenuDesktop = ({ links }) => {
     <Paper sx={{ display: { xs: "none", md: "block", marginBottom: "10px" } }}>
       <AppBar position="static">
         <Toolbar>
-          <Tabs
-            aria-label="simple tabs example"
-            value={tabsValue}
-            indicatorColor="secondary"
-            textColor="inherit"
-            sx={{ flexGrow: 1 }}>
+          <Tabs value={tabsValue} indicatorColor="secondary" textColor="inherit" sx={{ flexGrow: 1 }}>
             {links.map(link => (
               <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
             ))}
