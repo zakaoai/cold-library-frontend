@@ -23,8 +23,8 @@ import { useTheme } from "@emotion/react"
 
 export default function TrackedTorrentRow({ trackedTorrent }) {
   const { doScan, doScanNext } = useTrackedTorrentContext()
-  const prevDoScan = useRef < Boolean > doScan
-  const prevDoScanNext = useRef < Boolean > doScanNext
+  const prevDoScan = useRef(doScan)
+  const prevDoScanNext = useRef(doScanNext)
   const { lastEpisodeOnServer, malId } = trackedTorrent
 
   const [open, setOpen] = useState(false)
@@ -47,7 +47,7 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
 
   useEffect(() => {
     if (doScan != prevDoScan.current && !isScanEpisodesPending) {
-      prevDoScan.current = doScan
+      prevDoScan.current = Boolean(doScan)
       scanEpisodes()
     }
   }, [doScan, isScanEpisodesPending, prevDoScan, scanEpisodes])
@@ -55,7 +55,7 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
   useEffect(() => {
     if (doScanNext != prevDoScanNext.current && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
       scanNextEpisode()
-      prevDoScanNext.current = doScanNext
+      prevDoScanNext.current = Boolean(doScanNext)
     }
   }, [doScanNext, isScanNextEpisodeAvaible, isScanNextEpisodePending, prevDoScanNext, scanNextEpisode])
 
