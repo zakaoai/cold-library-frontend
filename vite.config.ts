@@ -1,11 +1,13 @@
-import react from "@vitejs/plugin-react";
-import path from "path";
-import { defineConfig } from "vite";
-import eslint from "vite-plugin-eslint";
+/// <reference types="vitest" />
+import react from "@vitejs/plugin-react"
+import path from "path"
+
+import { defineConfig } from "vite"
+import eslint from "vite-plugin-eslint"
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(), eslint()],
+export default defineConfig(env => ({
+  plugins: [react(), env.mode !== "test" && eslint()],
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version)
   },
@@ -19,5 +21,15 @@ export default defineConfig({
     esbuildOptions: {
       jsx: "automatic"
     }
+  },
+  test: {
+    globals: true,
+    environment: "happy-dom",
+    setupFiles: ["./src/setupTests.ts"],
+    coverage: {
+      provider: "v8",
+      reporter: ["lcov", "json", "html"]
+    },
+    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"]
   }
-});
+}))
