@@ -1,8 +1,9 @@
+import Auth0AccountMenu from "@/components/Auth0Button/Auth0AccountMenu"
 import { useColorMode } from "@/context/ColorModeContext"
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 import Brightness7Icon from "@mui/icons-material/Brightness7"
 import MenuIcon from "@mui/icons-material/Menu"
-import { Box, IconButton, Paper, Tab, Toolbar } from "@mui/material"
+import { IconButton, Paper, Toolbar, Typography } from "@mui/material"
 import AppBar from "@mui/material/AppBar"
 import { useTheme } from "@mui/material/styles"
 import { useEffect, useState } from "react"
@@ -24,8 +25,8 @@ const MenuMobile = ({ links }) => {
   }
 
   return (
-    <Paper sx={{ display: { xs: "block", md: "none" } }}>
-      <AppBar position="static" style={{ marginBottom: 10 }}>
+    <Paper sx={{ display: { xs: "block", md: "none", marginBottom: "10px" } }}>
+      <AppBar position="static">
         <Toolbar>
           <IconButton
             edge="start"
@@ -40,13 +41,14 @@ const MenuMobile = ({ links }) => {
           {links
             .filter(link => location.pathname.includes(link.path))
             .map(link => (
-              <Tab key={link.path} label={link.label} />
+              <Typography key={link.path} variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                {link.label}
+              </Typography>
             ))}
-          <Box sx={{ display: "flex", justifyContent: "flex-end", flexGrow: 1 }}>
-            <IconButton onClick={toggleColorMode} color="inherit">
-              {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
-            </IconButton>
-          </Box>
+          <IconButton onClick={toggleColorMode}>
+            {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}
+          </IconButton>
+          <Auth0AccountMenu />
         </Toolbar>
       </AppBar>
       <MenuMobileDrawer open={open} links={links} handleClose={handleClose} />

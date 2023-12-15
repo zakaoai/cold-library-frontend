@@ -36,7 +36,7 @@ export default function useTrackedTorrent() {
     if (isFetched && data != undefined) {
       setTrackedTorrents(data)
     }
-  }, [isFetched])
+  }, [data, isFetched])
 
   const updateTrackedAnime = useCallback(
     (updatedTrackedAnime: TrackedAnimeTorrentDTO & Partial<AnimeDTO>) => {

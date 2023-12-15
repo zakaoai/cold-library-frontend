@@ -33,7 +33,7 @@ export default function useAnimeLibrary(malId: number) {
     if (isFetched && data != undefined) {
       setAnime(data)
     }
-  }, [isFetched])
+  }, [data, isFetched])
 
   const updateAnime = (updatedAnime: AnimeDTO) => {
     setAnime(anime => ({ ...anime, ...updatedAnime }))
@@ -41,7 +41,7 @@ export default function useAnimeLibrary(malId: number) {
 
   const updateAnimeInfos = useCallback(() => {
     AnimeServices.update(malId).then(updateAnime)
-  }, [])
+  }, [malId])
 
   return {
     anime,

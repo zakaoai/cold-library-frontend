@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
@@ -23,7 +23,8 @@ import { useTheme } from "@emotion/react"
 
 export default function TrackedTorrentRow({ trackedTorrent }) {
   const { doScan, doScanNext } = useTrackedTorrentContext()
-
+  const prevDoScan = useRef(doScan)
+  const prevDoScanNext = useRef(doScanNext)
   const { lastEpisodeOnServer, malId } = trackedTorrent
 
   const [open, setOpen] = useState(false)
@@ -45,16 +46,18 @@ export default function TrackedTorrentRow({ trackedTorrent }) {
   } = useTrackedTorrentEpisodes(malId, lastEpisodeOnServer)
 
   useEffect(() => {
-    if (doScan != undefined && !isScanEpisodesPending) {
+    if (doScan != prevDoScan.current && !isScanEpisodesPending) {
+      prevDoScan.current = Boolean(doScan)
       scanEpisodes()
     }
-  }, [doScan])
+  }, [doScan, isScanEpisodesPending, prevDoScan, scanEpisodes])
 
   useEffect(() => {
-    if (doScanNext != undefined && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
+    if (doScanNext != prevDoScanNext.current && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
       scanNextEpisode()
+      prevDoScanNext.current = Boolean(doScanNext)
     }
-  }, [doScanNext])
+  }, [doScanNext, isScanNextEpisodeAvaible, isScanNextEpisodePending, prevDoScanNext, scanNextEpisode])
 
   const showedTorrents = useMemo(
     () => episodes.filter(({ episodeNumber }) => episodeNumber >= lastEpisodeOnServer || episodeNumber === 0),

@@ -1,32 +1,33 @@
 import ResponseError from "@/interfaces/services/ResponseError"
 
-const headers = {
-  Accept: "application/json",
-  "Content-Type": "application/json"
-}
-const getOptions = {
-  headers,
+export const headers: [string, string][] = [
+  ["Accept", "application/json"],
+  ["Content-Type", "application/json"]
+]
+
+const getOptions = () => ({
+  headers: headers,
   method: "GET"
-}
-const deleteOptions = {
-  headers,
+})
+const deleteOptions = () => ({
+  headers: headers,
   method: "DELETE"
-}
+})
 
 const handleBody = <TBody>(body: TBody) => (typeof body === "string" ? body : JSON.stringify(body))
 
 const postOptions = <TBody>(body: TBody) => ({
-  headers,
+  headers: headers,
   method: "POST",
   body: handleBody(body)
 })
 const putOptions = <TBody>(body: TBody) => ({
-  headers,
+  headers: headers,
   method: "PUT",
   body: handleBody(body)
 })
 const patchOption = <TBody>(body: TBody) => ({
-  headers,
+  headers: headers,
   method: "PATCH",
   body: handleBody(body)
 })
@@ -42,11 +43,11 @@ const onResponse = async (response: Response) => {
 }
 
 export const get = async <TResponse>(url: string): Promise<TResponse> =>
-  await fetch(url, getOptions).then<TResponse>(onResponse)
+  await fetch(url, getOptions()).then<TResponse>(onResponse)
 export const patch = async <Tbody, TResponse>(url: string, body: Tbody): Promise<TResponse> =>
   await fetch(url, patchOption(body)).then<TResponse>(onResponse)
 export const post = async <Tbody, TResponse>(url: string, body: Tbody): Promise<TResponse> =>
   await fetch(url, postOptions(body)).then<TResponse>(onResponse)
 export const put = async <Tbody, TResponse>(url: string, body: Tbody) =>
   await fetch(url, putOptions(body)).then<TResponse>(onResponse)
-export const deleteRequest = async (url: string) => await fetch(url, deleteOptions).then<void>(onResponse)
+export const deleteRequest = async (url: string) => await fetch(url, deleteOptions()).then<void>(onResponse)

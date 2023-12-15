@@ -18,6 +18,14 @@ const SiteMap = {
   TORRENT: {
     path: "/app/torrent",
     label: "Mes Torrents"
+  },
+  PROFILE: {
+    path: "/app/profile",
+    label: "Mon Profil"
+  },
+  LOGOUT: {
+    path: "/app/logout",
+    label: "Logout"
   }
 }
 

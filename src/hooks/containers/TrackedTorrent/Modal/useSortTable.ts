@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 
 type order = "desc" | "asc"
 
@@ -8,7 +8,7 @@ const useSortTable = <Type extends object>() => {
 
   const [sortFunction, setSortFunction] = useState(() => (items: Type[]) => items)
 
-  function descendingComparator(a: Type, b: Type, orderBy: keyof Type) {
+  const descendingComparator = useCallback((a: Type, b: Type, orderBy: keyof Type) => {
     if (b[orderBy] < a[orderBy]) {
       return -1
     }
@@ -16,20 +16,23 @@ const useSortTable = <Type extends object>() => {
       return 1
     }
     return 0
-  }
+  }, [])
 
-  function getComparator(order: order, orderBy: keyof Type) {
-    return order === "desc"
-      ? (a: Type, b: Type) => descendingComparator(a, b, orderBy)
-      : (a: Type, b: Type) => -descendingComparator(a, b, orderBy)
-  }
+  const getComparator = useCallback(
+    (order: order, orderBy: keyof Type) => {
+      return order === "desc"
+        ? (a: Type, b: Type) => descendingComparator(a, b, orderBy)
+        : (a: Type, b: Type) => -descendingComparator(a, b, orderBy)
+    },
+    [descendingComparator]
+  )
 
   useEffect(() => {
     if (orderBy && order) {
       const tempSortFunction = () => (items: Type[]) => items.sort(getComparator(order, orderBy))
       setSortFunction(tempSortFunction)
     } else setSortFunction(() => (items: Type[]) => items)
-  }, [order, orderBy])
+  }, [getComparator, order, orderBy])
 
   const sortBy = (property: keyof Type) => {
     if (orderBy === property) {
