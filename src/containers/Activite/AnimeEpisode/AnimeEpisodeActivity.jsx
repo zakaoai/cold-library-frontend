@@ -23,12 +23,7 @@ function AnimeEpisodeActivity() {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              <AnimeWrapper
-                anime={anime}
-                updateAnime={updateAnime}
-                imageHeight={"300px"}
-                showAddOrRemoveFromLibrary={false}
-              />
+              {anime && <AnimeWrapper anime={anime} updateAnime={updateAnime} imageHeight={"300px"} />}
             </Grid>
             <Grid item xs={12} md={9}>
               <EpisodeTable malId={malId} />

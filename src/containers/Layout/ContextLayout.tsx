@@ -9,10 +9,11 @@ const AuthenticateOutlet = () => {
   const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0()
 
   useEffect(() => {
-    if (!isLoading && isAuthenticated)
+    if (!isLoading && isAuthenticated) {
       void getAccessTokenSilently().then(token => {
         headers.push(["Authorization", `Bearer ${token}`])
       })
+    }
   }, [getAccessTokenSilently, isAuthenticated, isLoading])
 
   return <Outlet />

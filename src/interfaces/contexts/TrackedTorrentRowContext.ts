@@ -1,7 +1,7 @@
 import { type UseMutateFunction } from "@tanstack/react-query"
 import { type AnimeEpisodeTorrentDisplay } from "../containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { type TrackedAnimeTorrentDTO } from "../services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO"
+import { type TrackedAnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
 
 export default interface TrackedTorrentRowContext {
   patchTrackedAnimeEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, AnimeEpisodeTorrentDTO, unknown>

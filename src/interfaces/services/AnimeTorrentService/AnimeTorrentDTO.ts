@@ -5,4 +5,6 @@ export interface TrackedAnimeTorrentDTO {
   lastEpisodeOnServer: number
   searchWords: string
   dayOfRelease: DayOfWeek
+  deltaEpisode: number
+  torrentPath: string
 }

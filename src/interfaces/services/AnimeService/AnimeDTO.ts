@@ -1,15 +1,22 @@
 import { type AnimeType } from "@/enums/AnimeType"
-import type StorageState from "@/enums/StorageState"
+import StorageState from "@/enums/StorageState"
 
 export interface AnimeDTO {
   malId: number
+  malUrl: string
+  malImg?: string
   title: string
-  url: string
-  imageUrl?: string
   type?: AnimeType
-  nbEpisodes?: number
+  episodes?: number
+  status?: string
+  score?: number
+  season?: string
+  year?: number
+  broadcast?: string
+  rank?: number
   storageState?: StorageState
+  isDownloading?: boolean
   isComplete?: boolean
   lastAvaibleEpisode?: number
-  trackedTorrent?: boolean // Not in DTO used for interface
+  addedOnServer?: string
 }

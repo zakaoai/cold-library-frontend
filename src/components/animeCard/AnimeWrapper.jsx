@@ -1,21 +1,21 @@
-import useUpdateAnimeState from "@/hooks/components/useUpdateAnimeState"
 import AnimeCardComponent from "./AnimeCardComponent"
+import AnimeCardProvider from "./context/AnimeCardProvider"
 
-export default function AnimeWrapper({ anime, updateAnime, ...others }) {
-  const { malId, title, url, imageUrl, type, nbEpisodes } = anime || {}
-  const defaultAnime = {
-    malId,
-    title,
-    url,
-    imageUrl,
-    type,
-    nbEpisodes,
-    storageState: undefined,
-    isComplete: undefined,
-    lastAvaibleEpisode: undefined
-  }
-
-  const updateAnimeState = useUpdateAnimeState(malId, defaultAnime, updateAnime)
-
-  return <AnimeCardComponent anime={anime} updateAnimeState={updateAnimeState} {...others} />
+export default function AnimeWrapper({
+  anime,
+  updateAnime,
+  showEpisodeLink = false,
+  showAddOrRemoveFromLibrary = false,
+  imageHeight = "190px"
+}) {
+  return (
+    <AnimeCardProvider
+      anime={anime}
+      updateAnime={updateAnime}
+      showEpisodeLink={showEpisodeLink}
+      imageHeight={imageHeight}
+      showAddOrRemoveFromLibrary={showAddOrRemoveFromLibrary}>
+      <AnimeCardComponent />
+    </AnimeCardProvider>
+  )
 }

@@ -1,7 +1,11 @@
 import Skeleton from "@mui/material/Skeleton"
 import Typography from "@mui/material/Typography"
+import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 
-function AnimeCardTitle({ title }) {
+const AnimeCardTitle = () => {
+  const { anime } = useAnimeCardContext()
+  const { title } = anime
+
   return title ? (
     <Typography style={{ overflow: "hidden", textOverflow: "ellipsis", maxHeight: 100 }}>{title}</Typography>
   ) : (

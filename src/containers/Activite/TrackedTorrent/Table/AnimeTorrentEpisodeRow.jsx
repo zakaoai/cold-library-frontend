@@ -1,7 +1,7 @@
 import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
 import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext"
 
-import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService"
+import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useTheme } from "@emotion/react"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
@@ -25,7 +25,7 @@ export default function AnimeTorrentEpisodeRow({ animeEpisodeTorrent }) {
     useTrackedTorrentRowContext()
 
   const updateTrackedAnimeEpisode = useCallback(() => {
-    TrackedAnimeTorrentService.update(trackedTorrent.malId, {
+    AnimeTorrentService.update(trackedTorrent.malId, {
       ...trackedTorrent,
       lastEpisodeOnServer: episodeNumber
     }).then(updatedAnime => updateTrackedAnime(updatedAnime))

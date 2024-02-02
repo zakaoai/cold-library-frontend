@@ -1,12 +1,16 @@
 import DoneAllIcon from "@mui/icons-material/DoneAll"
 import IconButton from "@mui/material/IconButton"
 import green from "@mui/material/colors/green"
+import { useEffect } from "react"
 
-function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete }) {
+function AnimeCompleteButton({ nbEpisodes, isComplete, setIsComplete, isCompletePending }) {
   const isDisabled = nbEpisodes === 0
-  if (isDisabled && isComplete) {
-    setIsComplete(false)
-  }
+
+  useEffect(() => {
+    if (isDisabled && isComplete && !isCompletePending) {
+      setIsComplete(false)
+    }
+  }, [isComplete, isCompletePending, isDisabled, setIsComplete])
 
   return (
     <IconButton

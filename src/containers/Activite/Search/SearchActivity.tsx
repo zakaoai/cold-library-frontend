@@ -19,7 +19,12 @@ function SearchActivity() {
         ) : (
           animes.map(anime => (
             <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
-              <AnimeWrapper anime={anime} showEpisodeLink={!(anime.storageState == null)} updateAnime={updateAnime} />
+              <AnimeWrapper
+                anime={anime}
+                showEpisodeLink={!(anime.storageState == null)}
+                updateAnime={updateAnime}
+                showAddOrRemoveFromLibrary
+              />
             </Grid>
           ))
         )}

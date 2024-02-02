@@ -1,10 +1,15 @@
 import Button from "@mui/material/Button"
 import TextField from "@mui/material/TextField"
 import { useState } from "react"
+import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 
-export default function LastAvaibleEpisode({ lastAvaibleEpisode, setLastAvaibleEpisode }) {
+const LastAvaibleEpisode = () => {
+  const {
+    anime: { lastAvaibleEpisode },
+    updateAnimeState: { setLastAvaibleEpisode }
+  } = useAnimeCardContext()
   const [isEditMode, setisEditMode] = useState(false)
-  const [numberFieldValue, setNumberFieldValue] = useState(lastAvaibleEpisode)
+  const [numberFieldValue, setNumberFieldValue] = useState(lastAvaibleEpisode || 0)
 
   return (
     (isEditMode && (
@@ -17,7 +22,7 @@ export default function LastAvaibleEpisode({ lastAvaibleEpisode, setLastAvaibleE
         autoFocus
         type="number"
         onChange={e => {
-          setNumberFieldValue(e.target.value)
+          setNumberFieldValue(parseInt(e.target.value))
         }}
         onBlur={() => {
           setLastAvaibleEpisode(numberFieldValue)
@@ -37,3 +42,5 @@ export default function LastAvaibleEpisode({ lastAvaibleEpisode, setLastAvaibleE
     )
   )
 }
+
+export default LastAvaibleEpisode

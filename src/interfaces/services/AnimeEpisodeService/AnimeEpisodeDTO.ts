@@ -1,7 +1,8 @@
 export interface AnimeEpisodeDTO {
+  id: number
   malId: number
-  title?: string
   episodeNumber: number
-  dateSortie?: string
-  urlTorrent?: string
+  title: string
+  url?: string
+  date?: string
 }

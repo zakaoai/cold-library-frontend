@@ -1,7 +1,11 @@
 import { Avatar, Skeleton } from "@mui/material"
 import { red } from "@mui/material/colors"
+import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 
-function AnimeCardAvatar({ type }) {
+const AnimeCardAvatar = () => {
+  const { anime } = useAnimeCardContext()
+  const { type } = anime
+
   return (
     (type && (
       <Avatar aria-label="type" sx={{ backgroundColor: red[500] }} title={type}>

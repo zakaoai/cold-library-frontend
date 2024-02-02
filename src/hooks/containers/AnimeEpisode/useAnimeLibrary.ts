@@ -1,7 +1,7 @@
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { type TrackedAnimeTorrentDTO } from "@/interfaces/services/TrackedAnimeTorrentService/TrackedAnimeTorrentDTO"
+import { type TrackedAnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeServices from "@/services/AnimeService"
-import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService"
+import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQueries, type QueryObserverResult } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 
@@ -23,7 +23,7 @@ export default function useAnimeLibrary(malId: number) {
       {
         retry: false,
         queryKey: ["api.trackedAnimeTorrent.get", malId],
-        queryFn: async () => await TrackedAnimeTorrentService.get(malId)
+        queryFn: async () => await AnimeTorrentService.get(malId)
       }
     ],
     combine

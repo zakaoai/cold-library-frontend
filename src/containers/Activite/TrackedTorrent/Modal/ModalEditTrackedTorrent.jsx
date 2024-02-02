@@ -1,5 +1,5 @@
 import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
-import TrackedAnimeTorrentService from "@/services/TrackedAnimeTorrentService"
+import AnimeTorrentService from "@/services/AnimeTorrentService"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
@@ -18,7 +18,7 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
 
   const updateTrackedAnime = useCallback(
     async trackedAnime =>
-      await TrackedAnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
+      await AnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
         patchAnime(newTrackedAnime)
       ),
     [patchAnime]

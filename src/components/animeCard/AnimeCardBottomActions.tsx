@@ -4,17 +4,21 @@ import AnimeCardTrackedButton from "./AnimeCardTrackedButton"
 import AnimeCompleteButton from "./AnimeCompleteButton"
 import InLibraryButton from "./InLibraryButton"
 import LastAvaibleEpisode from "./LastAvaibleEpisode"
+import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 
-const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnimeState }) => {
-  const { nbEpisodes, storageState, isComplete, lastAvaibleEpisode, trackedTorrent } = anime || {}
-  const { deleteAnime, saveAnime, setIsComplete, setStorageState, setLastAvaibleEpisode, trackAnime } = updateAnimeState
+const AnimeCardBottomActions = () => {
+  const { anime, showAddOrRemoveFromLibrary, updateAnimeState } = useAnimeCardContext()
+
+  const { episodes, storageState, isComplete, isDownloading } = anime || {}
+
+  const { setIsComplete, isUpdateIsCompletePending, setStorageState, setIsDownloading } = updateAnimeState
   const isInLibrary = !!storageState
 
   return (
     <Grid container alignItems="center">
       {showAddOrRemoveFromLibrary && (
         <Grid item xs={2}>
-          <InLibraryButton saveAnime={saveAnime} deleteAnime={deleteAnime} isInLibrary={isInLibrary} />
+          <InLibraryButton />
         </Grid>
       )}
       {isInLibrary && (
@@ -23,13 +27,18 @@ const AnimeCardBottomActions = ({ showAddOrRemoveFromLibrary, anime, updateAnime
             <HotColdSwitch storageState={storageState} setStorageState={setStorageState} />
           </Grid>
           <Grid item xs={2}>
-            <AnimeCompleteButton nbEpisodes={nbEpisodes} isComplete={isComplete} setIsComplete={setIsComplete} />
+            <AnimeCompleteButton
+              nbEpisodes={episodes}
+              isComplete={isComplete}
+              setIsComplete={setIsComplete}
+              isCompletePending={isUpdateIsCompletePending}
+            />
           </Grid>
           <Grid item xs={3}>
-            <LastAvaibleEpisode lastAvaibleEpisode={lastAvaibleEpisode} setLastAvaibleEpisode={setLastAvaibleEpisode} />
+            <LastAvaibleEpisode />
           </Grid>
           <Grid item xs={2}>
-            <AnimeCardTrackedButton isAnimeTracked={trackedTorrent} trackAnime={trackAnime} />
+            <AnimeCardTrackedButton isAnimeTracked={isDownloading} trackAnime={setIsDownloading} />
           </Grid>
         </>
       )}
