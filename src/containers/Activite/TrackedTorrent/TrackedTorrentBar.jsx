@@ -19,20 +19,10 @@ const TrackedTorrentBar = () => {
       <AppBar position="relative" color="transparent">
         <Grid container alignItems="center">
           <Grid item>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                scanAll()
-              }}
-              startIcon={<SearchIcon />}>
+            <Button variant="outlined" onClick={scanAll} startIcon={<SearchIcon />}>
               Scan All
             </Button>
-            <Button
-              variant="outlined"
-              onClick={() => {
-                scanNext()
-              }}
-              startIcon={<SearchIcon />}>
+            <Button variant="outlined" onClick={scanNext} startIcon={<SearchIcon />}>
               Scan Next
             </Button>
           </Grid>

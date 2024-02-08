@@ -1,16 +1,16 @@
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { type TrackedAnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeServices from "@/services/AnimeService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQueries, type QueryObserverResult } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 
 export default function useTrackedTorrent() {
-  const [trackedTorrents, setTrackedTorrents] = useState<Array<TrackedAnimeTorrentDTO & Partial<AnimeDTO>>>([])
+  const [trackedTorrents, setTrackedTorrents] = useState<Array<AnimeTorrentDTO & Partial<AnimeDTO>>>([])
 
   const combine = ([animes, trackedAnimes]: [
     QueryObserverResult<AnimeDTO[], unknown>,
-    QueryObserverResult<TrackedAnimeTorrentDTO[], unknown>
+    QueryObserverResult<AnimeTorrentDTO[], unknown>
   ]) => ({
     data: trackedAnimes?.data?.map(trackedAnime => ({
       ...trackedAnime,
@@ -39,7 +39,7 @@ export default function useTrackedTorrent() {
   }, [data, isFetched])
 
   const updateTrackedAnime = useCallback(
-    (updatedTrackedAnime: TrackedAnimeTorrentDTO & Partial<AnimeDTO>) => {
+    (updatedTrackedAnime: AnimeTorrentDTO & Partial<AnimeDTO>) => {
       setTrackedTorrents(trackedAnimes =>
         trackedAnimes.map(trackedAnime =>
           trackedAnime.malId === updatedTrackedAnime.malId ? { ...trackedAnime, ...updatedTrackedAnime } : trackedAnime

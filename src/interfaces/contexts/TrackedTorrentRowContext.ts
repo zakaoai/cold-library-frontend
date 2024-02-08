@@ -1,7 +1,7 @@
 import { type UseMutateFunction } from "@tanstack/react-query"
 import { type AnimeEpisodeTorrentDisplay } from "../containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { type TrackedAnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
+import { type AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
 
 export default interface TrackedTorrentRowContext {
   patchTrackedAnimeEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, AnimeEpisodeTorrentDTO, unknown>
@@ -9,7 +9,7 @@ export default interface TrackedTorrentRowContext {
   setSelectedEpisodeAlternate: React.Dispatch<React.SetStateAction<unknown>>
   setShowModalAlternateEpisode: React.Dispatch<React.SetStateAction<boolean>>
   deleteTorrent: UseMutateFunction<void, Error, number, unknown>
-  trackedTorrent: TrackedAnimeTorrentDTO
+  trackedTorrent: AnimeTorrentDTO
   showedTorrents: AnimeEpisodeTorrentDisplay[]
   searchPack: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, void, unknown>
   scanEpisodes: UseMutateFunction<AnimeEpisodeTorrentDTO[], Error, void, unknown>

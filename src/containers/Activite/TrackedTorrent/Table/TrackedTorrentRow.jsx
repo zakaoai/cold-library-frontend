@@ -18,7 +18,7 @@ import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
 import { Link, useMediaQuery } from "@mui/material"
 import TrackedTorrentActions from "./TrackedTorrentActions"
 
-import { TrackedTorrentRowProvider } from "@/context/TrackedTorrentRowProvider"
+import TrackedTorrentRowProvider from "@/context/TrackedTorrentRowProvider"
 import { useTheme } from "@emotion/react"
 
 export default function TrackedTorrentRow({ trackedTorrent }) {

@@ -1,5 +1,5 @@
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { type TrackedAnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeServices from "@/services/AnimeService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQueries, type QueryObserverResult } from "@tanstack/react-query"
@@ -10,7 +10,7 @@ export default function useAnimeLibrary(malId: number) {
 
   const combine = ([anime, trackedAnime]: [
     QueryObserverResult<AnimeDTO, unknown>,
-    QueryObserverResult<TrackedAnimeTorrentDTO, unknown>
+    QueryObserverResult<AnimeTorrentDTO, unknown>
   ]) => ({
     data: anime?.data ? { ...anime.data, trackedTorrent: !!trackedAnime.data } : undefined,
     isFetched: [anime, trackedAnime].every(result => result?.isFetched),

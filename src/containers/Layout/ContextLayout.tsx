@@ -1,5 +1,7 @@
+import AppProvider from "@/context/AppProvider"
 import Auth0ProviderWithNavigate from "@/context/Auth0ProviderWithNavigate"
 import QueryClientProvider from "@/context/QueryClientContext.tsx"
+import UserProvider from "@/context/UserProvider"
 import { headers } from "@/services/request/request"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect } from "react"
@@ -22,7 +24,11 @@ const AuthenticateOutlet = () => {
 const ContextLayout = () => (
   <QueryClientProvider>
     <Auth0ProviderWithNavigate>
-      <AuthenticateOutlet />
+      <UserProvider>
+        <AppProvider>
+          <AuthenticateOutlet />
+        </AppProvider>
+      </UserProvider>
     </Auth0ProviderWithNavigate>
   </QueryClientProvider>
 )

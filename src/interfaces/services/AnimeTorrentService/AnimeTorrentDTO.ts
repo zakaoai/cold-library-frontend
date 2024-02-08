@@ -1,6 +1,6 @@
 import { type DayOfWeek } from "@/enums/DayOfWeek"
 
-export interface TrackedAnimeTorrentDTO {
+export interface AnimeTorrentDTO {
   malId: number
   lastEpisodeOnServer: number
   searchWords: string
