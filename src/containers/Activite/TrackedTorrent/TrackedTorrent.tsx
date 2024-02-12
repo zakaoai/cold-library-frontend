@@ -8,14 +8,13 @@ import TrackedTorrentBar from "./TrackedTorrentBar"
 /**
  * Activité
  */
-export default function TrackedTorrent() {
-  return (
-    <TrackedTorrentProvider>
-      <TrackedTorrentBar />
-      <TableContainer component={Paper}>
-        <AnimeTorrentTable />
-      </TableContainer>
-      <ModalEditTrackedTorrent />
-    </TrackedTorrentProvider>
-  )
-}
+const TrackedTorrent = () => (
+  <TrackedTorrentProvider>
+    <TrackedTorrentBar />
+    <TableContainer component={Paper}>
+      <AnimeTorrentTable />
+    </TableContainer>
+    <ModalEditTrackedTorrent />
+  </TrackedTorrentProvider>
+)
+export default TrackedTorrent

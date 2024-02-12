@@ -4,7 +4,7 @@ import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect } from "react"
 
-export default function useTrackedTorrent() {
+const useTrackedTorrent = () => {
   const { torrentLibrary, setTorrentLibrary } = useAppContext()
 
   const { data, isFetched, isFetching } = useQuery({
@@ -32,3 +32,5 @@ export default function useTrackedTorrent() {
 
   return { isFetching, updateTrackedAnime }
 }
+
+export default useTrackedTorrent

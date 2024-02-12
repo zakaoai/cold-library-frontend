@@ -73,7 +73,7 @@ const MaterialUISwitch = styled(Switch)(() => ({
   }
 }))
 
-export default function HotColdSwitch({ storageState, setStorageState }) {
+const HotColdSwitch = ({ storageState, setStorageState }) => {
   const isFluxFroid = storageState === StorageState.FLUX_FROID
   const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID
 
@@ -92,3 +92,5 @@ export default function HotColdSwitch({ storageState, setStorageState }) {
     </FormGroup>
   )
 }
+
+export default HotColdSwitch

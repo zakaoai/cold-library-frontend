@@ -7,7 +7,7 @@ import Grid from "@mui/material/Grid"
 /**
  * Activité
  */
-function SearchActivity() {
+const SearchActivity = () => {
   const { animes, isFetching, error, form, searchAnime, updateAnime } = useAnimeSearch()
 
   return (

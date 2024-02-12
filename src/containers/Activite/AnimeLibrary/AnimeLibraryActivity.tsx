@@ -9,7 +9,7 @@ import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
 /**
  * Activité
  */
-function AnimeLibraryActivity() {
+const AnimeLibraryActivity = () => {
   const { animes, updateAnime } = useLibrary()
   const { filtersState, filterFunc } = useAnimeLibraryFilter()
 

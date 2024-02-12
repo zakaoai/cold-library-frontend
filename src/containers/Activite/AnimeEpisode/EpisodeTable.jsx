@@ -11,7 +11,7 @@ import TableRow from "@mui/material/TableRow"
 
 import EpisodeLine from "./EpisodeLine"
 
-export default function EpisodeTable({ malId }) {
+const EpisodeTable = ({ malId }) => {
   const { animeEpisodes } = useAnimeEpisode(malId)
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(animeEpisodes)
@@ -47,3 +47,5 @@ export default function EpisodeTable({ malId }) {
     </Paper>
   )
 }
+
+export default EpisodeTable

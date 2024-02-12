@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query"
 
 import { useEffect } from "react"
 
-export default function useLibrary() {
+const useLibrary = () => {
   const { animeLibrary, setAnimeLibrary } = useAppContext()
 
   const { data, isFetched, isFetching } = useQuery({
@@ -27,3 +27,5 @@ export default function useLibrary() {
 
   return { animes: animeLibrary, isFetching, updateAnime }
 }
+
+export default useLibrary

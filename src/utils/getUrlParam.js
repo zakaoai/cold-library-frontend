@@ -1,4 +1,4 @@
-export default function getUrlParam(endpointPath) {
+const getUrlParam = endpointPath => {
   let replacedEndpointPath = endpointPath
   let found = true
   const params = new Set()
@@ -20,3 +20,5 @@ export default function getUrlParam(endpointPath) {
 
   return params
 }
+
+export default getUrlParam

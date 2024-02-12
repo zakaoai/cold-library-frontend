@@ -3,7 +3,7 @@ import green from "@mui/material/colors/green"
 
 import CloudDownloadIcon from "@mui/icons-material/CloudDownload"
 
-function AnimeCardTrackedButton({ isAnimeTracked, trackAnime }) {
+const AnimeCardTrackedButton = ({ isAnimeTracked, trackAnime }) => {
   return (
     <IconButton
       aria-label="Track or UnTrack Anime"

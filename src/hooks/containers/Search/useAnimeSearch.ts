@@ -7,7 +7,7 @@ import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useLocation, useNavigate } from "react-router-dom"
 
-export default function useAnimeSearch() {
+const useAnimeSearch = () => {
   const { search: browserSearch } = useLocation()
   const searchParam = new URLSearchParams(browserSearch).get("search")
 
@@ -57,3 +57,5 @@ export default function useAnimeSearch() {
 
   return { animes, error, isFetching: isPending, form, searchAnime, updateAnime }
 }
+
+export default useAnimeSearch

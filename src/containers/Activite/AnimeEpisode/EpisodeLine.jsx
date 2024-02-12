@@ -2,7 +2,7 @@ import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { DateTime } from "luxon"
 
-export default function EpisodeLine({ episode }) {
+const EpisodeLine = ({ episode }) => {
   const { episodeNumber, title, dateSortie } = episode
 
   return (

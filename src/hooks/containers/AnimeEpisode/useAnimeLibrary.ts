@@ -5,7 +5,7 @@ import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQueries, type QueryObserverResult } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 
-export default function useAnimeLibrary(malId: number) {
+const useAnimeLibrary = (malId: number) => {
   const [anime, setAnime] = useState<AnimeDTO | undefined>(undefined)
 
   const combine = ([anime, trackedAnime]: [
@@ -50,3 +50,5 @@ export default function useAnimeLibrary(malId: number) {
     updateAnimeInfos
   }
 }
+
+export default useAnimeLibrary

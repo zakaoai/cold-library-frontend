@@ -49,18 +49,16 @@ const AnimeTorrentRow = () => {
         <AnimeTorrentRowMobile {...animeTorrentRowProps} />
       )}
 
-      {showedTorrents.length !== 0 && <AnimeTorrentEpisodeTable torrents={showedTorrents} listOpen={open} />}
+      {showedTorrents.length !== 0 && <AnimeTorrentEpisodeTable torrents={showedTorrents} listOpen={showEpisodes} />}
       <ModalEditTrackedEpisode />
     </>
   )
 }
 
-const AnimeTorrentRowWithContext = ({ animeTorrent }: IAnimeTorrentRowWithContext) => {
-  return (
-    <AnimeTorrentRowProvider animeTorrent={animeTorrent}>
-      <AnimeTorrentRow />
-    </AnimeTorrentRowProvider>
-  )
-}
+const AnimeTorrentRowWithContext = ({ animeTorrent }: IAnimeTorrentRowWithContext) => (
+  <AnimeTorrentRowProvider animeTorrent={animeTorrent}>
+    <AnimeTorrentRow />
+  </AnimeTorrentRowProvider>
+)
 
 export default AnimeTorrentRowWithContext

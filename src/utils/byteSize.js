@@ -1,4 +1,4 @@
-export function formatByteSize(size, type, round = 1) {
+export const formatByteSize = (size, type, round = 1) => {
   const typeSize = ["Bytes", "KiB", "MiB", "GiB", "TiB"]
 
   const typeIndex = typeSize.indexOf(type)
@@ -12,7 +12,7 @@ export function formatByteSize(size, type, round = 1) {
   return (size / Math.pow(1024, i)).toFixed(round) + " " + typeSize[typeIndex + i]
 }
 
-export function getBytesSize(size, type) {
+export const getBytesSize = (size, type) => {
   const typeSize = ["Bytes", "KiB", "MiB", "GiB", "TiB"]
 
   const typeIndex = typeSize.indexOf(type)

@@ -3,7 +3,7 @@ import AnimeEpisodeService from "@/services/AnimeEpisodeService"
 import { useQuery } from "@tanstack/react-query"
 import { useEffect, useState } from "react"
 
-export default function useAnimeEpisode(malId: number) {
+const useAnimeEpisode = (malId: number) => {
   const [animeEpisodes, setAnimeEpisodes] = useState<AnimeEpisodeDTO[]>([])
 
   const { data, isFetched, isFetching } = useQuery({
@@ -20,3 +20,5 @@ export default function useAnimeEpisode(malId: number) {
 
   return { animeEpisodes, isFetching }
 }
+
+export default useAnimeEpisode

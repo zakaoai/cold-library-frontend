@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom"
 import AnimeEpisodeBar from "./AnimeEpisodeBar"
 import EpisodeTable from "./EpisodeTable"
 
-function AnimeEpisodeActivity() {
+const AnimeEpisodeActivity = () => {
   const { malId } = useParams()
   const { anime, isFetching, updateAnime, updateAnimeInfos } = useAnimeLibrary(malId)
 
