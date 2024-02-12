@@ -1,4 +1,4 @@
-import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
+import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
 import SearchIcon from "@mui/icons-material/Search"
 import { AppBar, Box, Button, Grid } from "@mui/material"
 import { useCallback } from "react"

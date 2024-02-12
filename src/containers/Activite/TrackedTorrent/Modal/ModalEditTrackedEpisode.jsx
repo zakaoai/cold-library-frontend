@@ -15,13 +15,27 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 
+import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
+import { useCallback } from "react"
 import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine"
 
-export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, handleClose }) {
-  const { episodeNumber } = trackedEpisode
+const ModalEditTrackedEpisode = () => {
+  const {
+    setShowModalAlternateEpisode,
+    setSelectedEpisodeAlternate,
+    selectedEpisodeAlternate,
+    showModalAlternateEpisode
+  } = useAnimeTorrentRowContext()
+
+  const handleClose = useCallback(() => {
+    setShowModalAlternateEpisode(false)
+    setSelectedEpisodeAlternate(undefined)
+  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
+
+  const { episodeNumber } = selectedEpisodeAlternate
   const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue, updatedTrackedEpisode } =
     useAlternateTrackedTorrentEpisode(
-      trackedEpisode,
+      selectedEpisodeAlternate,
 
       handleClose
     )
@@ -42,7 +56,7 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
   ]
 
   return (
-    <Dialog open={open} onClose={handleClose} fullWidth maxWidth="md">
+    <Dialog open={showModalAlternateEpisode} onClose={handleClose} fullWidth maxWidth="md">
       <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
       <DialogContent>
         <TableContainer component={Paper}>
@@ -99,3 +113,5 @@ export default function ModalEditTrackedEpisode({ trackedEpisode = {}, open, han
     </Dialog>
   )
 }
+
+export default ModalEditTrackedEpisode

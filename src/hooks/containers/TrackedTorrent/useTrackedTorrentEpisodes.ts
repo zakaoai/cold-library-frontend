@@ -6,8 +6,8 @@ import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useMemo, useState } from "react"
 
-const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => {
-  const [episodes, setEpisodes] = useState<AnimeEpisodeTorrentDisplay[]>([])
+const useAnimeTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => {
+  const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
 
   // Get
   const {
@@ -28,7 +28,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   useEffect(() => {
     if (allTorentsFetched && torrentsEpisode !== undefined) {
-      setEpisodes(torrentsEpisode.map(episode => formatEpisode(episode)))
+      setAnimeEpisodeTorrents(torrentsEpisode.map(episode => formatEpisode(episode)))
     }
   }, [allTorentsFetched, torrentsEpisode])
 
@@ -41,12 +41,12 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   const onSuccessPatchTrackedAnimeEpisode = useCallback(
     (updatedEpisode: AnimeEpisodeTorrentDTO) => {
-      setEpisodes(episodes => [
+      setAnimeEpisodeTorrents(episodes => [
         ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
         formatEpisode(updatedEpisode)
       ])
     },
-    [setEpisodes]
+    [setAnimeEpisodeTorrents]
   )
 
   const onErrorPatchTrackedAnimeEpisode = useCallback(
@@ -73,9 +73,12 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   const onSuccessScanEpisodes = useCallback(
     (newEpisodes: AnimeEpisodeTorrentDTO[]) => {
-      setEpisodes(currentEpisodes => [...currentEpisodes, ...newEpisodes.map(episode => formatEpisode(episode))])
+      setAnimeEpisodeTorrents(currentEpisodes => [
+        ...currentEpisodes,
+        ...newEpisodes.map(episode => formatEpisode(episode))
+      ])
     },
-    [setEpisodes]
+    [setAnimeEpisodeTorrents]
   )
 
   const onErrorScanEpisodes = useCallback(
@@ -97,13 +100,13 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
   })
 
   // Search Pack
-  const searchPackCall = useCallback(async () => await AnimeEpisodeTorrentService.scanPackTorrent(malId), [])
+  const searchPackCall = useCallback(async () => await AnimeEpisodeTorrentService.scanPackTorrent(malId), [malId])
 
   const onSuccessSearchPack = useCallback(
     (newEpisode: AnimeEpisodeTorrentDTO) => {
-      setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(newEpisode)])
+      setAnimeEpisodeTorrents(currentEpisodes => [...currentEpisodes, formatEpisode(newEpisode)])
     },
-    [setEpisodes]
+    [setAnimeEpisodeTorrents]
   )
 
   const onErrorSearchPack = useCallback(
@@ -132,9 +135,9 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   const onSuccessDeleteTorrent = useCallback(
     (_: void, episodeNumber: number) => {
-      setEpisodes(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber))
+      setAnimeEpisodeTorrents(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber))
     },
-    [setEpisodes]
+    [setAnimeEpisodeTorrents]
   )
 
   const onErrorDeleteTorrent = useCallback(
@@ -159,9 +162,9 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
   const onSuccessScanNextEpisodeTorrent = useCallback(
     (animeEpisodeTorrent?: AnimeEpisodeTorrentDTO) => {
       if (animeEpisodeTorrent != undefined)
-        setEpisodes(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
+        setAnimeEpisodeTorrents(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
     },
-    [setEpisodes]
+    [setAnimeEpisodeTorrents]
   )
 
   const onErrorScanNextEpisodeTorrent = useCallback(
@@ -177,8 +180,7 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   const { isPending: isScanNextEpisodePending, mutate: scanNextEpisode } = useMutation<
     AnimeEpisodeTorrentDTO,
-    ResponseError,
-    string
+    ResponseError
   >({
     mutationFn: async () => await AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId),
     onSuccess: onSuccessScanNextEpisodeTorrent,
@@ -187,14 +189,14 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
 
   const isScanNextEpisodeAvaible = useMemo(
     () =>
-      episodes.length === 0 ||
-      episodes.sort((a, b) => a.episodeNumber - b.episodeNumber)[episodes.length - 1].episodeNumber ===
-        lastEpisodeOnServer,
-    [episodes, lastEpisodeOnServer]
+      animeEpisodeTorrents.length === 0 ||
+      animeEpisodeTorrents.sort((a, b) => a.episodeNumber - b.episodeNumber)[animeEpisodeTorrents.length - 1]
+        .episodeNumber === lastEpisodeOnServer,
+    [animeEpisodeTorrents, lastEpisodeOnServer]
   )
 
   return {
-    episodes,
+    animeEpisodeTorrents,
     isFetching: !allTorentsFetched,
     isScanEpisodesPending,
     scanEpisodes,
@@ -207,8 +209,8 @@ const useTrackedTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) =
     searchPack,
     isdDeleteTorrentPending,
     deleteTorrent,
-    setEpisodes
+    setAnimeEpisodeTorrents
   }
 }
 
-export default useTrackedTorrentEpisodes
+export default useAnimeTorrentEpisodes

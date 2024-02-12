@@ -1,4 +1,4 @@
-import { useTrackedTorrentRowContext } from "@/hooks/context/useTrackedTorrentRowContext"
+import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import { AnimeEpisodeTorrentDisplay } from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
@@ -8,7 +8,7 @@ import { formatEpisode } from "@/utils/torrentEpisode"
 import { useCallback, useEffect, useState } from "react"
 
 const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDTO, handleClose: () => void) => {
-  const { patchTrackedAnimeEpisode: updateTrackedEpisode, setEpisodes } = useTrackedTorrentRowContext()
+  const { patchTrackedAnimeEpisode: updateTrackedEpisode, setAnimeEpisodeTorrents } = useAnimeTorrentRowContext()
   const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState<AnimeEpisodeTorrentDisplay[]>([])
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(trackedEpisode)
 
@@ -35,7 +35,9 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDT
   useEffect(() => {
     void AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
       setUpdatedTrackedEpisode(formatEpisode(episode))
-      setEpisodes(episodes => episodes.map(ep => (ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep)))
+      setAnimeEpisodeTorrents(episodes =>
+        episodes.map(ep => (ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep))
+      )
     })
 
     void AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list => {
@@ -51,7 +53,7 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDT
         )
       }
     })
-  }, [episodeNumber, malId, setEpisodes, trackedEpisode])
+  }, [episodeNumber, malId, setAnimeEpisodeTorrents, trackedEpisode])
 
   return {
     handleChange,

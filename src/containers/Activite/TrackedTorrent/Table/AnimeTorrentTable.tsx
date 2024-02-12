@@ -4,9 +4,12 @@ import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 
-import TrackedTorrentRow from "./TrackedTorrentRow"
+import useAppContext from "@/hooks/context/useAppContext"
+import AnimeTorrentRow from "./AnimeTorrentRow"
 
-const TrackedTorrentTable = ({ trackedTorrents }) => {
+const AnimeTorrentTable = () => {
+  const { torrentLibrary } = useAppContext()
+
   return (
     <Table>
       <TableHead sx={{ display: { xs: "none", md: "revert" } }}>
@@ -21,12 +24,12 @@ const TrackedTorrentTable = ({ trackedTorrents }) => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {trackedTorrents.map(trackedTorrent => (
-          <TrackedTorrentRow key={trackedTorrent.malId} trackedTorrent={trackedTorrent} />
+        {torrentLibrary.map(animeTorrent => (
+          <AnimeTorrentRow key={animeTorrent.malId} animeTorrent={animeTorrent} />
         ))}
       </TableBody>
     </Table>
   )
 }
 
-export default TrackedTorrentTable
+export default AnimeTorrentTable

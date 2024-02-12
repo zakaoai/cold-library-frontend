@@ -1,4 +1,4 @@
-import { useTrackedTorrentContext } from "@/context/TrackedTorrentContext"
+import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
@@ -11,10 +11,21 @@ import TextField from "@mui/material/TextField"
 import { useCallback } from "react"
 import { Controller, useForm } from "react-hook-form"
 
-export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, handleClose }) {
-  const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = trackedTorrent
+const ModalEditTrackedTorrent = () => {
+  const {
+    editableTrackedAnime,
+    updateTrackedAnime: patchAnime,
+    setShowModal,
+    setEditableTrackedAnime,
+    showModal: open
+  } = useTrackedTorrentContext()
 
-  const { updateTrackedAnime: patchAnime } = useTrackedTorrentContext()
+  const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = editableTrackedAnime
+
+  const handleClose = useCallback(() => {
+    setShowModal(false)
+    setEditableTrackedAnime(undefined)
+  }, [setEditableTrackedAnime, setShowModal])
 
   const updateTrackedAnime = useCallback(
     async trackedAnime =>
@@ -38,10 +49,10 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
 
   const onSubmit = useCallback(
     ({ searchWords, dayOfRelease, lastEpisodeOnServer }) => {
-      updateTrackedAnime({ ...trackedTorrent, searchWords, dayOfRelease, lastEpisodeOnServer })
+      updateTrackedAnime({ ...editableTrackedAnime, searchWords, dayOfRelease, lastEpisodeOnServer })
       handleClose()
     },
-    [updateTrackedAnime, trackedTorrent, handleClose]
+    [updateTrackedAnime, editableTrackedAnime, handleClose]
   )
 
   const days = [
@@ -130,3 +141,5 @@ export default function ModalEditTrackedTorrent({ trackedTorrent = {}, open, han
     </Dialog>
   )
 }
+
+export default ModalEditTrackedTorrent

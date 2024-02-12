@@ -5,8 +5,7 @@ import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
-
-import AnimeTorrentEpisodeRow from "./AnimeTorrentEpisodeRow"
+import AnimeEpisodeTorrentRow from "./AnimeEpisodeTorrentRow"
 
 export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
   return (
@@ -14,7 +13,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
         <Collapse in={listOpen} timeout="auto" unmountOnExit>
           <Box margin={1}>
-            <Table size="small" aria-label="purchases">
+            <Table size="small">
               <TableHead sx={{ display: { xs: "none", md: "revert" } }}>
                 <TableRow>
                   <TableCell>Episode</TableCell>
@@ -29,7 +28,7 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
                 {torrents
                   ?.sort((a, b) => a.episodeNumber - b.episodeNumber)
                   .map(animeEpisodeTorrent => (
-                    <AnimeTorrentEpisodeRow
+                    <AnimeEpisodeTorrentRow
                       key={`${animeEpisodeTorrent.episodeNumber}-${animeEpisodeTorrent.torrentId}`}
                       animeEpisodeTorrent={animeEpisodeTorrent}
                     />
