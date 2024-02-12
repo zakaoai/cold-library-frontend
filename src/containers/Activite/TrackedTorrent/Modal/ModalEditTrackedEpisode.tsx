@@ -16,6 +16,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { useCallback } from "react"
 import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine"
 
@@ -32,18 +33,14 @@ const ModalEditTrackedEpisode = () => {
     setSelectedEpisodeAlternate(undefined)
   }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
 
-  const { episodeNumber } = selectedEpisodeAlternate
+  const { episodeNumber } = selectedEpisodeAlternate || {}
   const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue, updatedTrackedEpisode } =
-    useAlternateTrackedTorrentEpisode(
-      selectedEpisodeAlternate,
-
-      handleClose
-    )
+    useAlternateTrackedTorrentEpisode(selectedEpisodeAlternate, handleClose)
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(alternateTrackedEpisodes)
 
-  const sortObj = useSortTable()
+  const sortObj = useSortTable<AnimeEpisodeTorrentDisplay>()
   const { sortFunction } = sortObj
 
   const headCells = [
@@ -62,7 +59,7 @@ const ModalEditTrackedEpisode = () => {
         <TableContainer component={Paper}>
           <Table>
             <TableBody>
-              <AlternateTrackedEpisodeLine trackedEpisode={updatedTrackedEpisode} />
+              {updatedTrackedEpisode && <AlternateTrackedEpisodeLine trackedEpisode={updatedTrackedEpisode} />}
             </TableBody>
           </Table>
         </TableContainer>

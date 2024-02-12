@@ -1,6 +1,6 @@
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 
-import { AnimeEpisodeTorrentDisplay } from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 
 import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"

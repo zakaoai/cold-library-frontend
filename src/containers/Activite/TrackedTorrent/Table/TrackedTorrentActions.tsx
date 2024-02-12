@@ -19,9 +19,11 @@ const AnimeTorrentActions = () => {
     searchPack,
     scanEpisodes,
     scanNextEpisode,
-    animeEpisodeTorrents
+    animeEpisodeTorrents,
+    anime
   } = useAnimeTorrentRowContext()
-  const { nbEpisodes, lastEpisodeOnServer } = trackedTorrent
+  const { lastEpisodeOnServer } = trackedTorrent
+  const { episodes } = anime || {}
 
   const editTrackedAnime = useCallback(() => {
     setEditableTrackedAnime(trackedTorrent)
@@ -31,24 +33,24 @@ const AnimeTorrentActions = () => {
   const isNewEpisode =
     animeEpisodeTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0
 
-  const isComplete = animeEpisodeTorrents.findIndex(({ episodeNumber }) => episodeNumber === nbEpisodes) !== -1
+  const isComplete = animeEpisodeTorrents.findIndex(({ episodeNumber }) => episodeNumber === episodes) !== -1
 
   const isPackInList = animeEpisodeTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1
 
   return (
     <>
       {!isPackInList && (
-        <IconButton aria-label="download pack" onClick={searchPack} size="large">
+        <IconButton aria-label="download pack" onClick={() => searchPack()} size="large">
           <CreateNewFolderIcon />
         </IconButton>
       )}
       <IconButton aria-label="edit" onClick={editTrackedAnime} size="large">
         <EditIcon />
       </IconButton>
-      <IconButton aria-label="scan all" onClick={scanEpisodes} size="large">
+      <IconButton aria-label="scan all" onClick={() => scanEpisodes()} size="large">
         <SearchIcon />
       </IconButton>
-      <IconButton aria-label="scan next" onClick={scanNextEpisode} size="large">
+      <IconButton aria-label="scan next" onClick={() => scanNextEpisode()} size="large">
         <SavedSearchIcon />
       </IconButton>
       {isNewEpisode && (
@@ -58,7 +60,7 @@ const AnimeTorrentActions = () => {
       )}
       {isComplete && (
         <Tooltip title="Complete">
-          <DoneAllIcon alt="Complete" fontSize="large" style={{ color: green[500] }} />
+          <DoneAllIcon fontSize="large" style={{ color: green[500] }} />
         </Tooltip>
       )}
     </>

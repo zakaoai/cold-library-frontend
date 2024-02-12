@@ -1,8 +1,9 @@
+import type AlternateTrackedEpisodeLine from "@/interfaces/containers/Activite/TrackedTorrent/Modal/AlternateTrackedEpisodeLine"
 import LinkIcon from "@mui/icons-material/Link"
 import { IconButton, Radio, TableCell, TableRow } from "@mui/material"
 import { DateTime } from "luxon"
 
-const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }) => {
+const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChange }: AlternateTrackedEpisodeLine) => {
   const { title, dateObj: date, torrentId, displaySize, leechers, seeders, completed } = trackedEpisode
 
   const nyaaLink = `https://nyaa.si/view/${torrentId}`

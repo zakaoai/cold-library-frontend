@@ -1,3 +1,4 @@
+import type IAnimeTorrentEpisodeTable from "@/interfaces/containers/Activite/TrackedTorrent/AnimeTorrentEpisodeTable"
 import Box from "@mui/material/Box"
 import Collapse from "@mui/material/Collapse"
 import Table from "@mui/material/Table"
@@ -7,7 +8,7 @@ import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 import AnimeEpisodeTorrentRow from "./AnimeEpisodeTorrentRow"
 
-export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
+const AnimeTorrentEpisodeTable = ({ torrents, listOpen }: IAnimeTorrentEpisodeTable) => {
   return (
     <TableRow>
       <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={7}>
@@ -41,3 +42,4 @@ export default function AnimeTorrentEpisodeTable({ torrents, listOpen }) {
     </TableRow>
   )
 }
+export default AnimeTorrentEpisodeTable

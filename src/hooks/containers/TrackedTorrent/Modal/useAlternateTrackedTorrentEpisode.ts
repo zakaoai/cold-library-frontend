@@ -1,13 +1,14 @@
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import { AnimeEpisodeTorrentDisplay } from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
-import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
-import { formatByteSize, getBytesSize } from "@/utils/byteSize"
 import { formatEpisode } from "@/utils/torrentEpisode"
 
 import { useCallback, useEffect, useState } from "react"
 
-const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDTO, handleClose: () => void) => {
+const useAlternateTrackedTorrentEpisode = (
+  trackedEpisode: AnimeEpisodeTorrentDisplay | undefined,
+  handleClose: () => void
+) => {
   const { patchTrackedAnimeEpisode: updateTrackedEpisode, setAnimeEpisodeTorrents } = useAnimeTorrentRowContext()
   const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState<AnimeEpisodeTorrentDisplay[]>([])
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(trackedEpisode)
@@ -30,30 +31,23 @@ const useAlternateTrackedTorrentEpisode = (trackedEpisode: AnimeEpisodeTorrentDT
     }
   }, [selectedValue, trackedEpisodeAlternates, updateTrackedEpisode, handleClose])
 
-  const { malId, episodeNumber } = trackedEpisode
-
   useEffect(() => {
-    void AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
-      setUpdatedTrackedEpisode(formatEpisode(episode))
-      setAnimeEpisodeTorrents(episodes =>
-        episodes.map(ep => (ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep))
-      )
-    })
-
-    void AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list => {
-      {
-        setTrackedEpisodeAlternates(
-          list.map(ep => {
-            const torrentSizeSplit = ep.torrentSize.split(" ")
-            const byteSize = getBytesSize(...torrentSizeSplit)
-            const displaySize = formatByteSize(...torrentSizeSplit)
-
-            return { ...ep, dateObj: new Date(ep.date), byteSize, displaySize }
-          })
+    if (trackedEpisode !== undefined) {
+      const { malId, episodeNumber } = trackedEpisode
+      void AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
+        setUpdatedTrackedEpisode(formatEpisode(episode))
+        setAnimeEpisodeTorrents(episodes =>
+          episodes.map(ep => (ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep))
         )
-      }
-    })
-  }, [episodeNumber, malId, setAnimeEpisodeTorrents, trackedEpisode])
+      })
+
+      void AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list => {
+        {
+          setTrackedEpisodeAlternates(list.map(formatEpisode))
+        }
+      })
+    }
+  }, [setAnimeEpisodeTorrents, trackedEpisode])
 
   return {
     handleChange,

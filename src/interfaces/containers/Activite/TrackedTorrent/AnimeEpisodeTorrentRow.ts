@@ -1,5 +1,5 @@
 import { UseMutateFunction } from "@tanstack/react-query"
-import { AnimeEpisodeTorrentDisplay } from "./AnimeEpisodeTorrentDisplay"
+import type AnimeEpisodeTorrentDisplay from "./AnimeEpisodeTorrentDisplay"
 
 export default interface AnimeEpisodeTorrentRow {
   updateTrackedAnimeEpisode: () => void

@@ -1,5 +1,5 @@
 import useAnimeTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useTrackedTorrentEpisodes"
-import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import { useMemo, useState, type PropsWithChildren } from "react"
@@ -10,7 +10,7 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
 
   const { malId, lastEpisodeOnServer } = animeTorrent
   const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false)
-  const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState<AnimeEpisodeTorrentDTO | undefined>(
+  const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState<AnimeEpisodeTorrentDisplay | undefined>(
     undefined
   )
   const [showEpisodes, setShowEpisodes] = useState(false)

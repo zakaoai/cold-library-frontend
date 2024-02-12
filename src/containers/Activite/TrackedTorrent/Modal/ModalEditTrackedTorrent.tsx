@@ -1,4 +1,6 @@
+import useAppContext from "@/hooks/context/useAppContext"
 import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
+import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
@@ -20,7 +22,11 @@ const ModalEditTrackedTorrent = () => {
     showModal: open
   } = useTrackedTorrentContext()
 
-  const { title, searchWords, lastEpisodeOnServer, dayOfRelease } = editableTrackedAnime
+  const { animeLibrary } = useAppContext()
+
+  const anime = animeLibrary.find(anime => anime.malId === editableTrackedAnime?.malId)
+  const { title } = anime || {}
+  const { searchWords, lastEpisodeOnServer, dayOfRelease } = editableTrackedAnime || {}
 
   const handleClose = useCallback(() => {
     setShowModal(false)
@@ -28,7 +34,7 @@ const ModalEditTrackedTorrent = () => {
   }, [setEditableTrackedAnime, setShowModal])
 
   const updateTrackedAnime = useCallback(
-    async trackedAnime =>
+    async (trackedAnime: AnimeTorrentDTO) =>
       await AnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
         patchAnime(newTrackedAnime)
       ),
@@ -45,11 +51,16 @@ const ModalEditTrackedTorrent = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm({ defaultValues })
+  } = useForm<Pick<AnimeTorrentDTO, "searchWords" | "dayOfRelease" | "lastEpisodeOnServer">>({ defaultValues })
 
   const onSubmit = useCallback(
-    ({ searchWords, dayOfRelease, lastEpisodeOnServer }) => {
-      updateTrackedAnime({ ...editableTrackedAnime, searchWords, dayOfRelease, lastEpisodeOnServer })
+    ({
+      searchWords,
+      dayOfRelease,
+      lastEpisodeOnServer
+    }: Pick<AnimeTorrentDTO, "searchWords" | "dayOfRelease" | "lastEpisodeOnServer">) => {
+      if (editableTrackedAnime != undefined)
+        updateTrackedAnime({ ...editableTrackedAnime, searchWords, dayOfRelease, lastEpisodeOnServer })
       handleClose()
     },
     [updateTrackedAnime, editableTrackedAnime, handleClose]
@@ -82,7 +93,7 @@ const ModalEditTrackedTorrent = () => {
             autoFocus
             margin="dense"
             fullWidth
-            error={errors.searchWords}
+            error={errors.searchWords !== undefined}
             helperText={errors.searchWords !== undefined ? errors.searchWords.message : ""}
             inputProps={{
               ...register("searchWords", {
@@ -96,7 +107,7 @@ const ModalEditTrackedTorrent = () => {
             margin="dense"
             type="number"
             fullWidth
-            error={errors.lastEpisodeOnServer}
+            error={errors.lastEpisodeOnServer !== undefined}
             helperText={errors.lastEpisodeOnServer !== undefined ? errors.lastEpisodeOnServer.message : ""}
             inputProps={{
               ...register("lastEpisodeOnServer", {
@@ -116,7 +127,7 @@ const ModalEditTrackedTorrent = () => {
                 id="dayOfRelease"
                 select
                 name="dayOfRelease"
-                error={errors.dayOfRelease}
+                error={errors.dayOfRelease !== undefined}
                 helperText={errors.dayOfRelease !== undefined ? errors.dayOfRelease.message : ""}
                 value={value}
                 onChange={onChange}>
