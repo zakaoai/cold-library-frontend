@@ -5,7 +5,7 @@ import { useEffect } from "react"
 import IAnimeCompleteButton from "./interface/AnimeCompleteButton"
 
 const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isCompletePending }: IAnimeCompleteButton) => {
-  const isDisabled = nbEpisodes === 0
+  const isDisabled = nbEpisodes === 0 || nbEpisodes === undefined
 
   useEffect(() => {
     if (isDisabled && isComplete && !isCompletePending) {

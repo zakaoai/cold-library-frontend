@@ -1,8 +1,6 @@
-import { Dispatch, SetStateAction } from "react"
-
 export default interface AnimeCompleteButton {
-  nbEpisodes: number
-  isComplete: boolean
-  setIsComplete: Dispatch<SetStateAction<boolean>>
-  isCompletePending: boolean
+  nbEpisodes?: number
+  isComplete?: boolean
+  setIsComplete: (isComplete: boolean) => void
+  isCompletePending?: boolean
 }

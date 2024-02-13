@@ -32,7 +32,7 @@ const AnimeEpisodeActivity = () => {
               )}
             </Grid>
             <Grid item xs={12} md={9}>
-              <EpisodeTable malId={malId} />
+              {malId != undefined && <EpisodeTable malId={parseInt(malId)} />}
             </Grid>
           </>
         )}

@@ -9,9 +9,10 @@ import TableHead from "@mui/material/TableHead"
 import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 
+import type IEpisodeTable from "@/interfaces/containers/Activite/AnimeEpisode/EpisodeTable"
 import EpisodeLine from "./EpisodeLine"
 
-const EpisodeTable = ({ malId }) => {
+const EpisodeTable = ({ malId }: IEpisodeTable) => {
   const { animeEpisodes } = useAnimeEpisode(malId)
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(animeEpisodes)

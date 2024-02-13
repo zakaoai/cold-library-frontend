@@ -4,8 +4,9 @@ import { AppBar, Box, Checkbox, Grid, IconButton } from "@mui/material"
 
 import AnimeCardTrackedButton from "@/components/animeCard/AnimeCardTrackedButton"
 import AnimeCompleteButton from "@/components/animeCard/AnimeCompleteButton"
+import type IAnimeLibraryFilterBar from "@/interfaces/containers/Activite/AnimeLibrary/AnimeLibraryFilterBar"
 
-const AnimeLibraryFilterBar = ({ filtersState }) => {
+const AnimeLibraryFilterBar = ({ filtersState }: IAnimeLibraryFilterBar) => {
   const {
     filterStorageState,
     filterTrackedAnime,

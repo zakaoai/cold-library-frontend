@@ -9,7 +9,7 @@ import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 const AnimeCardBottomActions = () => {
   const { anime, showAddOrRemoveFromLibrary, updateAnimeState } = useAnimeCardContext()
 
-  const { episodes, storageState, isComplete, isDownloading } = anime || {}
+  const { episodes, storageState, isComplete, isDownloading } = anime
 
   const { setIsComplete, isUpdateIsCompletePending, setStorageState, setIsDownloading } = updateAnimeState
   const isInLibrary = !!storageState
@@ -38,7 +38,7 @@ const AnimeCardBottomActions = () => {
             <LastAvaibleEpisode />
           </Grid>
           <Grid item xs={2}>
-            <AnimeCardTrackedButton isAnimeTracked={isDownloading} trackAnime={setIsDownloading} />
+            <AnimeCardTrackedButton isAnimeTracked={isDownloading || false} trackAnime={setIsDownloading} />
           </Grid>
         </>
       )}
