@@ -1,5 +1,6 @@
 import Auth0AccountMenu from "@/components/Auth0Button/Auth0AccountMenu"
-import { useColorMode } from "@/context/ColorModeContext"
+import { useColorModeContext } from "@/hooks/context/useColorModeContext"
+import Menu from "@/interfaces/containers/Menu/Menu"
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 import Brightness7Icon from "@mui/icons-material/Brightness7"
 import MenuIcon from "@mui/icons-material/Menu"
@@ -10,11 +11,11 @@ import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import MenuMobileDrawer from "./MenuMobileDrawer"
 
-const MenuMobile = ({ links }) => {
+const MenuMobile = ({ links }: Menu) => {
   const [open, setOpen] = useState(false)
   const location = useLocation()
   const theme = useTheme()
-  const { toggleColorMode } = useColorMode()
+  const { toggleColorMode } = useColorModeContext()
 
   useEffect(() => {
     setOpen(false)

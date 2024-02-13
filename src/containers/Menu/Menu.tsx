@@ -12,7 +12,7 @@ const Menu = () => {
   return (
     <>
       <MenuDesktop links={links} />
-      <MenuMobile links={links} location={location} />
+      <MenuMobile links={links} />
     </>
   )
 }

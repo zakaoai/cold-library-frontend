@@ -1,10 +1,11 @@
+import type IMenuMobileDrawer from "@/interfaces/containers/Menu/MenuMobileDrawer"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
 import { Box, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, useTheme } from "@mui/material"
 
 import { NavLink } from "react-router-dom"
 
-const MenuMobileDrawer = ({ handleClose, links, open }) => {
+const MenuMobileDrawer = ({ handleClose, links, open }: IMenuMobileDrawer) => {
   const theme = useTheme()
 
   return (

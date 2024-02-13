@@ -3,7 +3,7 @@ import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorren
 import { formatByteSize, getBytesSize } from "./byteSize"
 
 export const formatEpisode = (ep: AnimeEpisodeTorrentDTO) => {
-  const torrentSizeSplit = ep?.torrentSize?.split(" ")
+  const torrentSizeSplit = ep?.torrentSize?.split(" ") as [string, string]
   const byteSize = getBytesSize(...torrentSizeSplit)
   const displaySize = formatByteSize(...torrentSizeSplit)
 
