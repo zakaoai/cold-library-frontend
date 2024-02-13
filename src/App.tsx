@@ -1,11 +1,11 @@
 import "./App.css"
 
-import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
 import { StyledEngineProvider } from "@mui/material/styles"
 import { SnackbarProvider } from "notistack"
 import { RouterProvider } from "react-router-dom"
 
+import { Box } from "@mui/material"
 import { ColorModeProvider } from "./context/ColorModeProvider"
 import { router } from "./routes"
 
