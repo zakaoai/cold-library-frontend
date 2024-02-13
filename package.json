@@ -1,6 +1,6 @@
 {
   "name": "cold-library-frontend",
-  "version": "1.5.0",
+  "version": "2.0.0-SNAPSHOT",
   "type": "module",
   "description": "Front End Cold Library App",
   "repository": "github:zakaoai/cold-library-frontend",
