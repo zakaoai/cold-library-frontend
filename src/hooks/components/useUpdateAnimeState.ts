@@ -8,7 +8,7 @@ import { useCallback } from "react"
 const useUpdateAnimeState = (
   malId: number,
   defaultAnime: AnimeDTO,
-  updateAnime: (updatedAnime: Partial<AnimeDTO> & Pick<AnimeDTO, "malId">) => void
+  updateAnime: (updatedAnime: AnimeDTO | AnimeInServerDTO) => void
 ) => {
   const onSuccessUpdateAnime = useCallback((anime: AnimeDTO) => updateAnime(anime), [updateAnime])
   const onSuccessUpdateAnimeInServer = useCallback((anime: AnimeInServerDTO) => updateAnime(anime), [updateAnime])

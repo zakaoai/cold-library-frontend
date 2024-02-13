@@ -15,3 +15,5 @@ const EpisodeLine = ({ episode }) => {
     </TableRow>
   )
 }
+
+export default EpisodeLine

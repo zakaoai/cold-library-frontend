@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography"
 import blue from "@mui/material/colors/blue"
 import red from "@mui/material/colors/red"
 import { styled } from "@mui/material/styles"
+import IHotColdSwitch from "./interface/HotColdSwitch"
 
 const MaterialUISwitch = styled(Switch)(() => ({
   width: 80,
@@ -73,7 +74,7 @@ const MaterialUISwitch = styled(Switch)(() => ({
   }
 }))
 
-const HotColdSwitch = ({ storageState, setStorageState }) => {
+const HotColdSwitch = ({ storageState, setStorageState }: IHotColdSwitch) => {
   const isFluxFroid = storageState === StorageState.FLUX_FROID
   const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID
 

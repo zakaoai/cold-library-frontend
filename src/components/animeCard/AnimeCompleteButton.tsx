@@ -2,8 +2,9 @@ import DoneAllIcon from "@mui/icons-material/DoneAll"
 import IconButton from "@mui/material/IconButton"
 import green from "@mui/material/colors/green"
 import { useEffect } from "react"
+import IAnimeCompleteButton from "./interface/AnimeCompleteButton"
 
-const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isCompletePending }) => {
+const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isCompletePending }: IAnimeCompleteButton) => {
   const isDisabled = nbEpisodes === 0
 
   useEffect(() => {

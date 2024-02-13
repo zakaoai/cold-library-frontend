@@ -7,9 +7,9 @@ const AnimeCardProvider = ({
   children,
   anime,
   updateAnime,
-  showEpisodeLink,
-  imageHeight,
-  showAddOrRemoveFromLibrary
+  showEpisodeLink = false,
+  imageHeight = "190px",
+  showAddOrRemoveFromLibrary = false
 }: PropsWithChildren & IAnimeCardProvider) => {
   const defaultAnime = {
     ...anime,

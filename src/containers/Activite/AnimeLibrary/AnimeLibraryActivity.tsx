@@ -1,6 +1,7 @@
 import Grid from "@mui/material/Grid"
 
-import AnimeWrapper from "@/components/animeCard/AnimeWrapper"
+import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
+import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
@@ -25,7 +26,9 @@ const AnimeLibraryActivity = () => {
           .filter(filterFunc)
           .map(anime => (
             <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
-              <AnimeWrapper anime={anime} showEpisodeLink updateAnime={updateAnime} showAddOrRemoveFromLibrary />
+              <AnimeCardProvider anime={anime} showEpisodeLink updateAnime={updateAnime} showAddOrRemoveFromLibrary>
+                <AnimeCardComponent />
+              </AnimeCardProvider>
             </Grid>
           ))}
       </Grid>
