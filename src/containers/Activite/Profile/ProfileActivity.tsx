@@ -7,7 +7,6 @@ import Typography from "@mui/material/Typography"
 
 const Profile = () => {
   const { user, isLoading } = useAuth0()
-  console.log("🚀 ~ Profile ~ user:", user)
 
   if (isLoading) {
     return <div>Loading ...</div>

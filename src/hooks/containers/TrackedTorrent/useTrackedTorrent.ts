@@ -2,7 +2,7 @@ import useAppContext from "@/hooks/context/useAppContext"
 import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect } from "react"
+import { useCallback, useEffect, useRef } from "react"
 
 const useTrackedTorrent = () => {
   const { torrentLibrary, setTorrentLibrary } = useAppContext()
@@ -12,9 +12,10 @@ const useTrackedTorrent = () => {
     queryFn: async () => await AnimeTorrentService.getAll(),
     retry: false
   })
-
+  const prevData = useRef<AnimeTorrentDTO[]>()
   useEffect(() => {
-    if (isFetched && data != undefined && data != torrentLibrary) {
+    if (isFetched && data != undefined && data != prevData.current) {
+      prevData.current = data
       setTorrentLibrary(data)
     }
   }, [torrentLibrary, data, isFetched, setTorrentLibrary])

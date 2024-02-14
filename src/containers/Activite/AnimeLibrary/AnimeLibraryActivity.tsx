@@ -12,6 +12,7 @@ import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
  */
 const AnimeLibraryActivity = () => {
   const { animes, updateAnime } = useLibrary()
+
   const { filtersState, filterFunc } = useAnimeLibraryFilter()
 
   const sortByTitle = (animeA: AnimeDTO, animeB: AnimeDTO) => animeA.title.localeCompare(animeB.title)

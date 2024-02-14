@@ -4,7 +4,7 @@ import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServ
 import AnimeServices from "@/services/AnimeService"
 import { useQuery } from "@tanstack/react-query"
 
-import { useEffect } from "react"
+import { useEffect, useRef } from "react"
 
 const useLibrary = () => {
   const { animeLibrary, setAnimeLibrary } = useAppContext()
@@ -12,11 +12,13 @@ const useLibrary = () => {
   const { data, isFetched, isFetching } = useQuery({
     queryKey: ["animeLibrary"],
     queryFn: async () => await AnimeServices.getAll(),
-    retry: false
+    retry: false,
+    enabled: true
   })
-
+  const prevData = useRef<AnimeDTO[]>()
   useEffect(() => {
-    if (isFetched && data != undefined && data != animeLibrary) {
+    if (isFetched && data != undefined && data != prevData.current) {
+      prevData.current = data
       setAnimeLibrary(data)
     }
   }, [animeLibrary, data, isFetched, setAnimeLibrary])

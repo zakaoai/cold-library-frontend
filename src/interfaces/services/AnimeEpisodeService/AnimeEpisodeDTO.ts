@@ -4,5 +4,5 @@ export interface AnimeEpisodeDTO {
   episodeNumber: number
   title: string
   url?: string
-  date?: string
+  date?: [number, number, number, number, number]
 }

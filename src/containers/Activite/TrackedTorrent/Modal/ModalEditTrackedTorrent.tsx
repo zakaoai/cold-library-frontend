@@ -26,7 +26,7 @@ const ModalEditTrackedTorrent = () => {
 
   const anime = animeLibrary.find(anime => anime.malId === editableTrackedAnime?.malId)
   const { title } = anime || {}
-  const { searchWords, lastEpisodeOnServer, dayOfRelease } = editableTrackedAnime || {}
+  const { searchWords, lastEpisodeOnServer, dayOfRelease, deltaEpisode, torrentPath } = editableTrackedAnime || {}
 
   const handleClose = useCallback(() => {
     setShowModal(false)
@@ -43,7 +43,9 @@ const ModalEditTrackedTorrent = () => {
   const defaultValues = {
     searchWords,
     lastEpisodeOnServer,
-    dayOfRelease
+    dayOfRelease,
+    deltaEpisode,
+    torrentPath
   }
 
   const {
@@ -51,16 +53,19 @@ const ModalEditTrackedTorrent = () => {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<Pick<AnimeTorrentDTO, "searchWords" | "dayOfRelease" | "lastEpisodeOnServer">>({ defaultValues })
+  } = useForm<Omit<AnimeTorrentDTO, "malId">>({ defaultValues })
 
   const onSubmit = useCallback(
-    ({
-      searchWords,
-      dayOfRelease,
-      lastEpisodeOnServer
-    }: Pick<AnimeTorrentDTO, "searchWords" | "dayOfRelease" | "lastEpisodeOnServer">) => {
+    ({ searchWords, dayOfRelease, lastEpisodeOnServer, deltaEpisode, torrentPath }: Omit<AnimeTorrentDTO, "malId">) => {
       if (editableTrackedAnime != undefined)
-        updateTrackedAnime({ ...editableTrackedAnime, searchWords, dayOfRelease, lastEpisodeOnServer })
+        updateTrackedAnime({
+          ...editableTrackedAnime,
+          searchWords,
+          dayOfRelease,
+          lastEpisodeOnServer,
+          deltaEpisode,
+          torrentPath
+        })
       handleClose()
     },
     [updateTrackedAnime, editableTrackedAnime, handleClose]
@@ -104,7 +109,6 @@ const ModalEditTrackedTorrent = () => {
           <TextField
             label="Dernier Episode sur le serveur"
             id="lastEpisodeOnServer"
-            margin="dense"
             type="number"
             fullWidth
             error={errors.lastEpisodeOnServer !== undefined}
@@ -116,21 +120,32 @@ const ModalEditTrackedTorrent = () => {
               })
             }}
           />
+          <TextField
+            label="Delta nombre d'épisode"
+            id="deltaEpisode"
+            type="number"
+            fullWidth
+            error={errors.deltaEpisode !== undefined}
+            helperText={errors.deltaEpisode !== undefined ? errors.deltaEpisode.message : ""}
+            inputProps={{
+              ...register("deltaEpisode", {
+                required: "Champs requis",
+                valueAsNumber: true
+              })
+            }}
+          />
           <Controller
             name="dayOfRelease"
             control={control}
-            defaultValue={dayOfRelease}
             rules={{ required: "Champs requis" }}
-            render={({ field: { onChange, value } }) => (
+            render={({ field }) => (
               <TextField
                 label="Jour de sortie"
                 id="dayOfRelease"
                 select
-                name="dayOfRelease"
                 error={errors.dayOfRelease !== undefined}
                 helperText={errors.dayOfRelease !== undefined ? errors.dayOfRelease.message : ""}
-                value={value}
-                onChange={onChange}>
+                {...field}>
                 {days.map(({ value, libelle }) => (
                   <MenuItem key={libelle} value={value}>
                     {libelle}
@@ -138,6 +153,18 @@ const ModalEditTrackedTorrent = () => {
                 ))}
               </TextField>
             )}
+          />
+          <TextField
+            label="Chemin du torrent"
+            id="torrentPath"
+            fullWidth
+            error={errors.torrentPath !== undefined}
+            helperText={errors.torrentPath !== undefined ? errors.torrentPath.message : ""}
+            inputProps={{
+              ...register("torrentPath", {
+                required: "Champs requis"
+              })
+            }}
           />
         </DialogContent>
         <DialogActions>
@@ -153,4 +180,12 @@ const ModalEditTrackedTorrent = () => {
   )
 }
 
-export default ModalEditTrackedTorrent
+const ModalEditTrackedTorrentMounted = () => {
+  const { editableTrackedAnime } = useTrackedTorrentContext()
+
+  if (editableTrackedAnime !== undefined) {
+    return <ModalEditTrackedTorrent />
+  }
+}
+
+export default ModalEditTrackedTorrentMounted

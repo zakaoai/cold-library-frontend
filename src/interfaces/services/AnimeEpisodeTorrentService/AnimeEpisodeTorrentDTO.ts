@@ -1,5 +1,5 @@
 export interface AnimeEpisodeTorrentDTO {
-  id: number
+  id?: number
   title: string
   date: string
   torrentLink: string
