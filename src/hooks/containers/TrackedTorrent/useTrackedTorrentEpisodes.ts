@@ -1,5 +1,6 @@
 import AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrent"
 import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
@@ -17,7 +18,8 @@ const useAnimeTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => 
   } = useQuery<AnimeEpisodeTorrentDTO[], ResponseError>({
     queryKey: ["torrents", malId],
     queryFn: async () => await AnimeEpisodeTorrentService.getAnimeEpisodesTorrents(malId),
-    retry: false
+    retry: false,
+    enabled: animeEpisodeTorrents.length === 0
   })
 
   useEffect(() => {
@@ -195,6 +197,35 @@ const useAnimeTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => 
     [animeEpisodeTorrents, lastEpisodeOnServer]
   )
 
+  // Download deluge
+
+  const onSuccessDownloadDelugeTorrent = useCallback((delugeEpisodeTorrent?: DelugeEpisodeTorrent) => {
+    if (delugeEpisodeTorrent != undefined) console.log("Deluge torrent is downlading")
+  }, [])
+
+  const onErrorDownloadDelugeTorrent = useCallback(
+    (error: ResponseError, animeEpisodeTorrentDTO: AnimeEpisodeTorrentDTO) => {
+      console.error(
+        "Une erreur est survenue lors du téléchargement via deluge de l'episode %s tracked de l'anime %s avec le status %s",
+        animeEpisodeTorrentDTO.episodeNumber,
+        malId,
+        error?.response?.status
+      )
+    },
+    [malId]
+  )
+
+  const { isPending: isDownloadDelugeTorrentPending, mutate: downloadDeluge } = useMutation<
+    DelugeEpisodeTorrent,
+    ResponseError,
+    AnimeEpisodeTorrentDTO
+  >({
+    mutationFn: async ({ malId, episodeNumber }: AnimeEpisodeTorrentDTO) =>
+      await AnimeEpisodeTorrentService.delugeDownload(malId, episodeNumber),
+    onSuccess: onSuccessDownloadDelugeTorrent,
+    onError: onErrorDownloadDelugeTorrent
+  })
+
   return {
     animeEpisodeTorrents,
     isFetching: !allTorentsFetched,
@@ -209,7 +240,9 @@ const useAnimeTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => 
     searchPack,
     isdDeleteTorrentPending,
     deleteTorrent,
-    setAnimeEpisodeTorrents
+    setAnimeEpisodeTorrents,
+    isDownloadDelugeTorrentPending,
+    downloadDeluge
   }
 }
 

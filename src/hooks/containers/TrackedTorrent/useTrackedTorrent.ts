@@ -10,7 +10,8 @@ const useTrackedTorrent = () => {
   const { data, isFetched, isFetching } = useQuery({
     queryKey: ["torrentLibrary"],
     queryFn: async () => await AnimeTorrentService.getAll(),
-    retry: false
+    retry: false,
+    enabled: torrentLibrary === undefined || torrentLibrary.length === 0
   })
   const prevData = useRef<AnimeTorrentDTO[]>()
   useEffect(() => {

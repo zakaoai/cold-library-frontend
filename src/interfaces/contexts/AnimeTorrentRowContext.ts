@@ -2,8 +2,10 @@ import { type UseMutateFunction } from "@tanstack/react-query"
 import { Dispatch, SetStateAction } from "react"
 import type AnimeEpisodeTorrentDisplay from "../containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import DelugeEpisodeTorrent from "../services/AnimeEpisodeTorrentService/DelugeEpisodeTorrent"
 import { AnimeDTO } from "../services/AnimeService/AnimeDTO"
 import { type AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
+import ResponseError from "../services/ResponseError"
 
 export default interface AnimeTorrentRowContext {
   patchTrackedAnimeEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, AnimeEpisodeTorrentDTO, unknown>
@@ -26,4 +28,6 @@ export default interface AnimeTorrentRowContext {
   anime?: AnimeDTO
   showEpisodes: boolean
   setShowEpisodes: Dispatch<SetStateAction<boolean>>
+  isDownloadDelugeTorrentPending: boolean
+  downloadDeluge: UseMutateFunction<DelugeEpisodeTorrent, ResponseError, AnimeEpisodeTorrentDTO, unknown>
 }

@@ -28,7 +28,9 @@ const api = {
     deleteTorrent: (malId: number, episodeNumber: number) =>
       `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}`,
     updateTorrent: (malId: number, episodeNumber: number) =>
-      `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/update`
+      `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/update`,
+    delugeDownload: (malId: number, episodeNumber: number) =>
+      `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/deluge`
   },
   animeTorrent: {
     getAll: `${API_BASE_URL}/torrent`,

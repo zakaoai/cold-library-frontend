@@ -26,7 +26,9 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
     isFetching,
     isScanEpisodesPending,
     isScanNextEpisodeAvaible,
-    isScanNextEpisodePending
+    isScanNextEpisodePending,
+    isDownloadDelugeTorrentPending,
+    downloadDeluge
   } = useAnimeTorrentEpisodes(malId, lastEpisodeOnServer)
 
   const contextValue = useMemo(
@@ -50,7 +52,9 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
       showEpisodes,
       setShowEpisodes,
       anime,
-      setAnime
+      setAnime,
+      isDownloadDelugeTorrentPending,
+      downloadDeluge
     }),
     [
       patchTrackedAnimeEpisode,
@@ -68,7 +72,9 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
       isScanNextEpisodeAvaible,
       isScanNextEpisodePending,
       showEpisodes,
-      anime
+      anime,
+      isDownloadDelugeTorrentPending,
+      downloadDeluge
     ]
   )
 

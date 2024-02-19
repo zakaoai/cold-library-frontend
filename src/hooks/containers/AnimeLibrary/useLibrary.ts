@@ -13,7 +13,7 @@ const useLibrary = () => {
     queryKey: ["animeLibrary"],
     queryFn: async () => await AnimeServices.getAll(),
     retry: false,
-    enabled: true
+    enabled: animeLibrary === undefined || animeLibrary.length === 0
   })
   const prevData = useRef<AnimeDTO[]>()
   useEffect(() => {

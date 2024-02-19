@@ -1,8 +1,10 @@
+import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
 import InfoIcon from "@mui/icons-material/Info"
 import SearchIcon from "@mui/icons-material/Search"
+import WaterDropIcon from "@mui/icons-material/WaterDrop"
 import { Typography } from "@mui/material"
 import IconButton from "@mui/material/IconButton"
 import Link from "@mui/material/Link"
@@ -19,6 +21,8 @@ const AnimeEpisodeTorrentRowDesktop = ({
 }: AnimeEpisodeTorrentRow) => {
   const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent
+
+  const { downloadDeluge, isDownloadDelugeTorrentPending } = useAnimeTorrentRowContext()
   return (
     <TableRow key={torrentId}>
       <TableCell component="th" scope="row">
@@ -49,6 +53,12 @@ const AnimeEpisodeTorrentRowDesktop = ({
             <GetAppIcon />
           </IconButton>
         </Link>
+        <IconButton
+          size="large"
+          onClick={() => downloadDeluge(animeEpisodeTorrent)}
+          disabled={isDownloadDelugeTorrentPending}>
+          <WaterDropIcon />
+        </IconButton>
         <Link href={nyaaLink} aria-label="torrent info">
           <IconButton size="large">
             <InfoIcon />
