@@ -1,4 +1,5 @@
-import AnimeWrapper from "@/components/animeCard/AnimeWrapper"
+import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
+import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import SearchForm from "@/containers/Activite/Search/SearchForm"
 import useAnimeSearch from "@/hooks/containers/Search/useAnimeSearch"
 import { CircularProgress } from "@mui/material"
@@ -7,7 +8,7 @@ import Grid from "@mui/material/Grid"
 /**
  * Activité
  */
-function SearchActivity() {
+const SearchActivity = () => {
   const { animes, isFetching, error, form, searchAnime, updateAnime } = useAnimeSearch()
 
   return (
@@ -19,7 +20,13 @@ function SearchActivity() {
         ) : (
           animes.map(anime => (
             <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
-              <AnimeWrapper anime={anime} showEpisodeLink={!(anime.storageState == null)} updateAnime={updateAnime} />
+              <AnimeCardProvider
+                anime={anime}
+                showEpisodeLink={!(anime.storageState == null)}
+                updateAnime={updateAnime}
+                showAddOrRemoveFromLibrary>
+                <AnimeCardComponent />
+              </AnimeCardProvider>
             </Grid>
           ))
         )}

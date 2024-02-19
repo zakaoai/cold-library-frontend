@@ -1,12 +1,12 @@
 import "./App.css"
 
-import { ColorModeProvider } from "@/context/ColorModeContext"
-import Box from "@mui/material/Box"
 import Container from "@mui/material/Container"
 import { StyledEngineProvider } from "@mui/material/styles"
 import { SnackbarProvider } from "notistack"
 import { RouterProvider } from "react-router-dom"
 
+import { ColorModeProvider } from "@/context/ColorModeProvider"
+import { Box } from "@mui/material"
 import { router } from "./routes"
 
 const App = () => (

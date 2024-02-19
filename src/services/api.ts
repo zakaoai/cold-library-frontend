@@ -13,6 +13,7 @@ const api = {
     updateStorageState: (malId: number) => `${API_BASE_URL}/anime/${malId}/storage_state`,
     updateLastAvaibleEpisode: (malId: number) => `${API_BASE_URL}/anime/${malId}/last_avaible_episode`,
     updateIsComplete: (malId: number) => `${API_BASE_URL}/anime/${malId}/is_complete`,
+    updateIsDownloading: (malId: number) => `${API_BASE_URL}/anime/${malId}/is_downloading`,
     update: (malId: number) => `${API_BASE_URL}/anime/${malId}/update`
   },
   animeTorrentEpisode: {
@@ -29,7 +30,7 @@ const api = {
     updateTorrent: (malId: number, episodeNumber: number) =>
       `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/update`
   },
-  trackedAnimeTorrent: {
+  animeTorrent: {
     getAll: `${API_BASE_URL}/torrent`,
     get: (malId: number) => `${API_BASE_URL}/torrent/${malId}`,
     update: (malId: number) => `${API_BASE_URL}/torrent/${malId}`,

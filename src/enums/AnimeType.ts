@@ -1,10 +1,10 @@
 export enum AnimeType {
-  ALL,
-  TV,
-  OVA,
-  ONA,
-  MOVIE,
-  SPECIAL,
-  MUSIC,
-  UNKNOWN
+  ALL = "ALL",
+  TV = "TV",
+  OVA = "OVA",
+  ONA = "ONA",
+  MOVIE = "MOVIE",
+  SPECIAL = "SPECIAL",
+  MUSIC = "MUSIC",
+  UNKNOWN = ""
 }

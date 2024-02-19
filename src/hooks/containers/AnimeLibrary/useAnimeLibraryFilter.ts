@@ -45,7 +45,7 @@ const useAnimeLibraryFilter = () => {
     setFilterFunc(
       () => (anime: AnimeDTO) =>
         anime.storageState === filterStorageState &&
-        filterTrackedAnimeFunc(anime.trackedTorrent ?? false) &&
+        filterTrackedAnimeFunc(anime.isDownloading ?? false) &&
         filterCompleteFunc(anime.isComplete ?? false)
     )
   }, [filters])

@@ -1,6 +1,5 @@
+import order from "@/interfaces/containers/Activite/TrackedTorrent/Modal/order"
 import { useCallback, useEffect, useState } from "react"
-
-type order = "desc" | "asc"
 
 const useSortTable = <Type extends object>() => {
   const [orderBy, setOrderBy] = useState<undefined | keyof Type>(undefined)

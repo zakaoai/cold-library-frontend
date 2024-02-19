@@ -1,6 +1,5 @@
 export interface AnimeEpisodeTorrentDTO {
-  malId: number
-  episodeNumber: number
+  id?: number
   title: string
   date: string
   torrentLink: string
@@ -9,4 +8,6 @@ export interface AnimeEpisodeTorrentDTO {
   seeders: number
   leechers: number
   completed: number
+  episodeNumber: number
+  malId: number
 }
