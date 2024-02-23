@@ -22,6 +22,7 @@ const AnimeTorrentEpisodeTable = ({ torrents, listOpen }: IAnimeTorrentEpisodeTa
                   <TableCell>Date</TableCell>
                   <TableCell>Size</TableCell>
                   <TableCell>Traffic ↓/↑/🗸</TableCell>
+                  <TableCell>Deluge</TableCell>
                   <TableCell>Actions</TableCell>
                 </TableRow>
               </TableHead>

@@ -1,5 +1,5 @@
+import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import useAppContext from "@/hooks/context/useAppContext"
-import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
 import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import Box from "@mui/material/Box"
@@ -20,7 +20,7 @@ const ModalEditTrackedTorrent = () => {
     setShowModal,
     setEditableTrackedAnime,
     showModal: open
-  } = useTrackedTorrentContext()
+  } = useAnimeTorrentContext()
 
   const { animeLibrary } = useAppContext()
 
@@ -181,7 +181,7 @@ const ModalEditTrackedTorrent = () => {
 }
 
 const ModalEditTrackedTorrentMounted = () => {
-  const { editableTrackedAnime } = useTrackedTorrentContext()
+  const { editableTrackedAnime } = useAnimeTorrentContext()
 
   if (editableTrackedAnime !== undefined) {
     return <ModalEditTrackedTorrent />

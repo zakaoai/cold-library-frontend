@@ -1,24 +1,24 @@
 {
-  "files.eol": "\n",
-  "prettier.configPath": ".prettierrc",
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "explicit"
   },
-  "search.exclude": {
-    "**/.yarn": true,
-    "**/.pnp.*": true
-  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
   "eslint.nodePath": ".yarn/sdks",
+  "files.eol": "\n",
+  "prettier.configPath": ".prettierrc",
   "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
-  "typescript.tsdk": ".yarn/sdks/typescript/lib",
+  "search.exclude": {
+    "**/.pnp.*": true,
+    "**/.yarn": true
+  },
   "typescript.enablePromptUseWorkspaceTsdk": true,
-  "vitest.enable": false,
-  "vitest.commandLine": "yarn test",
+  "typescript.tsdk": ".yarn/sdks/typescript/lib",
   "vite.buildCommand": "yarn build",
   "vite.devCommand": "yarn run dev",
   "vite.showTerminal": true,
+  "vitest.commandLine": "yarn test --",
+  "vitest.enable": true,
   "vitest.showFailMessages": true
 }

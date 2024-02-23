@@ -4,13 +4,13 @@ import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
 import InfoIcon from "@mui/icons-material/Info"
 import SearchIcon from "@mui/icons-material/Search"
-import WaterDropIcon from "@mui/icons-material/WaterDrop"
 import { Typography } from "@mui/material"
 import IconButton from "@mui/material/IconButton"
 import Link from "@mui/material/Link"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { DateTime } from "luxon"
+import DownloadDelugeTableCell from "./DownloadDelugeTableCell"
 
 const AnimeEpisodeTorrentRowDesktop = ({
   updateTrackedAnimeEpisode,
@@ -19,7 +19,7 @@ const AnimeEpisodeTorrentRowDesktop = ({
   nyaaLink,
   animeEpisodeTorrent
 }: AnimeEpisodeTorrentRow) => {
-  const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
+  const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed, progress } =
     animeEpisodeTorrent
 
   const { downloadDeluge, isDownloadDelugeTorrentPending } = useAnimeTorrentRowContext()
@@ -44,6 +44,7 @@ const AnimeEpisodeTorrentRowDesktop = ({
       <TableCell component="th" scope="row">
         {leechers}/{seeders} ({completed})
       </TableCell>
+      <DownloadDelugeTableCell animeEpisodeTorrent={animeEpisodeTorrent} />
       <TableCell align="right">
         <IconButton aria-label="search alternate" onClick={searchAlternate} size="large">
           <SearchIcon />
@@ -53,12 +54,7 @@ const AnimeEpisodeTorrentRowDesktop = ({
             <GetAppIcon />
           </IconButton>
         </Link>
-        <IconButton
-          size="large"
-          onClick={() => downloadDeluge(animeEpisodeTorrent)}
-          disabled={isDownloadDelugeTorrentPending}>
-          <WaterDropIcon />
-        </IconButton>
+
         <Link href={nyaaLink} aria-label="torrent info">
           <IconButton size="large">
             <InfoIcon />

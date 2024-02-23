@@ -1,4 +1,4 @@
-import useAnimeTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useTrackedTorrentEpisodes"
+import useAnimeTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useAnimeTorrentEpisodes"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
@@ -17,18 +17,12 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
 
   const {
     animeEpisodeTorrents,
-    scanEpisodes,
-    scanNextEpisode,
+
     patchTrackedAnimeEpisode,
-    searchPack,
+
     deleteTorrent,
     setAnimeEpisodeTorrents,
-    isFetching,
-    isScanEpisodesPending,
-    isScanNextEpisodeAvaible,
-    isScanNextEpisodePending,
-    isDownloadDelugeTorrentPending,
-    downloadDeluge
+    isFetching
   } = useAnimeTorrentEpisodes(malId, lastEpisodeOnServer)
 
   const contextValue = useMemo(
@@ -42,19 +36,11 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
       deleteTorrent,
       animeTorrent,
       animeEpisodeTorrents,
-      searchPack,
-      scanEpisodes,
-      scanNextEpisode,
       isFetching,
-      isScanEpisodesPending,
-      isScanNextEpisodeAvaible,
-      isScanNextEpisodePending,
       showEpisodes,
       setShowEpisodes,
       anime,
-      setAnime,
-      isDownloadDelugeTorrentPending,
-      downloadDeluge
+      setAnime
     }),
     [
       patchTrackedAnimeEpisode,
@@ -64,17 +50,9 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
       deleteTorrent,
       animeTorrent,
       animeEpisodeTorrents,
-      searchPack,
-      scanEpisodes,
-      scanNextEpisode,
       isFetching,
-      isScanEpisodesPending,
-      isScanNextEpisodeAvaible,
-      isScanNextEpisodePending,
       showEpisodes,
-      anime,
-      isDownloadDelugeTorrentPending,
-      downloadDeluge
+      anime
     ]
   )
 

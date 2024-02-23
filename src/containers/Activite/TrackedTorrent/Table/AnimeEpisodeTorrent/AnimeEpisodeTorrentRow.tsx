@@ -3,7 +3,7 @@ import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowCon
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 
-import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
+import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useTheme } from "@mui/material"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import { useCallback } from "react"
@@ -13,7 +13,7 @@ import AnimeEpisodeTorrentRowMobile from "./AnimeEpisodeTorrentRowMobile"
 const AnimeEpisodeTorrentRow = ({ animeEpisodeTorrent }: { animeEpisodeTorrent: AnimeEpisodeTorrentDisplay }) => {
   const { episodeNumber, torrentId } = animeEpisodeTorrent
 
-  const { updateTrackedAnime } = useTrackedTorrentContext()
+  const { updateTrackedAnime } = useAnimeTorrentContext()
 
   const {
     setSelectedEpisodeAlternate,

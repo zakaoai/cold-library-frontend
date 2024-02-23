@@ -1,10 +1,10 @@
+import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
 import { useEffect, useRef } from "react"
 import useLibrary from "../AnimeLibrary/useLibrary"
 
 const useAnimeTorrentRow = () => {
-  const { doScan, doScanNext } = useTrackedTorrentContext()
+  const { doScan, doScanNext } = useAnimeTorrentContext()
   const { animes } = useLibrary()
   const {
     scanEpisodes,

@@ -30,7 +30,10 @@ const api = {
     updateTorrent: (malId: number, episodeNumber: number) =>
       `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/update`,
     delugeDownload: (malId: number, episodeNumber: number) =>
-      `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/deluge`
+      `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/deluge`,
+    delugeUpdate: (malId: number, episodeNumber: number) =>
+      `${API_BASE_URL}/torrent/${malId}/episodes/${episodeNumber}/deluge/update`,
+    getAllDownloadingEpisodes: `${API_BASE_URL}/torrent/episodes`
   },
   animeTorrent: {
     getAll: `${API_BASE_URL}/torrent`,

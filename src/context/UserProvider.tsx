@@ -3,8 +3,9 @@ import { useMemo, type PropsWithChildren } from "react"
 import UserContext from "./UserContext"
 
 const UserProvider = ({ children }: PropsWithChildren) => {
-  const { user, isAuthenticated, isLoading } = useAuth0()
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0()
 
+  getAccessTokenSilently()
   const isAdmin = useMemo(() => (user?.["zakaoai.eu.auth0.com/roles"] as string[])?.includes("Admin"), [user])
 
   const contextValue = useMemo(

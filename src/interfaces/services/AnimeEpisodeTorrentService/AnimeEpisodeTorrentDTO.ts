@@ -10,4 +10,5 @@ export interface AnimeEpisodeTorrentDTO {
   completed: number
   episodeNumber: number
   malId: number
+  progress: number
 }

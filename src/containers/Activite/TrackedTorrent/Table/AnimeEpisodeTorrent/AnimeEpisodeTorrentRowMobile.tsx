@@ -9,6 +9,7 @@ import Link from "@mui/material/Link"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { DateTime } from "luxon"
+import DownloadDelugeTableCell from "./DownloadDelugeTableCell"
 
 const AnimeEpisodeTorrentRowMobile = ({
   updateTrackedAnimeEpisode,
@@ -57,6 +58,12 @@ const AnimeEpisodeTorrentRowMobile = ({
         <TableCell component="th" scope="row">
           {leechers} ↓ /{seeders} ↑ ({completed} 🗸)
         </TableCell>
+      </TableRow>
+      <TableRow key={torrentId + "Deluge"}>
+        <TableCell component="th" scope="row">
+          Deluge
+        </TableCell>
+        <DownloadDelugeTableCell animeEpisodeTorrent={animeEpisodeTorrent} />
       </TableRow>
       <TableRow key={torrentId + "Actions"}>
         <TableCell component="th" scope="row">

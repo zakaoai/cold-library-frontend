@@ -1,5 +1,5 @@
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrent"
+import DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
 import api from "./api"
 import { deleteRequest, get, put } from "./request/request"
 
@@ -24,7 +24,10 @@ const AnimeEpisodeTorrentService = {
   updateTorrent: async (malId: number, episodeNumber: number) =>
     await get<AnimeEpisodeTorrentDTO>(api.animeTorrentEpisode.updateTorrent(malId, episodeNumber)),
   delugeDownload: async (malId: number, episodeNumber: number) =>
-    await get<DelugeEpisodeTorrent>(api.animeTorrentEpisode.delugeDownload(malId, episodeNumber))
+    await get<DelugeEpisodeTorrent>(api.animeTorrentEpisode.delugeDownload(malId, episodeNumber)),
+  delugeUpdate: async (malId: number, episodeNumber: number) =>
+    await get<DelugeEpisodeTorrent>(api.animeTorrentEpisode.delugeUpdate(malId, episodeNumber)),
+  getAllDownloading: async () => await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAllDownloadingEpisodes)
 }
 
 export default AnimeEpisodeTorrentService

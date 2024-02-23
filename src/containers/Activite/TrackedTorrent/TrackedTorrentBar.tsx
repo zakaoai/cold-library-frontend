@@ -1,10 +1,10 @@
-import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
+import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import SearchIcon from "@mui/icons-material/Search"
 import { AppBar, Box, Button, Grid } from "@mui/material"
 import { useCallback } from "react"
 
 const TrackedTorrentBar = () => {
-  const { setDoScan, setDoScanNext } = useTrackedTorrentContext()
+  const { setDoScan, setDoScanNext } = useAnimeTorrentContext()
 
   const scanAll = useCallback(() => {
     setDoScan(a => !a)
