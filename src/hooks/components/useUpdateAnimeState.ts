@@ -11,7 +11,6 @@ const useUpdateAnimeState = (
   defaultAnime: AnimeDTO,
   updateAnime: (updatedAnime: AnimeDTO | AnimeInServerDTO) => void
 ) => {
-  const onSuccessUpdateAnime = useCallback((anime: AnimeDTO) => updateAnime(anime), [updateAnime])
   const onSuccessUpdateAnimeInServer = useCallback((anime: AnimeInServerDTO) => updateAnime(anime), [updateAnime])
   const onSuccesReset = useCallback(() => updateAnime(defaultAnime), [defaultAnime, updateAnime])
   const { setTorrentEpisodeLibrary, setTorrentLibrary, setAnimeLibrary } = useAppContext()

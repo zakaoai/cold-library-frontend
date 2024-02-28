@@ -11,10 +11,12 @@ const useDownloadDelugeAction = (malId: number, episodeNumber: number) => {
   const onSuccessDownloadDelugeTorrent = useCallback(
     (delugeEpisodeTorrent: DelugeEpisodeTorrent) => {
       setTorrentEpisodeLibrary(prev =>
-        prev.map(ep => (ep.episodeNumber === episodeNumber ? { ...ep, progress: delugeEpisodeTorrent?.progress } : ep))
+        prev.map(ep =>
+          ep.torrentId === delugeEpisodeTorrent.torrentId ? { ...ep, progress: delugeEpisodeTorrent?.progress } : ep
+        )
       )
     },
-    [episodeNumber, setTorrentEpisodeLibrary]
+    [setTorrentEpisodeLibrary]
   )
 
   const onErrorDownloadDelugeTorrent = useCallback(

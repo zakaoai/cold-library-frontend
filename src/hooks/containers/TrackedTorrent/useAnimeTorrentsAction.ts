@@ -15,7 +15,7 @@ const useAnimeTorrentsAction = () => {
     (delugeInformations: DelugeEpisodeTorrent[]) => {
       setTorrentEpisodeLibrary(currentEpisodes =>
         currentEpisodes.map(ep => {
-          const delugeInfo = delugeInformations.find(delugeInfo => delugeInfo.idAnimeEpisodeTorrent === ep.id)
+          const delugeInfo = delugeInformations.find(delugeInfo => delugeInfo.torrentId === ep.torrentId)
           if (delugeInfo !== undefined) {
             return { ...ep, progress: delugeInfo.progress }
           }
