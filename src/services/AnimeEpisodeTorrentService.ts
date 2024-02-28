@@ -27,6 +27,7 @@ const AnimeEpisodeTorrentService = {
     await get<DelugeEpisodeTorrent>(api.animeTorrentEpisode.delugeDownload(malId, episodeNumber)),
   delugeUpdate: async (malId: number, episodeNumber: number) =>
     await get<DelugeEpisodeTorrent>(api.animeTorrentEpisode.delugeUpdate(malId, episodeNumber)),
+  delugeUpdateAll: async () => await get<DelugeEpisodeTorrent[]>(api.animeTorrentEpisode.delugeUpdateAll),
   getAllDownloading: async () => await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAllDownloadingEpisodes)
 }
 

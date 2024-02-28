@@ -7,7 +7,7 @@ import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 
-const useAnimeTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => {
+const useAnimeTorrentEpisodes = (malId: number) => {
   const { torrentEpisodesMap, isTorrentEpisodesFetching } = useAnimeTorrentContext()
   const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
 
@@ -85,10 +85,8 @@ const useAnimeTorrentEpisodes = (malId: number, lastEpisodeOnServer: number) => 
   return {
     animeEpisodeTorrents,
     isFetching: isTorrentEpisodesFetching,
-
     isPatchTrackedAnimeEpisodePending,
     patchTrackedAnimeEpisode,
-
     isdDeleteTorrentPending,
     deleteTorrent,
     setAnimeEpisodeTorrents

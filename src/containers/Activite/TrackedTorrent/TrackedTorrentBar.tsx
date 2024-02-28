@@ -1,10 +1,13 @@
+import useAnimeTorrentsAction from "@/hooks/containers/TrackedTorrent/useAnimeTorrentsAction"
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import SearchIcon from "@mui/icons-material/Search"
+import WaterDropIcon from "@mui/icons-material/WaterDrop"
 import { AppBar, Box, Button, Grid } from "@mui/material"
 import { useCallback } from "react"
 
 const TrackedTorrentBar = () => {
   const { setDoScan, setDoScanNext } = useAnimeTorrentContext()
+  const { isUpdateAllDelugePending, updateAllDeluge } = useAnimeTorrentsAction()
 
   const scanAll = useCallback(() => {
     setDoScan(a => !a)
@@ -24,6 +27,13 @@ const TrackedTorrentBar = () => {
             </Button>
             <Button variant="outlined" onClick={scanNext} startIcon={<SearchIcon />}>
               Scan Next
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={() => updateAllDeluge()}
+              disabled={isUpdateAllDelugePending}
+              startIcon={<WaterDropIcon />}>
+              Update Deluge
             </Button>
           </Grid>
         </Grid>

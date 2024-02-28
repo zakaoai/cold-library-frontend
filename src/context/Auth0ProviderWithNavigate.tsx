@@ -16,8 +16,9 @@ const Auth0ProviderWithNavigate = ({ children }: PropsWithChildren) => {
 
   return (
     <Auth0Provider
-      cacheLocation="localstorage"
       useRefreshTokens={true}
+      useCookiesForTransactions={true}
+      useRefreshTokensFallback={true}
       domain={APP_AUTH0_DOMAIN}
       clientId={APP_AUTH0_CLIENT_ID}
       authorizationParams={{

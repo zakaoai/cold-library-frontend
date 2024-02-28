@@ -4,6 +4,7 @@ import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback } from "react"
+import useAppContext from "../context/useAppContext"
 
 const useUpdateAnimeState = (
   malId: number,
@@ -13,6 +14,7 @@ const useUpdateAnimeState = (
   const onSuccessUpdateAnime = useCallback((anime: AnimeDTO) => updateAnime(anime), [updateAnime])
   const onSuccessUpdateAnimeInServer = useCallback((anime: AnimeInServerDTO) => updateAnime(anime), [updateAnime])
   const onSuccesReset = useCallback(() => updateAnime(defaultAnime), [defaultAnime, updateAnime])
+  const { setTorrentEpisodeLibrary, setTorrentLibrary, setAnimeLibrary } = useAppContext()
 
   // Update Last Avaible Episode
   const updateLastAvaibleEpisodeCall = useCallback(
@@ -112,13 +114,22 @@ const useUpdateAnimeState = (
     [malId]
   )
 
+  const onSucessUpdateIsDownloading = useCallback(
+    (anime: AnimeInServerDTO) => {
+      updateAnime(anime)
+      setTorrentEpisodeLibrary([])
+      setTorrentLibrary([])
+    },
+    [updateAnime, setTorrentEpisodeLibrary, setTorrentLibrary]
+  )
+
   const { isPending: isUpdateIsDownloadingPending, mutate: setIsDownloading } = useMutation<
     AnimeInServerDTO,
     ResponseError,
     boolean
   >({
     mutationFn: updateIsDownloadingCall,
-    onSuccess: onSuccessUpdateAnimeInServer,
+    onSuccess: onSucessUpdateIsDownloading,
     onError: onErrorUpdateIsDownloading
   })
 
@@ -145,6 +156,15 @@ const useUpdateAnimeState = (
   // Save Anime
   const saveInLibraryCall = useCallback(() => AnimeServices.saveInLibrary(malId), [malId])
 
+  const onSuccessSaveInLibrary = useCallback(
+    (anime: AnimeDTO) => {
+      updateAnime(anime)
+
+      setAnimeLibrary(prev => (anime.addedOnServer ? [...prev, anime] : prev.filter(curr => curr.malId != anime.malId)))
+    },
+    [setAnimeLibrary, updateAnime]
+  )
+
   const onErrorSaveInLibrary = useCallback(
     (error: ResponseError) => {
       console.error(
@@ -158,7 +178,7 @@ const useUpdateAnimeState = (
 
   const { isPending: isSaveInLibraryPending, mutate: saveAnime } = useMutation<AnimeDTO, ResponseError>({
     mutationFn: saveInLibraryCall,
-    onSuccess: onSuccessUpdateAnime,
+    onSuccess: onSuccessSaveInLibrary,
     onError: onErrorSaveInLibrary
   })
 

@@ -34,6 +34,7 @@ const ModalEditTrackedEpisode = () => {
   }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
 
   const { episodeNumber } = selectedEpisodeAlternate || {}
+
   const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue, updatedTrackedEpisode } =
     useAlternateTrackedTorrentEpisode(selectedEpisodeAlternate, handleClose)
 

@@ -1,4 +1,3 @@
-import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
@@ -19,13 +18,12 @@ const AnimeEpisodeTorrentRowDesktop = ({
   nyaaLink,
   animeEpisodeTorrent
 }: AnimeEpisodeTorrentRow) => {
-  const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed, progress } =
+  const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent
 
-  const { downloadDeluge, isDownloadDelugeTorrentPending } = useAnimeTorrentRowContext()
   return (
     <TableRow key={torrentId}>
-      <TableCell component="th" scope="row">
+      <TableCell component="th" scope="row" align="center">
         <Link component="button" variant="body2" onClick={updateTrackedAnimeEpisode}>
           {episodeNumber}
         </Link>

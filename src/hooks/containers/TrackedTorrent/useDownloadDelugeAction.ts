@@ -1,4 +1,4 @@
-import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
+import useAppContext from "@/hooks/context/useAppContext"
 import DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
 import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
@@ -6,15 +6,15 @@ import { useMutation } from "@tanstack/react-query"
 import { useCallback } from "react"
 
 const useDownloadDelugeAction = (malId: number, episodeNumber: number) => {
-  const { setAnimeEpisodeTorrents } = useAnimeTorrentRowContext()
+  const { setTorrentEpisodeLibrary } = useAppContext()
 
   const onSuccessDownloadDelugeTorrent = useCallback(
     (delugeEpisodeTorrent: DelugeEpisodeTorrent) => {
-      setAnimeEpisodeTorrents(prev =>
+      setTorrentEpisodeLibrary(prev =>
         prev.map(ep => (ep.episodeNumber === episodeNumber ? { ...ep, progress: delugeEpisodeTorrent?.progress } : ep))
       )
     },
-    [episodeNumber, setAnimeEpisodeTorrents]
+    [episodeNumber, setTorrentEpisodeLibrary]
   )
 
   const onErrorDownloadDelugeTorrent = useCallback(

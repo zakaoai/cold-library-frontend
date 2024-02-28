@@ -8,7 +8,7 @@ import AnimeTorrentRowContext from "./AnimeTorrentRowContext"
 const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren & { animeTorrent: AnimeTorrentDTO }) => {
   const [anime, setAnime] = useState<AnimeDTO | undefined>(undefined)
 
-  const { malId, lastEpisodeOnServer } = animeTorrent
+  const { malId } = animeTorrent
   const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false)
   const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState<AnimeEpisodeTorrentDisplay | undefined>(
     undefined
@@ -23,7 +23,7 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
     deleteTorrent,
     setAnimeEpisodeTorrents,
     isFetching
-  } = useAnimeTorrentEpisodes(malId, lastEpisodeOnServer)
+  } = useAnimeTorrentEpisodes(malId)
 
   const contextValue = useMemo(
     () => ({

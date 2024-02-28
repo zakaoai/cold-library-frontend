@@ -1,4 +1,5 @@
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
+import useAppContext from "@/hooks/context/useAppContext"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
@@ -9,7 +10,8 @@ const useAlternateTrackedTorrentEpisode = (
   trackedEpisode: AnimeEpisodeTorrentDisplay | undefined,
   handleClose: () => void
 ) => {
-  const { patchTrackedAnimeEpisode: updateTrackedEpisode, setAnimeEpisodeTorrents } = useAnimeTorrentRowContext()
+  const { setTorrentEpisodeLibrary } = useAppContext()
+  const { patchTrackedAnimeEpisode: updateTrackedEpisode } = useAnimeTorrentRowContext()
   const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState<AnimeEpisodeTorrentDisplay[]>([])
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(trackedEpisode)
 
@@ -33,12 +35,10 @@ const useAlternateTrackedTorrentEpisode = (
 
   useEffect(() => {
     if (trackedEpisode !== undefined) {
-      const { malId, episodeNumber } = trackedEpisode
+      const { malId, episodeNumber, id } = trackedEpisode
       void AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
         setUpdatedTrackedEpisode(formatEpisode(episode))
-        setAnimeEpisodeTorrents(episodes =>
-          episodes.map(ep => (ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep))
-        )
+        setTorrentEpisodeLibrary(episodes => episodes.map(ep => (ep.id === id ? formatEpisode(episode) : ep)))
       })
 
       void AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list => {
@@ -47,7 +47,7 @@ const useAlternateTrackedTorrentEpisode = (
         }
       })
     }
-  }, [setAnimeEpisodeTorrents, trackedEpisode])
+  }, [setTorrentEpisodeLibrary, trackedEpisode])
 
   return {
     handleChange,
