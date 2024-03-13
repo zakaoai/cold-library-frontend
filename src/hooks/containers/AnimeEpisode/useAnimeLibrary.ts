@@ -1,7 +1,8 @@
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 
 const useAnimeLibrary = (malId: number) => {
@@ -26,9 +27,29 @@ const useAnimeLibrary = (malId: number) => {
     [anime]
   )
 
-  const updateAnimeInfos = useCallback(() => {
-    AnimeServices.update(malId).then(updateAnime)
-  }, [malId, updateAnime])
+  const updateAnimeInfosCall = useCallback(() => AnimeServices.update(malId), [malId])
+  const onSuccessUpdateAnimeInfos = useCallback(
+    (updatedAnime: AnimeDTO) => {
+      updateAnime(updatedAnime)
+    },
+    [updateAnime]
+  )
+  const onErrorUpdateAnimeInfos = useCallback(
+    (error: ResponseError) => {
+      console.error(
+        "Une erreur est survenue lors de la mise à jour des informations de l'anime %s de l'anime %s avec le status %s",
+        malId,
+        error?.response?.status
+      )
+    },
+    [malId]
+  )
+
+  const { mutate: updateAnimeInfos } = useMutation<AnimeDTO, ResponseError>({
+    mutationFn: updateAnimeInfosCall,
+    onSuccess: onSuccessUpdateAnimeInfos,
+    onError: onErrorUpdateAnimeInfos
+  })
 
   return {
     anime,

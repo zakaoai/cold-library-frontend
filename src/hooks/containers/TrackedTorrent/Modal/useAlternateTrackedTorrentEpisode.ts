@@ -5,6 +5,9 @@ import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 
 import usePagination from "@/hooks/usePagination"
+import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import ResponseError from "@/interfaces/services/ResponseError"
+import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 import useSortTable from "./useSortTable"
 
@@ -45,21 +48,86 @@ const useAlternateTrackedTorrentEpisode = () => {
     }
   }, [selectedValue, alternateTrackedEpisodes, updateTrackedEpisode, handleClose])
 
+  const updateTorrentCall = useCallback(
+    ({ malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) =>
+      AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber),
+    []
+  )
+
+  const onSuccessUpdateTorrent = useCallback(
+    (
+      episode: AnimeEpisodeTorrentDTO,
+      { malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">
+    ) => {
+      setUpdatedTrackedEpisode(formatEpisode(episode))
+      setTorrentEpisodeLibrary(episodes =>
+        episodes.map(ep => (ep.malId === malId && ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep))
+      )
+    },
+    [setTorrentEpisodeLibrary]
+  )
+
+  const onErrorUpdateTorrent = useCallback(
+    (error: ResponseError, { malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) => {
+      console.error(
+        "Une erreur est survenue lors de la récupération des nouvelles informations du torrent episode %s de l'anime %s avec le status %s",
+        episodeNumber,
+        malId,
+        error?.response?.status
+      )
+    },
+    []
+  )
+
+  const { mutate: updateTorrent } = useMutation<
+    AnimeEpisodeTorrentDTO,
+    ResponseError,
+    Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">
+  >({
+    mutationFn: updateTorrentCall,
+    onSuccess: onSuccessUpdateTorrent,
+    onError: onErrorUpdateTorrent
+  })
+
+  const searchAlternateEpisodeTorrentCall = useCallback(
+    ({ malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) =>
+      AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber),
+    []
+  )
+
+  const onSuccessSearchAlternateEpisodeTorrent = useCallback((episodes: AnimeEpisodeTorrentDTO[]) => {
+    setAlternateTrackedEpisodes(episodes.map(formatEpisode))
+  }, [])
+
+  const onErrorSearchAlternateEpisodeTorrent = useCallback(
+    (error: ResponseError, { malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) => {
+      console.error(
+        "Une erreur est survenue lors de la récupération des nouvelles informations du torrent episode %s de l'anime %s avec le status %s",
+        episodeNumber,
+        malId,
+        error?.response?.status
+      )
+    },
+    []
+  )
+
+  const { mutate: searchAlternateEpisodeTorrent } = useMutation<
+    AnimeEpisodeTorrentDTO[],
+    ResponseError,
+    Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">
+  >({
+    mutationFn: searchAlternateEpisodeTorrentCall,
+    onSuccess: onSuccessSearchAlternateEpisodeTorrent,
+    onError: onErrorSearchAlternateEpisodeTorrent
+  })
+
   useEffect(() => {
     if (selectedEpisodeAlternate !== undefined) {
-      const { malId, episodeNumber, id } = selectedEpisodeAlternate
-      void AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
-        setUpdatedTrackedEpisode(formatEpisode(episode))
-        setTorrentEpisodeLibrary(episodes => episodes.map(ep => (ep.id === id ? formatEpisode(episode) : ep)))
-      })
-
-      void AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list => {
-        {
-          setAlternateTrackedEpisodes(list.map(formatEpisode))
-        }
-      })
+      const { malId, episodeNumber } = selectedEpisodeAlternate
+      updateTorrent({ malId, episodeNumber })
+      searchAlternateEpisodeTorrent({ malId, episodeNumber })
     }
-  }, [selectedEpisodeAlternate, setTorrentEpisodeLibrary])
+  }, [searchAlternateEpisodeTorrent, selectedEpisodeAlternate, setTorrentEpisodeLibrary, updateTorrent])
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(alternateTrackedEpisodes)

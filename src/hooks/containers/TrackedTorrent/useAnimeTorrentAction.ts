@@ -102,11 +102,13 @@ const useAnimeTorrentAction = () => {
     [malId]
   )
 
+  const scanNextEpisodeCall = useCallback(() => AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId), [malId])
+
   const { isPending: isScanNextEpisodePending, mutate: scanNextEpisode } = useMutation<
     AnimeEpisodeTorrentDTO,
     ResponseError
   >({
-    mutationFn: async () => await AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId),
+    mutationFn: scanNextEpisodeCall,
     onSuccess: onSuccessScanNextEpisodeTorrent,
     onError: onErrorScanNextEpisodeTorrent
   })

@@ -2,6 +2,7 @@ import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import useAppContext from "@/hooks/context/useAppContext"
 import AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
+import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
@@ -15,18 +16,36 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
 
   const { updateTrackedAnime } = useAnimeTorrentContext()
 
-  const {
-    setSelectedEpisodeAlternate,
-    setShowModalAlternateEpisode,
-    animeTorrent: trackedTorrent
-  } = useAnimeTorrentRowContext()
+  const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode } = useAnimeTorrentRowContext()
 
-  const updateTrackedAnimeEpisode = useCallback(() => {
-    AnimeTorrentService.update(malId, {
-      ...trackedTorrent,
-      lastEpisodeOnServer: episodeNumber
-    }).then(updatedAnime => updateTrackedAnime(updatedAnime))
-  }, [malId, trackedTorrent, episodeNumber, updateTrackedAnime])
+  const updateLastEpisodeOnServerCall = useCallback(
+    () => AnimeTorrentService.updateLastEpisodeOnServer(malId, episodeNumber),
+    [episodeNumber, malId]
+  )
+
+  const onSuccessUpdateLastEpisodeOnServer = useCallback(
+    (updatedAnime: AnimeTorrentDTO) => {
+      updateTrackedAnime(updatedAnime)
+    },
+    [updateTrackedAnime]
+  )
+
+  const onErrorUpdateLastEpisodeOnServer = useCallback(
+    (error: ResponseError) => {
+      console.error(
+        "Une erreur est survenue lors de la mise à jour du lastEpisodeOnServer de l'anime %s avec un status %s",
+        malId,
+        error?.response?.status
+      )
+    },
+    [malId]
+  )
+
+  const { mutate: updateLastEpisodeOnServer } = useMutation<AnimeTorrentDTO, ResponseError>({
+    mutationFn: updateLastEpisodeOnServerCall,
+    onSuccess: onSuccessUpdateLastEpisodeOnServer,
+    onError: onErrorUpdateLastEpisodeOnServer
+  })
 
   const searchAlternate = useCallback(() => {
     setSelectedEpisodeAlternate(animeEpisodeTorrent)
@@ -64,7 +83,7 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
     onError: onErrorDeleteTorrent
   })
 
-  return { searchAlternate, nyaaLink, updateTrackedAnimeEpisode, deleteTorrent, isdDeleteTorrentPending }
+  return { searchAlternate, nyaaLink, updateLastEpisodeOnServer, deleteTorrent, isdDeleteTorrentPending }
 }
 
 export default useAnimeEpisodeTorrentRow
