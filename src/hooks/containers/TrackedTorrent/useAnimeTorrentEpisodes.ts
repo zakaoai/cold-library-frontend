@@ -9,6 +9,7 @@ import { useCallback, useEffect, useState } from "react"
 
 const useAnimeTorrentEpisodes = (malId: number) => {
   const { torrentEpisodesMap, isTorrentEpisodesFetching } = useAnimeTorrentContext()
+
   const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
 
   useEffect(() => {
@@ -51,44 +52,11 @@ const useAnimeTorrentEpisodes = (malId: number) => {
     onError: onErrorPatchTrackedAnimeEpisode
   })
 
-  // Delete
-  const deleteTorrentCall = useCallback(
-    async (episodeNumber: number) => await AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber),
-    [malId]
-  )
-
-  const onSuccessDeleteTorrent = useCallback(
-    (_: void, episodeNumber: number) => {
-      setAnimeEpisodeTorrents(episodes => episodes.filter(ep => ep.episodeNumber !== episodeNumber))
-    },
-    [setAnimeEpisodeTorrents]
-  )
-
-  const onErrorDeleteTorrent = useCallback(
-    (error: ResponseError, episodeNumber: number) => {
-      console.error(
-        "Une erreur est survenue lors de la supression du torrent episode %s de l'anime %s avec le status %s",
-        episodeNumber,
-        malId,
-        error?.response?.status
-      )
-    },
-    [malId]
-  )
-
-  const { isPending: isdDeleteTorrentPending, mutate: deleteTorrent } = useMutation<void, ResponseError, number>({
-    mutationFn: deleteTorrentCall,
-    onSuccess: onSuccessDeleteTorrent,
-    onError: onErrorDeleteTorrent
-  })
-
   return {
     animeEpisodeTorrents,
     isFetching: isTorrentEpisodesFetching,
     isPatchTrackedAnimeEpisodePending,
     patchTrackedAnimeEpisode,
-    isdDeleteTorrentPending,
-    deleteTorrent,
     setAnimeEpisodeTorrents
   }
 }

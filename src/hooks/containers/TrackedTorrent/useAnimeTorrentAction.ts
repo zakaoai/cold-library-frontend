@@ -1,5 +1,6 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
+import useAppContext from "@/hooks/context/useAppContext"
 import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
@@ -18,26 +19,22 @@ const useAnimeTorrentAction = () => {
   const prevDoScan = useRef(doScan)
   const prevDoScanNext = useRef(doScanNext)
 
-  const {
-    animeTorrent: trackedTorrent,
-    animeEpisodeTorrents,
-    anime,
-    setAnimeEpisodeTorrents
-  } = useAnimeTorrentRowContext()
+  const { animeTorrent: trackedTorrent, animeEpisodeTorrents, anime } = useAnimeTorrentRowContext()
   const { lastEpisodeOnServer, malId } = trackedTorrent
   const { episodes } = anime || {}
+  const { setTorrentEpisodeLibrary } = useAppContext()
 
   // Scan All Episode
   const scanEpisodesCall = useCallback(async () => await AnimeEpisodeTorrentService.scanEpisodeTorrent(malId), [malId])
 
   const onSuccessScanEpisodes = useCallback(
     (newEpisodes: AnimeEpisodeTorrentDTO[]) => {
-      setAnimeEpisodeTorrents(currentEpisodes => [
+      setTorrentEpisodeLibrary(currentEpisodes => [
         ...currentEpisodes,
         ...newEpisodes.map(episode => formatEpisode(episode))
       ])
     },
-    [setAnimeEpisodeTorrents]
+    [setTorrentEpisodeLibrary]
   )
 
   const onErrorScanEpisodes = useCallback(
@@ -63,9 +60,9 @@ const useAnimeTorrentAction = () => {
 
   const onSuccessSearchPack = useCallback(
     (newEpisode: AnimeEpisodeTorrentDTO) => {
-      setAnimeEpisodeTorrents(currentEpisodes => [...currentEpisodes, formatEpisode(newEpisode)])
+      setTorrentEpisodeLibrary(currentEpisodes => [...currentEpisodes, formatEpisode(newEpisode)])
     },
-    [setAnimeEpisodeTorrents]
+    [setTorrentEpisodeLibrary]
   )
 
   const onErrorSearchPack = useCallback(
@@ -89,9 +86,9 @@ const useAnimeTorrentAction = () => {
   const onSuccessScanNextEpisodeTorrent = useCallback(
     (animeEpisodeTorrent?: AnimeEpisodeTorrentDTO) => {
       if (animeEpisodeTorrent != undefined)
-        setAnimeEpisodeTorrents(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
+        setTorrentEpisodeLibrary(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
     },
-    [setAnimeEpisodeTorrents]
+    [setTorrentEpisodeLibrary]
   )
 
   const onErrorScanNextEpisodeTorrent = useCallback(

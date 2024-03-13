@@ -12,7 +12,6 @@ export default interface AnimeTorrentRowContext {
   setSelectedEpisodeAlternate: Dispatch<SetStateAction<AnimeEpisodeTorrentDisplay | undefined>>
   showModalAlternateEpisode: boolean
   setShowModalAlternateEpisode: Dispatch<SetStateAction<boolean>>
-  deleteTorrent: UseMutateFunction<void, Error, number, unknown>
   animeTorrent: AnimeTorrentDTO
   animeEpisodeTorrents: AnimeEpisodeTorrentDisplay[]
 

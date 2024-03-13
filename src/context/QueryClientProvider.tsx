@@ -20,7 +20,7 @@ const QueryClientProvider = ({ children }: PropsWithChildren) => {
       if (error?.response?.status === 403) {
         enqueueSnackbar("Vous n'avez pas la permission d'accéder à ce contenu")
         navigate(SiteMap.ACCUEIL.path, { replace: true })
-      } else enqueueSnackbar("Une erreur est survenue")
+      } else if (error?.response?.status !== 404) enqueueSnackbar("Une erreur est survenue")
     },
     [enqueueSnackbar, navigate]
   )

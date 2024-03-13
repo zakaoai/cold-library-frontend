@@ -4,18 +4,30 @@ import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/Tr
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 
+import usePagination from "@/hooks/usePagination"
 import { useCallback, useEffect, useState } from "react"
+import useSortTable from "./useSortTable"
 
-const useAlternateTrackedTorrentEpisode = (
-  trackedEpisode: AnimeEpisodeTorrentDisplay | undefined,
-  handleClose: () => void
-) => {
+const useAlternateTrackedTorrentEpisode = () => {
   const { setTorrentEpisodeLibrary } = useAppContext()
-  const { patchTrackedAnimeEpisode: updateTrackedEpisode } = useAnimeTorrentRowContext()
-  const [trackedEpisodeAlternates, setTrackedEpisodeAlternates] = useState<AnimeEpisodeTorrentDisplay[]>([])
-  const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(trackedEpisode)
 
+  const {
+    patchTrackedAnimeEpisode: updateTrackedEpisode,
+    setShowModalAlternateEpisode,
+    setSelectedEpisodeAlternate,
+    selectedEpisodeAlternate,
+    showModalAlternateEpisode
+  } = useAnimeTorrentRowContext()
+  const [alternateTrackedEpisodes, setAlternateTrackedEpisodes] = useState<AnimeEpisodeTorrentDisplay[]>([])
+  const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(selectedEpisodeAlternate)
   const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
+
+  const handleClose = useCallback(() => {
+    setShowModalAlternateEpisode(false)
+    setSelectedEpisodeAlternate(undefined)
+    setAlternateTrackedEpisodes([])
+    setUpdatedTrackedEpisode(undefined)
+  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,17 +37,17 @@ const useAlternateTrackedTorrentEpisode = (
   )
   const handleModifier = useCallback(() => {
     if (selectedValue) {
-      const updatedTrackedEpisodeAlternate = trackedEpisodeAlternates.find(
+      const updatedTrackedEpisodeAlternate = alternateTrackedEpisodes.find(
         ep => ep.torrentId.toString() == selectedValue
       )
       if (updatedTrackedEpisodeAlternate != undefined) updateTrackedEpisode(updatedTrackedEpisodeAlternate)
       handleClose()
     }
-  }, [selectedValue, trackedEpisodeAlternates, updateTrackedEpisode, handleClose])
+  }, [selectedValue, alternateTrackedEpisodes, updateTrackedEpisode, handleClose])
 
   useEffect(() => {
-    if (trackedEpisode !== undefined) {
-      const { malId, episodeNumber, id } = trackedEpisode
+    if (selectedEpisodeAlternate !== undefined) {
+      const { malId, episodeNumber, id } = selectedEpisodeAlternate
       void AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber).then(episode => {
         setUpdatedTrackedEpisode(formatEpisode(episode))
         setTorrentEpisodeLibrary(episodes => episodes.map(ep => (ep.id === id ? formatEpisode(episode) : ep)))
@@ -43,18 +55,37 @@ const useAlternateTrackedTorrentEpisode = (
 
       void AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber).then(list => {
         {
-          setTrackedEpisodeAlternates(list.map(formatEpisode))
+          setAlternateTrackedEpisodes(list.map(formatEpisode))
         }
       })
     }
-  }, [setTorrentEpisodeLibrary, trackedEpisode])
+  }, [selectedEpisodeAlternate, setTorrentEpisodeLibrary])
+
+  const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
+    usePagination(alternateTrackedEpisodes)
+  const paginationProps = {
+    rowsPerPage,
+    page,
+    onPageChange: handleChangePage,
+    onRowsPerPageChange: handleChangeRowsPerPage,
+    labelDisplayedRows: labelTemplate
+  }
+
+  const sortObj = useSortTable<AnimeEpisodeTorrentDisplay>()
 
   return {
     handleChange,
     handleModifier,
-    alternateTrackedEpisodes: trackedEpisodeAlternates,
+    alternateTrackedEpisodes,
+    setAlternateTrackedEpisodes,
     selectedValue,
-    updatedTrackedEpisode
+    updatedTrackedEpisode,
+    handleClose,
+    showModalAlternateEpisode,
+    sortObj,
+    sliceBegin,
+    sliceEnd,
+    paginationProps
   }
 }
 

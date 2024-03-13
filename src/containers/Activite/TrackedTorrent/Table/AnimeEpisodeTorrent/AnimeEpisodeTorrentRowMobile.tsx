@@ -1,3 +1,4 @@
+import useAnimeEpisodeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeEpisodeTorrentRow"
 import AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
@@ -11,13 +12,9 @@ import TableRow from "@mui/material/TableRow"
 import { DateTime } from "luxon"
 import DownloadDelugeTableCell from "./DownloadDelugeTableCell"
 
-const AnimeEpisodeTorrentRowMobile = ({
-  updateTrackedAnimeEpisode,
-  searchAlternate,
-  deleteTorrent,
-  nyaaLink,
-  animeEpisodeTorrent
-}: AnimeEpisodeTorrentRow) => {
+const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorrentRow) => {
+  const { updateTrackedAnimeEpisode, searchAlternate, deleteTorrent, nyaaLink } =
+    useAnimeEpisodeTorrentRow(animeEpisodeTorrent)
   const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent
 
@@ -78,12 +75,12 @@ const AnimeEpisodeTorrentRowMobile = ({
               <GetAppIcon />
             </IconButton>
           </Link>
-          <Link href={nyaaLink} aria-label="torrent info">
+          <Link target="_blank" href={nyaaLink} aria-label="torrent info">
             <IconButton size="large">
               <InfoIcon />
             </IconButton>
           </Link>
-          <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent(episodeNumber)} size="large">
+          <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent()} size="large">
             <DeleteIcon />
           </IconButton>
         </TableCell>
