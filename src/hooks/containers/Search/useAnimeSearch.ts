@@ -19,7 +19,7 @@ const useAnimeSearch = () => {
 
   const [error, setError] = useState<string | undefined>(undefined)
 
-  const getSearchAnime = useCallback(
+  const searchAnimeCall = useCallback(
     async (search: string) => {
       navigate({ pathname: SiteMap.RECHERCHE.path, search: `?search=${search}` })
       return await AnimeServices.searchAnime(search)
@@ -38,7 +38,7 @@ const useAnimeSearch = () => {
   }, [setError])
 
   const { isPending, mutate: searchAnime } = useMutation<AnimeDTO[], unknown, string>({
-    mutationFn: getSearchAnime,
+    mutationFn: searchAnimeCall,
     onSuccess: onSuccessSearchAnime,
     onError: onErrorSearchAnime
   })

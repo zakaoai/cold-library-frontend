@@ -1,7 +1,5 @@
+import useModalEditTrackedTorrent from "@/hooks/containers/TrackedTorrent/Modal/EditTrackedTorrent/useModalEditTrackedTorrent"
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
-import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
-import AnimeTorrentService from "@/services/AnimeTorrentService"
 import Box from "@mui/material/Box"
 import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
@@ -10,77 +8,11 @@ import DialogContent from "@mui/material/DialogContent"
 import DialogTitle from "@mui/material/DialogTitle"
 import MenuItem from "@mui/material/MenuItem"
 import TextField from "@mui/material/TextField"
-import { useCallback } from "react"
-import { Controller, useForm } from "react-hook-form"
+import { Controller } from "react-hook-form"
+import { days } from "./const"
 
 const ModalEditTrackedTorrent = () => {
-  const {
-    editableTrackedAnime,
-    updateTrackedAnime: patchAnime,
-    setShowModal,
-    setEditableTrackedAnime,
-    showModal: open
-  } = useAnimeTorrentContext()
-
-  const { animeLibrary } = useAppContext()
-
-  const anime = animeLibrary.find(anime => anime.malId === editableTrackedAnime?.malId)
-  const { title } = anime || {}
-  const { searchWords, lastEpisodeOnServer, dayOfRelease, deltaEpisode, torrentPath } = editableTrackedAnime || {}
-
-  const handleClose = useCallback(() => {
-    setShowModal(false)
-    setEditableTrackedAnime(undefined)
-  }, [setEditableTrackedAnime, setShowModal])
-
-  const updateTrackedAnime = useCallback(
-    async (trackedAnime: AnimeTorrentDTO) =>
-      await AnimeTorrentService.update(trackedAnime.malId, trackedAnime).then(newTrackedAnime =>
-        patchAnime(newTrackedAnime)
-      ),
-    [patchAnime]
-  )
-  const defaultValues = {
-    searchWords,
-    lastEpisodeOnServer,
-    dayOfRelease,
-    deltaEpisode,
-    torrentPath
-  }
-
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<Omit<AnimeTorrentDTO, "malId">>({ defaultValues })
-
-  const onSubmit = useCallback(
-    ({ searchWords, dayOfRelease, lastEpisodeOnServer, deltaEpisode, torrentPath }: Omit<AnimeTorrentDTO, "malId">) => {
-      if (editableTrackedAnime != undefined)
-        updateTrackedAnime({
-          ...editableTrackedAnime,
-          searchWords,
-          dayOfRelease,
-          lastEpisodeOnServer,
-          deltaEpisode,
-          torrentPath
-        })
-      handleClose()
-    },
-    [updateTrackedAnime, editableTrackedAnime, handleClose]
-  )
-
-  const days = [
-    { value: undefined, libelle: "Choisir un jour" },
-    { value: "MONDAY", libelle: "Lundi" },
-    { value: "TUESDAY", libelle: "Mardi" },
-    { value: "WEDNESDAY", libelle: "Mercredi" },
-    { value: "THURSDAY", libelle: "Jeudi" },
-    { value: "FRIDAY", libelle: "Vendredi" },
-    { value: "SATURDAY", libelle: "Samedi" },
-    { value: "SUNDAY", libelle: "Dimanche" }
-  ]
+  const { control, register, handleSubmit, errors, title, open, onSubmit, handleClose } = useModalEditTrackedTorrent()
 
   return (
     <Dialog open={open} onClose={handleClose}>

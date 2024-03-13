@@ -13,7 +13,7 @@ import { DateTime } from "luxon"
 import DownloadDelugeTableCell from "./DownloadDelugeTableCell"
 
 const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorrentRow) => {
-  const { updateTrackedAnimeEpisode, searchAlternate, deleteTorrent, nyaaLink } =
+  const { updateLastEpisodeOnServer, searchAlternate, deleteTorrent, nyaaLink } =
     useAnimeEpisodeTorrentRow(animeEpisodeTorrent)
   const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent
@@ -25,7 +25,7 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
           Episode
         </TableCell>
         <TableCell component="th" scope="row">
-          <Link component="button" variant="body2" onClick={updateTrackedAnimeEpisode}>
+          <Link component="button" variant="body2" onClick={() => updateLastEpisodeOnServer()}>
             {episodeNumber}
           </Link>
         </TableCell>
