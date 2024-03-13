@@ -1,20 +1,10 @@
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import { useTrackedTorrentContext } from "@/hooks/context/useTrackedTorrentContext"
-import { useEffect, useRef } from "react"
+import { useEffect } from "react"
 import useLibrary from "../AnimeLibrary/useLibrary"
 
 const useAnimeTorrentRow = () => {
-  const { doScan, doScanNext } = useTrackedTorrentContext()
   const { animes } = useLibrary()
-  const {
-    scanEpisodes,
-    scanNextEpisode,
-    isScanEpisodesPending,
-    isScanNextEpisodeAvaible,
-    isScanNextEpisodePending,
-    setAnime,
-    animeTorrent
-  } = useAnimeTorrentRowContext()
+  const { setAnime, animeTorrent } = useAnimeTorrentRowContext()
 
   const { malId } = animeTorrent
 
@@ -22,23 +12,6 @@ const useAnimeTorrentRow = () => {
     const anime = animes.find(animeInLibrary => animeInLibrary.malId == malId)
     if (anime != undefined) setAnime(anime)
   }, [setAnime, animes, malId])
-
-  const prevDoScan = useRef(doScan)
-  const prevDoScanNext = useRef(doScanNext)
-
-  useEffect(() => {
-    if (doScan != prevDoScan.current && !isScanEpisodesPending) {
-      prevDoScan.current = Boolean(doScan)
-      scanEpisodes()
-    }
-  }, [doScan, isScanEpisodesPending, prevDoScan, scanEpisodes])
-
-  useEffect(() => {
-    if (doScanNext != prevDoScanNext.current && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
-      scanNextEpisode()
-      prevDoScanNext.current = Boolean(doScanNext)
-    }
-  }, [doScanNext, isScanNextEpisodeAvaible, isScanNextEpisodePending, prevDoScanNext, scanNextEpisode])
 }
 
 export default useAnimeTorrentRow

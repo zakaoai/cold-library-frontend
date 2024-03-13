@@ -24,9 +24,11 @@ const AnimeTorrentTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {torrentLibrary.map(animeTorrent => (
-          <AnimeTorrentRow key={animeTorrent.malId} animeTorrent={animeTorrent} />
-        ))}
+        {torrentLibrary
+          .sort((a, b) => (a.searchWords > b.searchWords ? 1 : -1))
+          .map(animeTorrent => (
+            <AnimeTorrentRow key={animeTorrent.malId} animeTorrent={animeTorrent} />
+          ))}
       </TableBody>
     </Table>
   )

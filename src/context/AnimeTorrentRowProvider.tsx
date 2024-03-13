@@ -1,4 +1,4 @@
-import useAnimeTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useTrackedTorrentEpisodes"
+import useAnimeTorrentEpisodes from "@/hooks/containers/TrackedTorrent/useAnimeTorrentEpisodes"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
@@ -8,26 +8,15 @@ import AnimeTorrentRowContext from "./AnimeTorrentRowContext"
 const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren & { animeTorrent: AnimeTorrentDTO }) => {
   const [anime, setAnime] = useState<AnimeDTO | undefined>(undefined)
 
-  const { malId, lastEpisodeOnServer } = animeTorrent
+  const { malId } = animeTorrent
   const [showModalAlternateEpisode, setShowModalAlternateEpisode] = useState(false)
   const [selectedEpisodeAlternate, setSelectedEpisodeAlternate] = useState<AnimeEpisodeTorrentDisplay | undefined>(
     undefined
   )
   const [showEpisodes, setShowEpisodes] = useState(false)
 
-  const {
-    animeEpisodeTorrents,
-    scanEpisodes,
-    scanNextEpisode,
-    patchTrackedAnimeEpisode,
-    searchPack,
-    deleteTorrent,
-    setAnimeEpisodeTorrents,
-    isFetching,
-    isScanEpisodesPending,
-    isScanNextEpisodeAvaible,
-    isScanNextEpisodePending
-  } = useAnimeTorrentEpisodes(malId, lastEpisodeOnServer)
+  const { animeEpisodeTorrents, patchTrackedAnimeEpisode, setAnimeEpisodeTorrents, isFetching } =
+    useAnimeTorrentEpisodes(malId)
 
   const contextValue = useMemo(
     () => ({
@@ -37,16 +26,10 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
       setSelectedEpisodeAlternate,
       showModalAlternateEpisode,
       setShowModalAlternateEpisode,
-      deleteTorrent,
+
       animeTorrent,
       animeEpisodeTorrents,
-      searchPack,
-      scanEpisodes,
-      scanNextEpisode,
       isFetching,
-      isScanEpisodesPending,
-      isScanNextEpisodeAvaible,
-      isScanNextEpisodePending,
       showEpisodes,
       setShowEpisodes,
       anime,
@@ -57,16 +40,9 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
       setAnimeEpisodeTorrents,
       selectedEpisodeAlternate,
       showModalAlternateEpisode,
-      deleteTorrent,
       animeTorrent,
       animeEpisodeTorrents,
-      searchPack,
-      scanEpisodes,
-      scanNextEpisode,
       isFetching,
-      isScanEpisodesPending,
-      isScanNextEpisodeAvaible,
-      isScanNextEpisodePending,
       showEpisodes,
       anime
     ]

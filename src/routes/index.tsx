@@ -7,6 +7,7 @@ import ProtectedLayout from "@/containers/Layout/ProtectedLayout"
 
 import Logout from "@/containers/Activite/Logout/Logout"
 import { lazy } from "react"
+import RootBoundary from "./RootBoundary"
 
 const AnimeEpisodeActivity = lazy(async () => await import("@/containers/Activite/AnimeEpisode/AnimeEpisodeActivity"))
 const HomeActivity = lazy(async () => await import("@/containers/Activite/Home/HomeActivity"))
@@ -20,7 +21,7 @@ export const router = createBrowserRouter(
     <Route element={<ContextLayout />}>
       <Route element={<Layout />}>
         <Route index path={SiteMap.ACCUEIL.path} element={<HomeActivity />} />
-        <Route element={<ProtectedLayout />}>
+        <Route element={<ProtectedLayout />} errorElement={<RootBoundary />}>
           <Route path={SiteMap.RECHERCHE.path} element={<SearchActivity />} />
           <Route path={SiteMap.LIBRAIRIE.path} Component={AnimeLibraryActivity} />
           <Route path={SiteMap.EPISODE.path} element={<AnimeEpisodeActivity />} />

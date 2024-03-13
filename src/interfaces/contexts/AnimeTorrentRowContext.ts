@@ -12,16 +12,11 @@ export default interface AnimeTorrentRowContext {
   setSelectedEpisodeAlternate: Dispatch<SetStateAction<AnimeEpisodeTorrentDisplay | undefined>>
   showModalAlternateEpisode: boolean
   setShowModalAlternateEpisode: Dispatch<SetStateAction<boolean>>
-  deleteTorrent: UseMutateFunction<void, Error, number, unknown>
   animeTorrent: AnimeTorrentDTO
   animeEpisodeTorrents: AnimeEpisodeTorrentDisplay[]
-  searchPack: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, void, unknown>
-  scanEpisodes: UseMutateFunction<AnimeEpisodeTorrentDTO[], Error, void, unknown>
-  scanNextEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, unknown, void, unknown>
+
   isFetching: boolean
-  isScanEpisodesPending: boolean
-  isScanNextEpisodeAvaible: boolean
-  isScanNextEpisodePending: boolean
+
   setAnime: Dispatch<SetStateAction<AnimeDTO | undefined>>
   anime?: AnimeDTO
   showEpisodes: boolean

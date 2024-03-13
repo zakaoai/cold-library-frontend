@@ -5,7 +5,7 @@ import CircularProgress from "@mui/material/CircularProgress"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { NavLink } from "react-router-dom"
-import AnimeTorrentActions from "./TrackedTorrentActions"
+import AnimeTorrentActions from "./AnimeTorrentActions"
 
 const AnimeTorrentRowDesktop = ({
   showedAnimeEpisodeTorrentLength,

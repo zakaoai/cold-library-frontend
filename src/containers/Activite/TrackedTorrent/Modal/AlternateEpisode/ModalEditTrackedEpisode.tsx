@@ -1,7 +1,5 @@
 import FilterHeaderCell from "@/components/FilterHeaderCell/FilterHeaderCell"
 import useAlternateTrackedTorrentEpisode from "@/hooks/containers/TrackedTorrent/Modal/useAlternateTrackedTorrentEpisode"
-import useSortTable from "@/hooks/containers/TrackedTorrent/Modal/useSortTable"
-import usePagination from "@/hooks/usePagination"
 import { TablePagination } from "@mui/material"
 import Button from "@mui/material/Button"
 import Dialog from "@mui/material/Dialog"
@@ -15,46 +13,29 @@ import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 
-import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
-import { useCallback } from "react"
 import AlternateTrackedEpisodeLine from "./AlternateTrackedEpisodeLine"
+import { headCells } from "./const"
 
 const ModalEditTrackedEpisode = () => {
   const {
-    setShowModalAlternateEpisode,
-    setSelectedEpisodeAlternate,
-    selectedEpisodeAlternate,
-    showModalAlternateEpisode
-  } = useAnimeTorrentRowContext()
-
-  const handleClose = useCallback(() => {
-    setShowModalAlternateEpisode(false)
-    setSelectedEpisodeAlternate(undefined)
-  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
-
-  const { episodeNumber } = selectedEpisodeAlternate || {}
-  const { handleChange, handleModifier, alternateTrackedEpisodes, selectedValue, updatedTrackedEpisode } =
-    useAlternateTrackedTorrentEpisode(selectedEpisodeAlternate, handleClose)
-
-  const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
-    usePagination(alternateTrackedEpisodes)
-
-  const sortObj = useSortTable<AnimeEpisodeTorrentDisplay>()
-  const { sortFunction } = sortObj
-
-  const headCells = [
-    { id: "empty", filter: false },
-    { id: "title", filter: true, label: "Titre" },
-    { id: "dateObj", filter: true, label: "Date" },
-    { id: "byteSize", filter: true, label: "Size" },
-    { id: "traffic", label: "Traffic" },
-    { id: "infos", label: "Infos" }
-  ]
+    handleChange,
+    handleModifier,
+    alternateTrackedEpisodes,
+    selectedValue,
+    updatedTrackedEpisode,
+    handleClose,
+    showModalAlternateEpisode,
+    sortObj,
+    sliceBegin,
+    sliceEnd,
+    paginationProps
+  } = useAlternateTrackedTorrentEpisode()
 
   return (
     <Dialog open={showModalAlternateEpisode} onClose={handleClose} fullWidth maxWidth="md">
-      <DialogTitle id="form-dialog-title">Modification du Torrent episode {episodeNumber}</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        Modification du Torrent episode {updatedTrackedEpisode?.episodeNumber}
+      </DialogTitle>
       <DialogContent>
         <TableContainer component={Paper}>
           <Table>
@@ -74,7 +55,8 @@ const ModalEditTrackedEpisode = () => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {sortFunction(alternateTrackedEpisodes)
+                {sortObj
+                  .sortFunction(alternateTrackedEpisodes)
                   .slice(sliceBegin, sliceEnd)
                   .map(trackedEpisode => (
                     <AlternateTrackedEpisodeLine
@@ -91,11 +73,7 @@ const ModalEditTrackedEpisode = () => {
             rowsPerPageOptions={[5, 10, 25]}
             component="div"
             count={alternateTrackedEpisodes.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            labelDisplayedRows={labelTemplate}
+            {...paginationProps}
           />
         </Paper>
       </DialogContent>

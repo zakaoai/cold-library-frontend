@@ -1,8 +1,8 @@
-import TrackedTorrentContext from "@/context/TrackedTorrentContext"
+import AnimeTorrentContext from "@/context/AnimeTorrentContext"
 import { useContext } from "react"
 
-export const useTrackedTorrentContext = () => {
-  const context = useContext(TrackedTorrentContext)
+export const useAnimeTorrentContext = () => {
+  const context = useContext(AnimeTorrentContext)
   if (context === undefined) {
     throw new Error("useTrackedTorrentContext must be used within a TrackedTorrentProvider")
   }

@@ -2,7 +2,7 @@ import { useMemo } from "react"
 
 import AnimeTorrentEpisodeTable from "./AnimeEpisodeTorrent/AnimeTorrentEpisodeTable"
 
-import ModalEditTrackedEpisode from "../Modal/ModalEditTrackedEpisode"
+import ModalEditTrackedEpisode from "../Modal/AlternateEpisode/ModalEditTrackedEpisode"
 
 import { useMediaQuery } from "@mui/material"
 
@@ -19,7 +19,6 @@ const AnimeTorrentRow = () => {
     useAnimeTorrentRowContext()
   useAnimeTorrentRow()
   const { lastEpisodeOnServer } = animeTorrent
-
   const showedTorrents = useMemo(
     () =>
       animeEpisodeTorrents.filter(({ episodeNumber }) => episodeNumber >= lastEpisodeOnServer || episodeNumber === 0),

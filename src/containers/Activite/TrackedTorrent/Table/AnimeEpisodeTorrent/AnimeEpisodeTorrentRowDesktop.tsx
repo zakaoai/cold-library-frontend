@@ -1,3 +1,4 @@
+import useAnimeEpisodeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeEpisodeTorrentRow"
 import AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
@@ -9,19 +10,17 @@ import Link from "@mui/material/Link"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { DateTime } from "luxon"
+import DownloadDelugeTableCell from "./DownloadDelugeTableCell"
 
-const AnimeEpisodeTorrentRowDesktop = ({
-  updateTrackedAnimeEpisode,
-  searchAlternate,
-  deleteTorrent,
-  nyaaLink,
-  animeEpisodeTorrent
-}: AnimeEpisodeTorrentRow) => {
+const AnimeEpisodeTorrentRowDesktop = ({ animeEpisodeTorrent }: AnimeEpisodeTorrentRow) => {
+  const { updateTrackedAnimeEpisode, searchAlternate, deleteTorrent, nyaaLink } =
+    useAnimeEpisodeTorrentRow(animeEpisodeTorrent)
   const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
     animeEpisodeTorrent
+
   return (
     <TableRow key={torrentId}>
-      <TableCell component="th" scope="row">
+      <TableCell component="th" scope="row" align="center">
         <Link component="button" variant="body2" onClick={updateTrackedAnimeEpisode}>
           {episodeNumber}
         </Link>
@@ -40,6 +39,7 @@ const AnimeEpisodeTorrentRowDesktop = ({
       <TableCell component="th" scope="row">
         {leechers}/{seeders} ({completed})
       </TableCell>
+      <DownloadDelugeTableCell animeEpisodeTorrent={animeEpisodeTorrent} />
       <TableCell align="right">
         <IconButton aria-label="search alternate" onClick={searchAlternate} size="large">
           <SearchIcon />
@@ -49,12 +49,13 @@ const AnimeEpisodeTorrentRowDesktop = ({
             <GetAppIcon />
           </IconButton>
         </Link>
-        <Link href={nyaaLink} aria-label="torrent info">
+
+        <Link target="_blank" href={nyaaLink} aria-label="torrent info">
           <IconButton size="large">
             <InfoIcon />
           </IconButton>
         </Link>
-        <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent(episodeNumber)} size="large">
+        <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent()} size="large">
           <DeleteIcon />
         </IconButton>
       </TableCell>
