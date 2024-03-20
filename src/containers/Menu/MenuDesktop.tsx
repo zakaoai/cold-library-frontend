@@ -1,4 +1,8 @@
-import { AppBar, Paper, Tab, Tabs, Toolbar } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Paper from "@mui/material/Paper"
+import Tab from "@mui/material/Tab"
+import Tabs from "@mui/material/Tabs"
+import Toolbar from "@mui/material/Toolbar"
 
 import { NavLink, useLocation } from "react-router-dom"
 

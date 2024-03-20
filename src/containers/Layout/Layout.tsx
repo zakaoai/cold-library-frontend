@@ -9,7 +9,7 @@ const Layout = () => (
   <>
     <Menu />
     <Suspense fallback={<div>Loading...</div>}>
-      <Container>
+      <Container disableGutters>
         <Outlet />
       </Container>
     </Suspense>

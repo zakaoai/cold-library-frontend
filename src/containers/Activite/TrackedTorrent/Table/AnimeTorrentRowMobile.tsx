@@ -1,7 +1,7 @@
 import ArrowCollapse from "@/components/ArrowCollapse/ArrowCollapse"
 import type AnimeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeTorrentRow"
-import { Link } from "@mui/material"
 import CircularProgress from "@mui/material/CircularProgress"
+import Link from "@mui/material/Link"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { NavLink } from "react-router-dom"

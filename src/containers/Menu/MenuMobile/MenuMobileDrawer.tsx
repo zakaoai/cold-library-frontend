@@ -1,7 +1,15 @@
 import type IMenuMobileDrawer from "@/interfaces/containers/Menu/MenuMobileDrawer"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
-import { Box, Divider, Drawer, IconButton, List, ListItem, ListItemIcon, ListItemText, useTheme } from "@mui/material"
+import Box from "@mui/material/Box"
+import Divider from "@mui/material/Divider"
+import Drawer from "@mui/material/Drawer"
+import IconButton from "@mui/material/IconButton"
+import List from "@mui/material/List"
+import ListItem from "@mui/material/ListItem"
+import ListItemIcon from "@mui/material/ListItemIcon"
+import ListItemText from "@mui/material/ListItemText"
+import useTheme from "@mui/material/styles/useTheme"
 
 import { NavLink } from "react-router-dom"
 

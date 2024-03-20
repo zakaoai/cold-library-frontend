@@ -4,7 +4,7 @@ import AnimeTorrentEpisodeTable from "./AnimeEpisodeTorrent/AnimeTorrentEpisodeT
 
 import ModalEditTrackedEpisode from "../Modal/AlternateEpisode/ModalEditTrackedEpisode"
 
-import { useMediaQuery } from "@mui/material"
+import useMediaQuery from "@mui/material/useMediaQuery"
 
 import AnimeTorrentRowProvider from "@/context/AnimeTorrentRowProvider"
 import useAnimeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeTorrentRow"

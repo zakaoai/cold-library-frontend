@@ -1,6 +1,9 @@
 import type IAnimeEpisodeBar from "@/interfaces/containers/Activite/AnimeEpisode/AnimeEpisodeBar"
 import SearchIcon from "@mui/icons-material/Search"
-import { AppBar, Box, Button, Grid } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Grid from "@mui/material/Grid"
 
 const AnimeEpisodeBar = ({ update }: IAnimeEpisodeBar) => {
   return (

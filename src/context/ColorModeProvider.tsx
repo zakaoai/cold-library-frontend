@@ -1,4 +1,5 @@
-import { ThemeProvider, createTheme, type PaletteMode } from "@mui/material"
+import ThemeProvider from "@mui/material/styles/ThemeProvider"
+import createTheme from "@mui/material/styles/createTheme"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import { useMemo, useState, type PropsWithChildren } from "react"
 import ColorModeContext from "./ColorModeContext"
@@ -6,7 +7,7 @@ import ColorModeContext from "./ColorModeContext"
 export const ColorModeProvider = ({ children }: PropsWithChildren) => {
   const prefersLightMode = useMediaQuery("(prefers-color-scheme: light)")
 
-  const defaultColorMode = useMemo<PaletteMode>(() => (prefersLightMode ? "light" : "dark"), [prefersLightMode])
+  const defaultColorMode = useMemo<"light" | "dark">(() => (prefersLightMode ? "light" : "dark"), [prefersLightMode])
 
   const [colorMode, setColorMode] = useState(defaultColorMode)
 

@@ -6,7 +6,7 @@ import { SnackbarProvider } from "notistack"
 import { RouterProvider } from "react-router-dom"
 
 import { ColorModeProvider } from "@/context/ColorModeProvider"
-import { Box } from "@mui/material"
+import Box from "@mui/material/Box"
 import { router } from "./routes"
 
 const App = () => (
