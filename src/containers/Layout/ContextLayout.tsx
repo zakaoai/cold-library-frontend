@@ -2,6 +2,7 @@ import AppProvider from "@/context/AppProvider"
 import Auth0ProviderWithNavigate from "@/context/Auth0ProviderWithNavigate"
 import QueryClientProvider from "@/context/QueryClientProvider"
 import UserProvider from "@/context/UserProvider"
+import useProfil from "@/hooks/containers/Activite/Profile/useProfile"
 import { headers } from "@/services/request/request"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect } from "react"
@@ -9,6 +10,7 @@ import { Outlet } from "react-router-dom"
 
 const AuthenticateOutlet = () => {
   const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0()
+  useProfil()
 
   useEffect(() => {
     if (!isLoading && isAuthenticated) {

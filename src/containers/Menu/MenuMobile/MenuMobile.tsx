@@ -43,9 +43,9 @@ const MenuMobile = ({ links }: Menu) => {
             <MenuIcon />
           </IconButton>
           {links
-            .filter(link => location.pathname.includes(link.path))
+            .filter(link => location.pathname.match(new RegExp(link.path)))
             .map(link => (
-              <Typography key={link.path} variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography key={link.label} variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {link.label}
               </Typography>
             ))}

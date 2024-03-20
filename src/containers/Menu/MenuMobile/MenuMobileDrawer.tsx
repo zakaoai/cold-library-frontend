@@ -33,19 +33,21 @@ const MenuMobileDrawer = ({ handleClose, links, open }: IMenuMobileDrawer) => {
       </Box>
       <Divider />
       <List>
-        {links.map(link => (
-          <ListItem
-            button
-            key={link.label}
-            selected={link.path === location.pathname}
-            component={NavLink}
-            to={link.path}>
-            <ListItemIcon>
-              <ChevronRightIcon />
-            </ListItemIcon>
-            <ListItemText primary={link.label} />
-          </ListItem>
-        ))}
+        {links
+          .filter(link => link.hideInMenu != true)
+          .map(link => (
+            <ListItem
+              button
+              key={link.label}
+              selected={link.path === location.pathname}
+              component={NavLink}
+              to={link.path}>
+              <ListItemIcon>
+                <ChevronRightIcon />
+              </ListItemIcon>
+              <ListItemText primary={link.label} />
+            </ListItem>
+          ))}
       </List>
     </Drawer>
   )
