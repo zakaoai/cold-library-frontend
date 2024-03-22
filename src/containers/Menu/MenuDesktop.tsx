@@ -1,4 +1,8 @@
-import { AppBar, Paper, Tab, Tabs, Toolbar } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Paper from "@mui/material/Paper"
+import Tab from "@mui/material/Tab"
+import Tabs from "@mui/material/Tabs"
+import Toolbar from "@mui/material/Toolbar"
 
 import { NavLink, useLocation } from "react-router-dom"
 
@@ -14,7 +18,11 @@ import { useTheme } from "@mui/material/styles"
 
 const MenuDesktop = ({ links }: Menu) => {
   const location = useLocation()
-  const tabsValue = links.map(link => link.path).find(path => location.pathname.includes(path)) || false
+  const tabsValue =
+    links
+      .filter(link => link.hideInMenu != true)
+      .map(link => link.path)
+      .find(path => location.pathname.match(path)) || false
   const theme = useTheme()
   const { toggleColorMode } = useColorModeContext()
 
@@ -23,9 +31,11 @@ const MenuDesktop = ({ links }: Menu) => {
       <AppBar position="static">
         <Toolbar>
           <Tabs value={tabsValue} indicatorColor="secondary" textColor="inherit" sx={{ flexGrow: 1 }}>
-            {links.map(link => (
-              <Tab key={link.path} label={link.label} component={NavLink} to={link.path} value={link.path} />
-            ))}
+            {links
+              .filter(link => link.hideInMenu != true)
+              .map(link => (
+                <Tab key={link.label} label={link.label} component={NavLink} to={link.path} value={link.path} />
+              ))}
           </Tabs>
           <IconButton onClick={toggleColorMode}>
             {theme.palette.mode === "dark" ? <Brightness7Icon /> : <Brightness4Icon />}

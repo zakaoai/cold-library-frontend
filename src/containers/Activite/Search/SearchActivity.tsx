@@ -2,7 +2,7 @@ import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
 import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import SearchForm from "@/containers/Activite/Search/SearchForm"
 import useAnimeSearch from "@/hooks/containers/Search/useAnimeSearch"
-import { CircularProgress } from "@mui/material"
+import CircularProgress from "@mui/material/CircularProgress"
 import Grid from "@mui/material/Grid"
 
 /**

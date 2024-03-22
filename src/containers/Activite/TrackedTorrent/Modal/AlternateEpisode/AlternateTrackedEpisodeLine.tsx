@@ -1,6 +1,10 @@
 import type IAlternateTrackedEpisodeLine from "@/interfaces/containers/Activite/TrackedTorrent/Modal/AlternateTrackedEpisodeLine"
 import LinkIcon from "@mui/icons-material/Link"
-import { IconButton, Link, Radio, TableCell, TableRow } from "@mui/material"
+import IconButton from "@mui/material/IconButton"
+import Link from "@mui/material/Link"
+import Radio from "@mui/material/Radio"
+import TableCell from "@mui/material/TableCell"
+import TableRow from "@mui/material/TableRow"
 import { DateTime } from "luxon"
 import { useCallback, useRef } from "react"
 

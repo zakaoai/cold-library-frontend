@@ -2,7 +2,10 @@ import useAnimeTorrentsAction from "@/hooks/containers/TrackedTorrent/useAnimeTo
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import SearchIcon from "@mui/icons-material/Search"
 import WaterDropIcon from "@mui/icons-material/WaterDrop"
-import { AppBar, Box, Button, Grid } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Box from "@mui/material/Box"
+import Button from "@mui/material/Button"
+import Grid from "@mui/material/Grid"
 import { useCallback } from "react"
 
 const TrackedTorrentBar = () => {

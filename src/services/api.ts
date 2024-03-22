@@ -43,6 +43,11 @@ const api = {
     delete: (malId: number) => `${API_BASE_URL}/torrent/${malId}`,
     saveInLibrary: (malId: number) => `${API_BASE_URL}/torrent/${malId}`,
     updateLastEpisodeOnServer: (malId: number) => `${API_BASE_URL}/torrent/${malId}/lastEpisodeOnServer`
+  },
+  user: {
+    animelist: `${API_BASE_URL}/user/animelist`,
+    getCurrent: `${API_BASE_URL}/user`,
+    updateCurrentMalUsername: `${API_BASE_URL}/user/malUsername`
   }
 }
 

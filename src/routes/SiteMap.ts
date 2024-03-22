@@ -28,6 +28,15 @@ const SiteMap: ISiteMap = {
   LOGOUT: {
     path: "/app/logout",
     label: "Logout"
+  },
+  ANIME: {
+    path: "\\/anime\\/\\d*",
+    label: "Fiche Anime",
+    hideInMenu: true
+  },
+  MYANIMELIST: {
+    path: "/myanimelist",
+    label: "My Anime List"
   }
 }
 

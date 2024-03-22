@@ -1,6 +1,10 @@
 import HotColdSwitch from "@/components/HotColdSwitch/HotColdSwitch"
 import ReplayIcon from "@mui/icons-material/Replay"
-import { AppBar, Box, Checkbox, Grid, IconButton } from "@mui/material"
+import AppBar from "@mui/material/AppBar"
+import Box from "@mui/material/Box"
+import Checkbox from "@mui/material/Checkbox"
+import Grid from "@mui/material/Grid"
+import IconButton from "@mui/material/IconButton"
 
 import AnimeCardTrackedButton from "@/components/animeCard/AnimeCardTrackedButton"
 import AnimeCompleteButton from "@/components/animeCard/AnimeCompleteButton"

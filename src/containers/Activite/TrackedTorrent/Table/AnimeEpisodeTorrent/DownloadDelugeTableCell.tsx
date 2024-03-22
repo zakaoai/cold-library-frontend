@@ -2,7 +2,8 @@ import CircularProgressWithLabel from "@/components/CircularProgressWithLabel/Ci
 import useDownloadDelugeAction from "@/hooks/containers/TrackedTorrent/useDownloadDelugeAction"
 import IDownloadDelugeTableCell from "@/interfaces/containers/Activite/TrackedTorrent/DownloadDelugeTableCell"
 import WaterDropIcon from "@mui/icons-material/WaterDrop"
-import { IconButton, TableCell } from "@mui/material"
+import IconButton from "@mui/material/IconButton"
+import TableCell from "@mui/material/TableCell"
 
 const DownloadDelugeTableCell = ({ animeEpisodeTorrent }: IDownloadDelugeTableCell) => {
   const { progress, malId, episodeNumber } = animeEpisodeTorrent
