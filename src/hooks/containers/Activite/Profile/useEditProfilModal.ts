@@ -3,7 +3,7 @@ import ResponseError from "@/interfaces/services/ResponseError"
 import UserDTO from "@/interfaces/services/UserService/UserDTO"
 import UserService from "@/services/UserService"
 import { useMutation } from "@tanstack/react-query"
-import { useCallback } from "react"
+import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import useProfil from "./useProfile"
 
@@ -12,9 +12,30 @@ const useEditProfilModal = (handleClose: () => void) => {
   const { user: serverUser } = useProfil()
   const { malUsername } = serverUser || {}
 
-  const defaultValues = {
-    malUsername
-  }
+  const defaultValues = useMemo(
+    () => ({
+      malUsername
+    }),
+    [malUsername]
+  )
+
+  const form = useForm<Omit<UserDTO, "malId">>({ defaultValues })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    clearErrors,
+    reset
+  } = form
+
+  useEffect(() => {
+    reset(defaultValues)
+  }, [defaultValues, reset])
+
+  const handleCloseForm = useCallback(() => {
+    clearErrors()
+    handleClose()
+  }, [clearErrors, handleClose])
 
   const updateCurrentMalUsernameCall = useCallback(
     (malUserName: string) => UserService.updateCurrentMalUsername(malUserName),
@@ -24,9 +45,9 @@ const useEditProfilModal = (handleClose: () => void) => {
   const onSuccessUpdateCurentMalUsername = useCallback(
     (user: UserDTO) => {
       setUser(user)
-      handleClose()
+      handleCloseForm()
     },
-    [handleClose, setUser]
+    [handleCloseForm, setUser]
   )
 
   const onErrorScanEpisodes = useCallback((error: ResponseError) => {
@@ -47,13 +68,7 @@ const useEditProfilModal = (handleClose: () => void) => {
     [updateCurrentMalUsername]
   )
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<Omit<UserDTO, "malId">>({ defaultValues })
-
-  return { handleSubmit, onSubmit, errors, register }
+  return { handleSubmit, onSubmit, errors, register, handleCloseForm }
 }
 
 export default useEditProfilModal
