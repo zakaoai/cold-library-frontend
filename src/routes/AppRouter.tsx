@@ -15,6 +15,7 @@ const SearchActivity = lazy(async () => await import("@/containers/Activite/Sear
 const TrackedTorrent = lazy(async () => await import("@/containers/Activite/TrackedTorrent/TrackedTorrent"))
 const ProfileActivity = lazy(async () => await import("@/containers/Activite/Profile/ProfileActivity"))
 const AnimeLibraryActivity = lazy(async () => await import("@/containers/Activite/AnimeLibrary/AnimeLibraryActivity"))
+const MyAnimeListActivity = lazy(async () => await import("@/containers/Activite/MyAnimeList/MyAnimeListActivity"))
 
 const AppRouter = () => (
   <Route element={<ContextLayout />}>
@@ -26,6 +27,7 @@ const AppRouter = () => (
         <Route path={SiteMap.EPISODE.path} element={<AnimeEpisodeActivity />} />
         <Route path={SiteMap.TORRENT.path} element={<TrackedTorrent />} />
         <Route path={SiteMap.PROFILE.path} element={<ProfileActivity />} />
+        <Route path={SiteMap.MYANIMELIST.path} element={<MyAnimeListActivity />} />
       </Route>
       <Route path={SiteMap.LOGOUT.path} element={<Logout />} />
     </Route>
