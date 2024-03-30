@@ -10,7 +10,7 @@ export interface AnimeDTO {
   episodes?: number
   status?: string
   score?: number
-  season?: string
+  season: string
   year?: number
   broadcast?: string
   rank?: number
