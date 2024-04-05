@@ -1,10 +1,11 @@
 import CardMedia from "@mui/material/CardMedia"
 import Skeleton from "@mui/material/Skeleton"
+import { LazyLoadImage } from "react-lazy-load-image-component"
 import { MALCardProps } from "./MALCard"
 
 const MALCardImage = ({ malAnime }: MALCardProps) => {
   const {
-    main_picture: { large: malImg },
+    main_picture: { medium: malImg },
     title,
     id
   } = malAnime
@@ -12,7 +13,9 @@ const MALCardImage = ({ malAnime }: MALCardProps) => {
 
   return malImg ? (
     <a href={malUrl} target="_blank" rel="noreferrer">
-      <CardMedia component={"img"} src={malImg} title={title} />
+      <CardMedia>
+        <LazyLoadImage src={malImg} title={title} style={{ width: "100%" }} />
+      </CardMedia>
     </a>
   ) : (
     <Skeleton animation="wave" variant="rectangular" height={190} />
