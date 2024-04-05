@@ -1,7 +1,7 @@
 import MALBroadcast from "./MALBroadcast"
 import MALGenre from "./MALGenre"
+import MALPicture from "./MALPicture"
 import MALSeason from "./MALSeason"
-import MALPicture from "./MalPicture"
 
 export default interface MALAnime {
   id: number
@@ -12,7 +12,7 @@ export default interface MALAnime {
   mean: number
   rank: number
   popularity: number
-  genre: MALGenre[]
+  genres: MALGenre[]
   media_type: string
   status: string
   num_episodes: number
