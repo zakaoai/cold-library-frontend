@@ -1,4 +1,4 @@
-interface AnimeEpisodeParams {
+interface AnimeEpisodeParams extends Record<string, string> {
   malId: string
 }
 

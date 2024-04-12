@@ -8,7 +8,7 @@ const AnimeCardAvatar = () => {
   const { type } = anime
 
   return (
-    (type !== null && (
+    (type !== undefined && (
       <Avatar aria-label="type" sx={{ backgroundColor: red[500] }} title={type}>
         {type.substring(0, 3)}
       </Avatar>

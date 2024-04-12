@@ -11,7 +11,7 @@ import MyAnimeListFilterBar from "./MyAnimeListFilterBar"
 import { ViewMode } from "./const"
 
 const MyAnimeListActivity = () => {
-  const { myAnimeList, updateAnime } = useMyAnimeList()
+  const { myAnimeList } = useMyAnimeList()
   const { selectedViewMode } = useMyAnimeListContext()
   const { filteredMyAnimeList } = useMyAnimeListFilter(myAnimeList)
 

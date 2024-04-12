@@ -56,7 +56,7 @@ const useMyAnimeList = () => {
       [UserAnimeStatus.PLAN_TO_WATCH]: 4
     }
 
-    let sort = order[a.userStatus] - order[b.userStatus]
+    const sort = order[a.userStatus] - order[b.userStatus]
 
     if (sort !== 0) {
       return sort

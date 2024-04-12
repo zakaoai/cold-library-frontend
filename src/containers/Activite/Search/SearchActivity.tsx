@@ -30,7 +30,7 @@ const SearchActivity = () => {
             </Grid>
           ))
         )}
-        {!isFetching && error && <div>{error}</div>}
+        {!isFetching && error !== undefined && <div>{error}</div>}
       </Grid>
     </>
   )
