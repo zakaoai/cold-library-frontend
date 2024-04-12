@@ -6,7 +6,7 @@ import { useCallback, useEffect, useState } from "react"
 const useAnimeEpisode = (malId: number) => {
   const [animeEpisodes, setAnimeEpisodes] = useState<AnimeEpisodeDTO[]>([])
 
-  const getAllEpisodesCall = useCallback(() => AnimeEpisodeService.getAll(malId), [malId])
+  const getAllEpisodesCall = useCallback(async () => await AnimeEpisodeService.getAll(malId), [malId])
 
   const { data, isFetched, isFetching } = useQuery({
     queryKey: ["api.animeEpisode.getAll", malId],

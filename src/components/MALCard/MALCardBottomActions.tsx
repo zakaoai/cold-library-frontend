@@ -1,5 +1,5 @@
 import Grid from "@mui/material/Grid"
-import { MALCardProps } from "./MALCard"
+import { type MALCardProps } from "./MALCard"
 import MALInLibraryButton from "./MALInLibraryButton"
 
 const MALCardBottomActions = ({ malAnime }: MALCardProps) => {

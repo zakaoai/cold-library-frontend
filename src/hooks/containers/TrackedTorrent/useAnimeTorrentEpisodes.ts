@@ -1,7 +1,7 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
-import AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation } from "@tanstack/react-query"
@@ -13,7 +13,7 @@ const useAnimeTorrentEpisodes = (malId: number) => {
   const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
 
   useEffect(() => {
-    setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) || [])
+    setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) ?? [])
   }, [malId, torrentEpisodesMap])
 
   // Patch Episode

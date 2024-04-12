@@ -10,7 +10,7 @@ const InLibraryButton = () => {
     updateAnimeState,
     anime: { storageState }
   } = useAnimeCardContext()
-  const isInLibrary = !!storageState
+  const isInLibrary = !(storageState === null)
   const { saveAnime, deleteAnime, isSaveInLibraryPending, isDeletePending } = updateAnimeState
 
   const onClick = useCallback(() => {

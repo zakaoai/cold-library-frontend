@@ -1,6 +1,6 @@
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback } from "react"
@@ -11,13 +11,20 @@ const useUpdateAnimeState = (
   defaultAnime: AnimeDTO,
   updateAnime: (updatedAnime: AnimeDTO | AnimeInServerDTO) => void
 ) => {
-  const onSuccessUpdateAnimeInServer = useCallback((anime: AnimeInServerDTO) => updateAnime(anime), [updateAnime])
-  const onSuccesReset = useCallback(() => updateAnime(defaultAnime), [defaultAnime, updateAnime])
+  const onSuccessUpdateAnimeInServer = useCallback(
+    (anime: AnimeInServerDTO) => {
+      updateAnime(anime)
+    },
+    [updateAnime]
+  )
+  const onSuccesReset = useCallback(() => {
+    updateAnime(defaultAnime)
+  }, [defaultAnime, updateAnime])
   const { setTorrentEpisodeLibrary, setTorrentLibrary, setAnimeLibrary } = useAppContext()
 
   // Update Last Avaible Episode
   const updateLastAvaibleEpisodeCall = useCallback(
-    (lastAvaibleEpisode: number) => AnimeServices.updateLastAvaibleEpisode(malId, lastAvaibleEpisode),
+    async (lastAvaibleEpisode: number) => await AnimeServices.updateLastAvaibleEpisode(malId, lastAvaibleEpisode),
     [malId]
   )
 
@@ -44,7 +51,7 @@ const useUpdateAnimeState = (
 
   // Update isComplete
   const updateIsCompleteCall = useCallback(
-    (isComplete: boolean) => AnimeServices.updateIsComplete(malId, isComplete),
+    async (isComplete: boolean) => await AnimeServices.updateIsComplete(malId, isComplete),
     [malId]
   )
 
@@ -71,7 +78,7 @@ const useUpdateAnimeState = (
 
   // Update Storage State
   const updateStorageStateCall = useCallback(
-    (storageState: string) => AnimeServices.updateStorageState(malId, storageState),
+    async (storageState: string) => await AnimeServices.updateStorageState(malId, storageState),
     [malId]
   )
 
@@ -98,7 +105,7 @@ const useUpdateAnimeState = (
 
   // Update is Downloading
   const updateIsDownloadingCall = useCallback(
-    (isDownloading: boolean) => AnimeServices.updateIsDownloading(malId, isDownloading),
+    async (isDownloading: boolean) => await AnimeServices.updateIsDownloading(malId, isDownloading),
     [malId]
   )
 
@@ -133,7 +140,9 @@ const useUpdateAnimeState = (
   })
 
   // Delete Anime
-  const deleteCall = useCallback(() => AnimeServices.delete(malId), [malId])
+  const deleteCall = useCallback(async () => {
+    await AnimeServices.delete(malId)
+  }, [malId])
 
   const onErrorDelete = useCallback(
     (error: ResponseError) => {
@@ -153,13 +162,15 @@ const useUpdateAnimeState = (
   })
 
   // Save Anime
-  const saveInLibraryCall = useCallback(() => AnimeServices.saveInLibrary(malId), [malId])
+  const saveInLibraryCall = useCallback(async () => await AnimeServices.saveInLibrary(malId), [malId])
 
   const onSuccessSaveInLibrary = useCallback(
     (anime: AnimeDTO) => {
       updateAnime(anime)
 
-      setAnimeLibrary(prev => (anime.addedOnServer ? [...prev, anime] : prev.filter(curr => curr.malId != anime.malId)))
+      setAnimeLibrary(prev =>
+        anime.addedOnServer ? [...prev, anime] : prev.filter(curr => curr.malId !== anime.malId)
+      )
     },
     [setAnimeLibrary, updateAnime]
   )

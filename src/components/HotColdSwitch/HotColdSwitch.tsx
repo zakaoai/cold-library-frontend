@@ -8,7 +8,7 @@ import Typography from "@mui/material/Typography"
 import blue from "@mui/material/colors/blue"
 import red from "@mui/material/colors/red"
 import { styled } from "@mui/material/styles"
-import IHotColdSwitch from "./interface/HotColdSwitch"
+import type IHotColdSwitch from "./interface/HotColdSwitch"
 
 const MaterialUISwitch = styled(Switch)(() => ({
   width: 80,
@@ -86,7 +86,9 @@ const HotColdSwitch = ({ storageState, setStorageState }: IHotColdSwitch) => {
             icon={<WhatshotIcon style={{ color: red.A100 }} />}
             checkedIcon={<AcUnitIcon style={{ color: blue[200] }} />}
             checked={isFluxFroid}
-            onChange={() => setStorageState(nextStorageState)}
+            onChange={() => {
+              setStorageState(nextStorageState)
+            }}
           />
         </Grid>
       </Typography>

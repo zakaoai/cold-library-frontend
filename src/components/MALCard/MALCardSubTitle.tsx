@@ -1,5 +1,5 @@
 import Skeleton from "@mui/material/Skeleton"
-import { MALCardProps } from "./MALCard"
+import { type MALCardProps } from "./MALCard"
 
 const MALCardSubtitle = ({ malAnime }: MALCardProps) => {
   const { episodes } = malAnime

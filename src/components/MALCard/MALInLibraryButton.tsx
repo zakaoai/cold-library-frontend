@@ -4,13 +4,18 @@ import StorageState from "@/enums/StorageState"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import { blue, red } from "@mui/material/colors"
 import { useMemo } from "react"
-import { MALCardProps } from "./MALCard"
+import { type MALCardProps } from "./MALCard"
 
 const MALInLibraryButton = ({ malAnime }: MALCardProps) => {
   const { storageState } = malAnime
 
   const style = useMemo(
-    () => (storageState ? (storageState == StorageState.FLUX_CHAUD ? { color: red[500] } : { color: blue[200] }) : {}),
+    () =>
+      storageState !== undefined
+        ? storageState === StorageState.FLUX_CHAUD
+          ? { color: red[500] }
+          : { color: blue[200] }
+        : {},
     [storageState]
   )
 

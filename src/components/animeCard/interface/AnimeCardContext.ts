@@ -1,4 +1,4 @@
-import useUpdateAnimeState from "@/hooks/components/useUpdateAnimeState"
+import type useUpdateAnimeState from "@/hooks/components/useUpdateAnimeState"
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 
 export default interface AnimeCardContext {

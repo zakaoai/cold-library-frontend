@@ -1,6 +1,6 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import ResponseError from "@/interfaces/services/ResponseError"
-import UserDTO from "@/interfaces/services/UserService/UserDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
+import type UserDTO from "@/interfaces/services/UserService/UserDTO"
 import UserService from "@/services/UserService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useMemo } from "react"
@@ -38,7 +38,7 @@ const useEditProfilModal = (handleClose: () => void) => {
   }, [clearErrors, handleClose])
 
   const updateCurrentMalUsernameCall = useCallback(
-    (malUserName: string) => UserService.updateCurrentMalUsername(malUserName),
+    async (malUserName: string) => await UserService.updateCurrentMalUsername(malUserName),
     []
   )
 

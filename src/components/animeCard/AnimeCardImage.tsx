@@ -8,7 +8,7 @@ const AnimeCardImage = () => {
     imageHeight
   } = useAnimeCardContext()
 
-  return malImg ? (
+  return malImg !== undefined ? (
     <a href={malUrl} target="_blank" rel="noreferrer">
       <CardMedia component={"img"} style={{ maxHeight: imageHeight }} src={malImg} title={title} />
     </a>

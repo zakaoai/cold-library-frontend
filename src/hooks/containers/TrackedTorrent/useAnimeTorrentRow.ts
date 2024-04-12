@@ -9,8 +9,8 @@ const useAnimeTorrentRow = () => {
   const { malId } = animeTorrent
 
   useEffect(() => {
-    const anime = animes.find(animeInLibrary => animeInLibrary.malId == malId)
-    if (anime != undefined) setAnime(anime)
+    const anime = animes.find(animeInLibrary => animeInLibrary.malId === malId)
+    if (anime !== undefined) setAnime(anime)
   }, [setAnime, animes, malId])
 }
 

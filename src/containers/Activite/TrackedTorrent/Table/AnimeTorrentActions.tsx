@@ -27,19 +27,33 @@ const AnimeTorrentActions = () => {
   return (
     <>
       {!isPackInList && (
-        <IconButton aria-label="download pack" onClick={() => searchPack()} disabled={isSearchPackPending} size="large">
+        <IconButton
+          aria-label="download pack"
+          onClick={() => {
+            searchPack()
+          }}
+          disabled={isSearchPackPending}
+          size="large">
           <CreateNewFolderIcon />
         </IconButton>
       )}
       <IconButton aria-label="edit" onClick={editTrackedAnime} size="large">
         <EditIcon />
       </IconButton>
-      <IconButton aria-label="scan all" onClick={() => scanEpisodes()} disabled={isScanEpisodesPending} size="large">
+      <IconButton
+        aria-label="scan all"
+        onClick={() => {
+          scanEpisodes()
+        }}
+        disabled={isScanEpisodesPending}
+        size="large">
         <SearchIcon />
       </IconButton>
       <IconButton
         aria-label="scan next"
-        onClick={() => scanNextEpisode()}
+        onClick={() => {
+          scanNextEpisode()
+        }}
         disabled={isScanNextEpisodeAvaible && isScanNextEpisodePending}
         size="large">
         <SavedSearchIcon />

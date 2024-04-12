@@ -1,4 +1,4 @@
-import StorageState from "@/enums/StorageState"
+import type StorageState from "@/enums/StorageState"
 
 export default interface HotColdSwitch {
   storageState: StorageState

@@ -4,7 +4,7 @@ import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
 import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
 
 /**

@@ -1,5 +1,6 @@
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
+import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { CardContent, Chip, Stack } from "@mui/material"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -14,7 +15,8 @@ export interface MALCardProps {
   malAnime: Omit<MALAnime, "broadcast"> & AnimeDTO
 }
 
-const MALCard = ({ malAnime, selectedGenre }: MALCardProps & { selectedGenre: string[] }) => {
+const MALCard = ({ malAnime }: MALCardProps) => {
+  const { selectedGenres } = useMyAnimeListContext()
   return (
     <Card>
       <CardHeader
@@ -25,13 +27,15 @@ const MALCard = ({ malAnime, selectedGenre }: MALCardProps & { selectedGenre: st
       />
       <CardContent sx={{ paddingTop: 0 }}>
         <Stack direction="row" useFlexGap flexWrap="wrap" spacing={1}>
-          {malAnime.genres.map(genre =>
-            selectedGenre.includes(genre.name) ? (
-              <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
-            ) : (
-              <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="outlined" />
-            )
-          )}
+          {malAnime.genres
+            .toSorted((a, b) => a.name.localeCompare(b.name))
+            .map(genre =>
+              selectedGenres.includes(genre.name) ? (
+                <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
+              ) : (
+                <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="outlined" />
+              )
+            )}
         </Stack>
       </CardContent>
       <MALCardImage malAnime={malAnime} />

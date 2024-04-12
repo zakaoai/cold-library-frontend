@@ -1,4 +1,4 @@
-import Season from "@/enums/Season"
+import type Season from "@/enums/Season"
 
 export default interface MALSeason {
   year: number

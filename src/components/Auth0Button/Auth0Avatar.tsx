@@ -26,7 +26,7 @@ const Auth0Avatar = () => {
 
   const handleLogout = useCallback(() => {
     handleClose()
-    logout({ logoutParams: { returnTo: window.location.origin } })
+    void logout({ logoutParams: { returnTo: window.location.origin } })
   }, [handleClose, logout])
 
   return (

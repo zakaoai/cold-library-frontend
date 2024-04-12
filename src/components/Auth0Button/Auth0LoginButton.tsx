@@ -8,7 +8,11 @@ const Auth0LoginButton = () => {
 
   return (
     <Tooltip title="Se connecter">
-      <IconButton onClick={() => loginWithRedirect()} sx={{ ml: 2 }}>
+      <IconButton
+        onClick={() => {
+          void loginWithRedirect()
+        }}
+        sx={{ ml: 2 }}>
         <LoginIcon />
       </IconButton>
     </Tooltip>

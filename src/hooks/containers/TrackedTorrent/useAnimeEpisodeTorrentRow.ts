@@ -1,9 +1,9 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import useAppContext from "@/hooks/context/useAppContext"
-import AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
-import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
+import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useMutation } from "@tanstack/react-query"
@@ -19,7 +19,7 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
   const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode } = useAnimeTorrentRowContext()
 
   const updateLastEpisodeOnServerCall = useCallback(
-    () => AnimeTorrentService.updateLastEpisodeOnServer(malId, episodeNumber),
+    async () => await AnimeTorrentService.updateLastEpisodeOnServer(malId, episodeNumber),
     [episodeNumber, malId]
   )
 
@@ -54,10 +54,9 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
 
   const nyaaLink = `https://nyaa.si/view/${torrentId}`
 
-  const deleteTorrentCall = useCallback(
-    async () => await AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber),
-    [episodeNumber, malId]
-  )
+  const deleteTorrentCall = useCallback(async () => {
+    await AnimeEpisodeTorrentService.deleteTorrent(malId, episodeNumber)
+  }, [episodeNumber, malId])
 
   const onSuccessDeleteTorrent = useCallback(() => {
     setTorrentEpisodeLibrary(episodes =>

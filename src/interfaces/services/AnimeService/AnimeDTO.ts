@@ -1,5 +1,6 @@
 import { type AnimeType } from "@/enums/AnimeType"
-import StorageState from "@/enums/StorageState"
+import type Season from "@/enums/Season"
+import type StorageState from "@/enums/StorageState"
 
 export interface AnimeDTO {
   malId: number
@@ -10,7 +11,7 @@ export interface AnimeDTO {
   episodes?: number
   status?: string
   score?: number
-  season?: string
+  season?: Season
   year?: number
   broadcast?: string
   rank?: number

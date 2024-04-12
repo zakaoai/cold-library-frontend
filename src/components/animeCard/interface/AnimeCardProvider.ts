@@ -1,5 +1,5 @@
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 
 export default interface AnimeCardProvider {
   anime: AnimeDTO

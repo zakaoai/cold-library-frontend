@@ -1,11 +1,11 @@
 import Skeleton from "@mui/material/Skeleton"
 import Typography from "@mui/material/Typography"
-import { MALCardProps } from "./MALCard"
+import { type MALCardProps } from "./MALCard"
 
 const MALCardTitle = ({ malAnime }: MALCardProps) => {
   const { title } = malAnime
 
-  return title ? (
+  return title !== undefined ? (
     <Typography style={{ overflow: "hidden", textOverflow: "ellipsis", maxHeight: 100 }}>{title}</Typography>
   ) : (
     <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />

@@ -1,6 +1,6 @@
 import useUpdateAnimeState from "@/hooks/components/useUpdateAnimeState"
-import { PropsWithChildren } from "react"
-import IAnimeCardProvider from "../interface/AnimeCardProvider"
+import { type PropsWithChildren } from "react"
+import type IAnimeCardProvider from "../interface/AnimeCardProvider"
 import AnimeCardContext from "./AnimeCardContext"
 
 const AnimeCardProvider = ({

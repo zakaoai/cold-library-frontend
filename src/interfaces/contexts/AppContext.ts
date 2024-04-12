@@ -1,8 +1,8 @@
-import { Dispatch, SetStateAction } from "react"
-import { AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import { type Dispatch, type SetStateAction } from "react"
+import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import { type AnimeDTO } from "../services/AnimeService/AnimeDTO"
 import { type AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
-import UserDTO from "../services/UserService/UserDTO"
+import type UserDTO from "../services/UserService/UserDTO"
 
 export default interface AppContext {
   animeLibrary: AnimeDTO[]

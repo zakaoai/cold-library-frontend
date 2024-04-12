@@ -1,4 +1,4 @@
 export default interface MALBroadcast {
-  day_of_the_weak: string
+  day_of_the_week: string
   start_time: string
 }

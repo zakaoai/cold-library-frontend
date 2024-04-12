@@ -1,7 +1,7 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback } from "react"
@@ -19,8 +19,8 @@ const useModalEditTrackedTorrent = () => {
   const { animeLibrary } = useAppContext()
 
   const anime = animeLibrary.find(anime => anime.malId === editableTrackedAnime?.malId)
-  const { title } = anime || {}
-  const { searchWords, lastEpisodeOnServer, dayOfRelease, deltaEpisode, torrentPath } = editableTrackedAnime || {}
+  const { title } = anime ?? {}
+  const { searchWords, lastEpisodeOnServer, dayOfRelease, deltaEpisode, torrentPath } = editableTrackedAnime ?? {}
 
   const handleClose = useCallback(() => {
     setShowModal(false)
@@ -28,7 +28,7 @@ const useModalEditTrackedTorrent = () => {
   }, [setEditableTrackedAnime, setShowModal])
 
   const updateTrackedTorrentCall = useCallback(
-    (trackedAnime: AnimeTorrentDTO) => AnimeTorrentService.update(trackedAnime.malId, trackedAnime),
+    async (trackedAnime: AnimeTorrentDTO) => await AnimeTorrentService.update(trackedAnime.malId, trackedAnime),
     []
   )
 
@@ -71,7 +71,7 @@ const useModalEditTrackedTorrent = () => {
 
   const onSubmit = useCallback(
     ({ searchWords, dayOfRelease, lastEpisodeOnServer, deltaEpisode, torrentPath }: Omit<AnimeTorrentDTO, "malId">) => {
-      if (editableTrackedAnime != undefined)
+      if (editableTrackedAnime !== undefined) {
         updateTrackedAnime({
           ...editableTrackedAnime,
           searchWords,
@@ -80,6 +80,7 @@ const useModalEditTrackedTorrent = () => {
           deltaEpisode,
           torrentPath
         })
+      }
       handleClose()
     },
     [updateTrackedAnime, editableTrackedAnime, handleClose]

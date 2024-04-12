@@ -1,19 +1,21 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import { useQuery } from "@tanstack/react-query"
 
-import { AnimeType } from "@/enums/AnimeType"
-import MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
+import { type AnimeType } from "@/enums/AnimeType"
+import UserAnimeStatus from "@/enums/UserAnimeStatus"
+import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
+import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import UserService from "@/services/UserService"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect } from "react"
 import useLibrary from "../../AnimeLibrary/useLibrary"
 
 const useMyAnimeList = () => {
   const { setAnimeLibrary } = useAppContext()
   const { animes: animeLibrary } = useLibrary()
 
-  const [myAnimeList, setMyAnimeList] = useState<(Omit<MALAnime, "broadcast"> & AnimeDTO)[]>([])
+  const { myAnimeList, setMyAnimeList } = useMyAnimeListContext()
 
   const { data, isFetched, isFetching } = useQuery({
     staleTime: 3600000,
@@ -35,7 +37,7 @@ const useMyAnimeList = () => {
         score: malAnime.mean,
         season: malAnime?.start_season?.season,
         year: malAnime?.start_season?.year,
-        broadcast: malAnime?.broadcast?.day_of_the_weak + " " + malAnime?.broadcast?.start_time,
+        broadcast: malAnime?.broadcast?.day_of_the_week + " " + malAnime?.broadcast?.start_time,
         ...(animeLibrary.find(({ malId }) => malAnime.id === malId) || {})
       }
 
@@ -44,8 +46,28 @@ const useMyAnimeList = () => {
     [animeLibrary]
   )
 
+  const sortMALAnimeList = (a: MALAnime, b: MALAnime) => {
+    // Define the order of userStatus values
+    const order: { [key in UserAnimeStatus]: number } = {
+      [UserAnimeStatus.WATCHING]: 0,
+      [UserAnimeStatus.COMPLETED]: 1,
+      [UserAnimeStatus.ON_HOLD]: 2,
+      [UserAnimeStatus.DROPPED]: 3,
+      [UserAnimeStatus.PLAN_TO_WATCH]: 4
+    }
+
+    let sort = order[a.userStatus] - order[b.userStatus]
+
+    if (sort !== 0) {
+      return sort
+    }
+
+    // Then sort by title
+    return a.title.localeCompare(b.title)
+  }
+
   useEffect(() => {
-    if (data != undefined) setMyAnimeList(data.map(mappedMALAnime))
+    if (data !== undefined) setMyAnimeList(data.sort(sortMALAnimeList).map(mappedMALAnime))
   }, [data, isFetched, mappedMALAnime])
 
   const updateAnime = (updatedAnime: AnimeDTO | AnimeInServerDTO) => {

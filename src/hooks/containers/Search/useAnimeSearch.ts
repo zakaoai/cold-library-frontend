@@ -11,7 +11,7 @@ const useAnimeSearch = () => {
   const { search: browserSearch } = useLocation()
   const searchParam = new URLSearchParams(browserSearch).get("search")
 
-  const form = useForm<SearchFormValues, unknown>({ defaultValues: { search: searchParam || "" } })
+  const form = useForm<SearchFormValues, unknown>({ defaultValues: { search: searchParam ?? "" } })
 
   const navigate = useNavigate()
 
@@ -44,7 +44,7 @@ const useAnimeSearch = () => {
   })
 
   useEffect(() => {
-    if (searchParam != null) {
+    if (searchParam !== null) {
       searchAnime(searchParam)
     }
   }, [])

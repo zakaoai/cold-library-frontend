@@ -12,7 +12,7 @@ const AnimeCardBottomActions = () => {
   const { episodes, storageState, isComplete, isDownloading } = anime
 
   const { setIsComplete, isUpdateIsCompletePending, setStorageState, setIsDownloading } = updateAnimeState
-  const isInLibrary = !!storageState
+  const isInLibrary = !(storageState === undefined)
 
   return (
     <Grid container alignItems="center">
@@ -38,7 +38,7 @@ const AnimeCardBottomActions = () => {
             <LastAvaibleEpisode />
           </Grid>
           <Grid item xs={2}>
-            <AnimeCardTrackedButton isAnimeTracked={isDownloading || false} trackAnime={setIsDownloading} />
+            <AnimeCardTrackedButton isAnimeTracked={isDownloading ?? false} trackAnime={setIsDownloading} />
           </Grid>
         </>
       )}

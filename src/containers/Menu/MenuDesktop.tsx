@@ -11,7 +11,7 @@ import IconButton from "@mui/material/IconButton"
 import Auth0AccountMenu from "@/components/Auth0Button/Auth0AccountMenu"
 
 import { useColorModeContext } from "@/hooks/context/useColorModeContext"
-import Menu from "@/interfaces/containers/Menu/Menu"
+import type Menu from "@/interfaces/containers/Menu/Menu"
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 import Brightness7Icon from "@mui/icons-material/Brightness7"
 import { useTheme } from "@mui/material/styles"
@@ -20,7 +20,7 @@ const MenuDesktop = ({ links }: Menu) => {
   const location = useLocation()
   const tabsValue =
     links
-      .filter(link => link.hideInMenu != true)
+      .filter(link => link.hideInMenu !== true)
       .map(link => link.path)
       .find(path => location.pathname.match(path)) || false
   const theme = useTheme()
@@ -32,7 +32,7 @@ const MenuDesktop = ({ links }: Menu) => {
         <Toolbar>
           <Tabs value={tabsValue} indicatorColor="secondary" textColor="inherit" sx={{ flexGrow: 1 }}>
             {links
-              .filter(link => link.hideInMenu != true)
+              .filter(link => link.hideInMenu !== true)
               .map(link => (
                 <Tab key={link.label} label={link.label} component={NavLink} to={link.path} value={link.path} />
               ))}

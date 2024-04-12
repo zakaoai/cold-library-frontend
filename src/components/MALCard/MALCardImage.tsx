@@ -1,7 +1,7 @@
 import CardMedia from "@mui/material/CardMedia"
 import Skeleton from "@mui/material/Skeleton"
 import { LazyLoadImage } from "react-lazy-load-image-component"
-import { MALCardProps } from "./MALCard"
+import { type MALCardProps } from "./MALCard"
 
 const MALCardImage = ({ malAnime }: MALCardProps) => {
   const {
@@ -11,7 +11,7 @@ const MALCardImage = ({ malAnime }: MALCardProps) => {
   } = malAnime
   const malUrl = `https://myanimelist.net/anime/${id}`
 
-  return malImg ? (
+  return malImg !== undefined ? (
     <a href={malUrl} target="_blank" rel="noreferrer">
       <CardMedia>
         <LazyLoadImage src={malImg} title={title} style={{ width: "100%" }} />

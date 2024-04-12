@@ -24,7 +24,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
         <TableCell component="th" scope="row">
           <Radio
             ref={radioRef}
-            checked={selectedValue != undefined && parseInt(selectedValue) == torrentId}
+            checked={selectedValue !== undefined && parseInt(selectedValue) === torrentId}
             onChange={handleChange}
             value={torrentId}
             name="trackedEpisode"

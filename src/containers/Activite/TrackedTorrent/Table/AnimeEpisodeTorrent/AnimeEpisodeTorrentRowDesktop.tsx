@@ -1,5 +1,5 @@
 import useAnimeEpisodeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeEpisodeTorrentRow"
-import AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
+import type AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
 import InfoIcon from "@mui/icons-material/Info"
@@ -21,7 +21,12 @@ const AnimeEpisodeTorrentRowDesktop = ({ animeEpisodeTorrent }: AnimeEpisodeTorr
   return (
     <TableRow key={torrentId}>
       <TableCell component="th" scope="row" align="center">
-        <Link component="button" variant="body2" onClick={() => updateLastEpisodeOnServer()}>
+        <Link
+          component="button"
+          variant="body2"
+          onClick={() => {
+            updateLastEpisodeOnServer()
+          }}>
           {episodeNumber}
         </Link>
       </TableCell>
@@ -55,7 +60,12 @@ const AnimeEpisodeTorrentRowDesktop = ({ animeEpisodeTorrent }: AnimeEpisodeTorr
             <InfoIcon />
           </IconButton>
         </Link>
-        <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent()} size="large">
+        <IconButton
+          aria-label="delete torrent episode"
+          onClick={() => {
+            deleteTorrent()
+          }}
+          size="large">
           <DeleteIcon />
         </IconButton>
       </TableCell>

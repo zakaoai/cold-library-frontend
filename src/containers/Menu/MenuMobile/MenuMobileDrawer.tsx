@@ -34,7 +34,7 @@ const MenuMobileDrawer = ({ handleClose, links, open }: IMenuMobileDrawer) => {
       <Divider />
       <List>
         {links
-          .filter(link => link.hideInMenu != true)
+          .filter(link => link.hideInMenu !== true)
           .map(link => (
             <ListItem
               button

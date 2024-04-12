@@ -1,5 +1,5 @@
-import Route from "./Route"
+import type Route from "./Route"
 
-export default interface SiteMap {
-  [key: string]: Route
-}
+type SiteMap = Record<string, Route>
+
+export default SiteMap

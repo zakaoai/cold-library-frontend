@@ -22,7 +22,7 @@ const SearchActivity = () => {
             <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
               <AnimeCardProvider
                 anime={anime}
-                showEpisodeLink={!(anime.storageState == null)}
+                showEpisodeLink={!(anime.storageState === null)}
                 updateAnime={updateAnime}
                 showAddOrRemoveFromLibrary>
                 <AnimeCardComponent />

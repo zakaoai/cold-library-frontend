@@ -1,4 +1,4 @@
-import ResponseError from "@/interfaces/services/ResponseError"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import SiteMap from "@/routes/SiteMap"
 import {
   MutationCache,

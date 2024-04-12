@@ -2,7 +2,7 @@ import DoneAllIcon from "@mui/icons-material/DoneAll"
 import IconButton from "@mui/material/IconButton"
 import green from "@mui/material/colors/green"
 import { useEffect } from "react"
-import IAnimeCompleteButton from "./interface/AnimeCompleteButton"
+import type IAnimeCompleteButton from "./interface/AnimeCompleteButton"
 
 const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isCompletePending }: IAnimeCompleteButton) => {
   const isDisabled = nbEpisodes === 0 || nbEpisodes === undefined
@@ -18,8 +18,10 @@ const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isComplete
       aria-label="all Anime is complete"
       title="Set as Complete"
       disabled={isDisabled}
-      onClick={() => setIsComplete(!isComplete)}
-      style={(isComplete && { color: green[500] }) || {}}
+      onClick={() => {
+        setIsComplete(!isComplete)
+      }}
+      style={isComplete === true ? { color: green[500] } : {}}
       size="large">
       <DoneAllIcon />
     </IconButton>

@@ -1,7 +1,8 @@
-import MALBroadcast from "./MALBroadcast"
-import MALGenre from "./MALGenre"
-import MALPicture from "./MALPicture"
-import MALSeason from "./MALSeason"
+import type UserAnimeStatus from "@/enums/UserAnimeStatus"
+import type MALBroadcast from "./MALBroadcast"
+import type MALGenre from "./MALGenre"
+import type MALPicture from "./MALPicture"
+import type MALSeason from "./MALSeason"
 
 export default interface MALAnime {
   id: number
@@ -19,5 +20,5 @@ export default interface MALAnime {
   start_season?: MALSeason
   broadcast?: MALBroadcast
   rating: string
-  userStatus?: string
+  userStatus: UserAnimeStatus
 }

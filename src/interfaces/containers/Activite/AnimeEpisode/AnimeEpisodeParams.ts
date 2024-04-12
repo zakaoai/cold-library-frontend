@@ -1,4 +1,4 @@
-type AnimeEpisodeParams = {
+interface AnimeEpisodeParams {
   malId: string
 }
 

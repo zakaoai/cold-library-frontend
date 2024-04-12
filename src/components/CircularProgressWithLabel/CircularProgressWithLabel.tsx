@@ -1,5 +1,5 @@
 import Box from "@mui/material/Box"
-import CircularProgress, { CircularProgressProps } from "@mui/material/CircularProgress"
+import CircularProgress, { type CircularProgressProps } from "@mui/material/CircularProgress"
 import Typography from "@mui/material/Typography"
 
 const CircularProgressWithLabel = ({ value, onClick, variant }: CircularProgressProps) => {
@@ -17,7 +17,7 @@ const CircularProgressWithLabel = ({ value, onClick, variant }: CircularProgress
           alignItems: "center",
           justifyContent: "center"
         }}>
-        {value && (
+        {value !== undefined && (
           <Typography variant="caption" component="div" color="text.secondary">{`${Math.round(value)}%`}</Typography>
         )}
       </Box>

@@ -10,6 +10,7 @@ module.exports = {
     "plugin:react/jsx-runtime",
     "plugin:@typescript-eslint/recommended",
     "plugin:prettier/recommended",
+    "love",
     // "plugin:import/recommended",
     // "standard-with-typescript",
     // "plugin:promise/recommended",
@@ -49,6 +50,7 @@ module.exports = {
     "@stylistic"
   ],
   rules: {
+    "@typescript-eslint/no-invalid-void-type": "off",
     "@typescript-eslint/explicit-function-return-type": "off",
     quotes: "off",
     "@typescript-eslint/quotes": "off",

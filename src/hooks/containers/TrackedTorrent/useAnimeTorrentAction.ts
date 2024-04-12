@@ -1,8 +1,8 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation } from "@tanstack/react-query"
@@ -21,7 +21,7 @@ const useAnimeTorrentAction = () => {
 
   const { animeTorrent: trackedTorrent, animeEpisodeTorrents, anime } = useAnimeTorrentRowContext()
   const { lastEpisodeOnServer, malId } = trackedTorrent
-  const { episodes } = anime || {}
+  const { episodes } = anime ?? {}
   const { setTorrentEpisodeLibrary } = useAppContext()
 
   // Scan All Episode
@@ -85,8 +85,9 @@ const useAnimeTorrentAction = () => {
 
   const onSuccessScanNextEpisodeTorrent = useCallback(
     (animeEpisodeTorrent?: AnimeEpisodeTorrentDTO) => {
-      if (animeEpisodeTorrent != undefined)
+      if (animeEpisodeTorrent !== undefined) {
         setTorrentEpisodeLibrary(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
+      }
     },
     [setTorrentEpisodeLibrary]
   )
@@ -102,7 +103,10 @@ const useAnimeTorrentAction = () => {
     [malId]
   )
 
-  const scanNextEpisodeCall = useCallback(() => AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId), [malId])
+  const scanNextEpisodeCall = useCallback(
+    async () => await AnimeEpisodeTorrentService.scanNextEpisodeTorrent(malId),
+    [malId]
+  )
 
   const { isPending: isScanNextEpisodePending, mutate: scanNextEpisode } = useMutation<
     AnimeEpisodeTorrentDTO,
@@ -122,14 +126,14 @@ const useAnimeTorrentAction = () => {
   )
 
   useEffect(() => {
-    if (doScan != prevDoScan.current && !isScanEpisodesPending) {
+    if (doScan !== prevDoScan.current && !isScanEpisodesPending) {
       prevDoScan.current = Boolean(doScan)
       scanEpisodes()
     }
   }, [doScan, isScanEpisodesPending, prevDoScan, scanEpisodes])
 
   useEffect(() => {
-    if (doScanNext != prevDoScanNext.current && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
+    if (doScanNext !== prevDoScanNext.current && isScanNextEpisodeAvaible && !isScanNextEpisodePending) {
       scanNextEpisode()
       prevDoScanNext.current = Boolean(doScanNext)
     }

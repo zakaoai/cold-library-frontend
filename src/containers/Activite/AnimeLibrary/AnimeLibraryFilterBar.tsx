@@ -40,7 +40,12 @@ const AnimeLibraryFilterBar = ({ filtersState }: IAnimeLibraryFilterBar) => {
             <AnimeCompleteButton isComplete={filterCompletedAnime} setIsComplete={alternateFilterCompletedAnime} />
           </Grid>
           <Grid item>
-            <IconButton onClick={() => resetFilters()} title={"Reset"} size="large">
+            <IconButton
+              onClick={() => {
+                resetFilters()
+              }}
+              title={"Reset"}
+              size="large">
               <ReplayIcon />
             </IconButton>
           </Grid>
