@@ -2,7 +2,7 @@ import Season from "@/enums/Season"
 import { Typography } from "@mui/material"
 import { useMemo } from "react"
 import SeasonSection from "./SeasonSection"
-import IYearSection from "./interface/YearSection"
+import type IYearSection from "./interface/YearSection"
 
 const YearSection = ({ year, items }: IYearSection) => {
   const seasonItems = useMemo(

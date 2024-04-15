@@ -1,6 +1,6 @@
 import { DEFAULT_STATUS, RenderMode, ViewMode } from "@/containers/Activite/MyAnimeList/const"
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { useMemo, useState, type PropsWithChildren } from "react"
 import MyAnimeListContext from "./MyAnimeListContext"
 

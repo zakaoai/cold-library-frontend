@@ -1,6 +1,6 @@
 import { RenderMode, ViewMode } from "@/containers/Activite/MyAnimeList/const"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
-import { SelectChangeEvent } from "@mui/material"
+import { type SelectChangeEvent } from "@mui/material"
 import { useCallback, useState } from "react"
 
 const useMyAnimeListFilterBar = () => {

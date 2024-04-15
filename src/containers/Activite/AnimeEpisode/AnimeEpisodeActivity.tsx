@@ -25,7 +25,7 @@ const AnimeEpisodeActivity = () => {
             </Grid>
 
             <Grid item xs={12} md={3}>
-              {anime && (
+              {anime !== undefined && (
                 <AnimeCardProvider anime={anime} updateAnime={updateAnime} imageHeight={"300px"}>
                   <AnimeCardComponent />
                 </AnimeCardProvider>
