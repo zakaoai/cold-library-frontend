@@ -16,10 +16,12 @@ const TableComponent = ({ children }: PropsWithChildren) => (
         <TableRow>
           <TableCell sx={{ paddingX: "5px" }} padding="none" />
           <TableCell />
-          <TableCell sx={{ maxWidth: "440px" }}>Title</TableCell>
-          <TableCell align="center">Type</TableCell>
-          <TableCell>Genre</TableCell>
-          <TableCell>Actions</TableCell>
+          <TableCell sx={{ maxWidth: { lg: "440px" } }}>Title</TableCell>
+          <TableCell align="center" sx={{ display: { xs: "none", md: "table-cell" } }}>
+            Type
+          </TableCell>
+          <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>Genre</TableCell>
+          <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>Actions</TableCell>
         </TableRow>
       </TableHead>
       <TableBody>{children}</TableBody>

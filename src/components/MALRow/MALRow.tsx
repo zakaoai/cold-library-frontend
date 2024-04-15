@@ -32,32 +32,58 @@ const MALRow = ({ malAnime }: MALRowProps) => {
   )
 
   return (
-    <TableRow>
-      <TableCell sx={{ background: backgroundByStatus[malAnime.userStatus], paddingX: "5px" }} padding="none" />
-      <TableCell>
-        <img srcSet={`${malAnime.main_picture.medium} 318w`} sizes="70px" alt={malAnime.title} loading="lazy" />
-      </TableCell>
-      <TableCell sx={{ width: "440px", maxWidth: "440px" }}>
-        {malAnime.title} <br /> Nb Episodes : {malAnime.episodes}
-      </TableCell>
-      <TableCell align="center">{malAnime.type?.toUpperCase()}</TableCell>
-      <TableCell>
-        {malAnime.genres
-          .toSorted((a, b) => a.name.localeCompare(b.name))
-          .map(genre =>
-            selectedGenres.includes(genre.name) ? (
-              <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
-            ) : (
-              <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="outlined" />
-            )
-          )}
-      </TableCell>
-      <TableCell>
-        <IconButton style={style} size="large">
-          <FavoriteIcon />
-        </IconButton>
-      </TableCell>
-    </TableRow>
+    <>
+      <TableRow>
+        <TableCell sx={{ background: backgroundByStatus[malAnime.userStatus], paddingX: "5px" }} padding="none" />
+        <TableCell>
+          <img srcSet={`${malAnime.main_picture.medium} 318w`} sizes="70px" alt={malAnime.title} loading="lazy" />
+        </TableCell>
+        <TableCell sx={{ width: { lg: "440px" }, maxWidth: "440px" }}>
+          {malAnime.title} <br /> Nb Episodes : {malAnime.episodes}
+        </TableCell>
+        <TableCell align="center" sx={{ display: { xs: "none", md: "table-cell" } }}>
+          {malAnime.type?.toUpperCase()}
+        </TableCell>
+        <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
+          {malAnime.genres
+            .toSorted((a, b) => a.name.localeCompare(b.name))
+            .map(genre =>
+              selectedGenres.includes(genre.name) ? (
+                <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
+              ) : (
+                <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="outlined" />
+              )
+            )}
+        </TableCell>
+        <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
+          <IconButton style={style} size="large">
+            <FavoriteIcon />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+      <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
+        <TableCell padding="none" />
+        <TableCell align="center">{malAnime.type?.toUpperCase()}</TableCell>
+        <TableCell>
+          {malAnime.genres
+            .toSorted((a, b) => a.name.localeCompare(b.name))
+            .map(genre =>
+              selectedGenres.includes(genre.name) ? (
+                <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
+              ) : (
+                <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="outlined" />
+              )
+            )}
+        </TableCell>
+      </TableRow>
+      <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
+        <TableCell colSpan={3}>
+          <IconButton style={style} size="large">
+            <FavoriteIcon />
+          </IconButton>
+        </TableCell>
+      </TableRow>
+    </>
   )
 }
 
