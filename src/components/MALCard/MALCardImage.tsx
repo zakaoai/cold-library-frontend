@@ -1,7 +1,7 @@
 import CardMedia from "@mui/material/CardMedia"
 import Skeleton from "@mui/material/Skeleton"
 import { LazyLoadImage } from "react-lazy-load-image-component"
-import { type MALCardProps } from "./MALCard"
+import type MALCardProps from "./interface/MALCardProps"
 
 const MALCardImage = ({ malAnime }: MALCardProps) => {
   const {

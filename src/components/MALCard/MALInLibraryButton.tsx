@@ -4,7 +4,7 @@ import StorageState from "@/enums/StorageState"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import { blue, red } from "@mui/material/colors"
 import { useMemo } from "react"
-import { type MALCardProps } from "./MALCard"
+import type MALCardProps from "./interface/MALCardProps"
 
 const MALInLibraryButton = ({ malAnime }: MALCardProps) => {
   const { storageState } = malAnime

@@ -4,7 +4,7 @@ import SeasonMenu from "./SeasonMenu"
 import YearSection from "./YearSection"
 import type ISeasonRender from "./interface/SeasonRender"
 
-const SeasonRender = ({ items }: ISeasonRender) => {
+const SeasonRender = ({ items, renderChild, component }: ISeasonRender) => {
   const groupedData = useMemo(
     () =>
       items.reduce<Record<number | string, typeof items>>((acc, item) => {
@@ -23,7 +23,7 @@ const SeasonRender = ({ items }: ISeasonRender) => {
         {Object.entries(groupedData)
           .toSorted(([akey], [bkey]) => bkey.localeCompare(akey))
           .map(([key, value]) => (
-            <YearSection key={key} year={key} items={value} />
+            <YearSection key={key} year={key} items={value} component={component} renderChild={renderChild} />
           ))}
       </Grid>
       <SeasonMenu alphabet={Object.keys(groupedData)} />

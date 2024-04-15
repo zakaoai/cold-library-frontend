@@ -1,6 +1,6 @@
 import Skeleton from "@mui/material/Skeleton"
 import Typography from "@mui/material/Typography"
-import { type MALCardProps } from "./MALCard"
+import type MALCardProps from "./interface/MALCardProps"
 
 const MALCardTitle = ({ malAnime }: MALCardProps) => {
   const { title } = malAnime

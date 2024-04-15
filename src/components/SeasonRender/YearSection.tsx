@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import SeasonSection from "./SeasonSection"
 import type IYearSection from "./interface/YearSection"
 
-const YearSection = ({ year, items }: IYearSection) => {
+const YearSection = ({ year, items, renderChild, component }: IYearSection) => {
   const seasonItems = useMemo(
     () =>
       items.reduce<Record<string, typeof items>>((acc, item) => {
@@ -41,7 +41,7 @@ const YearSection = ({ year, items }: IYearSection) => {
       {Object.entries(seasonItems)
         .toSorted(seasonSorted)
         .map(([key, value]) => (
-          <SeasonSection key={key} season={key} items={value} />
+          <SeasonSection key={key} season={key} items={value} component={component} renderChild={renderChild} />
         ))}
     </>
   )

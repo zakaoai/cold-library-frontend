@@ -1,6 +1,4 @@
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { CardContent, Chip, Stack } from "@mui/material"
 import Card from "@mui/material/Card"
 import CardActions from "@mui/material/CardActions"
@@ -10,10 +8,7 @@ import MALCardBottomActions from "./MALCardBottomActions"
 import MALCardImage from "./MALCardImage"
 import MALCardSubtitle from "./MALCardSubTitle"
 import MALCardTitle from "./MALCardTitle"
-
-export interface MALCardProps {
-  malAnime: Omit<MALAnime, "broadcast"> & AnimeDTO
-}
+import type MALCardProps from "./interface/MALCardProps"
 
 const MALCard = ({ malAnime }: MALCardProps) => {
   const { selectedGenres } = useMyAnimeListContext()

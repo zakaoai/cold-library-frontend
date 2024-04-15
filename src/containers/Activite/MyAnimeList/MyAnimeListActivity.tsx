@@ -1,21 +1,33 @@
 import AlphabetRender from "@/components/AlphabeticalRender/AlphabetRender"
-import MALCard from "@/components/MALCard/MALCard"
+// import MALCard from "@/components/MALCard/MALCard"
 import SeasonRender from "@/components/SeasonRender/SeasonRender"
 import MyAnimeListProvider from "@/context/MyAnimeListProvider"
 import useMyAnimeList from "@/hooks/containers/Activite/MyAnimeList/useMyAnimeList"
 import useMyAnimeListFilter from "@/hooks/containers/Activite/MyAnimeList/useMyAnimeListFilter"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
+// import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
+import { useMemo } from "react"
+import DefaultRender from "./DefaultRender"
+import GridComponent from "./GridComponent"
 import MyAnimeListFilterBar from "./MyAnimeListFilterBar"
-import { ViewMode } from "./const"
+import TableComponent from "./TableComponent"
+import { RenderMode, ViewMode } from "./const"
+import { cardRenderChild, tableRenderChild } from "./renderChild"
 
 const MyAnimeListActivity = () => {
   const { myAnimeList } = useMyAnimeList()
-  const { selectedViewMode } = useMyAnimeListContext()
+  const { selectedViewMode, selectedRenderMode } = useMyAnimeListContext()
   const { filteredMyAnimeList } = useMyAnimeListFilter(myAnimeList)
 
-  const sortByTitle = (animeA: AnimeDTO, animeB: AnimeDTO) => animeA.title.localeCompare(animeB.title)
+  const renderComponent = useMemo(
+    () => (selectedRenderMode === RenderMode.CARD ? GridComponent : TableComponent),
+    [selectedRenderMode]
+  )
+
+  const renderChild = useMemo(
+    () => (selectedRenderMode === RenderMode.CARD ? cardRenderChild : tableRenderChild),
+    [selectedRenderMode]
+  )
 
   return (
     <>
@@ -23,16 +35,14 @@ const MyAnimeListActivity = () => {
       {
         {
           [ViewMode.DEFAULT]: (
-            <Grid container justifyContent="center" spacing={1}>
-              {filteredMyAnimeList.toSorted(sortByTitle).map(anime => (
-                <Grid key={anime.malId} lg={3} md={4} xs={12} sm={6}>
-                  <MALCard malAnime={anime} />
-                </Grid>
-              ))}
-            </Grid>
+            <DefaultRender component={renderComponent} renderChild={renderChild} animeList={filteredMyAnimeList} />
           ),
-          [ViewMode.ALPHA]: <AlphabetRender items={filteredMyAnimeList} />,
-          [ViewMode.SEASON]: <SeasonRender items={filteredMyAnimeList} />
+          [ViewMode.ALPHA]: (
+            <AlphabetRender component={renderComponent} renderChild={renderChild} items={filteredMyAnimeList} />
+          ),
+          [ViewMode.SEASON]: (
+            <SeasonRender component={renderComponent} renderChild={renderChild} items={filteredMyAnimeList} />
+          )
         }[selectedViewMode]
       }
     </>

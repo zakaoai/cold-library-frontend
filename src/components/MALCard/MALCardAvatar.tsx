@@ -1,7 +1,7 @@
 import Avatar from "@mui/material/Avatar"
 import Skeleton from "@mui/material/Skeleton"
 import { blue, green, grey, red, yellow } from "@mui/material/colors"
-import { type MALCardProps } from "./MALCard"
+import type MALCardProps from "./interface/MALCardProps"
 
 const backgroundByStatus: Record<string, string> = {
   watching: green[500],
