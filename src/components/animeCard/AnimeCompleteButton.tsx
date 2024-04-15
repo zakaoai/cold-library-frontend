@@ -8,7 +8,7 @@ const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isComplete
   const isDisabled = nbEpisodes === 0 || nbEpisodes === undefined
 
   useEffect(() => {
-    if (isDisabled && isComplete && !isCompletePending) {
+    if (isDisabled && isComplete === true && isCompletePending === false) {
       setIsComplete(false)
     }
   }, [isComplete, isCompletePending, isDisabled, setIsComplete])
@@ -19,7 +19,7 @@ const AnimeCompleteButton = ({ nbEpisodes, isComplete, setIsComplete, isComplete
       title="Set as Complete"
       disabled={isDisabled}
       onClick={() => {
-        setIsComplete(!isComplete)
+        setIsComplete(!(isComplete ?? true))
       }}
       style={isComplete === true ? { color: green[500] } : {}}
       size="large">

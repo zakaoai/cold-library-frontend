@@ -11,7 +11,7 @@ import EpisodeTable from "./EpisodeTable"
 
 const AnimeEpisodeActivity = () => {
   const { malId } = useParams<AnimeEpisodeParams>()
-  const { anime, isFetching, updateAnime, updateAnimeInfos } = useAnimeLibrary(parseInt(malId!))
+  const { anime, isFetching, updateAnime, updateAnimeInfos } = useAnimeLibrary(parseInt(malId ?? ""))
 
   return (
     <>

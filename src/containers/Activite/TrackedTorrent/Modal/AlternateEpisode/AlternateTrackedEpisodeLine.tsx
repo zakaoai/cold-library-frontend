@@ -20,7 +20,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
 
   return (
     <TableRow hover={handleChange !== undefined} onClick={onClickRow}>
-      {handleChange && (
+      {handleChange !== undefined && (
         <TableCell component="th" scope="row">
           <Radio
             ref={radioRef}
@@ -33,7 +33,9 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
         </TableCell>
       )}
       <TableCell>{title}</TableCell>
-      <TableCell align="right">{date && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
+      <TableCell align="right">
+        {date !== undefined && DateTime.fromJSDate(date).setLocale("fr").toFormat("dd LLL yyyy")}
+      </TableCell>
       <TableCell component="th" scope="row">
         {displaySize}
       </TableCell>

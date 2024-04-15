@@ -1,11 +1,11 @@
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
-import { ElementType, ReactNode } from "react"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
+import { type ElementType, type ReactNode } from "react"
 
 interface DefaultRenderProps {
-  animeList: (Omit<MALAnime, "broadcast"> & AnimeDTO)[]
+  animeList: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>
   component: ElementType
-  renderChild: (animelist: (Omit<MALAnime, "broadcast"> & AnimeDTO)[]) => ReactNode
+  renderChild: (animelist: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>) => ReactNode
 }
 
 const DefaultRender = ({ component: Component, renderChild, animeList }: DefaultRenderProps) => {

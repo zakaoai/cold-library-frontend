@@ -3,7 +3,9 @@ import { Chip } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { blue, green, grey, red, yellow } from "@mui/material/colors"
-import MALRowProps from "./interface/MALRowProps"
+import type MALRowProps from "./interface/MALRowProps"
+
+import MALInLibraryButton from "../MALCard/MALInLibraryButton"
 
 const backgroundByStatus: Record<string, string> = {
   watching: green[500],
@@ -13,8 +15,6 @@ const backgroundByStatus: Record<string, string> = {
   plan_to_watch: grey[500],
   unknown: green[50]
 }
-
-import MALInLibraryButton from "../MALCard/MALInLibraryButton"
 
 const MALRow = ({ malAnime }: MALRowProps) => {
   const { selectedGenres } = useMyAnimeListContext()

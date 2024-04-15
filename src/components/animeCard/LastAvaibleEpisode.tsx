@@ -9,37 +9,35 @@ const LastAvaibleEpisode = () => {
     updateAnimeState: { setLastAvaibleEpisode }
   } = useAnimeCardContext()
   const [isEditMode, setisEditMode] = useState(false)
-  const [numberFieldValue, setNumberFieldValue] = useState(lastAvaibleEpisode || 0)
+  const [numberFieldValue, setNumberFieldValue] = useState(lastAvaibleEpisode ?? 0)
 
-  return (
-    (isEditMode && (
-      <TextField
-        id="standard-number"
-        label="Number"
-        size="small"
-        fullWidth={true}
-        value={numberFieldValue}
-        autoFocus
-        type="number"
-        onChange={e => {
-          setNumberFieldValue(parseInt(e.target.value))
-        }}
-        onBlur={() => {
-          setLastAvaibleEpisode(numberFieldValue)
-          setisEditMode(false)
-        }}
-        InputLabelProps={{
-          shrink: true
-        }}
-      />
-    )) || (
-      <Button
-        onClick={() => {
-          setisEditMode(true)
-        }}>
-        {lastAvaibleEpisode}
-      </Button>
-    )
+  return isEditMode ? (
+    <TextField
+      id="standard-number"
+      label="Number"
+      size="small"
+      fullWidth={true}
+      value={numberFieldValue}
+      autoFocus
+      type="number"
+      onChange={e => {
+        setNumberFieldValue(parseInt(e.target.value))
+      }}
+      onBlur={() => {
+        setLastAvaibleEpisode(numberFieldValue)
+        setisEditMode(false)
+      }}
+      InputLabelProps={{
+        shrink: true
+      }}
+    />
+  ) : (
+    <Button
+      onClick={() => {
+        setisEditMode(true)
+      }}>
+      {lastAvaibleEpisode}
+    </Button>
   )
 }
 

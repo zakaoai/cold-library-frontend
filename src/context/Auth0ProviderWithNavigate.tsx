@@ -1,5 +1,5 @@
 import { APP_AUTH0_AUDIENCE, APP_AUTH0_CLIENT_ID, APP_AUTH0_DOMAIN } from "@/constants/config"
-import { type AppState, Auth0Provider } from "@auth0/auth0-react"
+import { Auth0Provider, type AppState } from "@auth0/auth0-react"
 import { type PropsWithChildren } from "react"
 import { useNavigate } from "react-router-dom"
 
@@ -7,10 +7,10 @@ const Auth0ProviderWithNavigate = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate()
 
   const onRedirectCallback = (appState?: AppState) => {
-    navigate(appState?.returnTo || window.location.pathname)
+    navigate(appState?.returnTo ?? window.location.pathname)
   }
 
-  if (!(APP_AUTH0_DOMAIN && APP_AUTH0_CLIENT_ID)) {
+  if (!(APP_AUTH0_DOMAIN !== undefined && APP_AUTH0_CLIENT_ID !== undefined)) {
     return null
   }
 

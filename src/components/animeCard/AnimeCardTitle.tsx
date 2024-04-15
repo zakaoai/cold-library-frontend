@@ -6,7 +6,7 @@ const AnimeCardTitle = () => {
   const { anime } = useAnimeCardContext()
   const { title } = anime
 
-  return title ? (
+  return title.length > 0 ? (
     <Typography style={{ overflow: "hidden", textOverflow: "ellipsis", maxHeight: 100 }}>{title}</Typography>
   ) : (
     <Skeleton animation="wave" height={10} width="80%" style={{ marginBottom: 6 }} />

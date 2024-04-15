@@ -40,7 +40,9 @@ const ModalEditTrackedEpisode = () => {
         <TableContainer component={Paper}>
           <Table>
             <TableBody>
-              {updatedTrackedEpisode && <AlternateTrackedEpisodeLine trackedEpisode={updatedTrackedEpisode} />}
+              {updatedTrackedEpisode !== undefined && (
+                <AlternateTrackedEpisodeLine trackedEpisode={updatedTrackedEpisode} />
+              )}
             </TableBody>
           </Table>
         </TableContainer>

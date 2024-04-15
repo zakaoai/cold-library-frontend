@@ -16,6 +16,7 @@ const AuthenticateOutlet = () => {
     if (!isLoading && isAuthenticated) {
       void getAccessTokenSilently().then(token => {
         headers.push(["Authorization", `Bearer ${token}`])
+        return token
       })
     }
   }, [getAccessTokenSilently, isAuthenticated, isLoading])

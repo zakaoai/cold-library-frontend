@@ -15,7 +15,7 @@ const AnimeTorrentRowMobile = ({
   anime,
   animeTorrent
 }: AnimeTorrentRow) => {
-  const { title, type } = anime || {}
+  const { title, type } = anime ?? {}
 
   const { malId, lastEpisodeOnServer, searchWords, dayOfRelease } = animeTorrent
 

@@ -11,7 +11,7 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
   const [myAnimeList, setMyAnimeList] = useState<Array<Omit<MALAnime, "broadcast"> & AnimeDTO>>([])
   const [selectedViewMode, setSelectedViewMode] = useState(ViewMode.DEFAULT)
   const [selectedRenderMode, setSelectedRenderMode] = useState(RenderMode.CARD)
-  const [updateAnimeStateFunction, setUpdateAnimeStateFunction] = useState<(a: AnimeDTO) => void>((_: AnimeDTO) => {})
+  const [updateAnimeStateFunction, setUpdateAnimeStateFunction] = useState<(a: AnimeDTO) => void>(() => {})
 
   const contextValue = useMemo(
     () => ({

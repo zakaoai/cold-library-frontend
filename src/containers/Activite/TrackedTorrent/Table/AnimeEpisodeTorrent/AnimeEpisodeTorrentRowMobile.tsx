@@ -43,7 +43,9 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
       </TableRow>
       <TableRow key={torrentId + "Date"}>
         <TableCell>Date</TableCell>
-        <TableCell>{dateObj && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
+        <TableCell>
+          {dateObj !== undefined && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}
+        </TableCell>
       </TableRow>
       <TableRow key={torrentId + "Size"}>
         <TableCell component="th" scope="row">

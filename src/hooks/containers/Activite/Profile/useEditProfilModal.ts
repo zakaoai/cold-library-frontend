@@ -10,7 +10,7 @@ import useProfil from "./useProfile"
 const useEditProfilModal = (handleClose: () => void) => {
   const { setUser } = useAppContext()
   const { user: serverUser } = useProfil()
-  const { malUsername } = serverUser || {}
+  const { malUsername } = serverUser ?? {}
 
   const defaultValues = useMemo(
     () => ({
@@ -63,7 +63,7 @@ const useEditProfilModal = (handleClose: () => void) => {
 
   const onSubmit = useCallback(
     ({ malUsername }: UserDTO) => {
-      updateCurrentMalUsername(malUsername!)
+      updateCurrentMalUsername(malUsername ?? "")
     },
     [updateCurrentMalUsername]
   )

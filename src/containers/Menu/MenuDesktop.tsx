@@ -22,7 +22,7 @@ const MenuDesktop = ({ links }: Menu) => {
     links
       .filter(link => link.hideInMenu !== true)
       .map(link => link.path)
-      .find(path => location.pathname.match(path)) || false
+      .find(path => location.pathname.match(path)) ?? false
   const theme = useTheme()
   const { toggleColorMode } = useColorModeContext()
 

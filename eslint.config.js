@@ -60,6 +60,7 @@ export default [
       "@tanstack/eslint-plugin-query": { rules: ReactQueryRules, configs: ReactQueryConfigs }
     },
     rules: {
+      "@typescript-eslint/no-invalid-void-type": "off",
       "multiline-ternary": "off",
       "@typescript-eslint/explicit-function-return-type": "off",
       quotes: "off",

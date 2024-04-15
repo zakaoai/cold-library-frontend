@@ -15,7 +15,7 @@ const useAnimeLibraryFilter = () => {
 
   const [filters, setFilters] = useState<Filters>({
     ...defaultFilters,
-    ...JSON.parse(localStorage.getItem("animeLibraryFilters") ?? "{}")
+    ...(JSON.parse(localStorage.getItem("animeLibraryFilters") ?? "{}") as Partial<Filters>)
   })
 
   const [filterFunc, setFilterFunc] = useState<(_: AnimeDTO) => boolean>(() => () => false)

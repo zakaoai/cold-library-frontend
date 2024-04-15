@@ -36,7 +36,7 @@ const AnimeEpisodeTorrentRowDesktop = ({ animeEpisodeTorrent }: AnimeEpisodeTorr
         </div>
       </TableCell>
       <TableCell align="right">
-        {dateObj && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}
+        {dateObj !== undefined && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}
       </TableCell>
       <TableCell component="th" scope="row">
         {displaySize}

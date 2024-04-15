@@ -4,9 +4,9 @@ import { type AnimeType } from "@/enums/AnimeType"
 import StorageState from "@/enums/StorageState"
 import UserAnimeStatus from "@/enums/UserAnimeStatus"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import AnimeServices from "@/services/AnimeService"
 import UserService from "@/services/UserService"
@@ -39,7 +39,7 @@ const useMyAnimeList = () => {
         season: malAnime?.start_season?.season,
         year: malAnime?.start_season?.year,
         broadcast: malAnime?.broadcast?.day_of_the_week + " " + malAnime?.broadcast?.start_time,
-        ...(animeLibrary.find(({ malId }) => malAnime.id === malId) || {})
+        ...(animeLibrary.find(({ malId }) => malAnime.id === malId) ?? {})
       }
 
       return returnedAnime
@@ -166,7 +166,7 @@ const useMyAnimeList = () => {
 
   const updateAnime = useCallback(
     (anime: AnimeDTO) => {
-      if (isUpdateStorageStatePending === false && isSaveInLibraryPending === false && isDeletePending === false) {
+      if (!isUpdateStorageStatePending && !isSaveInLibraryPending && !isDeletePending) {
         const { storageState } = anime
         if (storageState === undefined) {
           saveAnime(anime.malId)

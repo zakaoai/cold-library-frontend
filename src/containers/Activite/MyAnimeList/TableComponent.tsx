@@ -1,4 +1,4 @@
-import { PropsWithChildren } from "react"
+import { type PropsWithChildren } from "react"
 // import MALCard from "@/components/MALCard/MALCard"
 // import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
 import Paper from "@mui/material/Paper"

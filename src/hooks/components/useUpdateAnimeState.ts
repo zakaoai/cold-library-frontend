@@ -169,7 +169,7 @@ const useUpdateAnimeState = (
       updateAnime(anime)
 
       setAnimeLibrary(prev =>
-        anime.addedOnServer ? [...prev, anime] : prev.filter(curr => curr.malId !== anime.malId)
+        anime.addedOnServer !== undefined ? [...prev, anime] : prev.filter(curr => curr.malId !== anime.malId)
       )
     },
     [setAnimeLibrary, updateAnime]
