@@ -1,12 +1,14 @@
 {
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit"
+    "source.fixAll.eslint": "always",
+    "source.organizeImports": "explicit",
+    "source.sort.json": "never"
   },
-  "eslint.codeActionsOnSave.mode": "problems",
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
+  "eslint.codeActionsOnSave.mode": "problems",
   "eslint.nodePath": ".yarn/sdks",
+  "eslint.runtime": "node",
   "files.eol": "\n",
   "prettier.configPath": ".prettierrc",
   "prettier.prettierPath": ".yarn/sdks/prettier/index.cjs",
@@ -21,6 +23,5 @@
   "vite.showTerminal": true,
   "vitest.commandLine": "yarn test --",
   "vitest.enable": true,
-  "vitest.showFailMessages": true,
-  "eslint.runtime": "node"
+  "vitest.showFailMessages": true
 }
