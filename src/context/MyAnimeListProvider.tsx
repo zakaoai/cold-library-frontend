@@ -11,6 +11,7 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
   const [myAnimeList, setMyAnimeList] = useState<Array<Omit<MALAnime, "broadcast"> & AnimeDTO>>([])
   const [selectedViewMode, setSelectedViewMode] = useState(ViewMode.DEFAULT)
   const [selectedRenderMode, setSelectedRenderMode] = useState(RenderMode.CARD)
+  const [updateAnimeStateFunction, setUpdateAnimeStateFunction] = useState<(a: AnimeDTO) => void>((_: AnimeDTO) => {})
 
   const contextValue = useMemo(
     () => ({
@@ -23,7 +24,9 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
       selectedViewMode,
       setSelectedViewMode,
       selectedRenderMode,
-      setSelectedRenderMode
+      setSelectedRenderMode,
+      updateAnimeStateFunction,
+      setUpdateAnimeStateFunction
     }),
     [
       selectedGenres,
@@ -35,7 +38,9 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
       selectedViewMode,
       setSelectedViewMode,
       selectedRenderMode,
-      setSelectedRenderMode
+      setSelectedRenderMode,
+      updateAnimeStateFunction,
+      setUpdateAnimeStateFunction
     ]
   )
 

@@ -14,4 +14,6 @@ export default interface MyAnimeListContext {
   setSelectedViewMode: Dispatch<SetStateAction<ViewMode>>
   selectedRenderMode: RenderMode
   setSelectedRenderMode: Dispatch<SetStateAction<RenderMode>>
+  updateAnimeStateFunction: (a: AnimeDTO) => void
+  setUpdateAnimeStateFunction: Dispatch<SetStateAction<(a: AnimeDTO) => void>>
 }

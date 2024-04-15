@@ -1,5 +1,5 @@
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
-import { Chip, IconButton } from "@mui/material"
+import { Chip } from "@mui/material"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import { blue, green, grey, red, yellow } from "@mui/material/colors"
@@ -14,22 +14,10 @@ const backgroundByStatus: Record<string, string> = {
   unknown: green[50]
 }
 
-import StorageState from "@/enums/StorageState"
-import FavoriteIcon from "@mui/icons-material/Favorite"
-import { useMemo } from "react"
+import MALInLibraryButton from "../MALCard/MALInLibraryButton"
 
 const MALRow = ({ malAnime }: MALRowProps) => {
   const { selectedGenres } = useMyAnimeListContext()
-  const { storageState } = malAnime
-  const style = useMemo(
-    () =>
-      storageState !== undefined
-        ? storageState === StorageState.FLUX_CHAUD
-          ? { color: red[500] }
-          : { color: blue[200] }
-        : {},
-    [storageState]
-  )
 
   return (
     <>
@@ -56,9 +44,7 @@ const MALRow = ({ malAnime }: MALRowProps) => {
             )}
         </TableCell>
         <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
-          <IconButton style={style} size="large">
-            <FavoriteIcon />
-          </IconButton>
+          <MALInLibraryButton malAnime={malAnime} />
         </TableCell>
       </TableRow>
       <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
@@ -78,9 +64,7 @@ const MALRow = ({ malAnime }: MALRowProps) => {
       </TableRow>
       <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
         <TableCell colSpan={3}>
-          <IconButton style={style} size="large">
-            <FavoriteIcon />
-          </IconButton>
+          <MALInLibraryButton malAnime={malAnime} />
         </TableCell>
       </TableRow>
     </>
