@@ -22,7 +22,7 @@ const MALInLibraryButton = ({ malAnime }: MALCardProps) => {
   )
   const updateAnime = useCallback(() => {
     updateAnimeStateFunction(malAnime)
-  }, [updateAnimeStateFunction])
+  }, [malAnime])
 
   return (
     <IconButton style={style} size="large" onClick={updateAnime}>

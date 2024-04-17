@@ -12,7 +12,7 @@ import GridComponent from "./GridComponent"
 import MyAnimeListFilterBar from "./MyAnimeListFilterBar"
 import TableComponent from "./TableComponent"
 import { RenderMode, ViewMode } from "./const"
-import { cardRenderChild, tableRenderChild } from "./renderChild"
+import { cardRenderChild, singleCardRender, singleTableRender, tableRenderChild } from "./renderChild"
 
 const MyAnimeListActivity = () => {
   const { myAnimeList } = useMyAnimeList()
@@ -29,13 +29,18 @@ const MyAnimeListActivity = () => {
     [selectedRenderMode]
   )
 
+  const singleRender = useMemo(
+    () => (selectedRenderMode === RenderMode.CARD ? singleCardRender : singleTableRender),
+    [selectedRenderMode]
+  )
+
   return (
     <>
       <MyAnimeListFilterBar />
       {
         {
           [ViewMode.DEFAULT]: (
-            <DefaultRender component={renderComponent} renderChild={renderChild} animeList={filteredMyAnimeList} />
+            <DefaultRender component={renderComponent} renderChild={singleRender} animeList={filteredMyAnimeList} />
           ),
           [ViewMode.ALPHA]: (
             <AlphabetRender component={renderComponent} renderChild={renderChild} items={filteredMyAnimeList} />

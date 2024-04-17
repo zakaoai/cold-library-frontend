@@ -12,6 +12,7 @@ import type MALCardProps from "./interface/MALCardProps"
 
 const MALCard = ({ malAnime }: MALCardProps) => {
   const { selectedGenres } = useMyAnimeListContext()
+
   return (
     <Card>
       <CardHeader

@@ -3,11 +3,13 @@ import react from "@vitejs/plugin-react"
 import path from "path"
 
 import { defineConfig } from "vite"
-import eslint from "vite-plugin-eslint2"
+// import eslint from "vite-plugin-eslint2"
+// import eslint from "vite-plugin-eslint"
+import eslint from "@nabla/vite-plugin-eslint"
 
 // https://vitejs.dev/config/
 export default defineConfig(env => ({
-  plugins: [react(), eslint()],
+  plugins: [react(), env.mode !== "test" && eslint()],
   define: {
     APP_VERSION: JSON.stringify(process.env.npm_package_version)
   },

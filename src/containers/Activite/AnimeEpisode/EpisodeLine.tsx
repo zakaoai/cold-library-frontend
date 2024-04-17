@@ -11,7 +11,9 @@ const EpisodeLine = ({ episode }: IEpisodeLine) => {
     <TableRow hover key={episodeNumber}>
       <TableCell align="center">{episodeNumber}</TableCell>
       <TableCell align="left">{title}</TableCell>
-      <TableCell align="left">{date !== undefined && format(new Date(year!, month! - 1, day), "dd/MM/yyyy")}</TableCell>
+      <TableCell align="left">
+        {Array.isArray(date) && format(new Date(year!, month! - 1, day), "dd/MM/yyyy")}
+      </TableCell>
     </TableRow>
   )
 }

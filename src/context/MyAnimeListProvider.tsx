@@ -1,4 +1,5 @@
 import { DEFAULT_STATUS, RenderMode, ViewMode } from "@/containers/Activite/MyAnimeList/const"
+import useUpdateMyAnimeList from "@/hooks/containers/Activite/MyAnimeList/useUpdateMyAnimeList"
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { useMemo, useState, type PropsWithChildren } from "react"
@@ -11,7 +12,9 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
   const [myAnimeList, setMyAnimeList] = useState<Array<Omit<MALAnime, "broadcast"> & AnimeDTO>>([])
   const [selectedViewMode, setSelectedViewMode] = useState(ViewMode.DEFAULT)
   const [selectedRenderMode, setSelectedRenderMode] = useState(RenderMode.CARD)
-  const [updateAnimeStateFunction, setUpdateAnimeStateFunction] = useState<(a: AnimeDTO) => void>(() => {})
+  // const [updateAnimeStateFunction, setUpdateAnimeStateFunction] = useState<(a: AnimeDTO) => void>(() => {})
+  const { updateAnime } = useUpdateMyAnimeList(setMyAnimeList)
+  const [page, setPage] = useState(1)
 
   const contextValue = useMemo(
     () => ({
@@ -25,8 +28,10 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
       setSelectedViewMode,
       selectedRenderMode,
       setSelectedRenderMode,
-      updateAnimeStateFunction,
-      setUpdateAnimeStateFunction
+      updateAnimeStateFunction: updateAnime,
+      // setUpdateAnimeStateFunction,
+      page,
+      setPage
     }),
     [
       selectedGenres,
@@ -39,8 +44,10 @@ const MyAnimeListProvider = ({ children }: PropsWithChildren) => {
       setSelectedViewMode,
       selectedRenderMode,
       setSelectedRenderMode,
-      updateAnimeStateFunction,
-      setUpdateAnimeStateFunction
+      updateAnime,
+      // setUpdateAnimeStateFunction,
+      page,
+      setPage
     ]
   )
 
