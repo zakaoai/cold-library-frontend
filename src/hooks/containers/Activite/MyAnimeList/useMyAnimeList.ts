@@ -9,7 +9,7 @@ import { useCallback, useEffect } from "react"
 import useLibrary from "../../AnimeLibrary/useLibrary"
 
 const useMyAnimeList = () => {
-  const { animes: animeLibrary, updateAnime: updateAnimeInLibrary } = useLibrary()
+  const { animes: animeLibrary } = useLibrary()
 
   const {
     myAnimeList,

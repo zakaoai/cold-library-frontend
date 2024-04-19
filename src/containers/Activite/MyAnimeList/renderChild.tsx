@@ -14,12 +14,12 @@ export const cardRenderChild = (animelist: Array<Omit<MALAnime, "broadcast"> & A
     </Grid>
   ))
 
-export const singleCardRender = (anime: Omit<MALAnime, "broadcast"> & AnimeDTO, key: number) => (
+export const singleCardRender = (anime: Omit<MALAnime, "broadcast"> & AnimeDTO) => (
   <Grid key={anime.malId} lg={3} md={4} xs={12} sm={6}>
     <MALCard malAnime={anime} />
   </Grid>
 )
 
-export const singleTableRender = (anime: Omit<MALAnime, "broadcast"> & AnimeDTO, key: number) => (
+export const singleTableRender = (anime: Omit<MALAnime, "broadcast"> & AnimeDTO) => (
   <MALRow key={anime.malId} malAnime={anime} />
 )

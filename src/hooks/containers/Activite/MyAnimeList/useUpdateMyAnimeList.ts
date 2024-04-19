@@ -4,9 +4,9 @@ import StorageState from "@/enums/StorageState"
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
-import MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
+import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import AnimeServices from "@/services/AnimeService"
-import { Dispatch, SetStateAction, useCallback } from "react"
+import { type Dispatch, type SetStateAction, useCallback } from "react"
 import useLibrary from "../../AnimeLibrary/useLibrary"
 
 const useUpdateMyAnimeList = (

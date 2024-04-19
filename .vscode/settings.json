@@ -23,5 +23,6 @@
   "vite.showTerminal": true,
   "vitest.commandLine": "yarn test --",
   "vitest.enable": true,
-  "vitest.showFailMessages": true
+  "vitest.showFailMessages": true,
+  "eslint.experimental.useFlatConfig": true
 }

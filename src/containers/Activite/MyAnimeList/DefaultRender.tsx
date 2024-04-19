@@ -3,7 +3,7 @@ import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { Pagination } from "@mui/material"
 import { useCallback, type ElementType } from "react"
-import { singleCardRender } from "./renderChild"
+import { type singleCardRender } from "./renderChild"
 
 interface DefaultRenderProps {
   animeList: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>
