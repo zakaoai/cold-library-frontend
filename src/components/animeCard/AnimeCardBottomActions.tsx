@@ -12,7 +12,7 @@ const AnimeCardBottomActions = () => {
   const { episodes, storageState, isComplete, isDownloading } = anime
 
   const { setIsComplete, isUpdateIsCompletePending, setStorageState, setIsDownloading } = updateAnimeState
-  const isInLibrary = !(storageState === undefined)
+  const isInLibrary = !(storageState === undefined || storageState === null)
 
   return (
     <Grid container alignItems="center">

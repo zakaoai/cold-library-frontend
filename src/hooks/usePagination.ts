@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, type ChangeEventHandler, type MouseEvent as ReactMouseEvent } from "react"
 
 const usePagination = (animeEpisodes: unknown[]) => {
   const [rowsPerPage, setRowsPerPage] = useState(5)
@@ -7,11 +7,11 @@ const usePagination = (animeEpisodes: unknown[]) => {
   const labelTemplate = ({ page }: { page: number }) =>
     `page ${page + 1}/${Math.ceil(animeEpisodes.length / rowsPerPage)}`
 
-  const handleChangePage = (_event: React.MouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
+  const handleChangePage = (_event: ReactMouseEvent<HTMLButtonElement, MouseEvent> | null, newPage: number) => {
     setPage(newPage)
   }
 
-  const handleChangeRowsPerPage: React.ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = event => {
+  const handleChangeRowsPerPage: ChangeEventHandler<HTMLTextAreaElement | HTMLInputElement> = event => {
     setRowsPerPage(parseInt(event.target.value, 10))
     setPage(0)
   }
