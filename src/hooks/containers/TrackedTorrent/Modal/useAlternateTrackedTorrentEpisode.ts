@@ -8,7 +8,7 @@ import usePagination from "@/hooks/usePagination"
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import { useMutation } from "@tanstack/react-query"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, type ChangeEvent } from "react"
 import useSortTable from "./useSortTable"
 
 const useAlternateTrackedTorrentEpisode = () => {
@@ -33,7 +33,7 @@ const useAlternateTrackedTorrentEpisode = () => {
   }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       setSelectedValue(event.target.value)
     },
     [setSelectedValue]

@@ -2,7 +2,7 @@ import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { Pagination } from "@mui/material"
-import { useCallback, type ElementType } from "react"
+import { useCallback, type ChangeEvent, type ElementType } from "react"
 import { type singleCardRender } from "./renderChild"
 
 interface DefaultRenderProps {
@@ -15,7 +15,7 @@ const DefaultRender = ({ component: Component, renderChild, animeList }: Default
   const { page, setPage } = useMyAnimeListContext()
 
   const handleChange = useCallback(
-    (_: React.ChangeEvent<unknown>, value: number) => {
+    (_: ChangeEvent<unknown>, value: number) => {
       setPage(value)
     },
     [setPage]

@@ -1,7 +1,7 @@
 import { RenderMode, ViewMode } from "@/containers/Activite/MyAnimeList/const"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
 import { type SelectChangeEvent } from "@mui/material"
-import { useCallback, useState } from "react"
+import { useCallback, useState, type MouseEvent as ReactMouseEvent } from "react"
 
 const useMyAnimeListFilterBar = () => {
   const {
@@ -19,14 +19,14 @@ const useMyAnimeListFilterBar = () => {
   const [tempSelectedGenre, setTempSelectedGenre] = useState(selectedGenres)
 
   const handleChangeRenderMode = useCallback(
-    (_: React.MouseEvent<HTMLElement>, newRender?: RenderMode) => {
+    (_: ReactMouseEvent<HTMLElement>, newRender?: RenderMode) => {
       setSelectedRenderMode(newRender ?? RenderMode.LIST)
     },
     [setSelectedRenderMode]
   )
 
   const handleChangeViewMode = useCallback(
-    (_: React.MouseEvent<HTMLElement>, newView?: ViewMode) => {
+    (_: ReactMouseEvent<HTMLElement>, newView?: ViewMode) => {
       setSelectedViewMode(newView ?? ViewMode.DEFAULT)
     },
     [setSelectedRenderMode]

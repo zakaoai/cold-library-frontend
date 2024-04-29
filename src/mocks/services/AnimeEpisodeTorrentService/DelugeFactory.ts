@@ -1,4 +1,4 @@
-import DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
+import type DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
 import { faker } from "@faker-js/faker"
 
 const generateDelugeResponse = (): DelugeEpisodeTorrent => ({

@@ -8,7 +8,7 @@ import ListItemIcon from "@mui/material/ListItemIcon"
 import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import Tooltip from "@mui/material/Tooltip"
-import { useCallback, useState } from "react"
+import { useCallback, useState, type MouseEventHandler } from "react"
 import { NavLink } from "react-router-dom"
 
 const Auth0Avatar = () => {
@@ -16,7 +16,7 @@ const Auth0Avatar = () => {
 
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
   const open = Boolean(anchorEl)
-  const handleClick: React.MouseEventHandler<HTMLButtonElement> = event => {
+  const handleClick: MouseEventHandler<HTMLButtonElement> = event => {
     setAnchorEl(event.currentTarget)
   }
 
