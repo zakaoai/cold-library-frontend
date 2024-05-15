@@ -1,20 +1,13 @@
-import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
+import usePagination from "@/hooks/usePagination"
 import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
-import { useCallback, useMemo } from "react"
+import { useMemo } from "react"
 import KeyListPagination from "../KeyListPagination/KeyListPagination"
 import SeasonMenu from "./SeasonMenu"
 import YearSection from "./YearSection"
 import type ISeasonRender from "./interface/SeasonRender"
 
 const SeasonRender = ({ items, renderChild, component }: ISeasonRender) => {
-  const { page, setPage } = useMyAnimeListContext()
-
-  const handleChange = useCallback(
-    (_: unknown, value: number) => {
-      setPage(value)
-    },
-    [setPage]
-  )
+  const { page, handleChangePage, rowsPerPage } = usePagination(items, 50)
 
   const groupedData = useMemo(
     () =>
@@ -35,7 +28,7 @@ const SeasonRender = ({ items, renderChild, component }: ISeasonRender) => {
         .reduce<Array<Record<string, typeof items>>>(
           (acc, item) => {
             const lastAccLength = Object.values(acc[acc.length - 1]).reduce((count, list) => (count += list.length), 0)
-            if (lastAccLength >= 50) {
+            if (lastAccLength >= rowsPerPage) {
               acc.push({ [item[0]]: item[1] })
             } else {
               acc[acc.length - 1][item[0]] = item[1]
@@ -45,23 +38,23 @@ const SeasonRender = ({ items, renderChild, component }: ISeasonRender) => {
           },
           [{}]
         ),
-    [groupedData]
+    [groupedData, rowsPerPage]
   )
 
   return (
     <>
       <Grid sx={{ maxWidth: "fit-content", margin: "auto" }}>
-        <KeyListPagination onClick={handleChange} page={page} slicedGroupedData={slicedGroupedData} reversed />
+        <KeyListPagination onClick={handleChangePage} page={page} slicedGroupedData={slicedGroupedData} reversed />
       </Grid>
       <Grid sx={{ display: "flex" }}>
         <Grid flex={1}>
-          {Object.entries(slicedGroupedData[page - 1])
+          {Object.entries(slicedGroupedData[page])
             .toSorted(([akey], [bkey]) => bkey.localeCompare(akey))
             .map(([key, value]) => (
               <YearSection key={key} year={key} items={value} component={component} renderChild={renderChild} />
             ))}
         </Grid>
-        <SeasonMenu alphabet={Object.keys(slicedGroupedData[page - 1])} />
+        <SeasonMenu alphabet={Object.keys(slicedGroupedData[page])} />
       </Grid>
     </>
   )

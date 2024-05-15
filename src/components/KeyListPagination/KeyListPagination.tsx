@@ -15,9 +15,9 @@ const KeyListPagination = ({ slicedGroupedData, onClick, page, reversed }: IKeyL
         key={value}
         variant="text"
         onClick={e => {
-          onClick(e, index + 1)
+          onClick(e, index)
         }}
-        disabled={index === page - 1}>
+        disabled={index === page}>
         {value}
       </Button>
     ))
