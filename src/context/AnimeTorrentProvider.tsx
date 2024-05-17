@@ -1,8 +1,8 @@
 import useTrackedTorrent from "@/hooks/containers/TrackedTorrent/useTrackedTorrent"
 import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
-import { PropsWithChildren, useMemo, useState } from "react"
+import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import { useMemo, useState, type PropsWithChildren } from "react"
 import AnimeTorrentContext from "./AnimeTorrentContext"
 
 const AnimeTorrentProvider = ({ children }: PropsWithChildren) => {

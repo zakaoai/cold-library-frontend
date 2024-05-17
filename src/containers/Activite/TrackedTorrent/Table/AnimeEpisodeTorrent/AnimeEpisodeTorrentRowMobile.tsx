@@ -1,5 +1,5 @@
 import useAnimeEpisodeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeEpisodeTorrentRow"
-import AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
+import type AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
 import InfoIcon from "@mui/icons-material/Info"
@@ -25,7 +25,12 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
           Episode
         </TableCell>
         <TableCell component="th" scope="row">
-          <Link component="button" variant="body2" onClick={() => updateLastEpisodeOnServer()}>
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => {
+              updateLastEpisodeOnServer()
+            }}>
             {episodeNumber}
           </Link>
         </TableCell>
@@ -38,7 +43,9 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
       </TableRow>
       <TableRow key={torrentId + "Date"}>
         <TableCell>Date</TableCell>
-        <TableCell>{dateObj && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}</TableCell>
+        <TableCell>
+          {dateObj !== undefined && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}
+        </TableCell>
       </TableRow>
       <TableRow key={torrentId + "Size"}>
         <TableCell component="th" scope="row">
@@ -80,7 +87,12 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
               <InfoIcon />
             </IconButton>
           </Link>
-          <IconButton aria-label="delete torrent episode" onClick={() => deleteTorrent()} size="large">
+          <IconButton
+            aria-label="delete torrent episode"
+            onClick={() => {
+              deleteTorrent()
+            }}
+            size="large">
             <DeleteIcon />
           </IconButton>
         </TableCell>

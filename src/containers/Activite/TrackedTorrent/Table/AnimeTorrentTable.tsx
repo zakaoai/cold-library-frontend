@@ -16,7 +16,6 @@ const AnimeTorrentTable = () => {
         <TableRow>
           <TableCell />
           <TableCell>Anime</TableCell>
-          <TableCell>Type</TableCell>
           <TableCell>Last ep</TableCell>
           <TableCell>Mots recherché</TableCell>
           <TableCell>Jour de sortie</TableCell>
@@ -25,7 +24,7 @@ const AnimeTorrentTable = () => {
       </TableHead>
       <TableBody>
         {torrentLibrary
-          .sort((a, b) => (a.searchWords > b.searchWords ? 1 : -1))
+          .sort((a, b) => a.title.localeCompare(b.title))
           .map(animeTorrent => (
             <AnimeTorrentRow key={animeTorrent.malId} animeTorrent={animeTorrent} />
           ))}

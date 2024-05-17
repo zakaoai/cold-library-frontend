@@ -1,0 +1,30 @@
+import { List, ListItem, ListItemButton, ListItemText } from "@mui/material"
+import type ISeasonMenu from "./interface/SeasonMenu"
+
+const SeasonMenu = ({ alphabet }: ISeasonMenu) => (
+  <List
+    sx={{
+      height: "100%",
+      width: 70,
+      maxHeight: "100vh",
+      position: "sticky",
+      top: 0,
+      overflow: "auto",
+      bgcolor: theme => (theme.palette.mode === "dark" ? "grey.800" : "grey.200"), // Add dark mode support
+
+      borderLeft: theme => `1px solid ${theme.palette.mode === "dark" ? "grey.700" : "grey.400"}` // Add dark mode support
+    }}>
+    {alphabet
+      .toSorted((akey, bkey) => bkey.localeCompare(akey))
+      .map(letter => letter.toUpperCase())
+      .map(letter => (
+        <ListItem key={letter} disablePadding>
+          <ListItemButton component="a" href={`#${letter}`} sx={{ textDecoration: "none", color: "inherit" }}>
+            <ListItemText primary={letter} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+  </List>
+)
+
+export default SeasonMenu

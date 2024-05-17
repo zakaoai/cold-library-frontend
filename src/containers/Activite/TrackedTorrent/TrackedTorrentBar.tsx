@@ -33,7 +33,9 @@ const TrackedTorrentBar = () => {
             </Button>
             <Button
               variant="outlined"
-              onClick={() => updateAllDeluge()}
+              onClick={() => {
+                updateAllDeluge()
+              }}
               disabled={isUpdateAllDelugePending}
               startIcon={<WaterDropIcon />}>
               Update Deluge

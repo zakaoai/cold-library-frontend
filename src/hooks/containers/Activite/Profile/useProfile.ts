@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect } from "react"
 
 const useProfil = () => {
-  const getCurrentUserCall = useCallback(() => UserService.getCurrent(), [])
+  const getCurrentUserCall = useCallback(async () => await UserService.getCurrent(), [])
   const { isAuthenticated } = useAuth0()
   const { user, setUser } = useAppContext()
 

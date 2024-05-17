@@ -1,6 +1,6 @@
 import Auth0AccountMenu from "@/components/Auth0Button/Auth0AccountMenu"
 import { useColorModeContext } from "@/hooks/context/useColorModeContext"
-import Menu from "@/interfaces/containers/Menu/Menu"
+import type Menu from "@/interfaces/containers/Menu/Menu"
 import Brightness4Icon from "@mui/icons-material/Brightness4"
 import Brightness7Icon from "@mui/icons-material/Brightness7"
 import MenuIcon from "@mui/icons-material/Menu"

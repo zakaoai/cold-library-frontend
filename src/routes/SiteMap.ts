@@ -1,4 +1,4 @@
-import ISiteMap from "@/interfaces/route/SiteMap"
+import type ISiteMap from "@/interfaces/route/SiteMap"
 
 const SiteMap: ISiteMap = {
   ACCUEIL: {

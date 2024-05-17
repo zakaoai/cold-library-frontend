@@ -12,12 +12,9 @@ const AnimeTorrentRowDesktop = ({
   showEpisodes,
   setShowEpisodes,
   isFetching,
-  anime,
   animeTorrent
 }: AnimeTorrentRow) => {
-  const { title, type } = anime || {}
-
-  const { malId, lastEpisodeOnServer, searchWords, dayOfRelease } = animeTorrent
+  const { malId, lastEpisodeOnServer, searchWords, dayOfRelease, title } = animeTorrent
   return (
     <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
       <TableCell component="th">
@@ -28,9 +25,6 @@ const AnimeTorrentRowDesktop = ({
           <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>{title}</div>
         </Link>
         {isFetching ? <CircularProgress /> : null}
-      </TableCell>
-      <TableCell component="th" scope="row">
-        {type}
       </TableCell>
       <TableCell component="th" scope="row">
         {lastEpisodeOnServer}

@@ -1,32 +1,33 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "allowImportingTsExtensions": true,
     "allowJs": true,
+    "baseUrl": ".",
     "checkJs": false,
-    "target": "ESNext",
-    "useDefineForClassFields": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
-    "skipLibCheck": true,
-
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
-
-    /* Linting */
-    "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-
     "paths": {
       "@/*": ["./src/*"]
-    }
+    },
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    /* Linting */
+    "strict": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true
   },
-  "include": ["src", "src/**/*", ".eslintrc.cjs"],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  "include": ["src", "src/**/*", "eslint.config.js"],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

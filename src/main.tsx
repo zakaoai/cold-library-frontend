@@ -11,7 +11,7 @@ const prepare = async (): Promise<void> => {
 }
 
 const rootDom = document.getElementById("root")
-if (rootDom != null) {
+if (rootDom !== null) {
   await prepare().finally(() => {
     createRoot(rootDom).render(
       <React.StrictMode>

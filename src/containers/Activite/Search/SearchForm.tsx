@@ -28,8 +28,8 @@ const SearchForm = ({ searchAnime, form }: ISearchForm) => {
     <form onSubmit={handleSubmit(onSubmit)}>
       <TextField
         label={"Anime à chercher"}
-        error={!!errors.search}
-        helperText={errors.search?.message || ""}
+        error={errors.search !== undefined}
+        helperText={errors.search?.message ?? ""}
         InputProps={{
           endAdornment: (
             <InputAdornment position="end">

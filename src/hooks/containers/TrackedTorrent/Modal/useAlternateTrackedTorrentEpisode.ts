@@ -5,10 +5,10 @@ import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 
 import usePagination from "@/hooks/usePagination"
-import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import { useMutation } from "@tanstack/react-query"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useState, type ChangeEvent } from "react"
 import useSortTable from "./useSortTable"
 
 const useAlternateTrackedTorrentEpisode = () => {
@@ -33,24 +33,24 @@ const useAlternateTrackedTorrentEpisode = () => {
   }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
 
   const handleChange = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>) => {
+    (event: ChangeEvent<HTMLInputElement>) => {
       setSelectedValue(event.target.value)
     },
     [setSelectedValue]
   )
   const handleModifier = useCallback(() => {
-    if (selectedValue) {
+    if (selectedValue !== undefined) {
       const updatedTrackedEpisodeAlternate = alternateTrackedEpisodes.find(
-        ep => ep.torrentId.toString() == selectedValue
+        ep => ep.torrentId.toString() === selectedValue
       )
-      if (updatedTrackedEpisodeAlternate != undefined) updateTrackedEpisode(updatedTrackedEpisodeAlternate)
+      if (updatedTrackedEpisodeAlternate !== undefined) updateTrackedEpisode(updatedTrackedEpisodeAlternate)
       handleClose()
     }
   }, [selectedValue, alternateTrackedEpisodes, updateTrackedEpisode, handleClose])
 
   const updateTorrentCall = useCallback(
-    ({ malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) =>
-      AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber),
+    async ({ malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) =>
+      await AnimeEpisodeTorrentService.updateTorrent(malId, episodeNumber),
     []
   )
 
@@ -90,8 +90,8 @@ const useAlternateTrackedTorrentEpisode = () => {
   })
 
   const searchAlternateEpisodeTorrentCall = useCallback(
-    ({ malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) =>
-      AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber),
+    async ({ malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) =>
+      await AnimeEpisodeTorrentService.searchAlternateEpisodeTorrent(malId, episodeNumber),
     []
   )
 

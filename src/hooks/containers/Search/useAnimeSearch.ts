@@ -6,12 +6,14 @@ import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useLocation, useNavigate } from "react-router-dom"
+import useLibrary from "../AnimeLibrary/useLibrary"
 
 const useAnimeSearch = () => {
+  useLibrary()
   const { search: browserSearch } = useLocation()
   const searchParam = new URLSearchParams(browserSearch).get("search")
 
-  const form = useForm<SearchFormValues, unknown>({ defaultValues: { search: searchParam || "" } })
+  const form = useForm<SearchFormValues, unknown>({ defaultValues: { search: searchParam ?? "" } })
 
   const navigate = useNavigate()
 
@@ -44,7 +46,7 @@ const useAnimeSearch = () => {
   })
 
   useEffect(() => {
-    if (searchParam != null) {
+    if (searchParam !== null) {
       searchAnime(searchParam)
     }
   }, [])

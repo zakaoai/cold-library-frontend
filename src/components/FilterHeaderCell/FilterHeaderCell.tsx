@@ -1,6 +1,6 @@
 import TableCell from "@mui/material/TableCell"
 import TableSortLabel from "@mui/material/TableSortLabel"
-import IFilterHeaderCell from "./interface/FilterHeaderCell"
+import type IFilterHeaderCell from "./interface/FilterHeaderCell"
 
 const FilterHeaderCell = <Type extends object>({
   id,
@@ -12,11 +12,13 @@ const FilterHeaderCell = <Type extends object>({
 }: IFilterHeaderCell<Type>) => {
   return (
     <TableCell key={id} sortDirection={orderBy === id ? order : false}>
-      {filter ? (
+      {filter !== undefined ? (
         <TableSortLabel
           active={orderBy === id}
           direction={orderBy === id ? order : "asc"}
-          onClick={() => sortBy(id as Extract<keyof Type, string>)}>
+          onClick={() => {
+            sortBy(id as Extract<keyof Type, string>)
+          }}>
           {label}
         </TableSortLabel>
       ) : (

@@ -5,13 +5,15 @@ import { format } from "date-fns/format"
 
 const EpisodeLine = ({ episode }: IEpisodeLine) => {
   const { episodeNumber, title, date } = episode
-  const [year, month, day] = date || []
+  const [year, month, day] = date ?? []
 
   return (
     <TableRow hover key={episodeNumber}>
       <TableCell align="center">{episodeNumber}</TableCell>
       <TableCell align="left">{title}</TableCell>
-      <TableCell align="left">{date && format(new Date(year!, month! - 1, day), "dd/MM/yyyy")}</TableCell>
+      <TableCell align="left">
+        {Array.isArray(date) && format(new Date(year!, month! - 1, day), "dd/MM/yyyy")}
+      </TableCell>
     </TableRow>
   )
 }

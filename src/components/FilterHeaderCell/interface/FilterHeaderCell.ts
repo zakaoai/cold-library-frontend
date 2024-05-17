@@ -1,4 +1,4 @@
-import order from "@/interfaces/containers/Activite/TrackedTorrent/Modal/order"
+import type order from "@/interfaces/containers/Activite/TrackedTorrent/Modal/order"
 
 export default interface FilterHeaderCell<Type extends object> {
   id: string

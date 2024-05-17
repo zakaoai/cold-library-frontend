@@ -1,7 +1,8 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
-import AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
+import useAppContext from "@/hooks/context/useAppContext"
+import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation } from "@tanstack/react-query"
@@ -9,11 +10,12 @@ import { useCallback, useEffect, useState } from "react"
 
 const useAnimeTorrentEpisodes = (malId: number) => {
   const { torrentEpisodesMap, isTorrentEpisodesFetching } = useAnimeTorrentContext()
+  const { setTorrentEpisodeLibrary } = useAppContext()
 
   const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
 
   useEffect(() => {
-    setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) || [])
+    setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) ?? [])
   }, [malId, torrentEpisodesMap])
 
   // Patch Episode
@@ -25,6 +27,13 @@ const useAnimeTorrentEpisodes = (malId: number) => {
 
   const onSuccessPatchTrackedAnimeEpisode = useCallback(
     (updatedEpisode: AnimeEpisodeTorrentDTO) => {
+      setTorrentEpisodeLibrary(episodes => {
+        Object.assign(
+          episodes.find(ep => ep.malId === malId && ep.episodeNumber === updatedEpisode.episodeNumber) ?? {},
+          updatedEpisode
+        )
+        return episodes
+      })
       setAnimeEpisodeTorrents(episodes => [
         ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
         formatEpisode(updatedEpisode)

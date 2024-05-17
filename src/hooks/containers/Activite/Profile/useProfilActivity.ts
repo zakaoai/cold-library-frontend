@@ -5,7 +5,7 @@ import useProfil from "./useProfile"
 const useProfilActivity = () => {
   const { user, isLoading } = useAuth0()
   const { user: serverUser } = useProfil()
-  const { malUsername } = serverUser || {}
+  const { malUsername } = serverUser ?? {}
 
   const [open, setOpen] = useState(false)
   const handleClose = useCallback(() => {

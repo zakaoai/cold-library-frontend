@@ -1,7 +1,7 @@
-import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
-import UserDTO from "@/interfaces/services/UserService/UserDTO"
+import type UserDTO from "@/interfaces/services/UserService/UserDTO"
 import { useMemo, useState, type PropsWithChildren } from "react"
 import AppContext from "./AppContext"
 

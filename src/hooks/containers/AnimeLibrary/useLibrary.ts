@@ -1,6 +1,6 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import AnimeServices from "@/services/AnimeService"
 import { useQuery } from "@tanstack/react-query"
 
@@ -17,7 +17,7 @@ const useLibrary = () => {
   })
   const prevData = useRef<AnimeDTO[]>()
   useEffect(() => {
-    if (isFetched && data != undefined && data != prevData.current) {
+    if (isFetched && data !== undefined && data !== prevData.current) {
       prevData.current = data
       setAnimeLibrary(data)
     }

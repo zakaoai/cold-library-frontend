@@ -1,5 +1,5 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
@@ -22,7 +22,7 @@ const useTrackedTorrent = () => {
   })
   const prevAnimeTorrents = useRef<AnimeTorrentDTO[]>()
   useEffect(() => {
-    if (isAnimeTorrentsFetched && animeTorrents != undefined && animeTorrents != prevAnimeTorrents.current) {
+    if (isAnimeTorrentsFetched && animeTorrents !== undefined && animeTorrents !== prevAnimeTorrents.current) {
       prevAnimeTorrents.current = animeTorrents
       setTorrentLibrary(animeTorrents)
     }
@@ -41,7 +41,7 @@ const useTrackedTorrent = () => {
   })
   const prevTorrentEpisodes = useRef<AnimeEpisodeTorrentDTO[]>()
   useEffect(() => {
-    if (isTorrentEpisodesFetched && torrentEpisodes != undefined && torrentEpisodes != prevTorrentEpisodes.current) {
+    if (isTorrentEpisodesFetched && torrentEpisodes !== undefined && torrentEpisodes !== prevTorrentEpisodes.current) {
       prevTorrentEpisodes.current = torrentEpisodes
       setTorrentEpisodeLibrary(torrentEpisodes)
     }

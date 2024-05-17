@@ -1,6 +1,6 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import ResponseError from "@/interfaces/services/ResponseError"
-import UserDTO from "@/interfaces/services/UserService/UserDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
+import type UserDTO from "@/interfaces/services/UserService/UserDTO"
 import UserService from "@/services/UserService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useMemo } from "react"
@@ -10,7 +10,7 @@ import useProfil from "./useProfile"
 const useEditProfilModal = (handleClose: () => void) => {
   const { setUser } = useAppContext()
   const { user: serverUser } = useProfil()
-  const { malUsername } = serverUser || {}
+  const { malUsername } = serverUser ?? {}
 
   const defaultValues = useMemo(
     () => ({
@@ -38,7 +38,7 @@ const useEditProfilModal = (handleClose: () => void) => {
   }, [clearErrors, handleClose])
 
   const updateCurrentMalUsernameCall = useCallback(
-    (malUserName: string) => UserService.updateCurrentMalUsername(malUserName),
+    async (malUserName: string) => await UserService.updateCurrentMalUsername(malUserName),
     []
   )
 
@@ -63,7 +63,7 @@ const useEditProfilModal = (handleClose: () => void) => {
 
   const onSubmit = useCallback(
     ({ malUsername }: UserDTO) => {
-      updateCurrentMalUsername(malUsername!)
+      updateCurrentMalUsername(malUsername ?? "")
     },
     [updateCurrentMalUsername]
   )

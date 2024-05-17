@@ -1,6 +1,6 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import type DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback } from "react"

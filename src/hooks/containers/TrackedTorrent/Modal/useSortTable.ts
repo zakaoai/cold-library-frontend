@@ -1,4 +1,4 @@
-import order from "@/interfaces/containers/Activite/TrackedTorrent/Modal/order"
+import type order from "@/interfaces/containers/Activite/TrackedTorrent/Modal/order"
 import { useCallback, useEffect, useState } from "react"
 
 const useSortTable = <Type extends object>() => {
@@ -27,7 +27,7 @@ const useSortTable = <Type extends object>() => {
   )
 
   useEffect(() => {
-    if (orderBy && order) {
+    if (orderBy !== undefined && order !== undefined) {
       const tempSortFunction = () => (items: Type[]) => items.sort(getComparator(order, orderBy))
       setSortFunction(tempSortFunction)
     } else setSortFunction(() => (items: Type[]) => items)

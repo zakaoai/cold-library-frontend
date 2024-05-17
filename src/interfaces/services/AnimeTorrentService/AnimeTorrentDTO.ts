@@ -7,4 +7,6 @@ export interface AnimeTorrentDTO {
   dayOfRelease: DayOfWeek
   deltaEpisode: number
   torrentPath: string
+  title: string
+  isComplete: boolean
 }

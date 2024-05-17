@@ -1,6 +1,6 @@
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
-import ResponseError from "@/interfaces/services/ResponseError"
+import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
@@ -9,13 +9,13 @@ const useAnimeLibrary = (malId: number) => {
   const [anime, setAnime] = useState<AnimeDTO | undefined>(undefined)
 
   const { data, isFetched, isFetching } = useQuery({
-    queryKey: ["animeLibrary"],
+    queryKey: ["animeLibrary", malId],
     queryFn: async () => await AnimeServices.get(malId),
     retry: false
   })
 
   useEffect(() => {
-    if (isFetched && data != undefined) {
+    if (isFetched && data !== undefined) {
       setAnime(data)
     }
   }, [data, isFetched])
@@ -27,7 +27,7 @@ const useAnimeLibrary = (malId: number) => {
     [anime]
   )
 
-  const updateAnimeInfosCall = useCallback(() => AnimeServices.update(malId), [malId])
+  const updateAnimeInfosCall = useCallback(async () => await AnimeServices.update(malId), [malId])
   const onSuccessUpdateAnimeInfos = useCallback(
     (updatedAnime: AnimeDTO) => {
       updateAnime(updatedAnime)

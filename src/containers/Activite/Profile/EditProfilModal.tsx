@@ -1,5 +1,5 @@
 import useEditProfilModal from "@/hooks/containers/Activite/Profile/useEditProfilModal"
-import IEditProfilModal from "@/interfaces/containers/Activite/Profile/EditProfilModal"
+import type IEditProfilModal from "@/interfaces/containers/Activite/Profile/EditProfilModal"
 import { Box, Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material"
 
 const EditProfilModal = ({ open, handleClose }: IEditProfilModal) => {
