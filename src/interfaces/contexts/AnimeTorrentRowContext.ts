@@ -2,7 +2,6 @@ import { type UseMutateFunction } from "@tanstack/react-query"
 import { type Dispatch, type SetStateAction } from "react"
 import type AnimeEpisodeTorrentDisplay from "../containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { type AnimeDTO } from "../services/AnimeService/AnimeDTO"
 import { type AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
 
 export default interface AnimeTorrentRowContext {
@@ -14,11 +13,7 @@ export default interface AnimeTorrentRowContext {
   setShowModalAlternateEpisode: Dispatch<SetStateAction<boolean>>
   animeTorrent: AnimeTorrentDTO
   animeEpisodeTorrents: AnimeEpisodeTorrentDisplay[]
-
   isFetching: boolean
-
-  setAnime: Dispatch<SetStateAction<AnimeDTO | undefined>>
-  anime?: AnimeDTO
   showEpisodes: boolean
   setShowEpisodes: Dispatch<SetStateAction<boolean>>
 }

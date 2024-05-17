@@ -19,9 +19,9 @@ const useAnimeTorrentAction = () => {
   const prevDoScan = useRef(doScan)
   const prevDoScanNext = useRef(doScanNext)
 
-  const { animeTorrent: trackedTorrent, animeEpisodeTorrents, anime } = useAnimeTorrentRowContext()
-  const { lastEpisodeOnServer, malId } = trackedTorrent
-  const { episodes } = anime ?? {}
+  const { animeTorrent: trackedTorrent, animeEpisodeTorrents } = useAnimeTorrentRowContext()
+  const { lastEpisodeOnServer, malId, isComplete } = trackedTorrent
+
   const { setTorrentEpisodeLibrary } = useAppContext()
 
   // Scan All Episode
@@ -146,8 +146,6 @@ const useAnimeTorrentAction = () => {
 
   const isNewEpisode =
     animeEpisodeTorrents.filter(({ episodeNumber }) => episodeNumber > lastEpisodeOnServer).length > 0
-
-  const isComplete = animeEpisodeTorrents.findIndex(({ episodeNumber }) => episodeNumber === episodes) !== -1
 
   const isPackInList = animeEpisodeTorrents.findIndex(({ episodeNumber }) => episodeNumber === 0) !== -1
 

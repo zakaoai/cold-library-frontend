@@ -7,7 +7,6 @@ import ModalEditTrackedEpisode from "../Modal/AlternateEpisode/ModalEditTrackedE
 import useMediaQuery from "@mui/material/useMediaQuery"
 
 import AnimeTorrentRowProvider from "@/context/AnimeTorrentRowProvider"
-import useAnimeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeTorrentRow"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import type IAnimeTorrentRowWithContext from "@/interfaces/containers/Activite/TrackedTorrent/AnimeTorrentRowWithContext"
 import { useTheme } from "@mui/material/styles"
@@ -15,9 +14,8 @@ import AnimeTorrentRowDesktop from "./AnimeTorrentRowDesktop"
 import AnimeTorrentRowMobile from "./AnimeTorrentRowMobile"
 
 const AnimeTorrentRow = () => {
-  const { animeEpisodeTorrents, animeTorrent, isFetching, showEpisodes, setShowEpisodes, anime } =
-    useAnimeTorrentRowContext()
-  useAnimeTorrentRow()
+  const { animeEpisodeTorrents, animeTorrent, isFetching, showEpisodes, setShowEpisodes } = useAnimeTorrentRowContext()
+
   const { lastEpisodeOnServer } = animeTorrent
   const showedTorrents = useMemo(
     () =>
@@ -34,10 +32,9 @@ const AnimeTorrentRow = () => {
       showEpisodes,
       setShowEpisodes,
       isFetching,
-      anime,
       animeTorrent
     }),
-    [anime, animeTorrent, isFetching, setShowEpisodes, showEpisodes, showedTorrents.length]
+    [animeTorrent, isFetching, setShowEpisodes, showEpisodes, showedTorrents.length]
   )
 
   return (

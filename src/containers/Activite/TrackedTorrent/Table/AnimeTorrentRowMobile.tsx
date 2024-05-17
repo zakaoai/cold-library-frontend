@@ -12,12 +12,9 @@ const AnimeTorrentRowMobile = ({
   showEpisodes,
   setShowEpisodes,
   isFetching,
-  anime,
   animeTorrent
 }: AnimeTorrentRow) => {
-  const { title, type } = anime ?? {}
-
-  const { malId, lastEpisodeOnServer, searchWords, dayOfRelease } = animeTorrent
+  const { malId, lastEpisodeOnServer, searchWords, dayOfRelease, title } = animeTorrent
 
   return (
     <>
@@ -32,14 +29,7 @@ const AnimeTorrentRowMobile = ({
           {isFetching ? <CircularProgress /> : null}
         </TableCell>
       </TableRow>
-      <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
-        <TableCell component="th" scope="row">
-          Type
-        </TableCell>
-        <TableCell component="th" scope="row">
-          {type}
-        </TableCell>
-      </TableRow>
+
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>
         <TableCell component="th" scope="row">
           Last ep

@@ -6,8 +6,10 @@ import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useLocation, useNavigate } from "react-router-dom"
+import useLibrary from "../AnimeLibrary/useLibrary"
 
 const useAnimeSearch = () => {
+  useLibrary()
   const { search: browserSearch } = useLocation()
   const searchParam = new URLSearchParams(browserSearch).get("search")
 
