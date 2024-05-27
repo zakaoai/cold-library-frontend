@@ -1,6 +1,6 @@
 import { useState, type ChangeEventHandler, type MouseEvent as ReactMouseEvent } from "react"
 
-const usePagination = (animeEpisodes: unknown[], defaultRowPerPage: number = 5) => {
+const usePagination = <T>(animeEpisodes: T[], defaultRowPerPage: number = 5) => {
   const [rowsPerPage, setRowsPerPage] = useState(defaultRowPerPage)
   const [page, setPage] = useState(0)
 

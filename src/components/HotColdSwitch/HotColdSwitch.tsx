@@ -1,10 +1,7 @@
 import StorageState from "@/enums/StorageState"
 import AcUnitIcon from "@mui/icons-material/AcUnit"
 import WhatshotIcon from "@mui/icons-material/Whatshot"
-import FormGroup from "@mui/material/FormGroup"
-import Grid from "@mui/material/Grid"
 import Switch from "@mui/material/Switch"
-import Typography from "@mui/material/Typography"
 import blue from "@mui/material/colors/blue"
 import red from "@mui/material/colors/red"
 import { styled } from "@mui/material/styles"
@@ -79,20 +76,14 @@ const HotColdSwitch = ({ storageState, setStorageState }: IHotColdSwitch) => {
   const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID
 
   return (
-    <FormGroup>
-      <Typography component="div">
-        <Grid item>
-          <MaterialUISwitch
-            icon={<WhatshotIcon style={{ color: red.A100 }} />}
-            checkedIcon={<AcUnitIcon style={{ color: blue[200] }} />}
-            checked={isFluxFroid}
-            onChange={() => {
-              setStorageState(nextStorageState)
-            }}
-          />
-        </Grid>
-      </Typography>
-    </FormGroup>
+    <MaterialUISwitch
+      icon={<WhatshotIcon style={{ color: red.A100 }} />}
+      checkedIcon={<AcUnitIcon style={{ color: blue[200] }} />}
+      checked={isFluxFroid}
+      onChange={() => {
+        setStorageState(nextStorageState)
+      }}
+    />
   )
 }
 

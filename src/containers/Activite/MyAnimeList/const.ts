@@ -7,14 +7,3 @@ export const statusValues = [
   { value: "dropped", label: "Dropped" },
   { value: "plan_to_watch", label: "Plan To Watch" }
 ]
-
-export enum ViewMode {
-  DEFAULT = "DEFAULT",
-  ALPHA = "ALPHA",
-  SEASON = "SEASON"
-}
-
-export enum RenderMode {
-  CARD = "CARD",
-  LIST = "LIST"
-}

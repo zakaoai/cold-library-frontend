@@ -6,12 +6,14 @@ import useMyAnimeList from "@/hooks/containers/Activite/MyAnimeList/useMyAnimeLi
 import useMyAnimeListFilter from "@/hooks/containers/Activite/MyAnimeList/useMyAnimeListFilter"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
 // import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
+import DefaultRender from "@/components/DefaultRender/DefaultRender"
 import { useMemo } from "react"
-import DefaultRender from "./DefaultRender"
 import GridComponent from "./GridComponent"
 import MyAnimeListFilterBar from "./MyAnimeListFilterBar"
 import TableComponent from "./TableComponent"
-import { RenderMode, ViewMode } from "./const"
+
+import { RenderMode } from "@/enums/RenderMode"
+import { ViewMode } from "@/enums/ViewMode"
 import { cardRenderChild, singleCardRender, singleTableRender, tableRenderChild } from "./renderChild"
 
 const MyAnimeListActivity = () => {

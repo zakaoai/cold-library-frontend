@@ -1,9 +1,7 @@
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { type ElementType, type ReactNode } from "react"
 
-export default interface AlphabetRender {
-  items: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>
+export default interface AlphabetRender<Anime extends { title: string }> {
+  items: Anime[]
   component: ElementType
-  renderChild: (animelist: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>) => ReactNode
+  renderChild: (animelist: Anime[]) => ReactNode
 }
