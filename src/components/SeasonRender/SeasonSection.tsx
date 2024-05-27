@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material"
 import type ISeasonSection from "./interface/SeasonSection"
 
-const SeasonSection = ({ season, items, renderChild, component: Component }: ISeasonSection) => {
+const SeasonSection = <T,>({ season, items, renderChild, component: Component }: ISeasonSection<T>) => {
   return (
     <>
       {season !== "null" && (

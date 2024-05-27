@@ -4,7 +4,7 @@ import { useMemo } from "react"
 import SeasonSection from "./SeasonSection"
 import type IYearSection from "./interface/YearSection"
 
-const YearSection = ({ year, items, renderChild, component }: IYearSection) => {
+const YearSection = <T extends { season?: Season }>({ year, items, renderChild, component }: IYearSection<T>) => {
   const seasonItems = useMemo(
     () =>
       items.reduce<Record<string, typeof items>>((acc, item) => {

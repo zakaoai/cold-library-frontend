@@ -1,4 +1,5 @@
-import { type RenderMode, type ViewMode } from "@/containers/Activite/MyAnimeList/const"
+import { type RenderMode } from "@/enums/RenderMode"
+import { type ViewMode } from "@/enums/ViewMode"
 import { type Dispatch, type SetStateAction } from "react"
 import { type AnimeDTO } from "../services/AnimeService/AnimeDTO"
 import type MALAnime from "../services/UserService/MyAnimeList/MALAnime"

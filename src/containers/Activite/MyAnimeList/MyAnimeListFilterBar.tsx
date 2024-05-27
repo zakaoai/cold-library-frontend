@@ -18,9 +18,10 @@ import ToggleButton from "@mui/material/ToggleButton"
 import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
 import Grid from "@mui/material/Unstable_Grid2"
 
+import { RenderMode } from "@/enums/RenderMode"
+import { ViewMode } from "@/enums/ViewMode"
 import useMyAnimeListFilterBar from "@/hooks/containers/Activite/MyAnimeList/useMyAnimeListFilterBar"
-import { RenderMode, ViewMode, statusValues } from "./const"
-
+import { statusValues } from "./const"
 const MyAnimeListFilterBar = () => {
   const {
     selectedGenres,
