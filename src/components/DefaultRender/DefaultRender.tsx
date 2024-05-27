@@ -1,17 +1,14 @@
 import usePagination from "@/hooks/usePagination"
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { Pagination } from "@mui/material"
-import { useCallback, type ChangeEvent, type ElementType } from "react"
-import { type singleCardRender } from "./renderChild"
+import { useCallback, type ChangeEvent, type ElementType, type ReactNode } from "react"
 
-interface DefaultRenderProps {
-  animeList: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>
+interface DefaultRenderProps<Anime> {
+  animeList: Anime[]
   component: ElementType
-  renderChild: typeof singleCardRender
+  renderChild: (anime: Anime) => ReactNode
 }
 
-const DefaultRender = ({ component: Component, renderChild, animeList }: DefaultRenderProps) => {
+const DefaultRender = <T,>({ component: Component, renderChild, animeList }: DefaultRenderProps<T>) => {
   const { page, handleChangePage, sliceBegin, sliceEnd, rowsPerPage } = usePagination(animeList, 50)
 
   const handleChange = useCallback(

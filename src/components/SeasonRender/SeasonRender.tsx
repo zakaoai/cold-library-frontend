@@ -1,3 +1,4 @@
+import Season from "@/enums/Season"
 import usePagination from "@/hooks/usePagination"
 import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
 import { useMemo } from "react"
@@ -6,12 +7,16 @@ import SeasonMenu from "./SeasonMenu"
 import YearSection from "./YearSection"
 import type ISeasonRender from "./interface/SeasonRender"
 
-const SeasonRender = ({ items, renderChild, component }: ISeasonRender) => {
-  const { page, handleChangePage, rowsPerPage } = usePagination(items, 50)
+const SeasonRender = <T extends { year?: number; season?: Season }>({
+  items,
+  renderChild,
+  component
+}: ISeasonRender<T>) => {
+  const { page, handleChangePage, rowsPerPage } = usePagination<T>(items, 50)
 
   const groupedData = useMemo(
     () =>
-      items.reduce<Record<number | string, typeof items>>((acc, item) => {
+      items.reduce<Record<number | string, T[]>>((acc, item) => {
         if (acc[item.year ?? "TBA"] === undefined) {
           acc[item.year ?? "TBA"] = []
         }
@@ -25,7 +30,7 @@ const SeasonRender = ({ items, renderChild, component }: ISeasonRender) => {
     () =>
       Object.entries(groupedData)
         .toSorted(([keyA], [keyB]) => keyB.localeCompare(keyA))
-        .reduce<Array<Record<string, typeof items>>>(
+        .reduce<Array<Record<string, T[]>>>(
           (acc, item) => {
             const lastAccLength = Object.values(acc[acc.length - 1]).reduce((count, list) => (count += list.length), 0)
             if (lastAccLength >= rowsPerPage) {

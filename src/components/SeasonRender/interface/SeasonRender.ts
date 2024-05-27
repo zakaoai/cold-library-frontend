@@ -1,9 +1,8 @@
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
+import Season from "@/enums/Season"
 import { type ElementType, type ReactNode } from "react"
 
-export default interface SeasonRender {
-  items: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>
+export default interface SeasonRender<Anime extends { year?: number; season?: Season }> {
+  items: Anime[]
   component: ElementType
-  renderChild: (animelist: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>) => ReactNode
+  renderChild: (anime: Anime[]) => ReactNode
 }

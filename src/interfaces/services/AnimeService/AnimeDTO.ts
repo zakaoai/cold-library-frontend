@@ -19,5 +19,5 @@ export interface AnimeDTO {
   isDownloading?: boolean
   isComplete?: boolean
   lastAvaibleEpisode?: number
-  addedOnServer?: string
+  addedOnServer?: [number, number, number, number, number, number, number]
 }

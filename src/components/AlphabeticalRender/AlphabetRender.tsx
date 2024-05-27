@@ -6,7 +6,7 @@ import AlphabetMenu from "./AlphabetMenu"
 import AlphabetSection from "./AlphabetSection"
 import type IAlphabetRender from "./interface/AlphabetRender"
 
-const AlphabetRender = ({ items, component, renderChild }: IAlphabetRender) => {
+const AlphabetRender = <T extends { title: string }>({ items, component, renderChild }: IAlphabetRender<T>) => {
   const { page, handleChangePage, rowsPerPage } = usePagination(items, 50)
 
   const groupedData = useMemo(

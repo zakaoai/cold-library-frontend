@@ -1,9 +1,9 @@
 import { Button } from "@mui/material"
 import type IKeyListPagination from "./interface/KeyListPagination"
 
-const KeyListPagination = ({ slicedGroupedData, onClick, page, reversed }: IKeyListPagination) =>
+const KeyListPagination = <T extends object>({ slicedGroupedData, onClick, page, reversed }: IKeyListPagination<T>) =>
   slicedGroupedData
-    .reduce<string[]>((acc, keys) => {
+    .reduce<string[]>((acc, keys: object) => {
       const letterKeys = Object.keys(keys).toSorted((a, b) =>
         reversed === true ? b.localeCompare(a) : a.localeCompare(b)
       )
