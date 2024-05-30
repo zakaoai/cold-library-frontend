@@ -1,10 +1,12 @@
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import type DataListHolderWithPagination from "@/interfaces/services/DataListHolderWithPagination"
 import api from "./api"
 import { deleteRequest, get, post, put } from "./request/request"
 
 const AnimeServices = {
-  searchAnime: async (search: string) => await get<AnimeDTO[]>(api.anime.search(search)),
+  searchAnime: async (search: string, page: number | undefined) =>
+    await get<DataListHolderWithPagination<AnimeDTO>>(api.anime.search(search, page)),
   getAll: async () => await get<AnimeDTO[]>(api.anime.getAll),
   get: async (malId: number) => await get<AnimeDTO>(api.anime.get(malId)),
   delete: async (malId: number) => {
