@@ -7,7 +7,7 @@ const api = {
   anime: {
     getAll: `${API_BASE_URL}/anime`,
     get: (malId: number) => `${API_BASE_URL}/anime/${malId}`,
-    search: (search: string) => `${API_BASE_URL}/anime/search/${search}`,
+    search: (search: string, page: number | undefined) => `${API_BASE_URL}/anime/search/${search}?page=${page ?? 1}`,
     delete: (malId: number) => `${API_BASE_URL}/anime/${malId}`,
     saveInLibrary: (malId: number) => `${API_BASE_URL}/anime/${malId}`,
     updateStorageState: (malId: number) => `${API_BASE_URL}/anime/${malId}/storage_state`,

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import type ISearchForm from "@/interfaces/containers/Activite/Search/SearchForm"
 import type SearchFormValues from "@/interfaces/containers/Activite/Search/SearchFormValues"
 import SearchIcon from "@mui/icons-material/Search"
@@ -14,7 +15,7 @@ const SearchForm = ({ searchAnime, form }: ISearchForm) => {
   } = form
   const onSubmit = useCallback(
     ({ search }: SearchFormValues) => {
-      searchAnime(search)
+      searchAnime({ search, page: undefined })
     },
     [searchAnime]
   )
