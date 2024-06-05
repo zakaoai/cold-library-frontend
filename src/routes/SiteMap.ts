@@ -37,6 +37,10 @@ const SiteMap: ISiteMap = {
   MYANIMELIST: {
     path: "/myanimelist",
     label: "My Anime List"
+  },
+  ADMIN_LOG: {
+    path: "/admin/log",
+    label: "Logs"
   }
 }
 
