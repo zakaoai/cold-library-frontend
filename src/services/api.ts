@@ -47,7 +47,13 @@ const api = {
   user: {
     animelist: `${API_BASE_URL}/user/animelist`,
     getCurrent: `${API_BASE_URL}/user`,
-    updateCurrentMalUsername: `${API_BASE_URL}/user/malUsername`
+    updateCurrentMalUsername: `${API_BASE_URL}/user/malUsername`,
+    me: `${API_BASE_URL}/user`,
+    getAll: `${API_BASE_URL}/user/all`
+  },
+  log: {
+    getAll: `${API_BASE_URL}/log`,
+    getByUserId: (userId: string) => `${API_BASE_URL}/log/${encodeURIComponent(userId)}`
   }
 }
 
