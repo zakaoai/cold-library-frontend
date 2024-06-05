@@ -13,7 +13,8 @@ const Menu = () => {
     SiteMap.LIBRAIRIE,
     SiteMap.TORRENT,
     SiteMap.ANIME,
-    SiteMap.MYANIMELIST
+    SiteMap.MYANIMELIST,
+    SiteMap.ADMIN_LOG
   ]
 
   return (
