@@ -11,14 +11,16 @@ const AlphabetRender = <T extends { title: string }>({ items, component, renderC
 
   const groupedData = useMemo(
     () =>
-      items.reduce<Record<string, typeof items>>((acc, item) => {
-        const firstLetter = item.title[0].toUpperCase()
-        if (acc[firstLetter] === undefined) {
-          acc[firstLetter] = []
-        }
-        acc[firstLetter].push(item)
-        return acc
-      }, {}),
+      items
+        .toSorted((a, b) => a.title.localeCompare(b.title))
+        .reduce<Record<string, typeof items>>((acc, item) => {
+          const firstLetter = item.title[0].toUpperCase()
+          if (acc[firstLetter] === undefined) {
+            acc[firstLetter] = []
+          }
+          acc[firstLetter].push(item)
+          return acc
+        }, {}),
 
     [items]
   )
