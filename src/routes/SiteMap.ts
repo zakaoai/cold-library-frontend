@@ -41,6 +41,10 @@ const SiteMap: ISiteMap = {
   ADMIN_LOG: {
     path: "/admin/log",
     label: "Logs"
+  },
+  REQUEST: {
+    path: "/request",
+    label: "Request"
   }
 }
 

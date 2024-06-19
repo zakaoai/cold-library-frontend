@@ -15,6 +15,7 @@ import AnimeRow from "@/components/animeCard/AnimeRow"
 import { RenderMode } from "@/enums/RenderMode"
 import { ViewMode } from "@/enums/ViewMode"
 
+import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
 import GridComponent from "./GridComponent"
 import TableComponent from "./TableComponent"
@@ -27,17 +28,25 @@ const AnimeLibraryActivity = () => {
 
   const { filtersState, filterFunc } = useAnimeLibraryFilter()
 
+  const { myOpenedRequestMap, createRequest } = useMyRequest()
+
   const animesFiltered = useMemo(() => animes.filter(filterFunc), [animes, filterFunc])
 
   const singleCardRender = useCallback(
     (anime: AnimeDTO) => (
       <Grid key={anime.malId} lg={3} md={4} xs={12} sm={6}>
-        <AnimeCardProvider anime={anime} showEpisodeLink updateAnime={updateAnime} showAddOrRemoveFromLibrary>
+        <AnimeCardProvider
+          anime={anime}
+          showEpisodeLink
+          updateAnime={updateAnime}
+          showAddOrRemoveFromLibrary
+          request={myOpenedRequestMap[anime.malId]}
+          createRequest={createRequest}>
           <AnimeCardComponent />
         </AnimeCardProvider>
       </Grid>
     ),
-    [updateAnime]
+    [createRequest, myOpenedRequestMap, updateAnime]
   )
   const { selectedViewMode, selectedRenderMode } = useAnimeLibrarContext()
 
@@ -50,11 +59,13 @@ const AnimeLibraryActivity = () => {
         anime={anime}
         showEpisodeLink
         updateAnime={updateAnime}
-        showAddOrRemoveFromLibrary>
+        showAddOrRemoveFromLibrary
+        request={myOpenedRequestMap[anime.malId]}
+        createRequest={createRequest}>
         <AnimeRow />
       </AnimeCardProvider>
     ),
-    [updateAnime]
+    [createRequest, myOpenedRequestMap, updateAnime]
   )
 
   const tableRenderChild = useCallback((animelist: AnimeDTO[]) => animelist.map(singleTableRender), [singleTableRender])

@@ -1,6 +1,7 @@
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
 import HotColdSwitch from "../HotColdSwitch/HotColdSwitch"
+import RequestButton from "../RequestButton/RequestButton"
 import AnimeCardTrackedButton from "./AnimeCardTrackedButton"
 import AnimeCompleteButton from "./AnimeCompleteButton"
 import InLibraryButton from "./InLibraryButton"
@@ -8,8 +9,8 @@ import LastAvaibleEpisode from "./LastAvaibleEpisode"
 import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 
 const AnimeRow = () => {
-  const { anime, showAddOrRemoveFromLibrary, updateAnimeState } = useAnimeCardContext()
-  const { title, malImg, episodes, type, storageState, isComplete, isDownloading } = anime
+  const { anime, showAddOrRemoveFromLibrary, updateAnimeState, request, createRequest } = useAnimeCardContext()
+  const { title, malImg, episodes, malUrl, type, storageState, isComplete, isDownloading } = anime
   const { setIsComplete, isUpdateIsCompletePending, setStorageState, setIsDownloading } = updateAnimeState
   const isInLibrary = !(storageState === undefined || storageState === null)
 
@@ -17,7 +18,9 @@ const AnimeRow = () => {
     <>
       <TableRow>
         <TableCell>
-          <img srcSet={`${malImg} 318w`} sizes="70px" alt={title} loading="lazy" />
+          <a href={malUrl} target="_blank" rel="noreferrer">
+            <img srcSet={`${malImg} 318w`} sizes="70px" alt={title} loading="lazy" />
+          </a>
         </TableCell>
         <TableCell sx={{ width: { lg: "440px" }, maxWidth: "440px" }}>
           {title} <br /> Nb Episodes : {episodes}
@@ -40,6 +43,7 @@ const AnimeRow = () => {
               <AnimeCardTrackedButton isAnimeTracked={isDownloading ?? false} trackAnime={setIsDownloading} />
             </>
           )}
+          <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
         </TableCell>
       </TableRow>
       <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
@@ -63,6 +67,7 @@ const AnimeRow = () => {
               <AnimeCardTrackedButton isAnimeTracked={isDownloading ?? false} trackAnime={setIsDownloading} />
             </>
           )}
+          <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
         </TableCell>
       </TableRow>
     </>

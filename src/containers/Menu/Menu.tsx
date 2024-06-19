@@ -14,7 +14,8 @@ const Menu = () => {
     SiteMap.TORRENT,
     SiteMap.ANIME,
     SiteMap.MYANIMELIST,
-    SiteMap.ADMIN_LOG
+    SiteMap.ADMIN_LOG,
+    SiteMap.REQUEST
   ]
 
   return (

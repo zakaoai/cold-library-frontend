@@ -54,6 +54,13 @@ const api = {
   log: {
     getAll: `${API_BASE_URL}/log`,
     getByUserId: (userId: string) => `${API_BASE_URL}/log/${encodeURIComponent(userId)}`
+  },
+  request: {
+    create: `${API_BASE_URL}/request`,
+    getMe: `${API_BASE_URL}/request/me`,
+    getAssigned: `${API_BASE_URL}/request/assigned`,
+    getAll: `${API_BASE_URL}/request/all`,
+    update: (requestId: number) => `${API_BASE_URL}/request/${requestId}`
   }
 }
 
