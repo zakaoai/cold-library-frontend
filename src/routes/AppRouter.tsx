@@ -17,6 +17,7 @@ const ProfileActivity = lazy(async () => await import("@/containers/Activite/Pro
 const AnimeLibraryActivity = lazy(async () => await import("@/containers/Activite/AnimeLibrary/AnimeLibraryActivity"))
 const MyAnimeListActivity = lazy(async () => await import("@/containers/Activite/MyAnimeList/MyAnimeListActivity"))
 const AdminLogActivity = lazy(async () => await import("@/containers/Activite/AdminLog/AdminLogActivity"))
+const RequestActivity = lazy(async () => await import("@/containers/Activite/Request/RequestActivity"))
 
 const AppRouter = () => (
   <Route element={<ContextLayout />}>
@@ -30,6 +31,7 @@ const AppRouter = () => (
         <Route path={SiteMap.PROFILE.path} element={<ProfileActivity />} />
         <Route path={SiteMap.MYANIMELIST.path} element={<MyAnimeListActivity />} />
         <Route path={SiteMap.ADMIN_LOG.path} element={<AdminLogActivity />} />
+        <Route path={SiteMap.REQUEST.path} element={<RequestActivity />} />
       </Route>
       <Route path={SiteMap.LOGOUT.path} element={<Logout />} />
     </Route>

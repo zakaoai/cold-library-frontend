@@ -9,7 +9,9 @@ const AnimeCardProvider = ({
   updateAnime,
   showEpisodeLink = false,
   imageHeight = "190px",
-  showAddOrRemoveFromLibrary = false
+  showAddOrRemoveFromLibrary = false,
+  request,
+  createRequest
 }: PropsWithChildren & IAnimeCardProvider) => {
   const defaultAnime = {
     ...anime,
@@ -24,7 +26,15 @@ const AnimeCardProvider = ({
 
   return (
     <AnimeCardContext.Provider
-      value={{ anime, updateAnimeState, showEpisodeLink, imageHeight, showAddOrRemoveFromLibrary }}>
+      value={{
+        anime,
+        updateAnimeState,
+        showEpisodeLink,
+        imageHeight,
+        showAddOrRemoveFromLibrary,
+        request,
+        createRequest
+      }}>
       {children}
     </AnimeCardContext.Provider>
   )

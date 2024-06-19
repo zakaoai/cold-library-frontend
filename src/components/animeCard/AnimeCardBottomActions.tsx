@@ -1,5 +1,6 @@
 import Grid from "@mui/material/Grid"
 import HotColdSwitch from "../HotColdSwitch/HotColdSwitch"
+import RequestButton from "../RequestButton/RequestButton"
 import AnimeCardTrackedButton from "./AnimeCardTrackedButton"
 import AnimeCompleteButton from "./AnimeCompleteButton"
 import InLibraryButton from "./InLibraryButton"
@@ -7,7 +8,7 @@ import LastAvaibleEpisode from "./LastAvaibleEpisode"
 import { useAnimeCardContext } from "./hooks/useAnimeCardContext"
 
 const AnimeCardBottomActions = () => {
-  const { anime, showAddOrRemoveFromLibrary, updateAnimeState } = useAnimeCardContext()
+  const { anime, showAddOrRemoveFromLibrary, updateAnimeState, request, createRequest } = useAnimeCardContext()
 
   const { episodes, storageState, isComplete, isDownloading } = anime
 
@@ -42,6 +43,9 @@ const AnimeCardBottomActions = () => {
           </Grid>
         </>
       )}
+      <Grid item xs={2}>
+        <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
+      </Grid>
     </Grid>
   )
 }

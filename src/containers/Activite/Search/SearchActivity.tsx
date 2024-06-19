@@ -1,6 +1,7 @@
 import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
 import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import SearchForm from "@/containers/Activite/Search/SearchForm"
+import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
 import useAnimeSearch from "@/hooks/containers/Search/useAnimeSearch"
 import { Pagination } from "@mui/material"
 import CircularProgress from "@mui/material/CircularProgress"
@@ -12,7 +13,7 @@ import Grid from "@mui/material/Grid"
 const SearchActivity = () => {
   const { animes, isFetching, error, form, searchAnime, updateAnime, pageMax, currentPage, handleChange } =
     useAnimeSearch()
-
+  const { myOpenedRequestMap, createRequest } = useMyRequest()
   return (
     <>
       <SearchForm searchAnime={searchAnime} form={form} />
@@ -34,7 +35,9 @@ const SearchActivity = () => {
                 anime={anime}
                 showEpisodeLink={!(anime.storageState === null)}
                 updateAnime={updateAnime}
-                showAddOrRemoveFromLibrary>
+                showAddOrRemoveFromLibrary
+                request={myOpenedRequestMap[anime.malId]}
+                createRequest={createRequest}>
                 <AnimeCardComponent />
               </AnimeCardProvider>
             </Grid>

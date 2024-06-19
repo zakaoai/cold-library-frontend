@@ -5,7 +5,9 @@ import TableRow from "@mui/material/TableRow"
 import { blue, green, grey, red, yellow } from "@mui/material/colors"
 import type MALRowProps from "./interface/MALRowProps"
 
+import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
 import MALInLibraryButton from "../MALCard/MALInLibraryButton"
+import RequestButton from "../RequestButton/RequestButton"
 
 const backgroundByStatus: Record<string, string> = {
   watching: green[500],
@@ -18,13 +20,16 @@ const backgroundByStatus: Record<string, string> = {
 
 const MALRow = ({ malAnime }: MALRowProps) => {
   const { selectedGenres } = useMyAnimeListContext()
+  const { createRequest, myOpenedRequestMap } = useMyRequest()
 
   return (
     <>
       <TableRow>
         <TableCell sx={{ background: backgroundByStatus[malAnime.userStatus], paddingX: "5px" }} padding="none" />
         <TableCell>
-          <img srcSet={`${malAnime.main_picture.medium} 318w`} sizes="70px" alt={malAnime.title} loading="lazy" />
+          <a href={`https://myanimelist.net/anime/${malAnime.id}`} target="_blank" rel="noreferrer">
+            <img srcSet={`${malAnime.main_picture.medium} 318w`} sizes="70px" alt={malAnime.title} loading="lazy" />
+          </a>
         </TableCell>
         <TableCell sx={{ width: { lg: "440px" }, maxWidth: "440px" }}>
           {malAnime.title} <br /> Nb Episodes : {malAnime.episodes}
@@ -45,6 +50,11 @@ const MALRow = ({ malAnime }: MALRowProps) => {
         </TableCell>
         <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
           <MALInLibraryButton malAnime={malAnime} />
+          <RequestButton
+            request={myOpenedRequestMap[malAnime.malId]}
+            createRequest={createRequest}
+            animeInServer={malAnime}
+          />
         </TableCell>
       </TableRow>
       <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
@@ -65,6 +75,11 @@ const MALRow = ({ malAnime }: MALRowProps) => {
       <TableRow sx={{ display: { xs: "table-row", md: "none" } }}>
         <TableCell colSpan={3}>
           <MALInLibraryButton malAnime={malAnime} />
+          <RequestButton
+            request={myOpenedRequestMap[malAnime.malId]}
+            createRequest={createRequest}
+            animeInServer={malAnime}
+          />
         </TableCell>
       </TableRow>
     </>
