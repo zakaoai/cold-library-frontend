@@ -29,7 +29,7 @@ const YearSection = <T extends { season?: Season }>({ year, items, renderChild, 
       [Season.UNKNOWN]: 5
     }
 
-    return order[Season[a.toUpperCase() as keyof typeof Season]] - order[Season[b.toUpperCase() as keyof typeof Season]]
+    return order[Season[b.toUpperCase() as keyof typeof Season]] - order[Season[a.toUpperCase() as keyof typeof Season]]
   }
 
   return (
