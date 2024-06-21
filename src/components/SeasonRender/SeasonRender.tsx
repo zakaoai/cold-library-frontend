@@ -1,4 +1,4 @@
-import Season from "@/enums/Season"
+import type Season from "@/enums/Season"
 import usePagination from "@/hooks/usePagination"
 import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
 import { useMemo } from "react"
