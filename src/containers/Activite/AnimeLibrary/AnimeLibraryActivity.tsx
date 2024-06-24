@@ -6,7 +6,7 @@ import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import AnimeLibraryProvider from "@/context/AnimeLibraryProvider"
 import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
-import { useAnimeLibrarContext } from "@/hooks/context/useAnimeLibraryContext"
+import { useAnimeLibraryContext } from "@/hooks/context/useAnimeLibraryContext"
 import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
 import { useCallback, useMemo } from "react"
@@ -16,6 +16,7 @@ import { RenderMode } from "@/enums/RenderMode"
 import { ViewMode } from "@/enums/ViewMode"
 
 import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
+import usePagination from "@/hooks/usePagination"
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
 import GridComponent from "./GridComponent"
 import TableComponent from "./TableComponent"
@@ -31,6 +32,7 @@ const AnimeLibraryActivity = () => {
   const { myOpenedRequestMap, createRequest } = useMyRequest()
 
   const animesFiltered = useMemo(() => animes.filter(filterFunc), [animes, filterFunc])
+  const pagination = usePagination(animesFiltered, 50)
 
   const singleCardRender = useCallback(
     (anime: AnimeDTO) => (
@@ -48,7 +50,7 @@ const AnimeLibraryActivity = () => {
     ),
     [createRequest, myOpenedRequestMap, updateAnime]
   )
-  const { selectedViewMode, selectedRenderMode } = useAnimeLibrarContext()
+  const { selectedViewMode, selectedRenderMode } = useAnimeLibraryContext()
 
   const cardRenderChild = useCallback((animelist: AnimeDTO[]) => animelist.map(singleCardRender), [singleCardRender])
 
@@ -95,13 +97,24 @@ const AnimeLibraryActivity = () => {
               component={renderComponent}
               renderChild={singleRender}
               animeList={animesFiltered.toReversed()}
+              pagination={pagination}
             />
           ),
           [ViewMode.ALPHA]: (
-            <AlphabetRender component={renderComponent} renderChild={renderChild} items={animesFiltered} />
+            <AlphabetRender
+              component={renderComponent}
+              renderChild={renderChild}
+              items={animesFiltered}
+              pagination={pagination}
+            />
           ),
           [ViewMode.SEASON]: (
-            <SeasonRender component={renderComponent} renderChild={renderChild} items={animesFiltered} />
+            <SeasonRender
+              component={renderComponent}
+              renderChild={renderChild}
+              items={animesFiltered}
+              pagination={pagination}
+            />
           )
         }[selectedViewMode]
       }

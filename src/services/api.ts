@@ -1,4 +1,5 @@
 import { API_BASE_URL } from "@/constants/config"
+import Season from "@/enums/Season"
 
 const api = {
   animeEpisode: {
@@ -61,6 +62,11 @@ const api = {
     getAssigned: `${API_BASE_URL}/request/assigned`,
     getAll: `${API_BASE_URL}/request/all`,
     update: (requestId: number) => `${API_BASE_URL}/request/${requestId}`
+  },
+  seasons: {
+    getSeasonsList: `${API_BASE_URL}/seasons`,
+    getSeason: (year: number, season: Season) =>
+      `${API_BASE_URL}/seasons/${year}/${Object.keys(Season)[Object.values(Season).indexOf(season)]}`
   }
 }
 

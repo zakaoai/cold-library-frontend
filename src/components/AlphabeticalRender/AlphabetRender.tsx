@@ -1,4 +1,3 @@
-import usePagination from "@/hooks/usePagination"
 import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
 import { useMemo } from "react"
 import KeyListPagination from "../KeyListPagination/KeyListPagination"
@@ -6,8 +5,13 @@ import AlphabetMenu from "./AlphabetMenu"
 import AlphabetSection from "./AlphabetSection"
 import type IAlphabetRender from "./interface/AlphabetRender"
 
-const AlphabetRender = <T extends { title: string }>({ items, component, renderChild }: IAlphabetRender<T>) => {
-  const { page, handleChangePage, rowsPerPage } = usePagination(items, 50)
+const AlphabetRender = <T extends { title: string }>({
+  items,
+  component,
+  renderChild,
+  pagination
+}: IAlphabetRender<T>) => {
+  const { page, handleChangePage, rowsPerPage } = pagination
 
   const groupedData = useMemo(
     () =>
@@ -52,13 +56,13 @@ const AlphabetRender = <T extends { title: string }>({ items, component, renderC
       </Grid>
       <Grid sx={{ display: "flex" }}>
         <Grid flex={1}>
-          {Object.entries(slicedGroupedData[page])
+          {Object.entries(slicedGroupedData[page] ?? {})
             .toSorted(([akey], [bkey]) => akey.localeCompare(bkey))
             .map(([key, value]) => (
               <AlphabetSection key={key} letter={key} items={value} component={component} renderChild={renderChild} />
             ))}
         </Grid>
-        <AlphabetMenu alphabet={Object.keys(slicedGroupedData[page])} />
+        <AlphabetMenu alphabet={Object.keys(slicedGroupedData[page] ?? {})} />
       </Grid>
     </>
   )

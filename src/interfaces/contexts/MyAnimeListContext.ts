@@ -1,5 +1,7 @@
 import { type RenderMode } from "@/enums/RenderMode"
 import { type ViewMode } from "@/enums/ViewMode"
+
+import type usePagination from "@/hooks/usePagination"
 import { type Dispatch, type SetStateAction } from "react"
 import { type AnimeDTO } from "../services/AnimeService/AnimeDTO"
 import type MALAnime from "../services/UserService/MyAnimeList/MALAnime"
@@ -16,7 +18,5 @@ export default interface MyAnimeListContext {
   selectedRenderMode: RenderMode
   setSelectedRenderMode: Dispatch<SetStateAction<RenderMode>>
   updateAnimeStateFunction: (a: AnimeDTO) => void
-
-  page: number
-  setPage: Dispatch<SetStateAction<number>>
+  pagination: ReturnType<typeof usePagination>
 }

@@ -13,7 +13,7 @@ export default interface MALAnime {
   mean: number
   rank: number
   popularity: number
-  genres: MALGenre[]
+  genres?: MALGenre[]
   media_type: string
   status: string
   num_episodes: number
@@ -21,4 +21,5 @@ export default interface MALAnime {
   broadcast?: MALBroadcast
   rating: string
   userStatus: UserAnimeStatus
+  num_list_users?: number
 }

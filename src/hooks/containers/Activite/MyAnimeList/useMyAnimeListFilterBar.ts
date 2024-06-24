@@ -1,6 +1,7 @@
 import { RenderMode } from "@/enums/RenderMode"
 import { ViewMode } from "@/enums/ViewMode"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
+import type MALGenre from "@/interfaces/services/UserService/MyAnimeList/MALGenre"
 import { type SelectChangeEvent } from "@mui/material"
 import { useCallback, useState, type MouseEvent as ReactMouseEvent } from "react"
 
@@ -14,7 +15,8 @@ const useMyAnimeListFilterBar = () => {
     selectedRenderMode,
     setSelectedRenderMode,
     selectedViewMode,
-    setSelectedViewMode
+    setSelectedViewMode,
+    pagination: { handleChangePage }
   } = useMyAnimeListContext()
 
   const [tempSelectedGenre, setTempSelectedGenre] = useState(selectedGenres)
@@ -29,14 +31,16 @@ const useMyAnimeListFilterBar = () => {
   const handleChangeViewMode = useCallback(
     (_: ReactMouseEvent<HTMLElement>, newView?: ViewMode) => {
       setSelectedViewMode(newView ?? ViewMode.DEFAULT)
+      handleChangePage(null, 0)
     },
-    [setSelectedViewMode]
+    [handleChangePage, setSelectedViewMode]
   )
 
   const handleClearGenre = useCallback(() => {
     setSelectedGenres([])
     setTempSelectedGenre([])
-  }, [setSelectedGenres])
+    handleChangePage(null, 0)
+  }, [handleChangePage, setSelectedGenres])
 
   const handleChangeStatus = useCallback(
     (event: SelectChangeEvent) => {
@@ -44,8 +48,9 @@ const useMyAnimeListFilterBar = () => {
         target: { value }
       } = event
       setuserStatusFilter(value)
+      handleChangePage(null, 0)
     },
-    [setuserStatusFilter]
+    [handleChangePage, setuserStatusFilter]
   )
 
   const handleChangeGenre = useCallback(
@@ -57,13 +62,15 @@ const useMyAnimeListFilterBar = () => {
     },
     [setSelectedGenres]
   )
-  const genres = myAnimeList
+  const genres: MALGenre[] = myAnimeList
     .flatMap(({ genres }) => genres)
+    .filter((a): a is MALGenre => a !== undefined && a !== null)
     .filter((genre, idx, arr) => arr.findIndex(a => a.id === genre.id) === idx)
 
-  const onCloseGenre = () => {
+  const onCloseGenre = useCallback(() => {
     setSelectedGenres(tempSelectedGenre)
-  }
+    handleChangePage(null, 0)
+  }, [handleChangePage, setSelectedGenres, tempSelectedGenre])
 
   return {
     selectedGenres: tempSelectedGenre,

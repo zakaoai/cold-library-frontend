@@ -14,7 +14,7 @@ const useMyAnimeListFilter = (myAnimeList: Array<Omit<MALAnime, "broadcast"> & A
         .filter(
           ({ genres }) =>
             selectedGenres.length === 0 ||
-            genres.some(genre => selectedGenres.some(selectedGenre => genre.name === selectedGenre))
+            genres?.some(genre => selectedGenres.some(selectedGenre => genre.name === selectedGenre))
         ),
     [myAnimeList, selectedGenres, userStatusFilter]
   )

@@ -45,6 +45,10 @@ const SiteMap: ISiteMap = {
   REQUEST: {
     path: "/request",
     label: "Request"
+  },
+  SEASON: {
+    path: "/seasons",
+    label: "Seasons"
   }
 }
 
