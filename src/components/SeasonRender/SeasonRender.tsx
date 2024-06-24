@@ -1,5 +1,4 @@
 import type Season from "@/enums/Season"
-import usePagination from "@/hooks/usePagination"
 import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
 import { useMemo } from "react"
 import KeyListPagination from "../KeyListPagination/KeyListPagination"
@@ -10,9 +9,10 @@ import type ISeasonRender from "./interface/SeasonRender"
 const SeasonRender = <T extends { year?: number; season?: Season }>({
   items,
   renderChild,
-  component
+  component,
+  pagination
 }: ISeasonRender<T>) => {
-  const { page, handleChangePage, rowsPerPage } = usePagination<T>(items, 50)
+  const { page, handleChangePage, rowsPerPage } = pagination
 
   const groupedData = useMemo(
     () =>
@@ -53,13 +53,13 @@ const SeasonRender = <T extends { year?: number; season?: Season }>({
       </Grid>
       <Grid sx={{ display: "flex" }}>
         <Grid flex={1}>
-          {Object.entries(slicedGroupedData[page])
+          {Object.entries(slicedGroupedData[page] ?? {})
             .toSorted(([akey], [bkey]) => bkey.localeCompare(akey))
             .map(([key, value]) => (
               <YearSection key={key} year={key} items={value} component={component} renderChild={renderChild} />
             ))}
         </Grid>
-        <SeasonMenu alphabet={Object.keys(slicedGroupedData[page])} />
+        <SeasonMenu alphabet={Object.keys(slicedGroupedData[page] ?? {})} />
       </Grid>
     </>
   )

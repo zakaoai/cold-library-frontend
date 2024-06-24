@@ -17,7 +17,7 @@ import AnimeCardTrackedButton from "@/components/animeCard/AnimeCardTrackedButto
 import AnimeCompleteButton from "@/components/animeCard/AnimeCompleteButton"
 import { RenderMode } from "@/enums/RenderMode"
 import { ViewMode } from "@/enums/ViewMode"
-import { useAnimeLibrarContext } from "@/hooks/context/useAnimeLibraryContext"
+import { useAnimeLibraryContext } from "@/hooks/context/useAnimeLibraryContext"
 import type IAnimeLibraryFilterBar from "@/interfaces/containers/Activite/AnimeLibrary/AnimeLibraryFilterBar"
 
 import { useCallback, type MouseEvent as ReactMouseEvent } from "react"
@@ -36,7 +36,7 @@ const AnimeLibraryFilterBar = ({ filtersState }: IAnimeLibraryFilterBar) => {
     resetFilters
   } = filtersState
 
-  const { selectedRenderMode, setSelectedRenderMode, selectedViewMode, setSelectedViewMode } = useAnimeLibrarContext()
+  const { selectedRenderMode, setSelectedRenderMode, selectedViewMode, setSelectedViewMode } = useAnimeLibraryContext()
 
   const handleChangeRenderMode = useCallback(
     (_: ReactMouseEvent<HTMLElement>, newRender?: RenderMode) => {

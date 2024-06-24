@@ -18,6 +18,7 @@ const AnimeLibraryActivity = lazy(async () => await import("@/containers/Activit
 const MyAnimeListActivity = lazy(async () => await import("@/containers/Activite/MyAnimeList/MyAnimeListActivity"))
 const AdminLogActivity = lazy(async () => await import("@/containers/Activite/AdminLog/AdminLogActivity"))
 const RequestActivity = lazy(async () => await import("@/containers/Activite/Request/RequestActivity"))
+const SeasonActivity = lazy(async () => await import("@/containers/Activite/Season/SeasonActivity"))
 
 const AppRouter = () => (
   <Route element={<ContextLayout />}>
@@ -32,6 +33,7 @@ const AppRouter = () => (
         <Route path={SiteMap.MYANIMELIST.path} element={<MyAnimeListActivity />} />
         <Route path={SiteMap.ADMIN_LOG.path} element={<AdminLogActivity />} />
         <Route path={SiteMap.REQUEST.path} element={<RequestActivity />} />
+        <Route path={SiteMap.SEASON.path} element={<SeasonActivity />} />
       </Route>
       <Route path={SiteMap.LOGOUT.path} element={<Logout />} />
     </Route>

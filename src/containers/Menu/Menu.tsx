@@ -11,11 +11,12 @@ const Menu = () => {
     SiteMap.ACCUEIL,
     SiteMap.RECHERCHE,
     SiteMap.LIBRAIRIE,
-    SiteMap.TORRENT,
-    SiteMap.ANIME,
+    SiteMap.SEASON,
+    SiteMap.REQUEST,
     SiteMap.MYANIMELIST,
+    SiteMap.TORRENT,
     SiteMap.ADMIN_LOG,
-    SiteMap.REQUEST
+    SiteMap.ANIME
   ]
 
   return (

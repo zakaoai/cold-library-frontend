@@ -39,8 +39,8 @@ const MALRow = ({ malAnime }: MALRowProps) => {
         </TableCell>
         <TableCell sx={{ display: { xs: "none", md: "table-cell" } }}>
           {malAnime.genres
-            .toSorted((a, b) => a.name.localeCompare(b.name))
-            .map(genre =>
+            ?.toSorted((a, b) => a.name.localeCompare(b.name))
+            ?.map(genre =>
               selectedGenres.includes(genre.name) ? (
                 <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
               ) : (
@@ -62,8 +62,8 @@ const MALRow = ({ malAnime }: MALRowProps) => {
         <TableCell align="center">{malAnime.type?.toUpperCase()}</TableCell>
         <TableCell>
           {malAnime.genres
-            .toSorted((a, b) => a.name.localeCompare(b.name))
-            .map(genre =>
+            ?.toSorted((a, b) => a.name.localeCompare(b.name))
+            ?.map(genre =>
               selectedGenres.includes(genre.name) ? (
                 <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
               ) : (
