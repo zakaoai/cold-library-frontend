@@ -18,7 +18,7 @@ import { cardRenderChild, singleCardRender, singleTableRender, tableRenderChild 
 
 const MyAnimeListActivity = () => {
   const { myAnimeList } = useMyAnimeList()
-  const { selectedViewMode, selectedRenderMode } = useMyAnimeListContext()
+  const { selectedViewMode, selectedRenderMode, pagination } = useMyAnimeListContext()
   const { filteredMyAnimeList } = useMyAnimeListFilter(myAnimeList)
 
   const renderComponent = useMemo(
@@ -42,13 +42,28 @@ const MyAnimeListActivity = () => {
       {
         {
           [ViewMode.DEFAULT]: (
-            <DefaultRender component={renderComponent} renderChild={singleRender} animeList={filteredMyAnimeList} />
+            <DefaultRender
+              component={renderComponent}
+              renderChild={singleRender}
+              animeList={filteredMyAnimeList}
+              pagination={pagination}
+            />
           ),
           [ViewMode.ALPHA]: (
-            <AlphabetRender component={renderComponent} renderChild={renderChild} items={filteredMyAnimeList} />
+            <AlphabetRender
+              component={renderComponent}
+              renderChild={renderChild}
+              items={filteredMyAnimeList}
+              pagination={pagination}
+            />
           ),
           [ViewMode.SEASON]: (
-            <SeasonRender component={renderComponent} renderChild={renderChild} items={filteredMyAnimeList} />
+            <SeasonRender
+              component={renderComponent}
+              renderChild={renderChild}
+              items={filteredMyAnimeList}
+              pagination={pagination}
+            />
           )
         }[selectedViewMode]
       }

@@ -24,8 +24,8 @@ const MALCard = ({ malAnime }: MALCardProps) => {
       <CardContent sx={{ paddingTop: 0 }}>
         <Stack direction="row" useFlexGap flexWrap="wrap" spacing={1}>
           {malAnime.genres
-            .toSorted((a, b) => a.name.localeCompare(b.name))
-            .map(genre =>
+            ?.toSorted((a, b) => a.name.localeCompare(b.name))
+            ?.map(genre =>
               selectedGenres.includes(genre.name) ? (
                 <Chip key={`${malAnime.id}-${genre.id}`} label={genre.name} variant="filled" />
               ) : (

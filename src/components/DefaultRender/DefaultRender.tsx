@@ -1,4 +1,4 @@
-import usePagination from "@/hooks/usePagination"
+import type usePagination from "@/hooks/usePagination"
 import { Pagination } from "@mui/material"
 import { useCallback, type ChangeEvent, type ElementType, type ReactNode } from "react"
 
@@ -6,10 +6,11 @@ interface DefaultRenderProps<Anime> {
   animeList: Anime[]
   component: ElementType
   renderChild: (anime: Anime) => ReactNode
+  pagination: ReturnType<typeof usePagination>
 }
 
-const DefaultRender = <T,>({ component: Component, renderChild, animeList }: DefaultRenderProps<T>) => {
-  const { page, handleChangePage, sliceBegin, sliceEnd, rowsPerPage } = usePagination(animeList, 50)
+const DefaultRender = <T,>({ component: Component, renderChild, animeList, pagination }: DefaultRenderProps<T>) => {
+  const { page, handleChangePage, sliceBegin, sliceEnd, rowsPerPage } = pagination
 
   const handleChange = useCallback(
     (_: ChangeEvent<unknown>, value: number) => {
