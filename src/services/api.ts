@@ -15,7 +15,8 @@ const api = {
     updateLastAvaibleEpisode: (malId: number) => `${API_BASE_URL}/anime/${malId}/last_avaible_episode`,
     updateIsComplete: (malId: number) => `${API_BASE_URL}/anime/${malId}/is_complete`,
     updateIsDownloading: (malId: number) => `${API_BASE_URL}/anime/${malId}/is_downloading`,
-    update: (malId: number) => `${API_BASE_URL}/anime/${malId}/update`
+    update: (malId: number) => `${API_BASE_URL}/anime/${malId}/update`,
+    getRecent: `${API_BASE_URL}/anime/recent`
   },
   animeTorrentEpisode: {
     getAnimeEpisodesTorrents: (malId: number) => `${API_BASE_URL}/torrent/${malId}/episodes`,
