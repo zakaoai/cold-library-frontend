@@ -21,7 +21,8 @@ const AnimeServices = {
     await put<boolean, AnimeInServerDTO>(api.anime.updateIsComplete(malId), isComplete),
   updateIsDownloading: async (malId: number, isComplete: boolean) =>
     await put<boolean, AnimeInServerDTO>(api.anime.updateIsDownloading(malId), isComplete),
-  update: async (malId: number) => await get<AnimeDTO>(api.anime.update(malId))
+  update: async (malId: number) => await get<AnimeDTO>(api.anime.update(malId)),
+  getRecent: async () => await get<AnimeDTO[]>(api.anime.getRecent)
 }
 
 export default AnimeServices
