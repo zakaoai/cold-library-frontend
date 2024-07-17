@@ -1,13 +1,12 @@
 import AnimeCardReadComponent from "@/components/AnimeCardRead/AnimeCardReadComponent"
-import AnimeCardReadProvider from "@/components/AnimeCardRead/context/AnimeCardReadProvider"
 import AnimeServices from "@/services/AnimeService"
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight"
 import { CircularProgress, useMediaQuery, useTheme } from "@mui/material"
 import Button from "@mui/material/Button"
 
+import Grid from "@mui/material/Grid"
 import MobileStepper from "@mui/material/MobileStepper"
-import Grid from "@mui/material/Unstable_Grid2/Grid2"
 import { useQuery } from "@tanstack/react-query"
 import { useState } from "react"
 
@@ -42,16 +41,16 @@ const SlideShow = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
   }
 
-  return isFetching ? (
-    <CircularProgress />
-  ) : data !== undefined ? (
+  if (isFetching) {
+    return <CircularProgress />
+  }
+
+  return data !== undefined ? (
     <>
       <Grid container spacing={1} justifyContent="center">
-        {data?.slice(activeStep, activeStep + diplayedItems.true)?.map(anime => (
-          <Grid key={anime.malId} lg={3} md={4} xs={12} sm={6}>
-            <AnimeCardReadProvider anime={anime} showEpisodeLink={!(anime.storageState === null)}>
-              <AnimeCardReadComponent />
-            </AnimeCardReadProvider>
+        {data.slice(activeStep, activeStep + diplayedItems.true).map(anime => (
+          <Grid key={anime.malId} size={{ lg: 3, md: 4, xs: 12, sm: 6 }}>
+            <AnimeCardReadComponent anime={anime} showEpisodeLink={anime.storageState !== null} />
           </Grid>
         ))}
       </Grid>

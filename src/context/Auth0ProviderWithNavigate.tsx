@@ -1,7 +1,7 @@
 import { APP_AUTH0_AUDIENCE, APP_AUTH0_CLIENT_ID, APP_AUTH0_DOMAIN } from "@/constants/config"
 import { Auth0Provider, type AppState } from "@auth0/auth0-react"
-import { type PropsWithChildren } from "react"
-import { useNavigate } from "react-router-dom"
+import type { PropsWithChildren } from "react"
+import { useNavigate } from "react-router"
 
 const Auth0ProviderWithNavigate = ({ children }: PropsWithChildren) => {
   const navigate = useNavigate()

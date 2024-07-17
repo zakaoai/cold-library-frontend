@@ -1,5 +1,5 @@
 import IconButton from "@mui/material/IconButton"
-import { Link } from "react-router-dom"
+import { Link } from "react-router"
 
 import MoreIcon from "@mui/icons-material/More"
 import { useAnimeCardReadContext } from "./hooks/useAnimeCardContext"

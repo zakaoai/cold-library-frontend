@@ -1,17 +1,17 @@
 import type IMenuMobileDrawer from "@/interfaces/containers/Menu/MenuMobileDrawer"
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft"
 import ChevronRightIcon from "@mui/icons-material/ChevronRight"
+import { ListItemButton } from "@mui/material"
 import Box from "@mui/material/Box"
 import Divider from "@mui/material/Divider"
 import Drawer from "@mui/material/Drawer"
 import IconButton from "@mui/material/IconButton"
 import List from "@mui/material/List"
-import ListItem from "@mui/material/ListItem"
 import ListItemIcon from "@mui/material/ListItemIcon"
 import ListItemText from "@mui/material/ListItemText"
-import useTheme from "@mui/material/styles/useTheme"
+import { useTheme } from "@mui/material/styles"
 
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router"
 
 const MenuMobileDrawer = ({ handleClose, links, open }: IMenuMobileDrawer) => {
   const theme = useTheme()
@@ -36,8 +36,7 @@ const MenuMobileDrawer = ({ handleClose, links, open }: IMenuMobileDrawer) => {
         {links
           .filter(link => link.hideInMenu !== true)
           .map(link => (
-            <ListItem
-              button
+            <ListItemButton
               key={link.label}
               selected={link.path === location.pathname}
               component={NavLink}
@@ -46,7 +45,7 @@ const MenuMobileDrawer = ({ handleClose, links, open }: IMenuMobileDrawer) => {
                 <ChevronRightIcon />
               </ListItemIcon>
               <ListItemText primary={link.label} />
-            </ListItem>
+            </ListItemButton>
           ))}
       </List>
     </Drawer>

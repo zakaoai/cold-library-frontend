@@ -39,7 +39,7 @@ const useRequest = () => {
     console.error(
       "Une erreur est survenue lors de la mise à jour d'une request pour l'anime %s avec le status %s",
       requestInput.malId,
-      error?.response?.status
+      error.response?.status
     )
   }, [])
 

@@ -6,7 +6,7 @@ import useProfil from "@/hooks/containers/Activite/Profile/useProfile"
 import { headers } from "@/services/request/request"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useEffect } from "react"
-import { Outlet } from "react-router-dom"
+import { Outlet } from "react-router"
 
 const AuthenticateOutlet = () => {
   const { getAccessTokenSilently, isAuthenticated, isLoading } = useAuth0()

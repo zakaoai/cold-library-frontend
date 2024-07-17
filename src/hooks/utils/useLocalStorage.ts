@@ -15,9 +15,7 @@ const removeLocalStorageItem = (key: string) => {
   dispatchStorageEvent(key, null)
 }
 
-const getLocalStorageItem = (key: string) => {
-  return window.localStorage.getItem(key)
-}
+const getLocalStorageItem = (key: string) => window.localStorage.getItem(key)
 
 const useLocalStorageSubscribe = (callback: () => void) => {
   window.addEventListener("storage", callback)

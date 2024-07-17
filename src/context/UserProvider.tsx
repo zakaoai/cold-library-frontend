@@ -5,7 +5,10 @@ import UserContext from "./UserContext"
 const UserProvider = ({ children }: PropsWithChildren) => {
   const { user, isAuthenticated, isLoading } = useAuth0()
 
-  const isAdmin = useMemo(() => (user?.["zakaoai.eu.auth0.com/roles"] as string[])?.includes("Admin"), [user])
+  const isAdmin = useMemo(
+    () => (user?.["zakaoai.eu.auth0.com/roles"] as string[] | undefined)?.includes("Admin") ?? false,
+    [user]
+  )
 
   const contextValue = useMemo(
     () => ({

@@ -1,6 +1,6 @@
-import { type Dispatch, type SetStateAction } from "react"
-import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { type AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
+import type { Dispatch, SetStateAction } from "react"
+import type { AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type { AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
 
 export default interface AnimeTorrentContext {
   updateTrackedAnime: (updatedTrackedAnime: AnimeTorrentDTO) => void

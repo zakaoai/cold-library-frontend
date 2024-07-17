@@ -1,6 +1,6 @@
 import type usePagination from "@/hooks/usePagination"
 import { Pagination } from "@mui/material"
-import { useCallback, type ChangeEvent, type ElementType, type ReactNode } from "react"
+import { useCallback, useMemo, type ChangeEvent, type ElementType, type ReactNode } from "react"
 
 interface DefaultRenderProps<Anime> {
   animeList: Anime[]
@@ -14,29 +14,32 @@ const DefaultRender = <T,>({ component: Component, renderChild, animeList, pagin
 
   const handleChange = useCallback(
     (_: ChangeEvent<unknown>, value: number) => {
+      window.scrollTo(0, 0)
       handleChangePage(null, value - 1)
     },
     [handleChangePage]
   )
 
+  const paginationRender = useMemo(
+    () => (
+      <Pagination
+        count={Math.ceil(animeList.length / rowsPerPage)}
+        page={page + 1}
+        onChange={handleChange}
+        sx={{ justifyContent: "center", display: "flex" }}
+        size="medium"
+      />
+    ),
+    [animeList.length, handleChange, page, rowsPerPage]
+  )
+
   return (
     <>
-      <Pagination
-        count={Math.ceil(animeList.length / rowsPerPage)}
-        page={page + 1}
-        onChange={handleChange}
-        sx={{ justifyContent: "center", display: "flex" }}
-        size="medium"
-      />
+      {paginationRender}
       <Component>{animeList.slice(sliceBegin, sliceEnd).map(renderChild)}</Component>
-      <Pagination
-        count={Math.ceil(animeList.length / rowsPerPage)}
-        page={page + 1}
-        onChange={handleChange}
-        sx={{ justifyContent: "center", display: "flex" }}
-        size="medium"
-      />
+      {paginationRender}
     </>
   )
 }
+
 export default DefaultRender

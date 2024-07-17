@@ -20,7 +20,7 @@ const YearSection = <T extends { season?: Season }>({ year, items, renderChild, 
   const entriesItems = Object.entries(seasonItems)
 
   const seasonSorted = ([a]: (typeof entriesItems)[0], [b]: (typeof entriesItems)[0]) => {
-    const order: { [key in Season]: number } = {
+    const order: Record<Season, number> = {
       [Season.WINTER]: 0,
       [Season.SPRING]: 1,
       [Season.SUMMER]: 2,

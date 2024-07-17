@@ -1,15 +1,13 @@
 import { Typography } from "@mui/material"
 import type IAlphabetSection from "./interface/AlphabetSection"
 
-const AlphabetSection = <T,>({ letter, items, component: Component, renderChild }: IAlphabetSection<T>) => {
-  return (
-    <>
-      <Typography id={letter.toUpperCase()} variant="h5" component="h2" gutterBottom>
-        {letter}
-      </Typography>
-      <Component>{renderChild(items)}</Component>
-    </>
-  )
-}
+const AlphabetSection = <T,>({ letter, items, component: Component, renderChild }: IAlphabetSection<T>) => (
+  <>
+    <Typography id={letter.toUpperCase()} variant="h5" component="h2" gutterBottom>
+      {letter}
+    </Typography>
+    <Component>{renderChild(items)}</Component>
+  </>
+)
 
 export default AlphabetSection

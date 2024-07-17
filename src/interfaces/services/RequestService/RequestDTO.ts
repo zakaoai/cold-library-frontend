@@ -8,7 +8,7 @@ export default interface RequestDTO {
   malImg?: string
   type: RequestType
   state: RequestStatus
-  date: [number, number, number, number, number]
+  date: [number, number, number, number, number, number, number]
   creator: string
   assignedUser?: string
 }

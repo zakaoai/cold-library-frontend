@@ -1,5 +1,5 @@
 import type Season from "@/enums/Season"
-import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
+import Grid from "@mui/material/Grid" // Grid version 2
 import { useMemo } from "react"
 import KeyListPagination from "../KeyListPagination/KeyListPagination"
 import SeasonMenu from "./SeasonMenu"
@@ -60,6 +60,9 @@ const SeasonRender = <T extends { year?: number; season?: Season }>({
             ))}
         </Grid>
         <SeasonMenu alphabet={Object.keys(slicedGroupedData[page] ?? {})} />
+      </Grid>
+      <Grid sx={{ maxWidth: "fit-content", margin: "auto" }}>
+        <KeyListPagination onClick={handleChangePage} page={page} slicedGroupedData={slicedGroupedData} reversed />
       </Grid>
     </>
   )

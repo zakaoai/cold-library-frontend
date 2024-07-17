@@ -1,4 +1,4 @@
-import { type PropsWithChildren } from "react"
+import { useMemo, type PropsWithChildren } from "react"
 import type IAnimeCardProvider from "../interface/AnimeCardProvider"
 import AnimeCardReadContext from "./AnimeCardReadContext"
 
@@ -8,16 +8,16 @@ const AnimeCardReadProvider = ({
   showEpisodeLink = false,
   imageHeight = "190px"
 }: PropsWithChildren & IAnimeCardProvider) => {
-  return (
-    <AnimeCardReadContext.Provider
-      value={{
-        anime,
-        showEpisodeLink,
-        imageHeight
-      }}>
-      {children}
-    </AnimeCardReadContext.Provider>
+  const value = useMemo(
+    () => ({
+      anime,
+      showEpisodeLink,
+      imageHeight
+    }),
+    [anime, imageHeight, showEpisodeLink]
   )
+
+  return <AnimeCardReadContext.Provider value={value}>{children}</AnimeCardReadContext.Provider>
 }
 
 export default AnimeCardReadProvider

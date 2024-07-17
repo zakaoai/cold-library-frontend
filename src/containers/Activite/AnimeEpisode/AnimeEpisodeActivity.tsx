@@ -1,50 +1,49 @@
+import AnimeCardReadComponent from "@/components/AnimeCardRead/AnimeCardReadComponent"
+import AnimeCardReadEpisodeBottomAction from "@/containers/Activite/AnimeEpisode/AnimeCardReadEpisodeBottomAction"
+import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
 import useAnimeLibrary from "@/hooks/containers/AnimeEpisode/useAnimeLibrary"
+import type AnimeEpisodeParams from "@/interfaces/containers/Activite/AnimeEpisode/AnimeEpisodeParams"
 import CircularProgress from "@mui/material/CircularProgress"
 import Grid from "@mui/material/Grid"
-
-import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
-import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
-import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
-import type AnimeEpisodeParams from "@/interfaces/containers/Activite/AnimeEpisode/AnimeEpisodeParams"
-import { useParams } from "react-router-dom"
+import { useParams } from "react-router"
 import AnimeEpisodeBar from "./AnimeEpisodeBar"
 import EpisodeTable from "./EpisodeTable"
 
 const AnimeEpisodeActivity = () => {
   const { malId } = useParams<AnimeEpisodeParams>()
-  const { anime, isFetching, updateAnime, updateAnimeInfos } = useAnimeLibrary(parseInt(malId ?? ""))
+  const { anime, isFetching, updateAnimeInfos, updateAnime } = useAnimeLibrary(parseInt(malId ?? ""))
   const { myOpenedRequestMap, createRequest } = useMyRequest()
 
   return (
-    <>
-      <Grid container justifyContent="center" spacing={2}>
-        {isFetching ? (
-          <CircularProgress />
-        ) : (
-          <>
-            <Grid item xs={12}>
-              <AnimeEpisodeBar update={updateAnimeInfos} />
-            </Grid>
+    <Grid container justifyContent="center" spacing={2}>
+      {isFetching ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <Grid size={{ xs: 12 }}>
+            <AnimeEpisodeBar update={updateAnimeInfos} />
+          </Grid>
 
-            <Grid item xs={12} md={3}>
-              {anime !== undefined && (
-                <AnimeCardProvider
-                  anime={anime}
-                  updateAnime={updateAnime}
-                  imageHeight={"300px"}
-                  request={myOpenedRequestMap[anime.malId]}
-                  createRequest={createRequest}>
-                  <AnimeCardComponent />
-                </AnimeCardProvider>
-              )}
-            </Grid>
-            <Grid item xs={12} md={9}>
-              {malId !== undefined && <EpisodeTable malId={parseInt(malId)} />}
-            </Grid>
-          </>
-        )}
-      </Grid>
-    </>
+          <Grid size={{ xs: 12, md: 3 }}>
+            {anime !== undefined && (
+              <AnimeCardReadComponent
+                anime={anime}
+                actions={
+                  <AnimeCardReadEpisodeBottomAction
+                    updateAnime={updateAnime}
+                    showAddOrRemoveFromLibrary
+                    request={myOpenedRequestMap[anime.malId]}
+                    createRequest={createRequest}
+                    anime={anime}
+                  />
+                }
+              />
+            )}
+          </Grid>
+          <Grid size={{ xs: 12, md: 9 }}>{malId !== undefined && <EpisodeTable malId={parseInt(malId)} />}</Grid>
+        </>
+      )}
+    </Grid>
   )
 }
 

@@ -1,6 +1,6 @@
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 
-import useTheme from "@mui/material/styles/useTheme"
+import { useTheme } from "@mui/material/styles"
 import useMediaQuery from "@mui/material/useMediaQuery"
 import AnimeEpisodeTorrentRowDesktop from "./AnimeEpisodeTorrentRowDesktop"
 import AnimeEpisodeTorrentRowMobile from "./AnimeEpisodeTorrentRowMobile"

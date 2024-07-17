@@ -1,7 +1,7 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import useAppContext from "@/hooks/context/useAppContext"
-import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
@@ -42,7 +42,7 @@ const useAnimeTorrentAction = () => {
       console.error(
         "Une erreur est survenue lors du scan des episodes de l'anime %s avec le status %s",
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [malId]
@@ -70,7 +70,7 @@ const useAnimeTorrentAction = () => {
       console.error(
         "Une erreur est survenue lors du scan du pack de l'anime %s avec le status %s",
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [malId]
@@ -97,7 +97,7 @@ const useAnimeTorrentAction = () => {
       console.error(
         "Une erreur est survenue lors du scan du prochain episode de l'anime %s avec le status %s",
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [malId]

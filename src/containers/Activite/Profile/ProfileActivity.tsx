@@ -4,7 +4,7 @@ import { AppBar, Button, Table, TableBody, TableCell, TableRow } from "@mui/mate
 import Card from "@mui/material/Card"
 import CardContent from "@mui/material/CardContent"
 import CardMedia from "@mui/material/CardMedia"
-import Grid from "@mui/material/Unstable_Grid2"
+import Grid from "@mui/material/Grid"
 import EditProfilModal from "./EditProfilModal"
 
 const Profile = () => {
@@ -16,16 +16,16 @@ const Profile = () => {
 
   return (
     <Grid container spacing={2}>
-      <Grid xs={12}>
+      <Grid size={{ xs: 12 }}>
         <AppBar position="relative" color="transparent">
-          <Grid xsOffset={10} xs={2}>
+          <Grid offset={{ xs: 10 }} size={{ xs: 2 }}>
             <Button onClick={onClickEditProfil} title={"Edit"} startIcon={<ModeEditIcon />}>
               Editer le profil
             </Button>
           </Grid>
         </AppBar>
       </Grid>
-      <Grid xs={4}>
+      <Grid size={{ xs: 4 }}>
         <Card>
           <CardMedia sx={{ height: 200 }} image={user?.picture} />
           <CardContent sx={{ padding: 0 }}>

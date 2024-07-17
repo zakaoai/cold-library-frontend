@@ -1,5 +1,5 @@
-import Season from "@/enums/Season"
-import { type ElementType, type ReactNode } from "react"
+import type Season from "@/enums/Season"
+import type { ElementType, ReactNode } from "react"
 
 export default interface YearSection<Anime extends { season?: Season }> {
   year: string

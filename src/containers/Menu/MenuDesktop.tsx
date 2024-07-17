@@ -4,7 +4,7 @@ import Tab from "@mui/material/Tab"
 import Tabs from "@mui/material/Tabs"
 import Toolbar from "@mui/material/Toolbar"
 
-import { NavLink, useLocation } from "react-router-dom"
+import { NavLink, useLocation } from "react-router"
 
 import IconButton from "@mui/material/IconButton"
 

@@ -11,7 +11,7 @@ import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import { useTheme } from "@mui/material/styles"
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation } from "react-router"
 import MenuMobileDrawer from "./MenuMobileDrawer"
 
 const MenuMobile = ({ links }: Menu) => {
@@ -43,7 +43,7 @@ const MenuMobile = ({ links }: Menu) => {
             <MenuIcon />
           </IconButton>
           {links
-            .filter(link => location.pathname.match(new RegExp(link.path)))
+            .filter(link => new RegExp(link.path).exec(location.pathname))
             .map(link => (
               <Typography key={link.label} variant="h6" component="div" sx={{ flexGrow: 1 }}>
                 {link.label}
