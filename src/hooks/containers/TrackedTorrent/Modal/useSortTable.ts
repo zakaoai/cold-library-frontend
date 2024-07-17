@@ -18,11 +18,10 @@ const useSortTable = <Type extends object>() => {
   }, [])
 
   const getComparator = useCallback(
-    (order: order, orderBy: keyof Type) => {
-      return order === "desc"
+    (order: order, orderBy: keyof Type) =>
+      order === "desc"
         ? (a: Type, b: Type) => descendingComparator(a, b, orderBy)
-        : (a: Type, b: Type) => -descendingComparator(a, b, orderBy)
-    },
+        : (a: Type, b: Type) => -descendingComparator(a, b, orderBy),
     [descendingComparator]
   )
 

@@ -7,8 +7,8 @@ const generateMALAnime = (): MALAnime => ({
   id: faker.number.int(),
   title: faker.lorem.words(3),
   main_picture: {
-    medium: faker.image.imageUrl(),
-    large: faker.image.imageUrl()
+    medium: faker.image.url(),
+    large: faker.image.url()
   },
   start_date: faker.date.past().toISOString(),
   end_date: faker.date.past().toISOString(),
@@ -28,7 +28,7 @@ const generateMALAnime = (): MALAnime => ({
   },
   broadcast: {
     day_of_the_week: faker.lorem.word(),
-    start_time: faker.datatype.string()
+    start_time: faker.string.sample()
   },
   rating: faker.lorem.word(),
   userStatus: faker.helpers.enumValue(UserAnimeStatus)

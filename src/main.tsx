@@ -1,7 +1,9 @@
-import * as React from "react"
+import { StrictMode } from "react"
 import { createRoot } from "react-dom/client"
 import App from "./App.tsx"
 import "./index.css"
+// Why Did You Render Helper
+// import "./wdyr"
 
 const prepare = async (): Promise<void> => {
   // if (import.meta.env.DEV) {
@@ -14,9 +16,9 @@ const rootDom = document.getElementById("root")
 if (rootDom !== null) {
   await prepare().finally(() => {
     createRoot(rootDom).render(
-      <React.StrictMode>
+      <StrictMode>
         <App />
-      </React.StrictMode>
+      </StrictMode>
     )
   })
 }

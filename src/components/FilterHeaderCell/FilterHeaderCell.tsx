@@ -9,23 +9,21 @@ const FilterHeaderCell = <Type extends object>({
   orderBy,
   order,
   sortBy
-}: IFilterHeaderCell<Type>) => {
-  return (
-    <TableCell key={id} sortDirection={orderBy === id ? order : false}>
-      {filter !== undefined ? (
-        <TableSortLabel
-          active={orderBy === id}
-          direction={orderBy === id ? order : "asc"}
-          onClick={() => {
-            sortBy(id as Extract<keyof Type, string>)
-          }}>
-          {label}
-        </TableSortLabel>
-      ) : (
-        label
-      )}
-    </TableCell>
-  )
-}
+}: IFilterHeaderCell<Type>) => (
+  <TableCell key={id} sortDirection={orderBy === id ? order : false}>
+    {filter !== undefined ? (
+      <TableSortLabel
+        active={orderBy === id}
+        direction={orderBy === id ? order : "asc"}
+        onClick={() => {
+          sortBy(id as Extract<keyof Type, string>)
+        }}>
+        {label}
+      </TableSortLabel>
+    ) : (
+      label
+    )}
+  </TableCell>
+)
 
 export default FilterHeaderCell

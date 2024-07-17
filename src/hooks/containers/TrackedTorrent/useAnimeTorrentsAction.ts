@@ -29,7 +29,7 @@ const useAnimeTorrentsAction = () => {
   const onErrorUpdateAllDeluge = useCallback((error: ResponseError) => {
     console.error(
       "Une erreur est survenue lors de la mise à jour des état des torrents le status %s",
-      error?.response?.status
+      error.response?.status
     )
   }, [])
 

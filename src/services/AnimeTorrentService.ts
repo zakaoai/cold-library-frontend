@@ -1,4 +1,4 @@
-import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 
 import api from "./api"
 import { deleteRequest, get, patch, post, put } from "./request/request"

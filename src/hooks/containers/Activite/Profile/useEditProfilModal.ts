@@ -51,7 +51,7 @@ const useEditProfilModal = (handleClose: () => void) => {
   )
 
   const onErrorScanEpisodes = useCallback((error: ResponseError) => {
-    console.error("Une erreur est survenue lors de la mise à jour du profile utilisateur %s", error?.response?.status)
+    console.error("Une erreur est survenue lors de la mise à jour du profile utilisateur %s", error.response?.status)
   }, [])
 
   const { mutate: updateCurrentMalUsername } = useMutation({

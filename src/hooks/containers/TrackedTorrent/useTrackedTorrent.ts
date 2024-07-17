@@ -1,6 +1,6 @@
 import useAppContext from "@/hooks/context/useAppContext"
-import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQuery } from "@tanstack/react-query"
@@ -20,7 +20,7 @@ const useTrackedTorrent = () => {
     retry: false,
     enabled: torrentLibrary === undefined || torrentLibrary.length === 0
   })
-  const prevAnimeTorrents = useRef<AnimeTorrentDTO[]>()
+  const prevAnimeTorrents = useRef<AnimeTorrentDTO[]>(null)
   useEffect(() => {
     if (isAnimeTorrentsFetched && animeTorrents !== undefined && animeTorrents !== prevAnimeTorrents.current) {
       prevAnimeTorrents.current = animeTorrents
@@ -39,7 +39,7 @@ const useTrackedTorrent = () => {
     retry: false,
     enabled: torrentEpisodeLibrary === undefined || torrentEpisodeLibrary.length === 0
   })
-  const prevTorrentEpisodes = useRef<AnimeEpisodeTorrentDTO[]>()
+  const prevTorrentEpisodes = useRef<AnimeEpisodeTorrentDTO[]>(null)
   useEffect(() => {
     if (isTorrentEpisodesFetched && torrentEpisodes !== undefined && torrentEpisodes !== prevTorrentEpisodes.current) {
       prevTorrentEpisodes.current = torrentEpisodes

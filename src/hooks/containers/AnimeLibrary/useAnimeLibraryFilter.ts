@@ -1,17 +1,20 @@
 import StorageState from "@/enums/StorageState"
-import { type Filters } from "@/interfaces/containers/Activite/AnimeLibrary/Filters"
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { useEffect, useState } from "react"
+import type { Filters } from "@/interfaces/containers/Activite/AnimeLibrary/Filters"
+import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 // Filter list of anime and store filters in localStorage
 const useAnimeLibraryFilter = () => {
-  const defaultFilters = {
-    filterStorageState: StorageState.FLUX_FROID,
-    filterTrackedAnime: false,
-    filterCompletedAnime: false,
-    isFilterTrackedAnimeApplied: false,
-    isFilterCompletedAnimeApplied: false
-  }
+  const defaultFilters = useMemo(
+    () => ({
+      filterStorageState: StorageState.FLUX_FROID,
+      filterTrackedAnime: false,
+      filterCompletedAnime: false,
+      isFilterTrackedAnimeApplied: false,
+      isFilterCompletedAnimeApplied: false
+    }),
+    []
+  )
 
   const [filters, setFilters] = useState<Filters>({
     ...defaultFilters,
@@ -21,9 +24,9 @@ const useAnimeLibraryFilter = () => {
   const [filterFunc, setFilterFunc] = useState<(_: AnimeDTO) => boolean>(() => () => false)
 
   // func that set all filter to default
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     setFilters(defaultFilters)
-  }
+  }, [defaultFilters])
 
   useEffect(() => {
     localStorage.setItem("animeLibraryFilters", JSON.stringify(filters))
@@ -50,24 +53,28 @@ const useAnimeLibraryFilter = () => {
     )
   }, [filters])
 
-  const setFilterStorageState = (state: StorageState) => {
+  const setFilterStorageState = useCallback((state: StorageState) => {
     setFilters(f => ({ ...f, filterStorageState: state }))
-  }
-  const alternateFilterTrackedAnime = () => {
-    setFilters(f => ({ ...f, filterTrackedAnime: !f.filterTrackedAnime }))
-  }
-  const alternateIsFilterTrackedAnimeApplied = () => {
-    setFilters(f => ({ ...f, isFilterTrackedAnimeApplied: !f.isFilterTrackedAnimeApplied }))
-  }
-  const alternateFilterCompletedAnime = () => {
-    setFilters(f => ({ ...f, filterCompletedAnime: !f.filterCompletedAnime }))
-  }
-  const alternateIsFilterCompleteAnimeApplied = () => {
-    setFilters(f => ({ ...f, isFilterCompletedAnimeApplied: !f.isFilterCompletedAnimeApplied }))
-  }
+  }, [])
 
-  return {
-    filtersState: {
+  const alternateFilterTrackedAnime = useCallback(() => {
+    setFilters(f => ({ ...f, filterTrackedAnime: !f.filterTrackedAnime }))
+  }, [])
+
+  const alternateIsFilterTrackedAnimeApplied = useCallback(() => {
+    setFilters(f => ({ ...f, isFilterTrackedAnimeApplied: !f.isFilterTrackedAnimeApplied }))
+  }, [])
+
+  const alternateFilterCompletedAnime = useCallback(() => {
+    setFilters(f => ({ ...f, filterCompletedAnime: !f.filterCompletedAnime }))
+  }, [])
+
+  const alternateIsFilterCompleteAnimeApplied = useCallback(() => {
+    setFilters(f => ({ ...f, isFilterCompletedAnimeApplied: !f.isFilterCompletedAnimeApplied }))
+  }, [])
+
+  const filtersState = useMemo(
+    () => ({
       ...filters,
       setFilterStorageState,
       alternateFilterTrackedAnime,
@@ -75,7 +82,20 @@ const useAnimeLibraryFilter = () => {
       alternateFilterCompletedAnime,
       alternateIsFilterCompleteAnimeApplied,
       resetFilters
-    },
+    }),
+    [
+      alternateFilterCompletedAnime,
+      alternateFilterTrackedAnime,
+      alternateIsFilterCompleteAnimeApplied,
+      alternateIsFilterTrackedAnimeApplied,
+      filters,
+      resetFilters,
+      setFilterStorageState
+    ]
+  )
+
+  return {
+    filtersState,
     filterFunc
   }
 }

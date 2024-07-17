@@ -1,10 +1,10 @@
-import { type DayOfWeek } from "@/enums/DayOfWeek"
+import type DayOfWeek from "@/constants/DayOfWeek"
 
 export interface AnimeTorrentDTO {
   malId: number
   lastEpisodeOnServer: number
   searchWords: string
-  dayOfRelease: DayOfWeek
+  dayOfRelease: keyof typeof DayOfWeek
   deltaEpisode: number
   torrentPath: string
   title: string

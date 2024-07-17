@@ -12,7 +12,7 @@ const useDownloadDelugeAction = (malId: number, episodeNumber: number) => {
     (delugeEpisodeTorrent: DelugeEpisodeTorrent) => {
       setTorrentEpisodeLibrary(prev =>
         prev.map(ep =>
-          ep.torrentId === delugeEpisodeTorrent.torrentId ? { ...ep, progress: delugeEpisodeTorrent?.progress } : ep
+          ep.torrentId === delugeEpisodeTorrent.torrentId ? { ...ep, progress: delugeEpisodeTorrent.progress } : ep
         )
       )
     },
@@ -25,7 +25,7 @@ const useDownloadDelugeAction = (malId: number, episodeNumber: number) => {
         "Une erreur est survenue lors du téléchargement via deluge de l'episode %s tracked de l'anime %s avec le status %s",
         episodeNumber,
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [episodeNumber, malId]

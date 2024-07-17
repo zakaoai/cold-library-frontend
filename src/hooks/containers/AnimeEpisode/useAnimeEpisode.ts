@@ -1,4 +1,4 @@
-import { type AnimeEpisodeDTO } from "@/interfaces/services/AnimeEpisodeService/AnimeEpisodeDTO"
+import type { AnimeEpisodeDTO } from "@/interfaces/services/AnimeEpisodeService/AnimeEpisodeDTO"
 import AnimeEpisodeService from "@/services/AnimeEpisodeService"
 import { useQuery } from "@tanstack/react-query"
 import { useCallback, useEffect, useState } from "react"

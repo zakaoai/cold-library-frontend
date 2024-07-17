@@ -4,6 +4,4 @@ import generateMALAnime from "./MALAnimeFactory"
 
 const malAnimeList = Array.from({ length: 50 }, () => generateMALAnime())
 
-export const mockedAnimeList = http.get(api.user.animelist, () => {
-  return HttpResponse.json(malAnimeList)
-})
+export const mockedAnimeList = http.get(api.user.animelist, () => HttpResponse.json(malAnimeList))

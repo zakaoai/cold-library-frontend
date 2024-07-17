@@ -1,30 +1,37 @@
+import InLibraryStateButtonGeneric from "@/components/InLibraryStateButtonGeneric/InLibraryStateButtonGeneric"
 import RequestStatus from "@/enums/RequestStatus"
 import type RequestType from "@/enums/RequestType"
+import useUpdateAnimeStorageStateLight from "@/hooks/components/useUpdateAnimeStorageStateLight"
 import useRequest from "@/hooks/containers/Activite/Request/useRequest"
+import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import usePagination from "@/hooks/usePagination"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
+import { formatJavaLocalDateTimeArray } from "@/utils/dateUtils"
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove"
 import PendingIcon from "@mui/icons-material/Pending"
 import ThumbDownIcon from "@mui/icons-material/ThumbDown"
 import ThumbUpIcon from "@mui/icons-material/ThumbUp"
-import { TablePagination } from "@mui/material"
 import IconButton from "@mui/material/IconButton"
+import Link from "@mui/material/Link"
 import Paper from "@mui/material/Paper"
 import Table from "@mui/material/Table"
 import TableBody from "@mui/material/TableBody"
 import TableCell from "@mui/material/TableCell"
 import TableContainer from "@mui/material/TableContainer"
 import TableHead from "@mui/material/TableHead"
+import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 import Tooltip from "@mui/material/Tooltip"
-import { format } from "date-fns/format"
 import { useCallback } from "react"
+import { NavLink } from "react-router"
 
 const RequestActivity = () => {
   const { requests, updateRequest } = useRequest()
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination<RequestDTO>(requests ?? [])
+  const { animes } = useLibrary()
+  const { updateAnime } = useUpdateAnimeStorageStateLight()
 
   const renderRequestState = useCallback(
     (requestStatus: RequestStatus) =>
@@ -66,74 +73,84 @@ const RequestActivity = () => {
   )
 
   const requestRender = useCallback(
-    (request: RequestDTO) => (
-      <TableRow key={request.id}>
-        <TableCell>
-          <a href={`https://myanimelist.net/anime/${request.malId}`} target="_blank" rel="noreferrer">
-            <img srcSet={`${request?.malImg} 318w`} sizes="70px" alt={request.animeTitle} loading="lazy" />
-          </a>
-        </TableCell>
-        <TableCell>{request.animeTitle} </TableCell>
-        <TableCell>{renderRequestType(request.type)} </TableCell>
-        <TableCell>{Array.isArray(request.date) && format(new Date(...request.date), "dd/MM/yyyy HH:mm:ss")}</TableCell>
-        <TableCell>{renderRequestState(request.state)} </TableCell>
-        <TableCell>{request.creator} </TableCell>
-        <TableCell>{request.assignedUser} </TableCell>
-        <TableCell>
-          {request.state === RequestStatus.PENDING ? (
-            <>
-              <IconButton
-                color="success"
-                onClick={() => {
-                  updateRequest({ ...request, state: RequestStatus.ACCEPTED })
-                }}>
-                <ThumbUpIcon />
-              </IconButton>
-              <IconButton
-                color="error"
-                onClick={() => {
-                  updateRequest({ ...request, state: RequestStatus.REJECTED })
-                }}>
-                <ThumbDownIcon />
-              </IconButton>
-            </>
-          ) : undefined}
-        </TableCell>
-      </TableRow>
-    ),
-    [renderRequestState, renderRequestType]
+    (request: RequestDTO) => {
+      const animeInServer = animes.find(({ malId }) => request.malId === malId)
+      return (
+        <TableRow key={request.id}>
+          <TableCell>
+            <a href={`https://myanimelist.net/anime/${request.malId}`} target="_blank" rel="noreferrer">
+              <img srcSet={`${request.malImg} 318w`} sizes="70px" alt={request.animeTitle} loading="lazy" />
+            </a>
+          </TableCell>
+          <TableCell>
+            {animeInServer !== undefined ? (
+              <Link to={`/app/anime/${request.malId}`} component={NavLink}>
+                {request.animeTitle}
+              </Link>
+            ) : (
+              request.animeTitle
+            )}
+          </TableCell>
+          <TableCell>{renderRequestType(request.type)} </TableCell>
+          <TableCell>{formatJavaLocalDateTimeArray(request.date)}</TableCell>
+          <TableCell>{renderRequestState(request.state)} </TableCell>
+          <TableCell>{request.creator} </TableCell>
+          <TableCell>{request.assignedUser} </TableCell>
+          <TableCell>
+            {request.state === RequestStatus.PENDING ? (
+              <>
+                <IconButton
+                  color="success"
+                  onClick={() => {
+                    updateRequest({ ...request, state: RequestStatus.ACCEPTED })
+                  }}>
+                  <ThumbUpIcon />
+                </IconButton>
+                <IconButton
+                  color="error"
+                  onClick={() => {
+                    updateRequest({ ...request, state: RequestStatus.REJECTED })
+                  }}>
+                  <ThumbDownIcon />
+                </IconButton>
+              </>
+            ) : undefined}
+            <InLibraryStateButtonGeneric anime={{ ...(animeInServer ?? {}), ...request }} updateAnime={updateAnime} />
+          </TableCell>
+        </TableRow>
+      )
+    },
+    [animes, renderRequestState, renderRequestType, updateAnime, updateRequest]
   )
 
   return (
-    <>
-      <TableContainer component={Paper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell />
-              <TableCell> Titre </TableCell>
-              <TableCell> Type </TableCell>
-              <TableCell> Date </TableCell>
-              <TableCell> State </TableCell>
-              <TableCell> Createur </TableCell>
-              <TableCell> Assigné </TableCell>
-              <TableCell> Actions </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{requests?.slice(sliceBegin, sliceEnd)?.map(requestRender)}</TableBody>
-        </Table>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={requests?.length ?? 0}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-          labelDisplayedRows={labelTemplate}
-        />
-      </TableContainer>
-    </>
+    <TableContainer component={Paper}>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell />
+            <TableCell> Titre </TableCell>
+            <TableCell> Type </TableCell>
+            <TableCell> Date </TableCell>
+            <TableCell> State </TableCell>
+            <TableCell> Createur </TableCell>
+            <TableCell> Assigné </TableCell>
+            <TableCell> Actions </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>{requests.slice(sliceBegin, sliceEnd).map(requestRender)}</TableBody>
+      </Table>
+      <TablePagination
+        rowsPerPageOptions={[5, 10, 25]}
+        component="div"
+        count={requests.length ?? 0}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+        labelDisplayedRows={labelTemplate}
+      />
+    </TableContainer>
   )
 }
 

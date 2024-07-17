@@ -1,5 +1,5 @@
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import { type AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import type DataListHolderWithPagination from "@/interfaces/services/DataListHolderWithPagination"
 import api from "./api"
 import { deleteRequest, get, post, put } from "./request/request"

@@ -9,7 +9,7 @@ import {
 import { useSnackbar } from "notistack"
 
 import { useCallback, type PropsWithChildren } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router"
 
 const QueryClientProvider = ({ children }: PropsWithChildren) => {
   const { enqueueSnackbar } = useSnackbar()
@@ -17,10 +17,10 @@ const QueryClientProvider = ({ children }: PropsWithChildren) => {
 
   const onErrorConnection = useCallback(
     (error: ResponseError) => {
-      if (error?.response?.status === 403) {
+      if (error.response?.status === 403) {
         enqueueSnackbar("Vous n'avez pas la permission d'accéder à ce contenu")
         navigate(SiteMap.ACCUEIL.path, { replace: true })
-      } else if (error?.response?.status !== 404) enqueueSnackbar("Une erreur est survenue")
+      } else if (error.response?.status !== 404) enqueueSnackbar("Une erreur est survenue")
     },
     [enqueueSnackbar, navigate]
   )

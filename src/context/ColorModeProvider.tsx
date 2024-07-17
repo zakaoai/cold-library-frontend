@@ -1,5 +1,5 @@
-import ThemeProvider from "@mui/material/styles/ThemeProvider"
-import createTheme from "@mui/material/styles/createTheme"
+import { ThemeProvider, createTheme } from "@mui/material/styles"
+
 import useMediaQuery from "@mui/material/useMediaQuery"
 import { useMemo, useState, type PropsWithChildren } from "react"
 import ColorModeContext from "./ColorModeContext"

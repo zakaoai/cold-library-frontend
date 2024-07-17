@@ -1,31 +1,72 @@
-import { FlatCompat } from "@eslint/eslintrc"
 import js from "@eslint/js"
-import { configs as ReactQueryConfigs, rules as ReactQueryRules } from "@tanstack/eslint-plugin-query"
-import eslintImport from "eslint-plugin-import"
-import prettierPlugin from "eslint-plugin-prettier"
-import promise from "eslint-plugin-promise"
+import pluginQuery from "@tanstack/eslint-plugin-query"
+import love from "eslint-config-love"
+import importPlugin from "eslint-plugin-import"
+import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended"
+import pluginPromise from "eslint-plugin-promise"
 import react from "eslint-plugin-react"
-import reactHook from "eslint-plugin-react-hooks"
+import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
 import simpleImportSort from "eslint-plugin-simple-import-sort"
 import globals from "globals"
 
-const compat = new FlatCompat()
-
-/** @type {import('eslint').Linter.FlatConfig[]} */
+/** @type {import('eslint').Linter.Config[]} */
 export default [
-  ...compat.extends("love"),
-  ...compat.extends("plugin:@typescript-eslint/recommended"),
-  ...compat.extends("plugin:react/recommended"),
-  ...compat.extends("plugin:react/jsx-runtime"),
-  ...compat.extends("plugin:@typescript-eslint/recommended"),
-  ...compat.extends("plugin:prettier/recommended"),
-  ...compat.extends("plugin:import/recommended"),
-  ...compat.extends("plugin:promise/recommended"),
-  ...compat.extends("plugin:react-hooks/recommended"),
-  ...compat.extends("plugin:@tanstack/eslint-plugin-query/recommended"),
-  js.configs.recommended,
+  ...pluginQuery.configs["flat/recommended"].map(a => ({ name: "config-query", ...a })),
+  pluginPromise.configs["flat/recommended"],
+
+  { name: "config-js", ...js.configs.recommended },
   {
+    name: "config-eslint-prettier-recommanded",
+    ...eslintPluginPrettierRecommended
+  },
+  {
+    name: "config-import-ts",
+    ...importPlugin.flatConfigs.typescript
+  },
+  {
+    name: "config-import-react",
+    ...importPlugin.flatConfigs.react
+  },
+
+  {
+    name: "config-react-recommanded",
+    ...react.configs.flat.recommended
+  },
+  {
+    name: "config-react-jsx-runtime",
+    ...react.configs.flat["jsx-runtime"]
+  },
+  {
+    name: "config-react-hook",
+    plugins: {
+      "react-refresh": reactRefresh,
+
+      "react-hooks": reactHooks
+    },
+
+    rules: {
+      ...reactHooks.configs.recommended.rules
+    }
+  },
+  {
+    name: "config-love",
+    ...love,
+    plugins: {
+      ...Object.fromEntries(
+        Object.entries(love.plugins).filter(
+          ([key]) =>
+            ![
+              "promise"
+              //  "@typescript-eslint"
+            ].includes(key)
+        )
+      )
+    },
+    files: ["**/*.js", "**/*.ts", "**/*.tsx", "**/*.jsx"]
+  },
+  {
+    name: "custom config",
     languageOptions: {
       sourceType: "commonjs",
       globals: {
@@ -50,40 +91,17 @@ export default [
       }
     },
     plugins: {
-      react,
-      "react-hooks": reactHook,
-      prettier: prettierPlugin,
-      "react-refresh": reactRefresh,
-      import: eslintImport,
-      promise,
-      "simple-import-sort": simpleImportSort,
-      "@tanstack/eslint-plugin-query": { rules: ReactQueryRules, configs: ReactQueryConfigs }
+      "simple-import-sort": simpleImportSort
     },
     rules: {
-      "@typescript-eslint/no-invalid-void-type": "off",
-      "multiline-ternary": "off",
+      complexity: ["error", { max: 10 }],
       "@typescript-eslint/explicit-function-return-type": "off",
-      quotes: "off",
-      "@typescript-eslint/quotes": "off",
-      "@typescript-eslint/space-before-function-paren": "off",
       "@typescript-eslint/no-unused-vars": "warn",
       "react/prop-types": "off",
       "react/react-in-jsx-scope": 0,
-      indent: "off",
-      "@typescript-eslint/indent": "off",
-      "prettier/prettier": [
-        "error",
-        {
-          endOfLine: "auto",
-          semi: false
-        }
-      ]
+      "no-redeclare": ["error", { builtinGlobals: false }],
+      "@typescript-eslint/no-magic-numbers": "warn",
+      "no-console": "off"
     }
-  },
-  ...compat.config({
-    parser: "@typescript-eslint/parser",
-    parserOptions: {
-      project: ["tsconfig.json", "tsconfig.node.json"]
-    }
-  })
+  }
 ]

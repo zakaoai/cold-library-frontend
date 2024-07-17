@@ -1,7 +1,7 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import useAppContext from "@/hooks/context/useAppContext"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
-import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
@@ -48,7 +48,7 @@ const useAnimeTorrentEpisodes = (malId: number) => {
         "Une erreur est survenue lors du patch de l'episode %s tracked de l'anime %s avec le status %s",
         episode.episodeNumber,
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [malId]

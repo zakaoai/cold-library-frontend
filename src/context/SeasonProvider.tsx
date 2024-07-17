@@ -1,5 +1,6 @@
 import { AnimeType } from "@/enums/AnimeType"
 import Season from "@/enums/Season"
+import type MALAnimeAnimeDTO from "@/interfaces/containers/Activite/MyAnimeList/MALAnimeAnimeDTO"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import { useMemo, useState, type PropsWithChildren } from "react"
 import SeasonContext from "./SeasonContext"
@@ -12,6 +13,7 @@ const SeasonProvider = ({ children }: PropsWithChildren) => {
   const [yearSelected, setYearSelected] = useState<number>(currentDate.getFullYear())
   const [sortBySelected, setSortBySelected] = useState<keyof MALAnime>("num_list_users")
   const [typeSelected, setTypeSelected] = useState<AnimeType>(AnimeType.ALL)
+  const [animeList, setAnimeList] = useState<MALAnimeAnimeDTO[]>([])
 
   const contextValue = useMemo(
     () => ({
@@ -22,9 +24,11 @@ const SeasonProvider = ({ children }: PropsWithChildren) => {
       sortBySelected,
       setSortBySelected,
       typeSelected,
-      setTypeSelected
+      setTypeSelected,
+      animeList,
+      setAnimeList
     }),
-    [seasonSelected, sortBySelected, typeSelected, yearSelected]
+    [animeList, seasonSelected, sortBySelected, typeSelected, yearSelected]
   )
 
   return <SeasonContext.Provider value={contextValue}>{children}</SeasonContext.Provider>

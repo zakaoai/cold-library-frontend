@@ -1,5 +1,5 @@
-import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
-import { type Dispatch, type SetStateAction } from "react"
+import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type { Dispatch, SetStateAction } from "react"
 
 export default interface AnimeTorrentRow {
   animeTorrent: AnimeTorrentDTO

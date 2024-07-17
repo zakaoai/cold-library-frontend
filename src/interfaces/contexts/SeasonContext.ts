@@ -1,6 +1,7 @@
-import { type AnimeType } from "@/enums/AnimeType"
+import type { AnimeType } from "@/enums/AnimeType"
 import type Season from "@/enums/Season"
-import { type Dispatch, type SetStateAction } from "react"
+import type { Dispatch, SetStateAction } from "react"
+import type MALAnimeAnimeDTO from "../containers/Activite/MyAnimeList/MALAnimeAnimeDTO"
 import type MALAnime from "../services/UserService/MyAnimeList/MALAnime"
 
 export default interface SeasonContext {
@@ -12,4 +13,6 @@ export default interface SeasonContext {
   setSortBySelected: Dispatch<SetStateAction<keyof MALAnime>>
   typeSelected: AnimeType
   setTypeSelected: Dispatch<SetStateAction<AnimeType>>
+  animeList: MALAnimeAnimeDTO[]
+  setAnimeList: Dispatch<SetStateAction<MALAnimeAnimeDTO[]>>
 }

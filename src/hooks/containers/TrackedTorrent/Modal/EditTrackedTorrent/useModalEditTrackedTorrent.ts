@@ -1,6 +1,6 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import useAppContext from "@/hooks/context/useAppContext"
-import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useMutation } from "@tanstack/react-query"
@@ -44,7 +44,7 @@ const useModalEditTrackedTorrent = () => {
       "Une erreur est survenue lors de la mise à jour des informations du torrent de l'anime %s de l'anime %s avec le status %s",
 
       trackedAnime.malId,
-      error?.response?.status
+      error.response?.status
     )
   }, [])
 

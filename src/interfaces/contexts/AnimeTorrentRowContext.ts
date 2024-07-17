@@ -1,11 +1,11 @@
-import { type UseMutateFunction } from "@tanstack/react-query"
-import { type Dispatch, type SetStateAction } from "react"
+import type { UseMutateFunction } from "@tanstack/react-query"
+import type { Dispatch, SetStateAction } from "react"
 import type AnimeEpisodeTorrentDisplay from "../containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
-import { type AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import { type AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
+import type { AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type { AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
 
 export default interface AnimeTorrentRowContext {
-  patchTrackedAnimeEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, AnimeEpisodeTorrentDTO, unknown>
+  patchTrackedAnimeEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, AnimeEpisodeTorrentDTO>
   setAnimeEpisodeTorrents: Dispatch<SetStateAction<AnimeEpisodeTorrentDisplay[]>>
   selectedEpisodeAlternate?: AnimeEpisodeTorrentDisplay
   setSelectedEpisodeAlternate: Dispatch<SetStateAction<AnimeEpisodeTorrentDisplay | undefined>>

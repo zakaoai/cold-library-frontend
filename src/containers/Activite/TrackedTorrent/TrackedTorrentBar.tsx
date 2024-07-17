@@ -24,7 +24,7 @@ const TrackedTorrentBar = () => {
     <Box mb={1}>
       <AppBar position="relative" color="transparent">
         <Grid container alignItems="center">
-          <Grid item>
+          <Grid>
             <Button variant="outlined" onClick={scanAll} startIcon={<SearchIcon />}>
               Scan All
             </Button>

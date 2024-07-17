@@ -1,52 +1,78 @@
-import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
-import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
 import SearchForm from "@/containers/Activite/Search/SearchForm"
-import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
 import useAnimeSearch from "@/hooks/containers/Search/useAnimeSearch"
-import { Pagination } from "@mui/material"
-import CircularProgress from "@mui/material/CircularProgress"
-import Grid from "@mui/material/Grid"
+import { CircularProgress, Pagination } from "@mui/material"
 
+import DefaultAnimeRenderCard from "@/components/DefaultAnimeRender/DefaultAnimeRenderCard"
+import DefaultAnimeRenderRow from "@/components/DefaultAnimeRender/DefaultAnimeRenderRow"
+import DefaultGridComponent from "@/components/DisplayAnime/DefaultGridComponent"
+import DefaultTableComponent from "@/components/DisplayAnime/DefaultTableComponent"
+import DisplayAnimeProvider from "@/components/DisplayAnime/context/DisplayAnimeProvider"
+import { useDisplayAnimeContext } from "@/components/DisplayAnime/hooks/useDisplayAnimeContext"
+import { RenderMode } from "@/enums/RenderMode"
+import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import { useCallback, useMemo } from "react"
 /**
  * Activité
  */
 const SearchActivity = () => {
-  const { animes, isFetching, error, form, searchAnime, updateAnime, pageMax, currentPage, handleChange } =
+  const { animes, isFetching, error, form, searchAnime, setAnimes, pageMax, currentPage, handleChange } =
     useAnimeSearch()
-  const { myOpenedRequestMap, createRequest } = useMyRequest()
+
+  const paginationRender = useMemo(
+    () => (
+      <Pagination
+        count={pageMax}
+        page={currentPage}
+        onChange={handleChange}
+        sx={{ justifyContent: "center", display: "flex", paddingY: 2 }}
+      />
+    ),
+    [currentPage, handleChange, pageMax]
+  )
+
+  const singleCardRender = useCallback(
+    (anime: AnimeDTO) => <DefaultAnimeRenderCard key={anime.malId} anime={anime} setAnimeListState={setAnimes} />,
+    [setAnimes]
+  )
+
+  const singleTableRender = useCallback(
+    (anime: AnimeDTO) => <DefaultAnimeRenderRow key={anime.malId} anime={anime} setAnimeListState={setAnimes} />,
+    [setAnimes]
+  )
+
+  const { selectedRenderMode } = useDisplayAnimeContext()
+
+  const RenderComponent = useMemo(
+    () => (selectedRenderMode === RenderMode.CARD ? DefaultGridComponent : DefaultTableComponent()),
+    [selectedRenderMode]
+  )
+
+  const singleRender = useMemo(
+    () => (selectedRenderMode === RenderMode.CARD ? singleCardRender : singleTableRender),
+    [selectedRenderMode, singleCardRender, singleTableRender]
+  )
+
   return (
     <>
       <SearchForm searchAnime={searchAnime} form={form} />
-      {pageMax !== undefined ? (
-        <Pagination
-          count={pageMax}
-          page={currentPage}
-          onChange={handleChange}
-          sx={{ justifyContent: "center", display: "flex", paddingY: 2 }}
-        />
-      ) : undefined}
-      <Grid container justifyContent="center" spacing={2}>
-        {isFetching ? (
-          <CircularProgress />
-        ) : (
-          animes.map(anime => (
-            <Grid key={anime.malId} item lg={3} md={4} xs={12} sm={6}>
-              <AnimeCardProvider
-                anime={anime}
-                showEpisodeLink={!(anime.storageState === null)}
-                updateAnime={updateAnime}
-                showAddOrRemoveFromLibrary
-                request={myOpenedRequestMap[anime.malId]}
-                createRequest={createRequest}>
-                <AnimeCardComponent />
-              </AnimeCardProvider>
-            </Grid>
-          ))
-        )}
-        {!isFetching && error !== undefined && <div>{error}</div>}
-      </Grid>
+      {isFetching ? (
+        <CircularProgress />
+      ) : (
+        <>
+          {pageMax !== undefined ? paginationRender : undefined}
+          <RenderComponent>{animes.map(singleRender)}</RenderComponent>
+          {pageMax !== undefined ? paginationRender : undefined}
+        </>
+      )}
+      {!isFetching && error !== undefined && <div>{error}</div>}
     </>
   )
 }
 
-export default SearchActivity
+const SearchActivityWithContext = () => (
+  <DisplayAnimeProvider>
+    <SearchActivity />
+  </DisplayAnimeProvider>
+)
+
+export default SearchActivityWithContext

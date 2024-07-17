@@ -3,7 +3,7 @@ import "./App.css"
 import Container from "@mui/material/Container"
 import { StyledEngineProvider } from "@mui/material/styles"
 import { SnackbarProvider } from "notistack"
-import { RouterProvider } from "react-router-dom"
+import { RouterProvider } from "react-router"
 
 import { ColorModeProvider } from "@/context/ColorModeProvider"
 import Box from "@mui/material/Box"

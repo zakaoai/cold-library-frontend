@@ -1,7 +1,7 @@
 import ContextLayout from "@/containers/Layout/ContextLayout"
 import Layout from "@/containers/Layout/Layout"
 import SiteMap from "@/routes/SiteMap"
-import { Navigate, Route } from "react-router-dom"
+import { Navigate, Route } from "react-router"
 
 import ProtectedLayout from "@/containers/Layout/ProtectedLayout"
 

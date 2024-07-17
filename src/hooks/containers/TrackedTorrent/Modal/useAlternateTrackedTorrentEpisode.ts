@@ -5,7 +5,7 @@ import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 
 import usePagination from "@/hooks/usePagination"
-import { type AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
+import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import { useMutation } from "@tanstack/react-query"
 import { useCallback, useEffect, useState, type ChangeEvent } from "react"
@@ -73,7 +73,7 @@ const useAlternateTrackedTorrentEpisode = () => {
         "Une erreur est survenue lors de la récupération des nouvelles informations du torrent episode %s de l'anime %s avec le status %s",
         episodeNumber,
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     []
@@ -105,7 +105,7 @@ const useAlternateTrackedTorrentEpisode = () => {
         "Une erreur est survenue lors de la récupération des nouvelles informations du torrent episode %s de l'anime %s avec le status %s",
         episodeNumber,
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     []

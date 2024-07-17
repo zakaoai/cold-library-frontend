@@ -7,7 +7,7 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "module": "ESNext",
+    "module": "ES2022",
     /* Bundler mode */
     "moduleResolution": "bundler",
     "noEmit": true,
@@ -21,7 +21,7 @@
     "skipLibCheck": true,
     /* Linting */
     "strict": true,
-    "target": "ESNext",
+    "target": "ES2017",
     "useDefineForClassFields": true
   },
   "include": ["src", "src/**/*", "eslint.config.js"],
