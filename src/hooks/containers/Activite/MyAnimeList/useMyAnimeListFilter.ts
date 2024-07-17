@@ -1,22 +1,27 @@
+import { useDisplayAnimeContext } from "@/components/DisplayAnime/hooks/useDisplayAnimeContext"
 import { DEFAULT_STATUS } from "@/containers/Activite/MyAnimeList/const"
 import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
-import { useMemo } from "react"
+import type MALAnimeAnimeDTO from "@/interfaces/containers/Activite/MyAnimeList/MALAnimeAnimeDTO"
+import { useCallback, useMemo } from "react"
 
-const useMyAnimeListFilter = (myAnimeList: Array<Omit<MALAnime, "broadcast"> & AnimeDTO>) => {
-  const { selectedGenres, userStatusFilter } = useMyAnimeListContext()
+const useMyAnimeListFilter = (myAnimeList: MALAnimeAnimeDTO[]) => {
+  const { userStatusFilter } = useMyAnimeListContext()
+  const { selectedGenres } = useDisplayAnimeContext()
+
+  const filterByStatus = useCallback(
+    ({ userStatus }: MALAnimeAnimeDTO) => userStatus === userStatusFilter || userStatusFilter === DEFAULT_STATUS,
+    [userStatusFilter]
+  )
+
+  const filterByGenre = useCallback(
+    ({ genres }: MALAnimeAnimeDTO) =>
+      selectedGenres.length === 0 || genres?.some(genre => selectedGenres.includes(genre.name)),
+    [selectedGenres]
+  )
 
   const filteredMyAnimeList = useMemo(
-    () =>
-      myAnimeList
-        .filter(({ userStatus }) => userStatus === userStatusFilter || userStatusFilter === DEFAULT_STATUS)
-        .filter(
-          ({ genres }) =>
-            selectedGenres.length === 0 ||
-            genres?.some(genre => selectedGenres.some(selectedGenre => genre.name === selectedGenre))
-        ),
-    [myAnimeList, selectedGenres, userStatusFilter]
+    () => myAnimeList.filter(filterByStatus).filter(filterByGenre),
+    [myAnimeList, filterByStatus, filterByGenre]
   )
 
   return { filteredMyAnimeList }

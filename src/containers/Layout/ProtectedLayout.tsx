@@ -5,7 +5,7 @@ import Backdrop from "@mui/material/Backdrop"
 import CircularProgress from "@mui/material/CircularProgress"
 import { useSnackbar } from "notistack"
 import { useEffect } from "react"
-import { Navigate, Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router"
 
 const ProtectedLayout = () => {
   const { isAuthenticated, isLoading } = useAuth0()

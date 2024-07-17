@@ -2,7 +2,7 @@ import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import useAppContext from "@/hooks/context/useAppContext"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
-import { type AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
+import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
@@ -35,7 +35,7 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
       console.error(
         "Une erreur est survenue lors de la mise à jour du lastEpisodeOnServer de l'anime %s avec un status %s",
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [malId]
@@ -70,7 +70,7 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
         "Une erreur est survenue lors de la supression du torrent episode %s de l'anime %s avec le status %s",
         episodeNumber,
         malId,
-        error?.response?.status
+        error.response?.status
       )
     },
     [episodeNumber, malId]

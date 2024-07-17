@@ -3,7 +3,7 @@ import type ResponseError from "@/interfaces/services/ResponseError"
 import type UserDTO from "@/interfaces/services/UserService/UserDTO"
 import LogService from "@/services/LogService"
 import UserService from "@/services/UserService"
-import { type SelectChangeEvent } from "@mui/material"
+import type { SelectChangeEvent } from "@mui/material"
 import { useMutation, useQuery } from "@tanstack/react-query"
 import { useCallback, useState } from "react"
 
@@ -32,14 +32,14 @@ const useAdminLog = () => {
   const getLogsByUserCall = useCallback(async (userId: string) => await LogService.getByUser(userId), [])
 
   const onSuccessGetLogsByUser = useCallback((logs: LogDTO[]) => {
-    setUserLogs(logs)
+    setUserLogs(logs.toSorted((a, b) => a.id - b.id))
   }, [])
 
   const onErrorGetLogsByUser = useCallback((error: ResponseError) => {
     console.error(
       "Une erreur est survenue lors de la lecture des logs de l'user %s avec le status %s",
       "a",
-      error?.response?.status
+      error.response?.status
     )
   }, [])
 
@@ -64,8 +64,8 @@ const useAdminLog = () => {
   )
 
   return {
-    logs: logs?.toReversed(),
-    userLogs: userLogs?.toReversed(),
+    logs: logs?.toSorted((a, b) => a.id - b.id).toReversed(),
+    userLogs: userLogs.toReversed(),
     refetchAllLogs,
     isAllLogFetching,
     users,

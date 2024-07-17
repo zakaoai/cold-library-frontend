@@ -15,7 +15,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
 
   const radioRef = useRef<HTMLButtonElement>(null)
   const onClickRow = useCallback(() => {
-    radioRef?.current?.click()
+    radioRef.current?.click()
   }, [])
 
   return (

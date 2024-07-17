@@ -1,10 +1,11 @@
 import ArrowCollapse from "@/components/ArrowCollapse/ArrowCollapse"
+import DayOfWeek from "@/constants/DayOfWeek"
 import type AnimeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeTorrentRow"
 import CircularProgress from "@mui/material/CircularProgress"
 import Link from "@mui/material/Link"
 import TableCell from "@mui/material/TableCell"
 import TableRow from "@mui/material/TableRow"
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router"
 import AnimeTorrentActions from "./AnimeTorrentActions"
 
 const AnimeTorrentRowMobile = ({
@@ -51,7 +52,7 @@ const AnimeTorrentRowMobile = ({
           Jour de sortie
         </TableCell>
         <TableCell component="th" scope="row">
-          {dayOfRelease}
+          {DayOfWeek[dayOfRelease]}
         </TableCell>
       </TableRow>
       <TableRow sx={{ "& > *": { borderBottom: "unset" } }}>

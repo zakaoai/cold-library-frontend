@@ -2,9 +2,9 @@ import StorageState from "@/enums/StorageState"
 import AcUnitIcon from "@mui/icons-material/AcUnit"
 import WhatshotIcon from "@mui/icons-material/Whatshot"
 import Switch from "@mui/material/Switch"
-import blue from "@mui/material/colors/blue"
-import red from "@mui/material/colors/red"
+import { blue, red } from "@mui/material/colors"
 import { styled } from "@mui/material/styles"
+import { useCallback, useMemo } from "react"
 import type IHotColdSwitch from "./interface/HotColdSwitch"
 
 const MaterialUISwitch = styled(Switch)(() => ({
@@ -72,17 +72,26 @@ const MaterialUISwitch = styled(Switch)(() => ({
 }))
 
 const HotColdSwitch = ({ storageState, setStorageState }: IHotColdSwitch) => {
-  const isFluxFroid = storageState === StorageState.FLUX_FROID
-  const nextStorageState = isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID
+  const isFluxFroid = useMemo(() => storageState === StorageState.FLUX_FROID, [storageState])
+
+  const nextStorageState = useMemo(
+    () => (isFluxFroid ? StorageState.FLUX_CHAUD : StorageState.FLUX_FROID),
+    [isFluxFroid]
+  )
+
+  const onChange = useCallback(() => {
+    setStorageState(nextStorageState)
+  }, [nextStorageState, setStorageState])
+
+  const hotColor = useMemo(() => ({ color: red.A100 }), [])
+  const coldColor = useMemo(() => ({ color: blue[200] }), [])
 
   return (
     <MaterialUISwitch
-      icon={<WhatshotIcon style={{ color: red.A100 }} />}
-      checkedIcon={<AcUnitIcon style={{ color: blue[200] }} />}
+      icon={<WhatshotIcon style={hotColor} />}
+      checkedIcon={<AcUnitIcon style={coldColor} />}
       checked={isFluxFroid}
-      onChange={() => {
-        setStorageState(nextStorageState)
-      }}
+      onChange={onChange}
     />
   )
 }

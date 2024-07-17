@@ -4,34 +4,40 @@ import path from "path"
 
 import { defineConfig } from "vite"
 // import eslint from "vite-plugin-eslint2"
-// import eslint from "vite-plugin-eslint"
-import eslint from "@nabla/vite-plugin-eslint"
 
 // https://vitejs.dev/config/
-export default defineConfig(env => ({
-  plugins: [react(), env.mode !== "test" && eslint()],
-  define: {
-    APP_VERSION: JSON.stringify(process.env.npm_package_version)
-  },
-  build: {
-    target: "esnext"
-  },
-  resolve: {
-    alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }]
-  },
-  optimizeDeps: {
-    esbuildOptions: {
-      jsx: "automatic"
-    }
-  },
-  test: {
-    globals: true,
-    environment: "happy-dom",
-    setupFiles: ["./src/setupTests.ts"],
-    coverage: {
-      provider: "v8",
-      reporter: ["lcov", "json", "html"]
+export default defineConfig(
+  // _env =>
+  {
+    plugins: [
+      react({
+        jsxImportSource: "@welldone-software/why-did-you-render" // <-----
+      })
+      // env.mode !== "test" && eslint()
+    ],
+    define: {
+      APP_VERSION: JSON.stringify(process.env.npm_package_version)
     },
-    include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"]
+    build: {
+      target: "esnext"
+    },
+    resolve: {
+      alias: [{ find: "@", replacement: path.resolve(__dirname, "src") }]
+    },
+    optimizeDeps: {
+      esbuildOptions: {
+        jsx: "automatic"
+      }
+    },
+    test: {
+      globals: true,
+      environment: "happy-dom",
+      setupFiles: ["./src/setupTests.ts"],
+      coverage: {
+        provider: "v8",
+        reporter: ["lcov", "json", "html"]
+      },
+      include: ["src/**/*.{test,spec}.{js,mjs,cjs,ts,mts,cts,jsx,tsx}"]
+    }
   }
-}))
+)

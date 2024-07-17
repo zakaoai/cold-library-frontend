@@ -3,12 +3,12 @@ import Skeleton from "@mui/material/Skeleton"
 import { red } from "@mui/material/colors"
 import { useAnimeCardReadContext } from "./hooks/useAnimeCardContext"
 
-const AnimeCardAvatar = () => {
+const AnimeCardAvatar = ({ avatarColor }: { avatarColor?: string }) => {
   const { anime } = useAnimeCardReadContext()
   const { type } = anime
 
   return type !== undefined ? (
-    <Avatar aria-label="type" sx={{ backgroundColor: red[500] }} title={type}>
+    <Avatar aria-label="type" sx={{ backgroundColor: avatarColor ?? red[500] }} title={type}>
       {type.substring(0, 3)}
     </Avatar>
   ) : (

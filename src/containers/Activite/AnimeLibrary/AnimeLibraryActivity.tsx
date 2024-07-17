@@ -1,131 +1,65 @@
-import AlphabetRender from "@/components/AlphabeticalRender/AlphabetRender"
-import DefaultRender from "@/components/DefaultRender/DefaultRender"
-import SeasonRender from "@/components/SeasonRender/SeasonRender"
-import AnimeCardComponent from "@/components/animeCard/AnimeCardComponent"
-import AnimeCardProvider from "@/components/animeCard/context/AnimeCardProvider"
-import AnimeLibraryProvider from "@/context/AnimeLibraryProvider"
 import useAnimeLibraryFilter from "@/hooks/containers/AnimeLibrary/useAnimeLibraryFilter"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
-import { useAnimeLibraryContext } from "@/hooks/context/useAnimeLibraryContext"
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
-import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
+import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import Grid from "@mui/material/Grid" // Grid version 2
 import { useCallback, useMemo } from "react"
 
-import AnimeRow from "@/components/animeCard/AnimeRow"
-import { RenderMode } from "@/enums/RenderMode"
-import { ViewMode } from "@/enums/ViewMode"
-
-import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
-import usePagination from "@/hooks/usePagination"
+import AnimeCardReadComponent from "@/components/AnimeCardRead/AnimeCardReadComponent"
+import AnimeRowRead from "@/components/AnimeRowRead/AnimeRowRead"
+import DefaultTableComponent from "@/components/DisplayAnime/DefaultTableComponent"
+import DisplayAnime from "@/components/DisplayAnime/DisplayAnime"
+import DisplayAnimeProvider from "@/components/DisplayAnime/context/DisplayAnimeProvider"
+import AnimeBottomAction from "./AnimeBottomAction"
 import AnimeLibraryFilterBar from "./AnimeLibraryFilterBar"
-import GridComponent from "./GridComponent"
-import TableComponent from "./TableComponent"
 
 /**
  * Activité
  */
 const AnimeLibraryActivity = () => {
-  const { animes, updateAnime } = useLibrary()
+  const { animes } = useLibrary()
 
   const { filtersState, filterFunc } = useAnimeLibraryFilter()
 
-  const { myOpenedRequestMap, createRequest } = useMyRequest()
-
   const animesFiltered = useMemo(() => animes.filter(filterFunc), [animes, filterFunc])
-  const pagination = usePagination(animesFiltered, 50)
 
   const singleCardRender = useCallback(
     (anime: AnimeDTO) => (
-      <Grid key={anime.malId} lg={3} md={4} xs={12} sm={6}>
-        <AnimeCardProvider
-          anime={anime}
-          showEpisodeLink
-          updateAnime={updateAnime}
-          showAddOrRemoveFromLibrary
-          request={myOpenedRequestMap[anime.malId]}
-          createRequest={createRequest}>
-          <AnimeCardComponent />
-        </AnimeCardProvider>
+      <Grid key={anime.malId} size={{ lg: 3, md: 4, xs: 12, sm: 6 }}>
+        <AnimeCardReadComponent anime={anime} showEpisodeLink actions={<AnimeBottomAction anime={anime} />} />
       </Grid>
     ),
-    [createRequest, myOpenedRequestMap, updateAnime]
+    []
   )
-  const { selectedViewMode, selectedRenderMode } = useAnimeLibraryContext()
-
-  const cardRenderChild = useCallback((animelist: AnimeDTO[]) => animelist.map(singleCardRender), [singleCardRender])
 
   const singleTableRender = useCallback(
     (anime: AnimeDTO) => (
-      <AnimeCardProvider
+      <AnimeRowRead
         key={anime.malId}
+        imageHeight="120px"
         anime={anime}
-        showEpisodeLink
-        updateAnime={updateAnime}
-        showAddOrRemoveFromLibrary
-        request={myOpenedRequestMap[anime.malId]}
-        createRequest={createRequest}>
-        <AnimeRow />
-      </AnimeCardProvider>
+        actionTableCell={<AnimeBottomAction anime={anime} renderRow />}
+      />
     ),
-    [createRequest, myOpenedRequestMap, updateAnime]
-  )
-
-  const tableRenderChild = useCallback((animelist: AnimeDTO[]) => animelist.map(singleTableRender), [singleTableRender])
-
-  const renderComponent = useMemo(
-    () => (selectedRenderMode === RenderMode.CARD ? GridComponent : TableComponent),
-    [selectedRenderMode]
-  )
-
-  const renderChild = useMemo(
-    () => (selectedRenderMode === RenderMode.CARD ? cardRenderChild : tableRenderChild),
-    [cardRenderChild, selectedRenderMode, tableRenderChild]
-  )
-
-  const singleRender = useMemo(
-    () => (selectedRenderMode === RenderMode.CARD ? singleCardRender : singleTableRender),
-    [selectedRenderMode, singleCardRender, singleTableRender]
+    []
   )
 
   return (
     <>
       <AnimeLibraryFilterBar filtersState={filtersState} />
-      {
-        {
-          [ViewMode.DEFAULT]: (
-            <DefaultRender
-              component={renderComponent}
-              renderChild={singleRender}
-              animeList={animesFiltered.toReversed()}
-              pagination={pagination}
-            />
-          ),
-          [ViewMode.ALPHA]: (
-            <AlphabetRender
-              component={renderComponent}
-              renderChild={renderChild}
-              items={animesFiltered}
-              pagination={pagination}
-            />
-          ),
-          [ViewMode.SEASON]: (
-            <SeasonRender
-              component={renderComponent}
-              renderChild={renderChild}
-              items={animesFiltered}
-              pagination={pagination}
-            />
-          )
-        }[selectedViewMode]
-      }
+      <DisplayAnime
+        animeList={animesFiltered}
+        TableComponent={DefaultTableComponent()}
+        singleCardRender={singleCardRender}
+        singleTableRender={singleTableRender}
+      />
     </>
   )
 }
 
 const AnimeLibraryWithProvider = () => (
-  <AnimeLibraryProvider>
+  <DisplayAnimeProvider>
     <AnimeLibraryActivity />
-  </AnimeLibraryProvider>
+  </DisplayAnimeProvider>
 )
 
 export default AnimeLibraryWithProvider

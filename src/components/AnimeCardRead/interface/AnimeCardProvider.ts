@@ -1,7 +1,8 @@
-import { type AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
+import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import type { Anime } from "./Anime"
 
 export default interface AnimeCardProvider {
-  anime: AnimeDTO
+  anime: Anime & Partial<AnimeInServerDTO>
   showEpisodeLink?: boolean
   imageHeight?: string
 }

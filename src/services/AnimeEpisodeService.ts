@@ -1,4 +1,4 @@
-import { type AnimeEpisodeDTO } from "@/interfaces/services/AnimeEpisodeService/AnimeEpisodeDTO"
+import type { AnimeEpisodeDTO } from "@/interfaces/services/AnimeEpisodeService/AnimeEpisodeDTO"
 import api from "./api"
 import { get } from "./request/request"
 

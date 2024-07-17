@@ -1,4 +1,4 @@
-import { type ElementType, type ReactNode } from "react"
+import type { ElementType, ReactNode } from "react"
 
 export default interface SeasonSection<Anime> {
   season: string

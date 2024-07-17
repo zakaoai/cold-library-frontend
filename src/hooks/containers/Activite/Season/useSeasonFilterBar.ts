@@ -1,10 +1,10 @@
-import { type AnimeType } from "@/enums/AnimeType"
+import { useDisplayAnimeContext } from "@/components/DisplayAnime/hooks/useDisplayAnimeContext"
+import type { AnimeType } from "@/enums/AnimeType"
 import Season from "@/enums/Season"
-import { useMyAnimeListContext } from "@/hooks/context/useMyAnimeListContext"
 import { useSeasonContext } from "@/hooks/context/useSeasonContext"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import SeasonService from "@/services/SeasonService"
-import { type SelectChangeEvent } from "@mui/material"
+import type { SelectChangeEvent } from "@mui/material"
 import { useQuery } from "@tanstack/react-query"
 import { useCallback } from "react"
 
@@ -12,7 +12,7 @@ const useSeasonFilterBar = () => {
   const { setSeasonSelected, setSortBySelected, setTypeSelected, setYearSelected } = useSeasonContext()
   const {
     pagination: { handleChangePage }
-  } = useMyAnimeListContext()
+  } = useDisplayAnimeContext()
   const { data: seasons } = useQuery({
     staleTime: 3600000,
     queryKey: ["myAnimeList"],

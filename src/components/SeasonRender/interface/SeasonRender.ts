@@ -1,6 +1,6 @@
 import type Season from "@/enums/Season"
 import type usePagination from "@/hooks/usePagination"
-import { type ElementType, type ReactNode } from "react"
+import type { ElementType, ReactNode } from "react"
 
 export default interface SeasonRender<Anime extends { year?: number; season?: Season }> {
   items: Anime[]

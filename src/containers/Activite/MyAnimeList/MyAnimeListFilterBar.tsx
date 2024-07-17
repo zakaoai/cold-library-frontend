@@ -1,25 +1,15 @@
-import AbcIcon from "@mui/icons-material/Abc"
-import CalendarMonthIcon from "@mui/icons-material/CalendarMonth"
-import ClearIcon from "@mui/icons-material/Clear"
-import ViewListIcon from "@mui/icons-material/ViewList"
-import ViewModuleIcon from "@mui/icons-material/ViewModule"
-import { IconButton, Toolbar } from "@mui/material"
+import { Toolbar } from "@mui/material"
 import AppBar from "@mui/material/AppBar"
 import Box from "@mui/material/Box"
-import Checkbox from "@mui/material/Checkbox"
-import Chip from "@mui/material/Chip"
 import FormControl from "@mui/material/FormControl"
+import Grid from "@mui/material/Grid"
 import InputLabel from "@mui/material/InputLabel"
-import ListItemText from "@mui/material/ListItemText"
 import MenuItem from "@mui/material/MenuItem"
-import OutlinedInput from "@mui/material/OutlinedInput"
 import Select from "@mui/material/Select"
-import ToggleButton from "@mui/material/ToggleButton"
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup"
-import Grid from "@mui/material/Unstable_Grid2"
 
-import { RenderMode } from "@/enums/RenderMode"
-import { ViewMode } from "@/enums/ViewMode"
+import GenreForm from "@/components/GenreForm/GenreForm"
+import RenderButtons from "@/components/RenderButtons/RenderButtons"
+import ViewButtons from "@/components/ViewButtons/ViewButtons"
 import useMyAnimeListFilterBar from "@/hooks/containers/Activite/MyAnimeList/useMyAnimeListFilterBar"
 import { statusValues } from "./const"
 const MyAnimeListFilterBar = () => {
@@ -41,9 +31,9 @@ const MyAnimeListFilterBar = () => {
     <Box mb={1}>
       <AppBar position="relative" color="transparent">
         <Toolbar>
-          <Grid container spacing={2} justifyContent="space-between" display={"flex"} xs={12}>
-            <Grid container lg={6} xs={12}>
-              <Grid lg={4} xs={12}>
+          <Grid container spacing={2} justifyContent="space-between" display={"flex"} size={{ xs: 12 }}>
+            <Grid container size={{ lg: 6, xs: 12 }}>
+              <Grid size={{ lg: 4, xs: 12 }}>
                 <FormControl fullWidth>
                   <InputLabel id="status-label">Status</InputLabel>
                   <Select
@@ -51,9 +41,11 @@ const MyAnimeListFilterBar = () => {
                     labelId="status-label"
                     id="status"
                     value={userStatusFilter}
-                    placeholder="Selectionner un status"
                     label="Status"
                     onChange={handleChangeStatus}>
+                    <MenuItem disabled value="">
+                      <em>Selectionner un status</em>
+                    </MenuItem>
                     {statusValues.map(({ value, label }) => (
                       <MenuItem key={value} value={value}>
                         {label}
@@ -63,67 +55,19 @@ const MyAnimeListFilterBar = () => {
                 </FormControl>
               </Grid>
 
-              <Grid lg={8} xs={12}>
-                <FormControl fullWidth>
-                  <InputLabel id="rarity-label">Genre</InputLabel>
-                  <Select
-                    autoWidth
-                    endAdornment={
-                      <IconButton
-                        size="small"
-                        onClick={handleClearGenre}
-                        sx={{ display: selectedGenres.length > 0 ? "" : "none" }}>
-                        <ClearIcon />
-                      </IconButton>
-                    }
-                    sx={{ "& .MuiSelect-iconOutlined": { display: selectedGenres.length > 0 ? "none" : "" } }}
-                    labelId="rarity-label"
-                    multiple
-                    value={selectedGenres}
-                    onChange={handleChangeGenre}
-                    onClose={onCloseGenre}
-                    input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-                    renderValue={(selected: string[]) => (
-                      <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                        {selected.map(value => (
-                          <Chip key={value} label={value} />
-                        ))}
-                      </Box>
-                    )}>
-                    {Array.from(genres)
-                      .toSorted((a, b) => a.name.localeCompare(b.name))
-                      .map(genre => (
-                        <MenuItem key={genre.id} value={genre.name}>
-                          <Checkbox checked={selectedGenres.includes(genre.name)} />
-                          <ListItemText primary={genre.name} />
-                        </MenuItem>
-                      ))}
-                  </Select>
-                </FormControl>
+              <Grid size={{ lg: 8, xs: 12 }}>
+                <GenreForm
+                  selectedGenres={selectedGenres}
+                  handleClearGenre={handleClearGenre}
+                  handleChangeGenre={handleChangeGenre}
+                  onCloseGenre={onCloseGenre}
+                  genres={genres}
+                />
               </Grid>
             </Grid>
-            <Grid container lg={6} xs={12} display="flex" justifyContent={"end"}>
-              <Grid>
-                <ToggleButtonGroup exclusive onChange={handleChangeViewMode} value={selectedViewMode}>
-                  <ToggleButton value={ViewMode.DEFAULT}>Default</ToggleButton>
-                  <ToggleButton value={ViewMode.ALPHA}>
-                    <AbcIcon />
-                  </ToggleButton>
-                  <ToggleButton value={ViewMode.SEASON}>
-                    <CalendarMonthIcon />
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Grid>
-              <Grid>
-                <ToggleButtonGroup exclusive onChange={handleChangeRenderMode} value={selectedRenderMode}>
-                  <ToggleButton value={RenderMode.LIST}>
-                    <ViewListIcon />
-                  </ToggleButton>
-                  <ToggleButton value={RenderMode.CARD}>
-                    <ViewModuleIcon />
-                  </ToggleButton>
-                </ToggleButtonGroup>
-              </Grid>
+            <Grid size={{ lg: 6, xs: 12 }} container display="flex" justifyContent={"end"}>
+              <ViewButtons handleChangeViewMode={handleChangeViewMode} selectedViewMode={selectedViewMode} />
+              <RenderButtons handleChangeRenderMode={handleChangeRenderMode} selectedRenderMode={selectedRenderMode} />
             </Grid>
           </Grid>
         </Toolbar>

@@ -15,6 +15,7 @@ const KeyListPagination = <T extends object>({ slicedGroupedData, onClick, page,
         key={value}
         variant="text"
         onClick={e => {
+          window.scrollTo(0, 0)
           onClick(e, index)
         }}
         disabled={index === page}>

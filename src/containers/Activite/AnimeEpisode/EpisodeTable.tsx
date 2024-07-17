@@ -29,9 +29,12 @@ const EpisodeTable = ({ malId }: IEpisodeTable) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {animeEpisodes.slice(sliceBegin, sliceEnd).map(episode => (
-              <EpisodeLine episode={episode} key={episode.episodeNumber} />
-            ))}
+            {animeEpisodes
+              .toSorted((a, b) => a.episodeNumber - b.episodeNumber)
+              .slice(sliceBegin, sliceEnd)
+              .map(episode => (
+                <EpisodeLine episode={episode} key={episode.episodeNumber} />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

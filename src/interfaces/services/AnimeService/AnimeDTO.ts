@@ -1,4 +1,4 @@
-import { type AnimeType } from "@/enums/AnimeType"
+import type { AnimeType } from "@/enums/AnimeType"
 import type Season from "@/enums/Season"
 import type StorageState from "@/enums/StorageState"
 

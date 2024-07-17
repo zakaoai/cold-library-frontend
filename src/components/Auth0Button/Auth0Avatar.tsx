@@ -9,7 +9,7 @@ import Menu from "@mui/material/Menu"
 import MenuItem from "@mui/material/MenuItem"
 import Tooltip from "@mui/material/Tooltip"
 import { useCallback, useState, type MouseEventHandler } from "react"
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router"
 
 const Auth0Avatar = () => {
   const { user, logout } = useAuth0()

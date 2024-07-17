@@ -1,4 +1,4 @@
-import Grid from "@mui/material/Unstable_Grid2" // Grid version 2
+import Grid from "@mui/material/Grid" // Grid version 2
 import { useMemo } from "react"
 import KeyListPagination from "../KeyListPagination/KeyListPagination"
 import AlphabetMenu from "./AlphabetMenu"
@@ -63,6 +63,9 @@ const AlphabetRender = <T extends { title: string }>({
             ))}
         </Grid>
         <AlphabetMenu alphabet={Object.keys(slicedGroupedData[page] ?? {})} />
+      </Grid>
+      <Grid sx={{ maxWidth: "fit-content", margin: "auto" }}>
+        <KeyListPagination onClick={handleChangePage} page={page} slicedGroupedData={slicedGroupedData} />
       </Grid>
     </>
   )

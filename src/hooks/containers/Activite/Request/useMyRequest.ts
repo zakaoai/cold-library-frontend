@@ -18,7 +18,7 @@ const useMyRequest = () => {
     enabled: myRequests.length === 0
   })
 
-  const prevData = useRef<RequestDTO[]>()
+  const prevData = useRef<RequestDTO[]>(null)
 
   const updateMyRequests = (updatedRequest: RequestDTO) => {
     setMyRequests(requests =>
@@ -49,7 +49,7 @@ const useMyRequest = () => {
     console.error(
       "Une erreur est survenue lors de la création d'une request pour l'anime %s avec le status %s",
       requestInput.malId,
-      error?.response?.status
+      error.response?.status
     )
   }, [])
 
