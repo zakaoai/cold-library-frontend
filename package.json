@@ -35,7 +35,7 @@
     "react-router-dom": "^6.22.3",
     "react-viewport-list": "^7.1.2",
     "react-virtualized": "^9.22.5",
-    "zod": "^3.22.4"
+    "zod": "^3.24.2"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.2",
