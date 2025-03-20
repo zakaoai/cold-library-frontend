@@ -43,7 +43,7 @@
     "@faker-js/faker": "^8.4.1",
     "@mswjs/data": "^0.16.1",
     "@nabla/vite-plugin-eslint": "^2.0.3",
-    "@stylistic/eslint-plugin-migrate": "^1.7.0",
+    "@stylistic/eslint-plugin-migrate": "^4.2.0",
     "@tanstack/eslint-plugin-query": "^5.28.11",
     "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^6.4.2",
