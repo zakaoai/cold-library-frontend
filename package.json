@@ -31,7 +31,7 @@
     "react-dom": "19.1.0",
     "react-hook-form": "^7.54.2",
     "react-lazy-load-image-component": "^1.6.3",
-    "react-router": "^7.4.0",
+    "react-router": "^7.5.2",
     "react-viewport-list": "^7.1.2",
     "react-virtualized": "^9.22.6",
     "zod": "^3.24.2"
@@ -80,7 +80,7 @@
     "prettier": "3.5.3",
     "react-test-renderer": "^19.0.0",
     "typescript": "5.8.2",
-    "vite": "6.3.1",
+    "vite": "6.3.2",
     "vite-plugin-eslint2": "5.0.3",
     "vitest": "3.1.1",
     "whatwg-fetch": "^3.6.20"
