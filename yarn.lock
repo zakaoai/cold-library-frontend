@@ -3270,7 +3270,7 @@ __metadata:
     react-dom: "npm:19.1.0"
     react-hook-form: "npm:^7.54.2"
     react-lazy-load-image-component: "npm:^1.6.3"
-    react-router: "npm:^7.4.0"
+    react-router: "npm:^7.5.2"
     react-test-renderer: "npm:^19.0.0"
     react-viewport-list: "npm:^7.1.2"
     react-virtualized: "npm:^9.22.6"
@@ -7376,11 +7376,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-router@npm:^7.4.0":
-  version: 7.4.0
-  resolution: "react-router@npm:7.4.0"
+"react-router@npm:^7.5.2":
+  version: 7.5.2
+  resolution: "react-router@npm:7.5.2"
   dependencies:
-    "@types/cookie": "npm:^0.6.0"
     cookie: "npm:^1.0.1"
     set-cookie-parser: "npm:^2.6.0"
     turbo-stream: "npm:2.4.0"
@@ -7390,7 +7389,7 @@ __metadata:
   peerDependenciesMeta:
     react-dom:
       optional: true
-  checksum: 10c0/9cf943d7854e1e4d068162efa9a61e2d06a5c679cf3272a867046cc97a6cc65c9744490f54e8fd77bbe2d114610a5cb285ceb3d3941b9b19ac6f63385ac0a89d
+  checksum: 10c0/5972ecb783e0ac0512c500b84bd4ff475665ba49c67b69e13b79dc24c7ee0496d523858058bb43c70147367688e0cc0d6d6d0f51cabfdebfbc5556d559bff457
   languageName: node
   linkType: hard
 
