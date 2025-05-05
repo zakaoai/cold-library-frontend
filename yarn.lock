@@ -3263,7 +3263,7 @@ __metadata:
     jsdom: "npm:26.0.0"
     lodash: "npm:4.17.21"
     luxon: "npm:^3.6.0"
-    msw: "npm:2.7.3"
+    msw: "npm:2.7.6"
     notistack: "npm:^3.0.2"
     prettier: "npm:3.5.3"
     react: "npm:19.0.0"
@@ -6690,9 +6690,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"msw@npm:2.7.3":
-  version: 2.7.3
-  resolution: "msw@npm:2.7.3"
+"msw@npm:2.7.6":
+  version: 2.7.6
+  resolution: "msw@npm:2.7.6"
   dependencies:
     "@bundled-es-modules/cookie": "npm:^2.0.1"
     "@bundled-es-modules/statuses": "npm:^1.0.1"
@@ -6719,7 +6719,7 @@ __metadata:
       optional: true
   bin:
     msw: cli/index.js
-  checksum: 10c0/47cad1c4b4615b312477c8977fddfda3e90becd8efc2d81d73be8fb860e45ad0d3f7bca6d4f70ae7ed21894e93975bda66d609aafc3a1c99cb923c5ef67f8686
+  checksum: 10c0/885fd60dfd327281e94fe5f28f48d303ccddf5d50157c76fb3d83256768e077e3dd6044db98261bf62d734bd4a61705cddd5660b4e80548b924f64d24975f0ae
   languageName: node
   linkType: hard
 
