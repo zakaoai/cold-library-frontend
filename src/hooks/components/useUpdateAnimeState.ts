@@ -3,6 +3,7 @@ import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeI
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 import useAppContext from "../context/useAppContext"
 
@@ -11,6 +12,8 @@ const useUpdateAnimeState = (
   defaultAnime: AnimeDTO,
   updateAnime: (updatedAnime: AnimeDTO | AnimeInServerDTO) => void
 ) => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const onSuccessUpdateAnimeInServer = useCallback(
     (anime: AnimeInServerDTO) => {
       updateAnime(anime)
@@ -30,6 +33,10 @@ const useUpdateAnimeState = (
 
   const onErrorUpdateLastAvaibleEpisode = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la mise à jour du LastAvaibleEpisode de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la mise à jour du LastAvaibleEpisode de l'anime %s avec le status %s",
         malId,
@@ -57,6 +64,10 @@ const useUpdateAnimeState = (
 
   const onErrorUpdateIsComplete = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la mise à jour de l'état isComplete de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la mise à jour de l'état isComplete de l'anime %s avec le status %s",
         malId,
@@ -84,6 +95,10 @@ const useUpdateAnimeState = (
 
   const onErrorUpdateStorageState = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la mise à jour du storage state de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la mise à jour du storage state de l'anime %s avec le status %s",
         malId,
@@ -111,6 +126,10 @@ const useUpdateAnimeState = (
 
   const onErrorUpdateIsDownloading = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la mise à jour de l'état isDownloading de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la mise à jour de l'état isDownloading de l'anime %s avec le status %s",
         malId,
@@ -146,6 +165,10 @@ const useUpdateAnimeState = (
 
   const onErrorDelete = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la suppression de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la supression l'anime %s avec le status %s",
         malId,
@@ -177,6 +200,10 @@ const useUpdateAnimeState = (
 
   const onErrorSaveInLibrary = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de l'enregistrement de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de l'enregistrement de l'anime %s avec le status %s",
         malId,

@@ -3,10 +3,13 @@ import type DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrent
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 
 const useAnimeTorrentsAction = () => {
   const { setTorrentEpisodeLibrary } = useAppContext()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   // Scan All Episode
   const updateAllDelugeCall = useCallback(async () => await AnimeEpisodeTorrentService.delugeUpdateAll(), [])
@@ -27,6 +30,10 @@ const useAnimeTorrentsAction = () => {
   )
 
   const onErrorUpdateAllDeluge = useCallback((error: ResponseError) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de la mise à jour des état des torrents",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de la mise à jour des état des torrents le status %s",
       error.response?.status

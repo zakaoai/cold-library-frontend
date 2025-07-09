@@ -6,6 +6,7 @@ import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useState } from "react"
 
 const useAnimeTorrentEpisodes = (malId: number) => {
@@ -13,6 +14,8 @@ const useAnimeTorrentEpisodes = (malId: number) => {
   const { setTorrentEpisodeLibrary } = useAppContext()
 
   const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
+
+  const { enqueueSnackbar } = useSnackbar()
 
   useEffect(() => {
     setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) ?? [])
@@ -44,6 +47,10 @@ const useAnimeTorrentEpisodes = (malId: number) => {
 
   const onErrorPatchTrackedAnimeEpisode = useCallback(
     (error: ResponseError, episode: AnimeEpisodeTorrentDTO) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors du patch de l'épisode",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors du patch de l'episode %s tracked de l'anime %s avec le status %s",
         episode.episodeNumber,

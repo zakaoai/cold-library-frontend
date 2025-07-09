@@ -6,6 +6,7 @@ import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 
 const useAnimeTorrentAction = () => {
@@ -16,6 +17,7 @@ const useAnimeTorrentAction = () => {
     doScanNext
   } = useAnimeTorrentContext()
 
+  const { enqueueSnackbar } = useSnackbar()
   const prevDoScan = useRef(doScan)
   const prevDoScanNext = useRef(doScanNext)
 
@@ -39,6 +41,10 @@ const useAnimeTorrentAction = () => {
 
   const onErrorScanEpisodes = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors du scan des épisodes",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors du scan des episodes de l'anime %s avec le status %s",
         malId,
@@ -67,6 +73,10 @@ const useAnimeTorrentAction = () => {
 
   const onErrorSearchPack = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors du scan du pack de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors du scan du pack de l'anime %s avec le status %s",
         malId,
@@ -94,6 +104,10 @@ const useAnimeTorrentAction = () => {
 
   const onErrorScanNextEpisodeTorrent = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors du scan du prochain episode de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors du scan du prochain episode de l'anime %s avec le status %s",
         malId,

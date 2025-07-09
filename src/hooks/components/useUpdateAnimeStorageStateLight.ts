@@ -6,6 +6,7 @@ import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
+import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 
 type AnimeLight = Partial<AnimeInServerDTO> & Pick<AnimeInServerDTO, "malId">
@@ -13,18 +14,27 @@ type AnimeLight = Partial<AnimeInServerDTO> & Pick<AnimeInServerDTO, "malId">
 const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLight) => void) => {
   const { setAnimeLibrary } = useAppContext()
 
+  const { enqueueSnackbar } = useSnackbar()
+
   // Delete Anime
   const deleteCall = useCallback(async (defaultAnime: AnimeLight) => {
     await AnimeServices.delete(defaultAnime.malId)
   }, [])
 
-  const onErrorDelete = useCallback((error: ResponseError, defaultAnime: AnimeLight) => {
-    console.error(
-      "Une erreur est survenue lors de la supression l'anime %s avec le status %s",
-      defaultAnime.malId,
-      error.response?.status
-    )
-  }, [])
+  const onErrorDelete = useCallback(
+    (error: ResponseError, defaultAnime: AnimeLight) => {
+      enqueueSnackbar({
+        message: `Erreur lors de la suppression de l'anime (id: ${defaultAnime.malId})`,
+        variant: "error"
+      })
+      console.error(
+        "Une erreur est survenue lors de la supression l'anime %s avec le status %s",
+        defaultAnime.malId,
+        error.response?.status
+      )
+    },
+    [enqueueSnackbar]
+  )
 
   const onSuccesReset = useCallback(
     (_: void, defaultAnime: AnimeLight) => {
@@ -52,6 +62,10 @@ const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLigh
   )
 
   const onErrorSaveInLibrary = useCallback((error: ResponseError, malId: number) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de l'enregistrement de l'anime",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de l'enregistrement de l'anime %s avec le status %s",
       malId,
@@ -73,6 +87,10 @@ const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLigh
   )
 
   const onErrorUpdateStorageState = useCallback((error: ResponseError, { malId }: { malId: number }) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de la mise à jour du storage state de l'anime",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de la mise à jour du storage state de l'anime %s avec le status %s",
       malId,

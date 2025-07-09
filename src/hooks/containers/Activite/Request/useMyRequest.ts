@@ -5,10 +5,13 @@ import type RequestInputDTO from "@/interfaces/services/RequestService/RequestIn
 import type ResponseError from "@/interfaces/services/ResponseError"
 import RequestService from "@/services/RequestService"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 
 const useMyRequest = () => {
   const { myRequests, setMyRequests } = useAppContext()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const { data, isFetched } = useQuery({
     staleTime: 3600000,
@@ -46,6 +49,10 @@ const useMyRequest = () => {
   )
 
   const onErrorCreateRequest = useCallback((error: ResponseError, requestInput: RequestInputDTO) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de la création de la request",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de la création d'une request pour l'anime %s avec le status %s",
       requestInput.malId,
