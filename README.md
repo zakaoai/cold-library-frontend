@@ -1,6 +1,16 @@
-# README
+<!-- Readme Template: See: https://github.com/othneildrew/Best-README-Template -->
 
 <a name="readme-top"></a>
+
+<!-- PROJECT SHIELDS -->
+<!--
+*** I'm using markdown "reference style" links for readability.
+*** Reference links are enclosed in brackets [ ] instead of parentheses ( ).
+*** See the bottom of this document for the declaration of the reference variables
+*** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
+*** https://www.markdownguide.org/basic-syntax/#reference-style-links
+*** for badge : https://ileriayo.github.io/markdown-badges/
+-->
 
 <!-- PROJECT LOGO -->
 <br />
@@ -65,12 +75,12 @@ L'application est conçue pour offrir une expérience utilisateur fluide, respon
 
 ### Construit avec
 
-- [React 19](https://react.dev/)
-- [Vite 7](https://vitejs.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Material UI (MUI) v7](https://mui.com/)
-- [React Query (TanStack)](https://tanstack.com/query/latest)
-- [React Router v7](https://reactrouter.com/)
+- [![React 19][React.js]][React-url]
+- [![Vite 7][Vite.js]][Vite-url]
+- [![TypeScript][TypeScript]][TypeScript-url]
+- [![MUI v7][MUI]][MUI-url]
+- [![React Query][React Query]][React Query-url]
+- [![React Router v7][React Router]][React Router-url]
 - [Zod](https://zod.dev/)
 - [React Hook Form](https://react-hook-form.com/)
 - [MSW (Mock Service Worker)](https://mswjs.io/)
@@ -167,4 +177,32 @@ Merci de créer une branche dédiée, de proposer une Pull Request et de détail
 
 Pour toute question ou suggestion, contactez le mainteneur du projet via [https://github.com/zakaoai/cold-library-frontend](https://github.com/zakaoai/cold-library-frontend).
 
----
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<p style='text-align: right;'>(<a href="#readme-top">back to top</a>)</p>
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+
+[contributors-shield]: https://img.shields.io/github/contributors/zakaoai/cold-library-frontend.svg?style=for-the-badge
+[contributors-url]: https://github.com/zakaoai/cold-library-frontend/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/zakaoai/cold-library-frontend.svg?style=for-the-badge
+[forks-url]: https://github.com/zakaoai/cold-library-frontend/network/members
+[stars-shield]: https://img.shields.io/github/stars/zakaoai/cold-library-frontend.svg?style=for-the-badge
+[stars-url]: https://github.com/zakaoai/cold-library-frontend/stargazers
+[issues-shield]: https://img.shields.io/github/issues/zakaoai/cold-library-frontend.a-svg?style=for-the-badge
+[issues-url]: https://github.com/zakaoai/cold-library-frontend/issues
+[linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+[product-screenshot]: ../images/screenshot.png
+[Vite.js]: https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white
+[Vite-url]: https://vitejs.dev/
+[React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-url]: https://reactjs.org/
+[TypeScript]: https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white
+[TypeScript-url]: https://www.typescriptlang.org/
+[MUI]: https://img.shields.io/badge/MUI-%230081CB.svg?style=for-the-badge&logo=mui&logoColor=white
+[MUI-url]: https://mui.com/
+[React Router]: https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white
+[React Router-url]: https://reactrouter.com/en/main
+[React Query]: https://img.shields.io/badge/-React%20Query-FF4154?style=for-the-badge&logo=react%20query&logoColor=white
+[React Query-url]: https://tanstack.com/query/v3/
