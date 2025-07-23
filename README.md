@@ -19,8 +19,15 @@
   <h3 align="center">Cold Library Frontend</h3>
   <p align="center">
     Application de gestion et de suivi d'animes, avec intégration MyAnimeList, gestion de torrents, et fonctionnalités avancées de bibliothèque.
+ <br />
+    <a href="../docs"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="#a-propos-du-projet"><strong>En savoir plus »</strong></a>
+    <br />
+    <a href="le.site.live.demo">View Demo</a>
+    ·
+    <a href="https://github.com/zakaoai/cold-library-frontend/issues">Report Bug</a>
+    ·
+    <a href="https://github.com/zakaoai/cold-library-frontend/issues">Request Feature</a>
   </p>
 </div>
 
@@ -29,7 +36,7 @@
   <summary>Sommaire</summary>
   <ol>
     <li>
-      <a href="#a-propos-du-projet">À propos du projet</a>
+      <a href="#à-propos-du-projet">À propos du projet</a>
       <ul>
         <li><a href="#fonctionnalités">Fonctionnalités</a></li>
         <li><a href="#construit-avec">Construit avec</a></li>
