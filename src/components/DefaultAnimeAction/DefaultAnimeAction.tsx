@@ -12,11 +12,7 @@ interface IDefaultAnimeAction<Anime> {
   renderRow?: boolean
 }
 
-const DefaultAnimeAction = <T extends AnimeDTO>({
-  anime,
-  setAnimeListState,
-  renderRow = false
-}: IDefaultAnimeAction<T>) => {
+const DefaultAnimeAction = <T extends AnimeDTO>({ anime, setAnimeListState }: IDefaultAnimeAction<T>) => {
   const { createRequest, myOpenedRequestMap } = useMyRequest()
   const { updateAnime } = useUpdateAnimeListState(setAnimeListState)
   const request = useMemo(() => myOpenedRequestMap[anime.malId], [anime.malId, myOpenedRequestMap])
