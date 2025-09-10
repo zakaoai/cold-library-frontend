@@ -5,11 +5,14 @@ import LogService from "@/services/LogService"
 import UserService from "@/services/UserService"
 import type { SelectChangeEvent } from "@mui/material"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useState } from "react"
 
 const useAdminLog = () => {
   const [selectedUser, setSelectedUser] = useState<UserDTO | undefined>(undefined)
   const [userLogs, setUserLogs] = useState<LogDTO[]>([])
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const {
     data: logs,
@@ -36,6 +39,10 @@ const useAdminLog = () => {
   }, [])
 
   const onErrorGetLogsByUser = useCallback((error: ResponseError) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de la lecture des logs de l'utilisateur",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de la lecture des logs de l'user %s avec le status %s",
       "a",

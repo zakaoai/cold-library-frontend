@@ -3,10 +3,13 @@ import type DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrent
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 
 const useDownloadDelugeAction = (malId: number, episodeNumber: number) => {
   const { setTorrentEpisodeLibrary } = useAppContext()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const onSuccessDownloadDelugeTorrent = useCallback(
     (delugeEpisodeTorrent: DelugeEpisodeTorrent) => {
@@ -21,6 +24,10 @@ const useDownloadDelugeAction = (malId: number, episodeNumber: number) => {
 
   const onErrorDownloadDelugeTorrent = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors du téléchargement via deluge",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors du téléchargement via deluge de l'episode %s tracked de l'anime %s avec le status %s",
         episodeNumber,

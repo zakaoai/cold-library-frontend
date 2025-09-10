@@ -5,11 +5,14 @@ import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
+import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 import useLibrary from "../containers/AnimeLibrary/useLibrary"
 
 const useUpdateAnimeStorageState = (callback?: (anime: AnimeDTO | AnimeInServerDTO) => void) => {
   const { updateAnime: updateAnimeInLibrary } = useLibrary()
+
+  const { enqueueSnackbar } = useSnackbar()
 
   // Delete Anime
   const deleteCall = useCallback(async (defaultAnime: AnimeDTO) => {
@@ -50,6 +53,10 @@ const useUpdateAnimeStorageState = (callback?: (anime: AnimeDTO | AnimeInServerD
   )
 
   const onErrorSaveInLibrary = useCallback((error: ResponseError, malId: number) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de l'enregistrement de l'anime",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de l'enregistrement de l'anime %s avec le status %s",
       malId,
@@ -71,6 +78,10 @@ const useUpdateAnimeStorageState = (callback?: (anime: AnimeDTO | AnimeInServerD
   )
 
   const onErrorUpdateStorageState = useCallback((error: ResponseError, { malId }: { malId: number }) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de la mise à jour du storage state de l'anime",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de la mise à jour du storage state de l'anime %s avec le status %s",
       malId,

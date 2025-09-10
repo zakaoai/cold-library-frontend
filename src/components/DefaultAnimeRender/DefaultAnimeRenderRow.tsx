@@ -13,7 +13,7 @@ const DefaultAnimeRenderRow = <T extends AnimeDTO>({
     selectedGenres={selectedGenres}
     imageHeight="120px"
     anime={anime}
-    actionTableCell={<DefaultAnimeAction anime={anime} setAnimeListState={setAnimeListState} renderRow />}
+    actionTableCell={<DefaultAnimeAction anime={anime} setAnimeListState={setAnimeListState} />}
     {...animeRowRead}
   />
 )

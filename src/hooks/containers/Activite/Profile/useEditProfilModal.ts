@@ -3,6 +3,7 @@ import type ResponseError from "@/interfaces/services/ResponseError"
 import type UserDTO from "@/interfaces/services/UserService/UserDTO"
 import UserService from "@/services/UserService"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useMemo } from "react"
 import { useForm } from "react-hook-form"
 import useProfil from "./useProfile"
@@ -11,6 +12,8 @@ const useEditProfilModal = (handleClose: () => void) => {
   const { setUser } = useAppContext()
   const { user: serverUser } = useProfil()
   const { malUsername } = serverUser ?? {}
+
+  const { enqueueSnackbar } = useSnackbar()
 
   const defaultValues = useMemo(
     () => ({
@@ -51,7 +54,11 @@ const useEditProfilModal = (handleClose: () => void) => {
   )
 
   const onErrorScanEpisodes = useCallback((error: ResponseError) => {
-    console.error("Une erreur est survenue lors de la mise à jour du profile utilisateur %s", error.response?.status)
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors du scan des épisodes",
+      variant: "error"
+    })
+    console.error("Une erreur est survenue lors du scan des épisodes %s", error.response?.status)
   }, [])
 
   const { mutate: updateCurrentMalUsername } = useMutation({

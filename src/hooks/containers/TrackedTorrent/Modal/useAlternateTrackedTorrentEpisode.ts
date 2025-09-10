@@ -8,10 +8,12 @@ import usePagination from "@/hooks/usePagination"
 import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useState, type ChangeEvent } from "react"
 import useSortTable from "./useSortTable"
 
 const useAlternateTrackedTorrentEpisode = () => {
+  const { enqueueSnackbar } = useSnackbar()
   const { setTorrentEpisodeLibrary } = useAppContext()
 
   const {
@@ -69,6 +71,10 @@ const useAlternateTrackedTorrentEpisode = () => {
 
   const onErrorUpdateTorrent = useCallback(
     (error: ResponseError, { malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la mise à jour du torrent de l'épisode",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la récupération des nouvelles informations du torrent episode %s de l'anime %s avec le status %s",
         episodeNumber,
@@ -101,8 +107,12 @@ const useAlternateTrackedTorrentEpisode = () => {
 
   const onErrorSearchAlternateEpisodeTorrent = useCallback(
     (error: ResponseError, { malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la récupération des torrents alternatifs de l'épisode",
+        variant: "error"
+      })
       console.error(
-        "Une erreur est survenue lors de la récupération des nouvelles informations du torrent episode %s de l'anime %s avec le status %s",
+        "Une erreur est survenue lors de la récupération des torrents alternatifs de l'épisode %s de l'anime %s avec le status %s",
         episodeNumber,
         malId,
         error.response?.status

@@ -4,9 +4,12 @@ import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeI
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
 import { useMutation, useQuery } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useState } from "react"
 
 const useAnimeLibrary = (malId: number) => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const [anime, setAnime] = useState<AnimeDTO | undefined>(undefined)
 
   const { data, isFetched, isFetching } = useQuery({
@@ -37,6 +40,10 @@ const useAnimeLibrary = (malId: number) => {
   )
   const onErrorUpdateAnimeInfos = useCallback(
     (error: ResponseError) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la mise à jour des informations de l'anime",
+        variant: "error"
+      })
       console.error(
         "Une erreur est survenue lors de la mise à jour des informations de l'anime %s de l'anime %s avec le status %s",
         malId,

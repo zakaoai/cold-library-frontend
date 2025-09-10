@@ -4,6 +4,7 @@ import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useMutation } from "@tanstack/react-query"
+import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
@@ -16,6 +17,7 @@ const useModalEditTrackedTorrent = () => {
     showModal: open
   } = useAnimeTorrentContext()
 
+  const { enqueueSnackbar } = useSnackbar()
   const { animeLibrary } = useAppContext()
 
   const anime = animeLibrary.find(anime => anime.malId === editableTrackedAnime?.malId)
@@ -40,6 +42,10 @@ const useModalEditTrackedTorrent = () => {
   )
 
   const onErrorUpdateTrackedTorrent = useCallback((error: ResponseError, trackedAnime: AnimeTorrentDTO) => {
+    enqueueSnackbar({
+      message: "Une erreur est survenue lors de la mise à jour des informations du torrent de l'anime",
+      variant: "error"
+    })
     console.error(
       "Une erreur est survenue lors de la mise à jour des informations du torrent de l'anime %s de l'anime %s avec le status %s",
 
