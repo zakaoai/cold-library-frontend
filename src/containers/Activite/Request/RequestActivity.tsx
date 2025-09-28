@@ -6,6 +6,7 @@ import useUpdateAnimeStorageStateLight from "@/hooks/components/useUpdateAnimeSt
 import useRequest from "@/hooks/containers/Activite/Request/useRequest"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import usePagination from "@/hooks/usePagination"
+import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
 import { formatJavaLocalDateTimeArray } from "@/utils/dateUtils"
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
@@ -74,7 +75,7 @@ const RequestActivity = () => {
   )
 
   const adminActions = withAuthorization(
-    ({ request }: { request: RequestDTO }) => (
+    ({ request, animeInServer }: { request: RequestDTO; animeInServer: AnimeDTO | undefined }) => (
       <>
         <IconButton
           color="success"
@@ -90,6 +91,7 @@ const RequestActivity = () => {
           }}>
           <ThumbDownIcon />
         </IconButton>
+        <InLibraryStateButtonGeneric anime={{ ...(animeInServer ?? {}), ...request }} updateAnime={updateAnime} />
       </>
     ),
     { minLevel: "admin" }
@@ -120,8 +122,7 @@ const RequestActivity = () => {
           <TableCell>{request.creator} </TableCell>
           <TableCell>{request.assignedUser} </TableCell>
           <TableCell>
-            {request.state === RequestStatus.PENDING ? adminActions({ request }) : undefined}
-            <InLibraryStateButtonGeneric anime={{ ...(animeInServer ?? {}), ...request }} updateAnime={updateAnime} />
+            {request.state === RequestStatus.PENDING ? adminActions({ request, animeInServer }) : undefined}
           </TableCell>
         </TableRow>
       )

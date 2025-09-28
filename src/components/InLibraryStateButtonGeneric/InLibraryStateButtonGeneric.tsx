@@ -4,7 +4,6 @@ import StorageState from "@/enums/StorageState"
 import FavoriteIcon from "@mui/icons-material/Favorite"
 import { blue, red } from "@mui/material/colors"
 import { useCallback, useMemo } from "react"
-import withAuthorization from "../Secure/withAuthorization"
 import type IInLibraryStateButtonGeneric from "./interface/InLibraryStateButtonGeneric"
 
 const InLibraryStateButtonGeneric = <T extends { storageState?: StorageState }>({
@@ -37,4 +36,4 @@ const InLibraryStateButtonGeneric = <T extends { storageState?: StorageState }>(
   )
 }
 
-export default withAuthorization(InLibraryStateButtonGeneric, { minLevel: "admin" })
+export default InLibraryStateButtonGeneric
