@@ -4,14 +4,11 @@ import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import CardActions from "@mui/material/CardActions"
 import Grid from "@mui/material/Grid"
 
-import AnimeCardTrackedButton from "@/components/AnimeCardTrackedButton/AnimeCardTrackedButton"
-import AnimeCompleteButton from "@/components/AnimeCompleteButton/AnimeCompleteButton"
-import HotColdSwitch from "@/components/HotColdSwitch/HotColdSwitch"
-import InLibraryButton from "@/components/InLibraryButton/InLibraryButton"
 import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
 import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import { useCallback, useMemo } from "react"
+import { ProtectedAdminActions } from "./AdminActions"
 
 interface IAnimeBottomAction {
   anime: AnimeDTO
@@ -49,42 +46,42 @@ const AnimeBottomAction = ({ anime, renderRow = false }: IAnimeBottomAction) => 
 
   return renderRow ? (
     <>
-      <InLibraryButton anime={anime} updateAnimeState={updateAnimeState} />
-      {storageState !== undefined ? (
-        <HotColdSwitch storageState={storageState} setStorageState={setStorageState} />
-      ) : undefined}
-      <AnimeCompleteButton
-        nbEpisodes={episodes}
-        isComplete={isComplete}
-        setIsComplete={setIsComplete}
-        isCompletePending={isUpdateIsCompletePending}
+      <ProtectedAdminActions
+        {...{
+          ...anime,
+          storageState,
+          setStorageState,
+          episodes,
+          isComplete,
+          setIsComplete,
+          isUpdateIsCompletePending,
+          isDownloading,
+          setIsDownloading,
+          updateAnimeState,
+          renderRow
+        }}
       />
-      <AnimeCardTrackedButton isAnimeTracked={isDownloading ?? false} trackAnime={setIsDownloading} />
 
       <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
     </>
   ) : (
     <CardActions disableSpacing>
       <Grid container alignItems="center">
-        <Grid size={{ xs: 2 }}>
-          <InLibraryButton anime={anime} updateAnimeState={updateAnimeState} />
-        </Grid>
-        <Grid size={{ xs: 3 }}>
-          {storageState !== undefined ? (
-            <HotColdSwitch storageState={storageState} setStorageState={setStorageState} />
-          ) : undefined}
-        </Grid>
-        <Grid size={{ xs: 2 }}>
-          <AnimeCompleteButton
-            nbEpisodes={episodes}
-            isComplete={isComplete}
-            setIsComplete={setIsComplete}
-            isCompletePending={isUpdateIsCompletePending}
-          />
-        </Grid>
-        <Grid size={{ xs: 2 }}>
-          <AnimeCardTrackedButton isAnimeTracked={isDownloading ?? false} trackAnime={setIsDownloading} />
-        </Grid>
+        <ProtectedAdminActions
+          {...{
+            ...anime,
+            storageState,
+            setStorageState,
+            episodes,
+            isComplete,
+            setIsComplete,
+            isUpdateIsCompletePending,
+            isDownloading,
+            setIsDownloading,
+            updateAnimeState,
+            renderRow
+          }}
+        />
         <Grid size={{ xs: 2 }}>
           <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
         </Grid>
