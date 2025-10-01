@@ -5,11 +5,13 @@ import type RequestType from "@/enums/RequestType"
 import useUpdateAnimeStorageStateLight from "@/hooks/components/useUpdateAnimeStorageStateLight"
 import useRequest from "@/hooks/containers/Activite/Request/useRequest"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
+import useUserContext from "@/hooks/context/useUserContext"
 import usePagination from "@/hooks/usePagination"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
 import { formatJavaLocalDateTimeArray } from "@/utils/dateUtils"
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
+import DeleteIcon from "@mui/icons-material/Delete"
 import DriveFileMoveIcon from "@mui/icons-material/DriveFileMove"
 import PendingIcon from "@mui/icons-material/Pending"
 import ThumbDownIcon from "@mui/icons-material/ThumbDown"
@@ -29,11 +31,12 @@ import { useCallback } from "react"
 import { NavLink } from "react-router"
 
 const RequestActivity = () => {
-  const { requests, updateRequest } = useRequest()
+  const { requests, updateRequest, deleteRequest } = useRequest()
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination<RequestDTO>(requests ?? [])
   const { animes } = useLibrary()
   const { updateAnime } = useUpdateAnimeStorageStateLight()
+  const { user, isAdmin } = useUserContext()
 
   const renderRequestState = useCallback(
     (requestStatus: RequestStatus) =>
@@ -97,6 +100,20 @@ const RequestActivity = () => {
     { minLevel: "admin" }
   )
 
+  const userActions = withAuthorization(
+    ({ request }: { request: RequestDTO }) =>
+      isAdmin || request.creator === user?.name ? (
+        <IconButton
+          color="error"
+          onClick={() => {
+            deleteRequest(request.id)
+          }}>
+          <DeleteIcon />
+        </IconButton>
+      ) : undefined,
+    { minLevel: "user" }
+  )
+
   const requestRender = useCallback(
     (request: RequestDTO) => {
       const animeInServer = animes.find(({ malId }) => request.malId === malId)
@@ -123,6 +140,7 @@ const RequestActivity = () => {
           <TableCell>{request.assignedUser} </TableCell>
           <TableCell>
             {request.state === RequestStatus.PENDING ? adminActions({ request, animeInServer }) : undefined}
+            {userActions({ request })}
           </TableCell>
         </TableRow>
       )
@@ -145,7 +163,7 @@ const RequestActivity = () => {
             <TableCell> Actions </TableCell>
           </TableRow>
         </TableHead>
-        <TableBody>{requests.slice(sliceBegin, sliceEnd).map(requestRender)}</TableBody>
+        <TableBody>{requests.toReversed().slice(sliceBegin, sliceEnd).map(requestRender)}</TableBody>
       </Table>
       <TablePagination
         rowsPerPageOptions={[5, 10, 25]}
