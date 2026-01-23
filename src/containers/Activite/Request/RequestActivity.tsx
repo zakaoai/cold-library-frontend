@@ -7,6 +7,7 @@ import useRequest from "@/hooks/containers/Activite/Request/useRequest"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import useUserContext from "@/hooks/context/useUserContext"
 import usePagination from "@/hooks/usePagination"
+import { RequestFilters } from "@/interfaces/containers/Activite/Request/RequestFilters"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
 import { formatJavaLocalDateTimeArray } from "@/utils/dateUtils"
@@ -39,7 +40,7 @@ const RequestActivity = () => {
   const { updateAnime } = useUpdateAnimeStorageStateLight()
   const { user, isAdmin } = useUserContext()
 
-  const [filter, setFilter] = useState({ status: undefined, type: undefined })
+  const [filter, setFilter] = useState<RequestFilters>({ status: undefined, type: undefined })
 
   const filterFunction = useCallback(
     (request: RequestDTO) => {
