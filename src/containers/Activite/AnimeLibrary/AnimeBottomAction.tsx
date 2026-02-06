@@ -48,7 +48,7 @@ const AnimeBottomAction = ({ anime, renderRow = false }: IAnimeBottomAction) => 
     <>
       <ProtectedAdminActions
         {...{
-          ...anime,
+          anime,
           storageState,
           setStorageState,
           episodes,
@@ -69,7 +69,7 @@ const AnimeBottomAction = ({ anime, renderRow = false }: IAnimeBottomAction) => 
       <Grid container alignItems="center">
         <ProtectedAdminActions
           {...{
-            ...anime,
+            anime,
             storageState,
             setStorageState,
             episodes,

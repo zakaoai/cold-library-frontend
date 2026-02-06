@@ -1,7 +1,7 @@
 export default interface LogDTO {
   id: number
   action: string
-  date: [number, number, number, number, number, number, number]
+  date: string
   userId: string
   name: string
   email: string

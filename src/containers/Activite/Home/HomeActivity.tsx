@@ -5,7 +5,7 @@ import SlideShow from "./SlideShow"
  */
 const HomeActivity = () => (
   <>
-    Bienvenue dans cette application de gestion de ma librairie
+    Bienvenue dans cette application de gestion de ma collection d'animes
     <SlideShow />
   </>
 )

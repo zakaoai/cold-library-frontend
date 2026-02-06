@@ -1,5 +1,4 @@
-import SiteMap from "@/routes/SiteMap"
-
+import { useMenu } from "@/hooks/containers/Menu/useMenu"
 import MenuDesktop from "./MenuDesktop"
 import MenuMobile from "./MenuMobile/MenuMobile"
 
@@ -7,17 +6,7 @@ import MenuMobile from "./MenuMobile/MenuMobile"
  * Menu de l'application
  */
 const Menu = () => {
-  const links = [
-    SiteMap.ACCUEIL,
-    SiteMap.RECHERCHE,
-    SiteMap.LIBRAIRIE,
-    SiteMap.SEASON,
-    SiteMap.REQUEST,
-    SiteMap.MYANIMELIST,
-    SiteMap.TORRENT,
-    SiteMap.ADMIN_LOG,
-    SiteMap.ANIME
-  ]
+  const { links } = useMenu()
 
   return (
     <>
