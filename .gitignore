@@ -32,3 +32,5 @@ coverage/
 tsconfig.node.tsbuildinfo
 
 vite.config.js
+
+*.tsbuildinfo
