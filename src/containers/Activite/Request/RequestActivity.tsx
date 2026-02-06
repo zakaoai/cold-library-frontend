@@ -7,6 +7,7 @@ import useRequest from "@/hooks/containers/Activite/Request/useRequest"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import useUserContext from "@/hooks/context/useUserContext"
 import usePagination from "@/hooks/usePagination"
+import { RequestFilters } from "@/interfaces/containers/Activite/Request/RequestFilters"
 import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
 import { formatJavaLocalDateTimeArray } from "@/utils/dateUtils"
@@ -27,8 +28,9 @@ import TableHead from "@mui/material/TableHead"
 import TablePagination from "@mui/material/TablePagination"
 import TableRow from "@mui/material/TableRow"
 import Tooltip from "@mui/material/Tooltip"
-import { useCallback } from "react"
+import { useCallback, useState } from "react"
 import { NavLink } from "react-router"
+import RequestFilterBar from "./RequestFilterBar"
 
 const RequestActivity = () => {
   const { requests, updateRequest, deleteRequest } = useRequest()
@@ -37,6 +39,17 @@ const RequestActivity = () => {
   const { animes } = useLibrary()
   const { updateAnime } = useUpdateAnimeStorageStateLight()
   const { user, isAdmin } = useUserContext()
+
+  const [filter, setFilter] = useState<RequestFilters>({ status: undefined, type: undefined })
+
+  const filterFunction = useCallback(
+    (request: RequestDTO) => {
+      if (filter.status && request.state !== filter.status) return false
+      if (filter.type && request.type !== filter.type) return false
+      return true
+    },
+    [filter]
+  )
 
   const renderRequestState = useCallback(
     (requestStatus: RequestStatus) =>
@@ -149,33 +162,38 @@ const RequestActivity = () => {
   )
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell />
-            <TableCell> Titre </TableCell>
-            <TableCell> Type </TableCell>
-            <TableCell> Date </TableCell>
-            <TableCell> State </TableCell>
-            <TableCell> Createur </TableCell>
-            <TableCell> Assigné </TableCell>
-            <TableCell> Actions </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>{requests.toReversed().slice(sliceBegin, sliceEnd).map(requestRender)}</TableBody>
-      </Table>
-      <TablePagination
-        rowsPerPageOptions={[5, 10, 25]}
-        component="div"
-        count={requests.length ?? 0}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-        labelDisplayedRows={labelTemplate}
-      />
-    </TableContainer>
+    <>
+      <RequestFilterBar onFilterChange={setFilter} />
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell />
+              <TableCell> Titre </TableCell>
+              <TableCell> Type </TableCell>
+              <TableCell> Date </TableCell>
+              <TableCell> State </TableCell>
+              <TableCell> Createur </TableCell>
+              <TableCell> Assigné </TableCell>
+              <TableCell> Actions </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {requests.toReversed().filter(filterFunction).slice(sliceBegin, sliceEnd).map(requestRender)}
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={requests.length ?? 0}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onPageChange={handleChangePage}
+          onRowsPerPageChange={handleChangeRowsPerPage}
+          labelDisplayedRows={labelTemplate}
+        />
+      </TableContainer>
+    </>
   )
 }
 
