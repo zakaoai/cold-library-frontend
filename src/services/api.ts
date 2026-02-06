@@ -62,7 +62,8 @@ const api = {
     getMe: `${API_BASE_URL}/request/me`,
     getAssigned: `${API_BASE_URL}/request/assigned`,
     getAll: `${API_BASE_URL}/request/all`,
-    update: (requestId: number) => `${API_BASE_URL}/request/${requestId}`
+    update: (requestId: number) => `${API_BASE_URL}/request/${requestId}`,
+    delete: (requestId: number) => `${API_BASE_URL}/request/${requestId}`
   },
   seasons: {
     getSeasonsList: `${API_BASE_URL}/seasons`,
