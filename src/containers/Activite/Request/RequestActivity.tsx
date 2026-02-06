@@ -1,10 +1,12 @@
 import InLibraryStateButtonGeneric from "@/components/InLibraryStateButtonGeneric/InLibraryStateButtonGeneric"
+import withAuthorization from "@/components/Secure/withAuthorization"
 import RequestStatus from "@/enums/RequestStatus"
 import type RequestType from "@/enums/RequestType"
 import useUpdateAnimeStorageStateLight from "@/hooks/components/useUpdateAnimeStorageStateLight"
 import useRequest from "@/hooks/containers/Activite/Request/useRequest"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import usePagination from "@/hooks/usePagination"
+import { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
 import { formatJavaLocalDateTimeArray } from "@/utils/dateUtils"
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder"
@@ -72,6 +74,29 @@ const RequestActivity = () => {
     []
   )
 
+  const adminActions = withAuthorization(
+    ({ request, animeInServer }: { request: RequestDTO; animeInServer: AnimeDTO | undefined }) => (
+      <>
+        <IconButton
+          color="success"
+          onClick={() => {
+            updateRequest({ ...request, state: RequestStatus.ACCEPTED })
+          }}>
+          <ThumbUpIcon />
+        </IconButton>
+        <IconButton
+          color="error"
+          onClick={() => {
+            updateRequest({ ...request, state: RequestStatus.REJECTED })
+          }}>
+          <ThumbDownIcon />
+        </IconButton>
+        <InLibraryStateButtonGeneric anime={{ ...(animeInServer ?? {}), ...request }} updateAnime={updateAnime} />
+      </>
+    ),
+    { minLevel: "admin" }
+  )
+
   const requestRender = useCallback(
     (request: RequestDTO) => {
       const animeInServer = animes.find(({ malId }) => request.malId === malId)
@@ -97,25 +122,7 @@ const RequestActivity = () => {
           <TableCell>{request.creator} </TableCell>
           <TableCell>{request.assignedUser} </TableCell>
           <TableCell>
-            {request.state === RequestStatus.PENDING ? (
-              <>
-                <IconButton
-                  color="success"
-                  onClick={() => {
-                    updateRequest({ ...request, state: RequestStatus.ACCEPTED })
-                  }}>
-                  <ThumbUpIcon />
-                </IconButton>
-                <IconButton
-                  color="error"
-                  onClick={() => {
-                    updateRequest({ ...request, state: RequestStatus.REJECTED })
-                  }}>
-                  <ThumbDownIcon />
-                </IconButton>
-              </>
-            ) : undefined}
-            <InLibraryStateButtonGeneric anime={{ ...(animeInServer ?? {}), ...request }} updateAnime={updateAnime} />
+            {request.state === RequestStatus.PENDING ? adminActions({ request, animeInServer }) : undefined}
           </TableCell>
         </TableRow>
       )

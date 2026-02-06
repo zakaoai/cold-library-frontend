@@ -1,4 +1,5 @@
 import AnimeCardReadComponent from "@/components/AnimeCardRead/AnimeCardReadComponent"
+import withAuthorization from "@/components/Secure/withAuthorization"
 import AnimeServices from "@/services/AnimeService"
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft"
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight"
@@ -76,4 +77,6 @@ const SlideShow = () => {
   ) : undefined
 }
 
-export default SlideShow
+const ProtectedSlideShow = withAuthorization(SlideShow, { minLevel: "user" })
+
+export default ProtectedSlideShow

@@ -9,6 +9,7 @@ import useUpdateAnimeStorageState from "@/hooks/components/useUpdateAnimeStorage
 
 import InLibraryStateButtonGeneric from "@/components/InLibraryStateButtonGeneric/InLibraryStateButtonGeneric"
 import LastAvaibleEpisode from "@/components/LastAvaibleEpisode/LastAvaibleEpisode"
+import withAuthorization from "@/components/Secure/withAuthorization"
 import type IAnimeCardReadEpisodeBottomAction from "@/interfaces/containers/Activite/AnimeEpisode/AnimeCardReadBottomAction"
 
 const AnimeCardReadEpisodeBottomAction = ({
@@ -35,12 +36,17 @@ const AnimeCardReadEpisodeBottomAction = ({
 
   const { updateAnime: updateAnimeStorageState } = useUpdateAnimeStorageState(updateAnime)
 
+  const SecuredAddOrRemoveFromLibrary = withAuthorization(
+    () => <InLibraryStateButtonGeneric anime={anime} updateAnime={updateAnimeStorageState} />,
+    { minLevel: "admin" }
+  )
+
   return (
     <CardActions disableSpacing>
       <Grid container alignItems="center">
         {showAddOrRemoveFromLibrary && (
           <Grid size={{ xs: 2 }}>
-            <InLibraryStateButtonGeneric anime={anime} updateAnime={updateAnimeStorageState} />
+            <SecuredAddOrRemoveFromLibrary />
           </Grid>
         )}
         {isInLibrary && (

@@ -5,6 +5,7 @@ import useUpdateAnimeListState from "@/hooks/components/useUpdateAnimeListState"
 import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import { useMemo, type Dispatch, type SetStateAction } from "react"
 import InLibraryStateButtonGeneric from "../InLibraryStateButtonGeneric/InLibraryStateButtonGeneric"
+import withAuthorization from "../Secure/withAuthorization"
 
 interface IDefaultAnimeAction<Anime> {
   anime: AnimeDTO
@@ -17,9 +18,14 @@ const DefaultAnimeAction = <T extends AnimeDTO>({ anime, setAnimeListState }: ID
   const { updateAnime } = useUpdateAnimeListState(setAnimeListState)
   const request = useMemo(() => myOpenedRequestMap[anime.malId], [anime.malId, myOpenedRequestMap])
 
+  const SecuredAddOrRemoveFromLibrary = withAuthorization(
+    () => <InLibraryStateButtonGeneric anime={anime} updateAnime={updateAnime} />,
+    { minLevel: "admin" }
+  )
+
   return (
     <>
-      <InLibraryStateButtonGeneric anime={anime} updateAnime={updateAnime} />
+      <SecuredAddOrRemoveFromLibrary />
       <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
     </>
   )
