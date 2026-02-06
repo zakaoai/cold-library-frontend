@@ -11,7 +11,7 @@ const useMyAnimeListMapper = () => {
       const returnedAnime = {
         ...malAnime,
         malId: malAnime.id,
-        malUrl: "",
+        malUrl: `https://myanimelist.net/anime/${malAnime.id}`,
         malImg: malAnime.main_picture.medium,
         type: malAnime.media_type as AnimeType,
         episodes: malAnime.num_episodes,
