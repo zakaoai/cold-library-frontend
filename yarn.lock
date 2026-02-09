@@ -2067,13 +2067,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-lazy-load-image-component@npm:^1.6.4":
-  version: 1.6.4
-  resolution: "@types/react-lazy-load-image-component@npm:1.6.4"
+"@types/react-lazy-load-image-component@npm:^1.6.5":
+  version: 1.6.5
+  resolution: "@types/react-lazy-load-image-component@npm:1.6.5"
   dependencies:
     "@types/react": "npm:*"
-    csstype: "npm:^3.0.2"
-  checksum: 10c0/f0d6c02439bbd4b899fe78c5a518e121bb333af0f5b36179136551e5c03efd0e8abb20a96dbc70e367858f2268bfcd883c3b6278646c9a09685a53039b1d1da4
+    csstype: "npm:^3.2.2"
+  checksum: 10c0/9936c9caec52445b396e7a32d3d0695a04da9c98321db56b9fb7a841e26918d1ba593f9ebd2fc00fa17d27b754795c43b2aadc3ff8e618b76d43fea5bf826434
   languageName: node
   linkType: hard
 
@@ -3226,7 +3226,7 @@ __metadata:
     "@types/node": "npm:25.2.1"
     "@types/react": "npm:19.2.13"
     "@types/react-dom": "npm:19.2.3"
-    "@types/react-lazy-load-image-component": "npm:^1.6.4"
+    "@types/react-lazy-load-image-component": "npm:^1.6.5"
     "@types/react-virtualized": "npm:^9.22.3"
     "@typescript-eslint/eslint-plugin": "npm:^8.54.0"
     "@typescript-eslint/parser": "npm:^8.54.0"
