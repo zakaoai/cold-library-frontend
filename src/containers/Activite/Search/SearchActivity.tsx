@@ -43,7 +43,7 @@ const SearchActivity = () => {
   const { selectedRenderMode } = useDisplayAnimeContext()
 
   const RenderComponent = useMemo(
-    () => (selectedRenderMode === RenderMode.CARD ? DefaultGridComponent : DefaultTableComponent()),
+    () => (selectedRenderMode === RenderMode.CARD ? DefaultGridComponent : DefaultTableRenderComponent),
     [selectedRenderMode]
   )
 
@@ -68,6 +68,8 @@ const SearchActivity = () => {
     </>
   )
 }
+
+const DefaultTableRenderComponent = DefaultTableComponent()
 
 const SearchActivityWithContext = () => (
   <DisplayAnimeProvider>

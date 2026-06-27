@@ -3109,6 +3109,7 @@ __metadata:
     eslint: "npm:10.6.0"
     eslint-config-love: "npm:154.0.0"
     eslint-config-prettier: "npm:^10.1.8"
+    eslint-formatter-unix: "npm:^9.0.1"
     eslint-import-resolver-typescript: "npm:4.4.5"
     eslint-plugin-import: "npm:2.32.0"
     eslint-plugin-prettier: "npm:5.5.6"
@@ -4278,6 +4279,13 @@ __metadata:
   bin:
     eslint-config-prettier: bin/cli.js
   checksum: 10c0/e1bcfadc9eccd526c240056b1e59c5cd26544fe59feb85f38f4f1f116caed96aea0b3b87868e68b3099e55caaac3f2e5b9f58110f85db893e83a332751192682
+  languageName: node
+  linkType: hard
+
+"eslint-formatter-unix@npm:^9.0.1":
+  version: 9.0.1
+  resolution: "eslint-formatter-unix@npm:9.0.1"
+  checksum: 10c0/5b4ed019929fda33246da43f1ebc7a3749f7b9d0d71f29a6b663ce87b6f288c3ebb989840563c29707ee29c165163bf14c05ff279c7418e382734ad1ac52ae27
   languageName: node
   linkType: hard
 

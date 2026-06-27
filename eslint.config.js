@@ -96,6 +96,7 @@ export default defineConfig([
       "simple-import-sort": simpleImportSort
     },
     rules: {
+      strict: "off",
       complexity: ["error", { max: 10 }],
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-unused-vars": "warn",
