@@ -1,4 +1,4 @@
-export type RequestFilters = {
+export interface RequestFilters {
   status?: string
   type?: string
 }

@@ -57,7 +57,9 @@ const useRequest = () => {
     onError: onErrorCreateRequest
   })
 
-  const deleteRequestCall = useCallback(async (id: number) => await RequestService.delete(id), [])
+  const deleteRequestCall = useCallback(async (id: number) => {
+    await RequestService.delete(id)
+  }, [])
 
   const onSuccessDeleteRequest = useCallback(
     (__: void, id: number) => {

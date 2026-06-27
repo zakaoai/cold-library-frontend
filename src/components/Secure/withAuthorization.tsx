@@ -1,7 +1,7 @@
 import useUserContext from "@/hooks/context/useUserContext"
-import { ComponentType, PropsWithChildren } from "react"
+import type { ComponentType, PropsWithChildren } from "react"
 import { levelOrder } from "./withAuthorization.const"
-import { AuthorizationLevel, WithAuthorizationOptions } from "./withAuthorization.types"
+import type { AuthorizationLevel, WithAuthorizationOptions } from "./withAuthorization.types"
 
 function withAuthorization<P>(WrappedComponent: ComponentType<P>, options: WithAuthorizationOptions) {
   const { minLevel } = options

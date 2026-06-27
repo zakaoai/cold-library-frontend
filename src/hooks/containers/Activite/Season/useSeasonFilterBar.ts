@@ -25,7 +25,7 @@ const useSeasonFilterBar = () => {
       const {
         target: { value }
       } = event
-      setSeasonSelected(value as Season)
+      setSeasonSelected(value)
     },
     [setSeasonSelected]
   )
@@ -35,7 +35,7 @@ const useSeasonFilterBar = () => {
       const {
         target: { value }
       } = event
-      setSortBySelected(value as keyof MALAnime)
+      setSortBySelected(value)
     },
     [setSortBySelected]
   )
@@ -45,7 +45,7 @@ const useSeasonFilterBar = () => {
       const {
         target: { value }
       } = event
-      setTypeSelected(value as AnimeType)
+      setTypeSelected(value)
       handleChangePage(null, 0)
     },
     [handleChangePage, setTypeSelected]
@@ -56,7 +56,7 @@ const useSeasonFilterBar = () => {
       const {
         target: { value }
       } = event
-      setYearSelected(value as number)
+      setYearSelected(value)
       setSeasonSelected(Season.WINTER)
     },
     [setSeasonSelected, setYearSelected]

@@ -18,7 +18,7 @@ const useMyAnimeListMapper = () => {
         score: malAnime.mean,
         season: malAnime.start_season?.season,
         year: malAnime.start_season?.year,
-        broadcast: malAnime.broadcast?.day_of_the_week + " " + malAnime.broadcast?.start_time,
+        broadcast: `${malAnime.broadcast?.day_of_the_week} ${malAnime.broadcast?.start_time}`,
         ...(animeLibrary.find(({ malId }) => malAnime.id === malId) ?? {})
       }
 

@@ -7,10 +7,10 @@ export const formatByteSize = (size: string, type: string, round = 1) => {
   const i = Math.floor(Math.log(intSize) / Math.log(1024))
 
   if (i === 0) {
-    return size + " " + type
+    return `${size} ${type}`
   }
 
-  return (intSize / Math.pow(1024, i)).toFixed(round) + " " + typeSize[typeIndex + i]
+  return `${(intSize / 1024 ** i).toFixed(round)} ${typeSize[typeIndex + i]}`
 }
 
 export const getBytesSize = (size: string, type: string) => {
@@ -18,5 +18,5 @@ export const getBytesSize = (size: string, type: string) => {
 
   const typeIndex = typeSize.indexOf(type)
 
-  return parseInt(size) * Math.pow(1024, typeIndex)
+  return parseInt(size) * 1024 ** typeIndex
 }
