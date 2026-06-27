@@ -28,10 +28,10 @@ const MyAnimeListFilterBar = () => {
   } = useMyAnimeListFilterBar()
 
   return (
-    <Box mb={1}>
+    <Box sx={{ mb: 1 }}>
       <AppBar position="relative" color="transparent">
         <Toolbar>
-          <Grid container spacing={2} justifyContent="space-between" display={"flex"} size={{ xs: 12 }}>
+          <Grid container spacing={2} sx={{ justifyContent: "space-between", display: "flex" }} size={{ xs: 12 }}>
             <Grid container size={{ lg: 6, xs: 12 }}>
               <Grid size={{ lg: 4, xs: 12 }}>
                 <FormControl fullWidth>
@@ -65,7 +65,7 @@ const MyAnimeListFilterBar = () => {
                 />
               </Grid>
             </Grid>
-            <Grid size={{ lg: 6, xs: 12 }} container display="flex" justifyContent={"end"}>
+            <Grid size={{ lg: 6, xs: 12 }} container sx={{ display: "flex", justifyContent: "end" }}>
               <ViewButtons handleChangeViewMode={handleChangeViewMode} selectedViewMode={selectedViewMode} />
               <RenderButtons handleChangeRenderMode={handleChangeRenderMode} selectedRenderMode={selectedRenderMode} />
             </Grid>

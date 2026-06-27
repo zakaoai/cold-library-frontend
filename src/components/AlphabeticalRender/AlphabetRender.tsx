@@ -55,7 +55,7 @@ const AlphabetRender = <T extends { title: string }>({
         <KeyListPagination onClick={handleChangePage} page={page} slicedGroupedData={slicedGroupedData} />
       </Grid>
       <Grid sx={{ display: "flex" }}>
-        <Grid flex={1}>
+        <Grid sx={{ flex: 1 }}>
           {Object.entries(slicedGroupedData[page] ?? {})
             .toSorted(([akey], [bkey]) => akey.localeCompare(bkey))
             .map(([key, value]) => (

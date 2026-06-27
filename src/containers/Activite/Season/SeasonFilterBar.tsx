@@ -60,10 +60,10 @@ const SeasonFilterBar = ({ genres }: { genres: MALGenre[] }) => {
   }
 
   return (
-    <Box mb={1}>
+    <Box sx={{ mb: 1 }}>
       <AppBar position="relative" color="transparent">
         <Toolbar>
-          <Grid container spacing={2} justifyContent="space-between" display={"flex"} size={{ xs: 12 }}>
+          <Grid container spacing={2} sx={{ justifyContent: "space-between", display: "flex" }} size={{ xs: 12 }}>
             <Grid container size={{ lg: 6, xs: 12 }}>
               <Grid size={{ lg: 3, xs: 12 }}>
                 <FormControl fullWidth>
@@ -98,7 +98,7 @@ const SeasonFilterBar = ({ genres }: { genres: MALGenre[] }) => {
                 />
               </Grid>
             </Grid>
-            <Grid size={{ lg: 6, xs: 12 }} container display="flex" justifyContent={"end"}>
+            <Grid size={{ lg: 6, xs: 12 }} container sx={{ display: "flex", justifyContent: "end" }}>
               <Grid size={{ lg: 3, xs: 12 }}>
                 <FormControl fullWidth>
                   <InputLabel id="sort-label">Trie</InputLabel>

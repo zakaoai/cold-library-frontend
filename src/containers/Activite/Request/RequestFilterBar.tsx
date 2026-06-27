@@ -15,7 +15,7 @@ const RequestFilterBar = ({ onFilterChange }: IRequestFilterBar) => {
   }
 
   return (
-    <Box display="flex" gap={2} alignItems="center">
+    <Box sx={{ display: "flex", alignItems: "center", gap: "2" }}>
       <TextField
         select
         label="Statut"

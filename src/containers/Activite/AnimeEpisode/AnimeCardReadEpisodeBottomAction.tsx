@@ -43,7 +43,7 @@ const AnimeCardReadEpisodeBottomAction = ({
 
   return (
     <CardActions disableSpacing>
-      <Grid container alignItems="center">
+      <Grid container sx={{ alignItems: "center" }}>
         {showAddOrRemoveFromLibrary && (
           <Grid size={{ xs: 2 }}>
             <SecuredAddOrRemoveFromLibrary />

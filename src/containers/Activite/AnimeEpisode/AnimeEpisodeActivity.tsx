@@ -15,7 +15,7 @@ const AnimeEpisodeActivity = () => {
   const { myOpenedRequestMap, createRequest } = useMyRequest()
 
   return (
-    <Grid container justifyContent="center" spacing={2}>
+    <Grid container sx={{ justifyContent: "center" }} spacing={2}>
       {isFetching ? (
         <CircularProgress />
       ) : (

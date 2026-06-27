@@ -3,10 +3,10 @@ import { AppBar, Box, FormControl, InputLabel, MenuItem, Select, Toolbar } from 
 import Grid from "@mui/material/Grid"
 
 const AdminLogAppBar = ({ selectedUser, handleChangeSelectedUser, users }: IAdminLogAppBar) => (
-  <Box mb={1}>
+  <Box sx={{ mb: 1 }}>
     <AppBar position="relative" color="transparent">
       <Toolbar>
-        <Grid container size={{ xs: 12 }} spacing={2} justifyContent="space-between" display={"flex"}>
+        <Grid container size={{ xs: 12 }} spacing={2} sx={{ justifyContent: "space-between", display: "flex" }}>
           <Grid>
             <FormControl fullWidth>
               <InputLabel id="select-user-label">User</InputLabel>

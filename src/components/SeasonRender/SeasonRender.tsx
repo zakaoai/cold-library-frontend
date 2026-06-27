@@ -52,7 +52,7 @@ const SeasonRender = <T extends { year?: number; season?: Season }>({
         <KeyListPagination onClick={handleChangePage} page={page} slicedGroupedData={slicedGroupedData} reversed />
       </Grid>
       <Grid sx={{ display: "flex" }}>
-        <Grid flex={1}>
+        <Grid sx={{ flex: 1 }}>
           {Object.entries(slicedGroupedData[page] ?? {})
             .toSorted(([akey], [bkey]) => bkey.localeCompare(akey))
             .map(([key, value]) => (
