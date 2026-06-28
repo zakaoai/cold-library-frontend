@@ -1,0 +1,382 @@
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:22:11: Prefer using nullish coalescing operator (`??=`) instead of an assignment expression, as it is simpler to read. [Error/@typescript-eslint/prefer-nullish-coalescing]
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:22:15: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:23:13: Assignment to property of function parameter 'acc'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:38:95: Assignment to function parameter 'count'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:38:95: The value assigned to 'count' is not used in subsequent statements. [Error/no-useless-assignment]
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:42:15: Use array destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\components\AlphabeticalRender\AlphabetRender.tsx:42:15: Assignment to property of function parameter 'acc'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\AnimeCardRead\AnimeCardAvatar.tsx:10:10: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeCardRead\AnimeCardEpisodeNumber.tsx:9:10: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeCardRead\AnimeCardImage.tsx:11:10: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeCardRead\AnimeCardReadComponent.tsx:31:8: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeRowRead\AnimeRowRead.tsx:40:10: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeRowRead\AnimeRowRead.tsx:45:8: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeRowRead\AnimeRowRead.tsx:47:12: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeRowRead\AnimeRowRead.tsx:52:8: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\AnimeRowRead\AnimeRowRead.tsx:54:31: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\DefaultAnimeAction\DefaultAnimeAction.tsx:28:8: Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+I:\GIT\cold-library-frontend\src\components\DefaultAnimeAction\DefaultAnimeAction.tsx:28:8
+  26 |   return (
+  27 |     <>
+> 28 |       <SecuredAddOrRemoveFromLibrary />
+     |        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This component is created during render
+  29 |       <RequestButton request={request} createRequest={createRequest} animeInServer={anime} />
+  30 |     </>
+  31 |   )
+
+I:\GIT\cold-library-frontend\src\components\DefaultAnimeAction\DefaultAnimeAction.tsx:21:41
+  19 |   const request = useMemo(() => myOpenedRequestMap[anime.malId], [anime.malId, myOpenedRequestMap])
+  20 |
+> 21 |   const SecuredAddOrRemoveFromLibrary = withAuthorization(
+     |                                         ^^^^^^^^^^^^^^^^^^
+> 22 |     () => <InLibraryStateButtonGeneric anime={anime} updateAnime={updateAnime} />,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 23 |     { minLevel: "admin" }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 24 |   )
+     | ^^^^ The component is created during render here
+  25 |
+  26 |   return (
+  27 |     <> [Error/react-hooks/static-components]
+I:\GIT\cold-library-frontend\src\components\FilterHeaderCell\FilterHeaderCell.tsx:14:6: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\FilterHeaderCell\FilterHeaderCell.tsx:19:18: Unsafe type assertion: type 'Extract<keyof Type, string>' is more narrow than the original type. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\components\InLibraryButton\InLibraryButton.tsx:9:55: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\components\InLibraryStateButtonGeneric\InLibraryStateButtonGeneric.tsx:25:12: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\components\LastAvaibleEpisode\LastAvaibleEpisode.tsx:29:29: Missing radix parameter. [Error/radix]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\SeasonRender.tsx:20:13: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\SeasonRender.tsx:21:11: Assignment to property of function parameter 'acc'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\SeasonRender.tsx:35:95: Assignment to function parameter 'count'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\SeasonRender.tsx:35:95: The value assigned to 'count' is not used in subsequent statements. [Error/no-useless-assignment]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\SeasonRender.tsx:39:15: Use array destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\SeasonRender.tsx:39:15: Assignment to property of function parameter 'acc'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\YearSection.tsx:11:13: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\YearSection.tsx:12:11: Assignment to property of function parameter 'acc'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\YearSection.tsx:32:25: Unsafe type assertion: type '"SUMMER" | "SPRING" | "FALL" | "WINTER" | "LATER" | "UNKNOWN"' is more narrow than the original type. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\components\SeasonRender\YearSection.tsx:32:81: Unsafe type assertion: type '"SUMMER" | "SPRING" | "FALL" | "WINTER" | "LATER" | "UNKNOWN"' is more narrow than the original type. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\components\Secure\withAuthorization.tsx:6:1: Unexpected function declaration in the global scope, wrap in an IIFE for a local variable, assign as global property for a global variable. [Error/no-implicit-globals]
+I:\GIT\cold-library-frontend\src\components\Secure\withAuthorization.tsx:30:56: Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\components\Secure\withAuthorization.tsx:30:85: Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator. [Error/@typescript-eslint/prefer-nullish-coalescing]
+I:\GIT\cold-library-frontend\src\components\Secure\withAuthorization.tsx:30:88: Unexpected string value in conditional. An explicit empty string check is required. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\constants\config.ts:1:14: Use object destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\constants\config.ts:2:14: Use object destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\constants\config.ts:3:14: Use object destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\constants\config.ts:4:14: Use object destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\constants\config.ts:5:14: Use object destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\containers\Activite\AdminLog\AdminLogActivity.tsx:59:18: Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\AnimeCardReadEpisodeBottomAction.tsx:23:55: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\AnimeCardReadEpisodeBottomAction.tsx:49:14: Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\AnimeCardReadEpisodeBottomAction.tsx:49:14
+  47 |         {showAddOrRemoveFromLibrary && (
+  48 |           <Grid size={{ xs: 2 }}>
+> 49 |             <SecuredAddOrRemoveFromLibrary />
+     |              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ This component is created during render
+  50 |           </Grid>
+  51 |         )}
+  52 |         {isInLibrary && (
+
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\AnimeCardReadEpisodeBottomAction.tsx:39:41
+  37 |   const { updateAnime: updateAnimeStorageState } = useUpdateAnimeStorageState(updateAnime)
+  38 |
+> 39 |   const SecuredAddOrRemoveFromLibrary = withAuthorization(
+     |                                         ^^^^^^^^^^^^^^^^^^
+> 40 |     () => <InLibraryStateButtonGeneric anime={anime} updateAnime={updateAnimeStorageState} />,
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 41 |     { minLevel: "admin" }
+     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 42 |   )
+     | ^^^^ The component is created during render here
+  43 |
+  44 |   return (
+  45 |     <CardActions disableSpacing> [Error/react-hooks/static-components]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\AnimeEpisodeActivity.tsx:14:80: Missing radix parameter. [Error/radix]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\AnimeEpisodeActivity.tsx:43:87: Missing radix parameter. [Error/radix]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeEpisode\EpisodeLine.tsx:11:30: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:20:4: Unexpected any. Specify a different type. [Error/@typescript-eslint/no-explicit-any]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:21:3: Unexpected any value in conditional. An explicit comparison or type conversion is required. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:23:31: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:23:56: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:24:8: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:25:38: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:25:69: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:28:21: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:29:21: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:30:24: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:31:28: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:33:47: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:33:83: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:38:33: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:38:58: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:41:10: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:42:40: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:42:71: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:47:23: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:48:23: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:49:26: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:50:30: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:54:49: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\AnimeLibrary\AdminActions.tsx:54:85: Unsafe assignment of an `any` value. [Error/@typescript-eslint/no-unsafe-assignment]
+I:\GIT\cold-library-frontend\src\containers\Activite\Home\HomeActivity.tsx:8:67: `'` can be escaped with `&apos;`, `&lsquo;`, `&#39;`, `&rsquo;`. [Error/react/no-unescaped-entities]
+I:\GIT\cold-library-frontend\src\containers\Activite\Home\SlideShow.tsx:49:10: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Home\SlideShow.tsx:54:68: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\MyAnimeList\MyAnimeListActivity.tsx:27:39: Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Profile\EditProfilModal.tsx:10:38: Promise-returning function provided to attribute where a void return was expected. [Error/@typescript-eslint/no-misused-promises]
+I:\GIT\cold-library-frontend\src\containers\Activite\Profile\EditProfilModal.tsx:10:39: Value-returning function used in a context where a void function is expected. [Error/@typescript-eslint/strict-void-return]
+I:\GIT\cold-library-frontend\src\containers\Activite\Profile\EditProfilModal.tsx:21:25: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Profile\ProfileActivity.tsx:48:31: Unsafe call of an `any` typed value. [Error/@typescript-eslint/no-unsafe-call]
+I:\GIT\cold-library-frontend\src\containers\Activite\Profile\ProfileActivity.tsx:48:68: Unsafe member access .join on an `any` value. [Error/@typescript-eslint/no-unsafe-member-access]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:38:31: Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:47:11: Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:47:28: The two values in this comparison do not have a shared enum type. [Error/@typescript-eslint/no-unsafe-enum-comparison]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:48:11: Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:48:26: The two values in this comparison do not have a shared enum type. [Error/@typescript-eslint/no-unsafe-enum-comparison]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:141:14: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestActivity.tsx:188:18: Unnecessary conditional, expected left-hand side of `??` operator to be possibly null or undefined. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestFilterBar.tsx:11:11: Use object destructuring. [Error/@typescript-eslint/prefer-destructuring]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestFilterBar.tsx:23:16: Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestFilterBar.tsx:23:31: Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator. [Error/@typescript-eslint/prefer-nullish-coalescing]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestFilterBar.tsx:37:16: Unexpected nullable string value in conditional. Please handle the nullish/empty cases explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Activite\Request\RequestFilterBar.tsx:37:29: Prefer using nullish coalescing operator (`??`) instead of a logical or (`||`), as it is a safer operator. [Error/@typescript-eslint/prefer-nullish-coalescing]
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchActivity.tsx:62:12: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchActivity.tsx:63:12: Error: Cannot create components during render
+
+Components created during render will reset their state each time they are created. Declare components outside of render.
+
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchActivity.tsx:63:12
+  61 |         <>
+  62 |           {pageMax !== undefined ? paginationRender : undefined}
+> 63 |           <RenderComponent>{animes.map(singleRender)}</RenderComponent>
+     |            ^^^^^^^^^^^^^^^ This component is created during render
+  64 |           {pageMax !== undefined ? paginationRender : undefined}
+  65 |         </>
+  66 |       )}
+
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchActivity.tsx:46:76
+  44 |
+  45 |   const RenderComponent = useMemo(
+> 46 |     () => (selectedRenderMode === RenderMode.CARD ? DefaultGridComponent : DefaultTableComponent()),
+     |                                                                            ^^^^^^^^^^^^^^^^^^^^^^^ The component is created during render here
+  47 |     [selectedRenderMode]
+  48 |   )
+  49 | [Error/react-hooks/static-components]
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchActivity.tsx:64:12: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchForm.tsx:1:0: Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary. [Error/@eslint-community/eslint-comments/require-description]
+I:\GIT\cold-library-frontend\src\containers\Activite\Search\SearchForm.tsx:43:31: Value-returning function used in a context where a void function is expected. [Error/@typescript-eslint/strict-void-return]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\AlternateEpisode\AlternateTrackedEpisodeLine.tsx:27:53: Missing radix parameter. [Error/radix]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\AlternateEpisode\AlternateTrackedEpisodeLine.tsx:37:10: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:24:18: Promise-returning function provided to attribute where a void return was expected. [Error/@typescript-eslint/no-misused-promises]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:24:19: Value-returning function used in a context where a void function is expected. [Error/@typescript-eslint/strict-void-return]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:34:25: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:49:25: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:65:25: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:85:29: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Modal\EditTrackedTorrent\ModalEditTrackedTorrent.tsx:100:25: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Table\AnimeEpisodeTorrent\AnimeEpisodeTorrentRowDesktop.tsx:39:10: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Table\AnimeEpisodeTorrent\AnimeEpisodeTorrentRowMobile.tsx:47:12: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Activite\TrackedTorrent\Table\AnimeEpisodeTorrent\DownloadDelugeTableCell.tsx:14:8: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\containers\Footer\Footer.tsx:1:0: Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary. [Error/@eslint-community/eslint-comments/require-description]
+I:\GIT\cold-library-frontend\src\containers\Menu\MenuDesktop.tsx:25:13: Unexpected nullable object value in array predicate return type. An explicit null check is required. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Menu\MenuMobile\MenuMobile.tsx:24:5: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\containers\Menu\MenuMobile\MenuMobile.tsx:24:5
+  22 |
+  23 |   useEffect(() => {
+> 24 |     setOpen(false)
+     |     ^^^^^^^ Avoid calling setState() directly within an effect
+  25 |   }, [location])
+  26 |
+  27 |   const handleClose = () => { [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\containers\Menu\MenuMobile\MenuMobile.tsx:46:21: Unexpected nullable object value in array predicate return type. An explicit null check is required. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\containers\Menu\MenuMobile\MenuMobile.tsx:46:29: Use the 'v' flag. [Error/require-unicode-regexp]
+I:\GIT\cold-library-frontend\src\context\Auth0ProviderWithNavigate.tsx:10:5: Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator. [Error/@typescript-eslint/no-floating-promises]
+I:\GIT\cold-library-frontend\src\context\Auth0ProviderWithNavigate.tsx:13:9: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\context\Auth0ProviderWithNavigate.tsx:13:43: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\context\ColorModeContext.tsx:3:78: Unexpected empty method 'toggleColorMode'. [Error/@typescript-eslint/no-empty-function]
+I:\GIT\cold-library-frontend\src\context\QueryClientProvider.tsx:22:9: Promises must be awaited, end with a call to .catch, end with a call to .then with a rejection handler or be explicitly marked as ignored with the `void` operator. [Error/@typescript-eslint/no-floating-promises]
+I:\GIT\cold-library-frontend\src\context\SeasonProvider.tsx:19:5: Compilation Skipped: Existing memoization could not be preserved
+
+React Compiler has skipped optimizing this component because the existing manual memoization could not be preserved. The inferred dependencies did not match the manually specified dependencies, which could cause the value to change more or less frequently than expected. The inferred dependency was `setSeasonSelected`, but the source dependencies were [animeList, seasonSelected, sortBySelected, typeSelected, yearSelected]. Inferred different dependency than source.
+
+I:\GIT\cold-library-frontend\src\context\SeasonProvider.tsx:19:5
+  17 |
+  18 |   const contextValue = useMemo(
+> 19 |     () => ({
+     |     ^^^^^^^^
+> 20 |       seasonSelected,
+     | ^^^^^^^^^^^^^^^^^^^^^
+> 21 |       setSeasonSelected,
+     …
+     | ^^^^^^^^^^^^^^^^^^^^^
+> 29 |       setAnimeList
+     | ^^^^^^^^^^^^^^^^^^^^^
+> 30 |     }),
+     | ^^^^^^^ Could not preserve existing manual memoization
+  31 |     [animeList, seasonSelected, sortBySelected, typeSelected, yearSelected]
+  32 |   )
+  33 | [Error/react-hooks/preserve-manual-memoization]
+I:\GIT\cold-library-frontend\src\context\UserProvider.tsx:9:12: Unsafe assertion from `any` detected: consider using type guards or a safer assertion. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\hooks\components\useUpdateAnimeState.ts:181:75: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\components\useUpdateAnimeState.ts:195:9: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\hooks\components\useUpdateAnimeStorageState.ts:31:9: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\components\useUpdateAnimeStorageState.ts:38:75: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\components\useUpdateAnimeStorageStateLight.ts:40:9: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\components\useUpdateAnimeStorageStateLight.ts:47:75: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\AdminLog\useAdminLog.ts:66:7: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\MyAnimeList\useMyAnimeList.ts:24:14: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\MyAnimeList\useMyAnimeList.ts:48:32: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\MyAnimeList\useMyAnimeListFilter.ts:12:43: The two values in this comparison do not have a shared enum type. [Error/@typescript-eslint/no-unsafe-enum-comparison]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\MyAnimeList\useMyAnimeListFilter.ts:23:53: Unexpected nullable boolean value in array predicate return type. Please handle the nullish case explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\MyAnimeList\useMyAnimeListFilterBar.ts:39:54: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\MyAnimeList\useMyAnimeListMapper.ts:16:15: Unsafe type assertion: type 'AnimeType' is more narrow than the original type. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\Request\useMyRequest.ts:79:51: Assignment to property of function parameter 'acc'. [Error/no-param-reassign]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\Request\useRequest.ts:25:7: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\Request\useRequest.ts:25:7
+  23 |   useEffect(() => {
+  24 |     if (data !== undefined) {
+> 25 |       setRequests(data)
+     |       ^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  26 |     }
+  27 |   }, [data])
+  28 | [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\Request\useRequest.ts:65:10: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\Season\useSeason.ts:101:49: Unexpected nullable boolean value in array predicate return type. Please handle the nullish case explicitly. [Error/@typescript-eslint/strict-boolean-expressions]
+I:\GIT\cold-library-frontend\src\hooks\containers\Activite\Season\useSeason.ts:109:58: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeEpisode\useAnimeEpisode.ts:19:7: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeEpisode\useAnimeEpisode.ts:19:7
+  17 |   useEffect(() => {
+  18 |     if (isFetched && data !== undefined) {
+> 19 |       setAnimeEpisodes(data)
+     |       ^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  20 |     }
+  21 |   }, [data, isFetched])
+  22 | [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeEpisode\useAnimeLibrary.ts:23:7: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeEpisode\useAnimeLibrary.ts:23:7
+  21 |   useEffect(() => {
+  22 |     if (isFetched && data !== undefined) {
+> 23 |       setAnime(data)
+     |       ^^^^^^^^ Avoid calling setState() directly within an effect
+  24 |     }
+  25 |   }, [data, isFetched])
+  26 | [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeEpisode\useAnimeLibrary.ts:58:25: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeLibrary\useAnimeLibraryFilter.ts:21:9: Unsafe assertion from `any` detected: consider using type guards or a safer assertion. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeLibrary\useAnimeLibraryFilter.ts:43:40: Unnecessary conditional, value is always truthy. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeLibrary\useAnimeLibraryFilter.ts:46:42: Unnecessary conditional, value is always truthy. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeLibrary\useAnimeLibraryFilter.ts:48:5: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeLibrary\useAnimeLibraryFilter.ts:48:5
+  46 |       !isFilterCompletedAnimeApplied || (isFilterCompletedAnimeApplied && isComplete === filterCompletedAnime)
+  47 |
+> 48 |     setFilterFunc(
+     |     ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  49 |       () => (anime: AnimeDTO) =>
+  50 |         anime.storageState === filterStorageState &&
+  51 |         filterTrackedAnimeFunc(anime.isDownloading ?? false) && [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\hooks\containers\AnimeLibrary\useLibrary.ts:16:14: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\Menu\useMenu.ts:5:8: Unexpected function declaration in the global scope, wrap in an IIFE for a local variable, assign as global property for a global variable. [Error/no-implicit-globals]
+I:\GIT\cold-library-frontend\src\hooks\containers\Search\useAnimeSearch.ts:17:70: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\Search\useAnimeSearch.ts:30:9: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\Modal\useSortTable.ts:29:34: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\Modal\useSortTable.ts:31:7: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\Modal\useSortTable.ts:31:7
+  29 |     if (orderBy !== undefined && order !== undefined) {
+  30 |       const tempSortFunction = () => (items: Type[]) => items.sort(getComparator(order, orderBy))
+> 31 |       setSortFunction(tempSortFunction)
+     |       ^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  32 |     } else setSortFunction(() => (items: Type[]) => items)
+  33 |   }, [getComparator, order, orderBy])
+  34 | [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useAnimeEpisodeTorrentRow.ts:79:85: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useAnimeTorrentAction.ts:144:28: Passing a boolean to Boolean() does not change the type or value of the boolean. [Error/@typescript-eslint/no-unnecessary-type-conversion]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useAnimeTorrentAction.ts:152:32: Passing a boolean to Boolean() does not change the type or value of the boolean. [Error/@typescript-eslint/no-unnecessary-type-conversion]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useAnimeTorrentEpisodes.ts:21:5: Error: Calling setState synchronously within an effect can trigger cascading renders
+
+Effects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:
+* Update external systems with the latest state from React.
+* Subscribe for updates from some external system, calling setState in a callback function when external state changes.
+
+Calling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).
+
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useAnimeTorrentEpisodes.ts:21:5
+  19 |
+  20 |   useEffect(() => {
+> 21 |     setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) ?? [])
+     |     ^^^^^^^^^^^^^^^^^^^^^^^ Avoid calling setState() directly within an effect
+  22 |   }, [malId, torrentEpisodesMap])
+  23 |
+  24 |   // Patch Episode [Error/react-hooks/set-state-in-effect]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useAnimeTorrentsAction.ts:21:65: Too many nested callbacks (4). Maximum allowed is 3. [Error/max-nested-callbacks]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useTrackedTorrent.ts:21:14: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\containers\TrackedTorrent\useTrackedTorrent.ts:40:14: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\context\useColorModeContext.ts:6:7: Unnecessary conditional, the types have no overlap. [Error/@typescript-eslint/no-unnecessary-condition]
+I:\GIT\cold-library-frontend\src\hooks\usePagination.ts:3:24: Type parameter T is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:3:1: Unexpected function declaration in the global scope, wrap in an IIFE for a local variable, assign as global property for a global variable. [Error/no-implicit-globals]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:7:30: Type parameter T is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:31:8: Unexpected function declaration in the global scope, wrap in an IIFE for a local variable, assign as global property for a global variable. [Error/no-implicit-globals]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:39:54: Unsafe type assertion: type '(prev: T) => T' is more narrow than the original type. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:39:75: Unsafe assertion from `any` detected: consider using type guards or a safer assertion. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:59:11: Unexpected negated condition. [Error/no-negated-condition]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:59:17: Expected '!==' and instead saw '!='. [Error/eqeqeq]
+I:\GIT\cold-library-frontend\src\hooks\utils\useLocalStorage.ts:59:28: Unsafe assertion from `any` detected: consider using type guards or a safer assertion. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:17:21: Type parameter TBody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:19:22: Type parameter TBody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:24:21: Type parameter TBody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:29:22: Type parameter TBody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:41:5: Unsafe return of a value of type `any`. [Error/@typescript-eslint/no-unsafe-return]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:47:29: Type parameter Tbody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:49:28: Type parameter Tbody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:51:27: Type parameter Tbody is used only once in the function signature. [Error/@typescript-eslint/no-unnecessary-type-parameters]
+I:\GIT\cold-library-frontend\src\services\request\request.ts:54:42: void is only valid as a return type or generic type argument. [Error/@typescript-eslint/no-invalid-void-type]
+I:\GIT\cold-library-frontend\src\utils\byteSize.ts:5:19: Missing radix parameter. [Error/radix]
+I:\GIT\cold-library-frontend\src\utils\byteSize.ts:21:10: Missing radix parameter. [Error/radix]
+I:\GIT\cold-library-frontend\src\utils\torrentEpisode.ts:6:28: Unsafe type assertion: type '[string, string]' is more narrow than the original type. [Error/@typescript-eslint/no-unsafe-type-assertion]
+I:\GIT\cold-library-frontend\src\vite-env.d.ts:1:0: Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary. [Error/@eslint-community/eslint-comments/require-description]
+I:\GIT\cold-library-frontend\src\wdyr.ts:1:0: Unexpected undescribed directive comment. Include descriptions to explain why the comment is necessary. [Error/@eslint-community/eslint-comments/require-description]
+
+183 problems

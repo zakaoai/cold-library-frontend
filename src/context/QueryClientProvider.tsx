@@ -1,5 +1,6 @@
 import type ResponseError from "@/interfaces/services/ResponseError"
 import SiteMap from "@/routes/SiteMap"
+import { ErrorType, requiresReAuth, standardizeError } from "@/services/errorHandling"
 import {
   MutationCache,
   QueryCache,
@@ -8,24 +9,11 @@ import {
 } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 
-import { useCallback, type PropsWithChildren } from "react"
+import { useCallback, useState, type PropsWithChildren } from "react"
 import { useNavigate } from "react-router"
 
-const QueryClientProvider = ({ children }: PropsWithChildren) => {
-  const { enqueueSnackbar } = useSnackbar()
-  const navigate = useNavigate()
-
-  const onErrorConnection = useCallback(
-    (error: ResponseError) => {
-      if (error.response?.status === 403) {
-        enqueueSnackbar("Vous n'avez pas la permission d'accéder à ce contenu")
-        navigate(SiteMap.ACCUEIL.path, { replace: true })
-      } else if (error.response?.status !== 404) enqueueSnackbar("Une erreur est survenue")
-    },
-    [enqueueSnackbar, navigate]
-  )
-
-  const queryClient = new QueryClient({
+const createQueryClient = (onErrorConnection: (error: ResponseError) => void) =>
+  new QueryClient({
     queryCache: new QueryCache({
       onError: onErrorConnection
     }),
@@ -33,6 +21,31 @@ const QueryClientProvider = ({ children }: PropsWithChildren) => {
       onError: onErrorConnection
     })
   })
+
+const QueryClientProvider = ({ children }: PropsWithChildren) => {
+  const { enqueueSnackbar } = useSnackbar()
+  const navigate = useNavigate()
+
+  const onErrorConnection = useCallback(
+    (error: ResponseError) => {
+      const standardError = standardizeError(error)
+
+      if (requiresReAuth(standardError)) {
+        enqueueSnackbar(standardError.message, { variant: "warning" })
+        navigate(SiteMap.ACCUEIL.path, { replace: true })
+        return
+      }
+
+      if (standardError.type === ErrorType.NOT_FOUND) {
+        return
+      }
+
+      enqueueSnackbar(standardError.message, { variant: "error" })
+    },
+    [enqueueSnackbar, navigate]
+  )
+
+  const [queryClient] = useState(() => createQueryClient(onErrorConnection))
 
   return <ReactQueryClientProvider client={queryClient}>{children}</ReactQueryClientProvider>
 }
