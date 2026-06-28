@@ -12,7 +12,9 @@ import RootBoundary from "./RootBoundary"
 const AnimeEpisodeActivity = lazy(async () => await import("@/containers/Activite/AnimeEpisode/AnimeEpisodeActivity"))
 const HomeActivity = lazy(async () => await import("@/containers/Activite/Home/HomeActivity"))
 const SearchActivity = lazy(async () => await import("@/containers/Activite/Search/SearchActivity"))
-const TrackedTorrent = lazy(async () => await import("@/containers/Activite/TrackedTorrent/TrackedTorrent"))
+const TrackedTorrentActivity = lazy(
+  async () => await import("@/containers/Activite/TrackedTorrent/TrackedTorrentActivity")
+)
 const ProfileActivity = lazy(async () => await import("@/containers/Activite/Profile/ProfileActivity"))
 const AnimeLibraryActivity = lazy(async () => await import("@/containers/Activite/AnimeLibrary/AnimeLibraryActivity"))
 const MyAnimeListActivity = lazy(async () => await import("@/containers/Activite/MyAnimeList/MyAnimeListActivity"))
@@ -28,7 +30,7 @@ const AppRouter = () => (
         <Route path={SiteMap.RECHERCHE.path} element={<SearchActivity />} />
         <Route path={SiteMap.LIBRAIRIE.path} Component={AnimeLibraryActivity} />
         <Route path={SiteMap.EPISODE.path} element={<AnimeEpisodeActivity />} />
-        <Route path={SiteMap.TORRENT.path} element={<TrackedTorrent />} />
+        <Route path={SiteMap.TORRENT.path} element={<TrackedTorrentActivity />} />
         <Route path={SiteMap.PROFILE.path} element={<ProfileActivity />} />
         <Route path={SiteMap.MYANIMELIST.path} element={<MyAnimeListActivity />} />
         <Route path={SiteMap.ADMIN_LOG.path} element={<AdminLogActivity />} />

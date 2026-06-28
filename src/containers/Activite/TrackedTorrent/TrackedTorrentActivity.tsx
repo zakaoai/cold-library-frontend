@@ -8,7 +8,7 @@ import TrackedTorrentBar from "./TrackedTorrentBar"
 /**
  * Activité
  */
-const TrackedTorrent = () => (
+const TrackedTorrentActivity = () => (
   <AnimeTorrentProvider>
     <TrackedTorrentBar />
     <TableContainer component={Paper}>
@@ -17,4 +17,4 @@ const TrackedTorrent = () => (
     <ModalEditTrackedTorrent />
   </AnimeTorrentProvider>
 )
-export default TrackedTorrent
+export default TrackedTorrentActivity
