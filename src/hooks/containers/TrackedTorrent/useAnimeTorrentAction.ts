@@ -22,7 +22,7 @@ const useAnimeTorrentAction = () => {
   const prevDoScanNext = useRef(doScanNext)
 
   const { animeTorrent: trackedTorrent, animeEpisodeTorrents } = useAnimeTorrentRowContext()
-  const { lastEpisodeOnServer, malId, isComplete } = trackedTorrent
+  const { lastEpisodeOnServer, malId, isComplete, title } = trackedTorrent
 
   const { setTorrentEpisodeLibrary } = useAppContext()
 
@@ -73,6 +73,15 @@ const useAnimeTorrentAction = () => {
 
   const onErrorSearchPack = useCallback(
     (error: ResponseError) => {
+      const status = error.response?.status
+      if (status === 404) {
+        enqueueSnackbar({
+          message: `Aucun pack n'a été trouvé pour l'anime ${title}`,
+          variant: "warning"
+        })
+        return
+      }
+
       enqueueSnackbar({
         message: "Une erreur est survenue lors du scan du pack de l'anime",
         variant: "error"
@@ -104,8 +113,16 @@ const useAnimeTorrentAction = () => {
 
   const onErrorScanNextEpisodeTorrent = useCallback(
     (error: ResponseError) => {
+      const status = error.response?.status
+      if (status === 404) {
+        enqueueSnackbar({
+          message: `Aucun episode n'a été trouvé pour le prochain episode de l'anime ${title}`,
+          variant: "warning"
+        })
+        return
+      }
       enqueueSnackbar({
-        message: "Une erreur est survenue lors du scan du prochain episode de l'anime",
+        message: `Une erreur est survenue lors du scan du prochain episode de l'anime ${title}`,
         variant: "error"
       })
       console.error(
