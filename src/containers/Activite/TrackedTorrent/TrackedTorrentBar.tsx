@@ -21,9 +21,9 @@ const TrackedTorrentBar = () => {
   }, [setDoScanNext])
 
   return (
-    <Box mb={1}>
+    <Box sx={{ mb: 1 }}>
       <AppBar position="relative" color="transparent">
-        <Grid container alignItems="center">
+        <Grid container sx={{ alignItems: "center" }}>
           <Grid>
             <Button variant="outlined" onClick={scanAll} startIcon={<SearchIcon />}>
               Scan All

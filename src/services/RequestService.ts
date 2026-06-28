@@ -11,7 +11,9 @@ const RequestService = {
   getAll: async () => await get<RequestDTO[]>(api.request.getAll),
   update: async (requestInput: RequestInputDTO & Pick<Required<RequestInputDTO>, "id">) =>
     await post<RequestInputDTO, RequestDTO>(api.request.update(requestInput.id), requestInput),
-  delete: async (requestId: number) => await deleteRequest(api.request.delete(requestId))
+  delete: async (requestId: number) => {
+    await deleteRequest(api.request.delete(requestId))
+  }
 }
 
 export default RequestService

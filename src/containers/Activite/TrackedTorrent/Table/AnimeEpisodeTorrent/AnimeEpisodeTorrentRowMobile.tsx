@@ -20,7 +20,7 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
 
   return (
     <>
-      <TableRow key={torrentId + "Episode"}>
+      <TableRow key={`${torrentId}Episode`}>
         <TableCell component="th" scope="row">
           Episode
         </TableCell>
@@ -35,19 +35,19 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
           </Link>
         </TableCell>
       </TableRow>
-      <TableRow key={torrentId + "Titre"}>
+      <TableRow key={`${torrentId}Titre`}>
         <TableCell>Titre</TableCell>
         <TableCell>
           <Typography sx={{ overflow: "hidden", textOverflow: "ellipsis" }}>{title.replaceAll("_", " ")}</Typography>
         </TableCell>
       </TableRow>
-      <TableRow key={torrentId + "Date"}>
+      <TableRow key={`${torrentId}Date`}>
         <TableCell>Date</TableCell>
         <TableCell>
           {dateObj !== undefined && DateTime.fromJSDate(dateObj).setLocale("fr").toFormat("dd LLL yyyy")}
         </TableCell>
       </TableRow>
-      <TableRow key={torrentId + "Size"}>
+      <TableRow key={`${torrentId}Size`}>
         <TableCell component="th" scope="row">
           Size
         </TableCell>
@@ -55,7 +55,7 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
           {displaySize}
         </TableCell>
       </TableRow>
-      <TableRow key={torrentId + "Traffic"}>
+      <TableRow key={`${torrentId}Traffic`}>
         <TableCell component="th" scope="row">
           Traffic
         </TableCell>
@@ -63,13 +63,13 @@ const AnimeEpisodeTorrentRowMobile = ({ animeEpisodeTorrent }: AnimeEpisodeTorre
           {leechers} ↓ /{seeders} ↑ ({completed} 🗸)
         </TableCell>
       </TableRow>
-      <TableRow key={torrentId + "Deluge"}>
+      <TableRow key={`${torrentId}Deluge`}>
         <TableCell component="th" scope="row">
           Deluge
         </TableCell>
         <DownloadDelugeTableCell animeEpisodeTorrent={animeEpisodeTorrent} />
       </TableRow>
-      <TableRow key={torrentId + "Actions"}>
+      <TableRow key={`${torrentId}Actions`}>
         <TableCell component="th" scope="row">
           Actions
         </TableCell>

@@ -33,11 +33,11 @@ const AnimeLibraryFilterBar = ({ filtersState }: IAnimeLibraryFilterBar) => {
     useDisplayAnimeFilterBar()
 
   return (
-    <Box mb={1}>
+    <Box sx={{ mb: 1 }}>
       <AppBar position="relative" color="transparent">
         <Toolbar>
-          <Grid container spacing={2} justifyContent="space-between" display={"flex"} size={{ xs: 12 }}>
-            <Grid container alignItems="center">
+          <Grid container spacing={2} sx={{ justifyContent: "space-between", display: "flex" }} size={{ xs: 12 }}>
+            <Grid container sx={{ alignItems: "center" }}>
               <Grid>
                 <HotColdSwitch storageState={filterStorageState} setStorageState={setFilterStorageState} />
               </Grid>
@@ -58,7 +58,7 @@ const AnimeLibraryFilterBar = ({ filtersState }: IAnimeLibraryFilterBar) => {
                 </IconButton>
               </Grid>
             </Grid>
-            <Grid container size={{ lg: 6, xs: 12 }} display="flex" justifyContent={"end"}>
+            <Grid container size={{ lg: 6, xs: 12 }} sx={{ display: "flex", justifyContent: "end" }}>
               <ViewButtons handleChangeViewMode={handleChangeViewMode} selectedViewMode={selectedViewMode} />
               <RenderButtons handleChangeRenderMode={handleChangeRenderMode} selectedRenderMode={selectedRenderMode} />
             </Grid>

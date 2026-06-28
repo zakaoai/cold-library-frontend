@@ -48,7 +48,7 @@ const SlideShow = () => {
 
   return data !== undefined ? (
     <>
-      <Grid container spacing={1} justifyContent="center">
+      <Grid container spacing={1} sx={{ justifyContent: "center" }}>
         {data.slice(activeStep, activeStep + diplayedItems.true).map(anime => (
           <Grid key={anime.malId} size={{ lg: 3, md: 4, xs: 12, sm: 6 }}>
             <AnimeCardReadComponent anime={anime} showEpisodeLink={anime.storageState !== null} />

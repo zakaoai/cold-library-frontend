@@ -66,7 +66,7 @@ const AnimeBottomAction = ({ anime, renderRow = false }: IAnimeBottomAction) => 
     </>
   ) : (
     <CardActions disableSpacing>
-      <Grid container alignItems="center">
+      <Grid container sx={{ alignItems: "center" }}>
         <ProtectedAdminActions
           {...{
             anime,

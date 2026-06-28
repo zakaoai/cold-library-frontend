@@ -10,7 +10,7 @@ import Paper from "@mui/material/Paper"
 import Toolbar from "@mui/material/Toolbar"
 import Typography from "@mui/material/Typography"
 import { useTheme } from "@mui/material/styles"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useLocation } from "react-router"
 import MenuMobileDrawer from "./MenuMobileDrawer"
 
@@ -19,10 +19,17 @@ const MenuMobile = ({ links }: Menu) => {
   const location = useLocation()
   const theme = useTheme()
   const { toggleColorMode } = useColorModeContext()
+  const drawerTitleFlexGrow = 1
+  const previousPathnameRef = useRef(location.pathname)
 
   useEffect(() => {
+    if (previousPathnameRef.current === location.pathname) {
+      return
+    }
+
+    previousPathnameRef.current = location.pathname
     setOpen(false)
-  }, [location])
+  }, [location.pathname])
 
   const handleClose = () => {
     setOpen(false)
@@ -43,9 +50,9 @@ const MenuMobile = ({ links }: Menu) => {
             <MenuIcon />
           </IconButton>
           {links
-            .filter(link => new RegExp(link.path).exec(location.pathname))
+            .filter(link => new RegExp(link.path, "v").test(location.pathname))
             .map(link => (
-              <Typography key={link.label} variant="h6" component="div" sx={{ flexGrow: 1 }}>
+              <Typography key={link.label} variant="h6" component="div" sx={{ flexGrow: drawerTitleFlexGrow }}>
                 {link.label}
               </Typography>
             ))}

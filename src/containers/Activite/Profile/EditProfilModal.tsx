@@ -19,10 +19,12 @@ const EditProfilModal = ({ open, handleClose }: IEditProfilModal) => {
             autoFocus
             error={errors.malUsername !== undefined}
             helperText={errors.malUsername !== undefined ? errors.malUsername.message : ""}
-            inputProps={{
-              ...register("malUsername", {
-                required: "Champs requis"
-              })
+            slotProps={{
+              input: {
+                ...register("malUsername", {
+                  required: "Champs requis"
+                })
+              }
             }}
           />
         </DialogContent>

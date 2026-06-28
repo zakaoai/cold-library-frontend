@@ -1,5 +1,5 @@
-import IRequestFilterBar from "@/interfaces/containers/Activite/Request/RequestFilterBar"
-import { RequestFilters } from "@/interfaces/containers/Activite/Request/RequestFilters"
+import type IRequestFilterBar from "@/interfaces/containers/Activite/Request/RequestFilterBar"
+import type { RequestFilters } from "@/interfaces/containers/Activite/Request/RequestFilters"
 import { Box, MenuItem, TextField } from "@mui/material"
 import React from "react"
 import { statusOptions, typeOptions } from "./const"
@@ -15,7 +15,7 @@ const RequestFilterBar = ({ onFilterChange }: IRequestFilterBar) => {
   }
 
   return (
-    <Box display="flex" gap={2} alignItems="center">
+    <Box sx={{ display: "flex", alignItems: "center", gap: "2" }}>
       <TextField
         select
         label="Statut"

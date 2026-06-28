@@ -32,10 +32,12 @@ const ModalEditTrackedTorrent = () => {
             fullWidth
             error={errors.searchWords !== undefined}
             helperText={errors.searchWords !== undefined ? errors.searchWords.message : ""}
-            inputProps={{
-              ...register("searchWords", {
-                required: "Champs requis"
-              })
+            slotProps={{
+              input: {
+                ...register("searchWords", {
+                  required: "Champs requis"
+                })
+              }
             }}
           />
           <TextField
@@ -45,11 +47,13 @@ const ModalEditTrackedTorrent = () => {
             fullWidth
             error={errors.lastEpisodeOnServer !== undefined}
             helperText={errors.lastEpisodeOnServer !== undefined ? errors.lastEpisodeOnServer.message : ""}
-            inputProps={{
-              ...register("lastEpisodeOnServer", {
-                required: "Champs requis",
-                valueAsNumber: true
-              })
+            slotProps={{
+              input: {
+                ...register("lastEpisodeOnServer", {
+                  required: "Champs requis",
+                  valueAsNumber: true
+                })
+              }
             }}
           />
           <TextField
@@ -59,11 +63,13 @@ const ModalEditTrackedTorrent = () => {
             fullWidth
             error={errors.deltaEpisode !== undefined}
             helperText={errors.deltaEpisode !== undefined ? errors.deltaEpisode.message : ""}
-            inputProps={{
-              ...register("deltaEpisode", {
-                required: "Champs requis",
-                valueAsNumber: true
-              })
+            slotProps={{
+              input: {
+                ...register("deltaEpisode", {
+                  required: "Champs requis",
+                  valueAsNumber: true
+                })
+              }
             }}
           />
           <Controller
@@ -92,10 +98,12 @@ const ModalEditTrackedTorrent = () => {
             fullWidth
             error={errors.torrentPath !== undefined}
             helperText={errors.torrentPath !== undefined ? errors.torrentPath.message : ""}
-            inputProps={{
-              ...register("torrentPath", {
-                required: "Champs requis"
-              })
+            slotProps={{
+              input: {
+                ...register("torrentPath", {
+                  required: "Champs requis"
+                })
+              }
             }}
           />
         </DialogContent>

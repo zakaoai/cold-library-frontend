@@ -6,7 +6,7 @@ const AnimeCardGenre = ({ selectedGenres }: AnimeCardReadComponent) => {
   const { anime } = useAnimeCardReadContext()
 
   return (
-    <Stack direction="row" useFlexGap flexWrap="wrap" spacing={1}>
+    <Stack direction="row" useFlexGap spacing={1} sx={{ flexWrap: "wrap" }}>
       {anime.genres
         ?.toSorted((a, b) => a.name.localeCompare(b.name))
         .map(genre =>

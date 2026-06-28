@@ -28,7 +28,7 @@ const AlternateTrackedEpisodeLine = ({ trackedEpisode, selectedValue, handleChan
             onChange={handleChange}
             value={torrentId}
             name="trackedEpisode"
-            inputProps={{ "aria-label": title }}
+            slotProps={{ input: { "aria-label": title } }}
           />
         </TableCell>
       )}

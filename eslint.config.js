@@ -8,10 +8,11 @@ import react from "eslint-plugin-react"
 import reactHooks from "eslint-plugin-react-hooks"
 import reactRefresh from "eslint-plugin-react-refresh"
 import simpleImportSort from "eslint-plugin-simple-import-sort"
+import { defineConfig } from "eslint/config"
 import globals from "globals"
 
 /** @type {import('eslint').Linter.Config[]} */
-export default [
+export default defineConfig([
   ...pluginQuery.configs["flat/recommended"].map(a => ({ name: "config-query", ...a })),
   pluginPromise.configs["flat/recommended"],
 
@@ -57,7 +58,8 @@ export default [
         Object.entries(love.plugins).filter(
           ([key]) =>
             ![
-              "promise"
+              "promise",
+              "import"
               //  "@typescript-eslint"
             ].includes(key)
         )
@@ -94,6 +96,7 @@ export default [
       "simple-import-sort": simpleImportSort
     },
     rules: {
+      strict: "off",
       complexity: ["error", { max: 10 }],
       "@typescript-eslint/explicit-function-return-type": "off",
       "@typescript-eslint/no-unused-vars": "warn",
@@ -103,5 +106,6 @@ export default [
       "@typescript-eslint/no-magic-numbers": "warn",
       "no-console": "off"
     }
-  }
-]
+  },
+  { settings: { react: { version: "19" } } }
+])

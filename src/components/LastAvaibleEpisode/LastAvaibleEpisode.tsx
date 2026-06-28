@@ -32,9 +32,6 @@ const LastAvaibleEpisode = ({
         setLastAvaibleEpisode(numberFieldValue)
         setIsEditMode(false)
       }}
-      InputLabelProps={{
-        shrink: true
-      }}
     />
   ) : (
     <Button
