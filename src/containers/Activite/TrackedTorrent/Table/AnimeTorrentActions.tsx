@@ -49,15 +49,17 @@ const AnimeTorrentActions = () => {
         size="large">
         <SearchIcon />
       </IconButton>
-      <IconButton
-        aria-label="scan next"
-        onClick={() => {
-          scanNextEpisode()
-        }}
-        disabled={isScanNextEpisodeAvaible && isScanNextEpisodePending}
-        size="large">
-        <SavedSearchIcon />
-      </IconButton>
+      {!isComplete && (
+        <IconButton
+          aria-label="scan next"
+          onClick={() => {
+            scanNextEpisode()
+          }}
+          disabled={isScanNextEpisodeAvaible && isScanNextEpisodePending}
+          size="large">
+          <SavedSearchIcon />
+        </IconButton>
+      )}
       {isNewEpisode && (
         <Tooltip title="New">
           <FiberNewIcon fontSize="large" style={{ color: green[500] }} />
