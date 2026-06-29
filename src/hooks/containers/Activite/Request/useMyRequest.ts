@@ -1,77 +1,57 @@
 import RequestStatus from "@/enums/RequestStatus"
-import useAppContext from "@/hooks/context/useAppContext"
 import type RequestDTO from "@/interfaces/services/RequestService/RequestDTO"
 import type RequestInputDTO from "@/interfaces/services/RequestService/RequestInputDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import RequestService from "@/services/RequestService"
-import { useMutation, useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
-import { useCallback, useEffect, useMemo, useRef } from "react"
+import { useCallback, useMemo } from "react"
 
 const useMyRequest = () => {
-  const { myRequests, setMyRequests } = useAppContext()
-
   const { enqueueSnackbar } = useSnackbar()
+  const queryClient = useQueryClient()
 
-  const { data, isFetched } = useQuery({
-    staleTime: 3600000,
-    queryKey: ["MyRequest"],
-    queryFn: async () => await RequestService.getMe(),
-    retry: false,
-    enabled: myRequests.length === 0
+  const { data: myRequests = [] } = useQuery({
+    queryKey: ["requests", "me"],
+    queryFn: () => RequestService.getMe(),
+    gcTime: 30 * 60 * 1000,
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+    retry: false
   })
 
-  const prevData = useRef<RequestDTO[]>(null)
-
-  const updateMyRequests = (updatedRequest: RequestDTO) => {
-    setMyRequests(requests =>
-      requests.map(request => (request.id === updatedRequest.id ? { ...request, ...updatedRequest } : request))
-    )
-  }
-
-  const createMyRequest = useCallback(
-    (createdRequest: RequestDTO) => {
-      setMyRequests(requests => [...requests, createdRequest])
-    },
-    [setMyRequests]
-  )
-
   const createRequestCall = useCallback(
-    async (requestInput: RequestInputDTO) => await RequestService.create(requestInput),
+    async (requestInput: RequestInputDTO) => RequestService.create(requestInput),
     []
   )
 
   const onSuccessCreateRequest = useCallback(
-    (request: RequestDTO) => {
-      createMyRequest(request)
+    (createdRequest: RequestDTO) => {
+      queryClient.setQueryData<RequestDTO[]>(["requests", "me"], old => {
+        if (!old) return [createdRequest]
+        return [createdRequest, ...old]
+      })
     },
-    [createMyRequest]
+    [queryClient]
   )
 
-  const onErrorCreateRequest = useCallback((error: ResponseError, requestInput: RequestInputDTO) => {
-    enqueueSnackbar({
-      message: "Une erreur est survenue lors de la création de la request",
-      variant: "error"
-    })
-    console.error(
-      "Une erreur est survenue lors de la création d'une request pour l'anime %s avec le status %s",
-      requestInput.malId,
-      error.response?.status
-    )
-  }, [])
+  const onErrorCreateRequest = useCallback(
+    (error: ResponseError, requestInput: RequestInputDTO) => {
+      enqueueSnackbar({
+        message: "Une erreur est survenue lors de la création de la request",
+        variant: "error"
+      })
+      console.error("Erreur création request", requestInput.malId, error.response?.status)
+    },
+    [enqueueSnackbar]
+  )
 
   const { mutate: createRequest } = useMutation({
     mutationFn: createRequestCall,
     onSuccess: onSuccessCreateRequest,
     onError: onErrorCreateRequest
   })
-
-  useEffect(() => {
-    if (isFetched && data !== undefined && data !== prevData.current) {
-      prevData.current = data
-      setMyRequests(data)
-    }
-  }, [data, isFetched, setMyRequests])
 
   const myOpenedRequestMap = useMemo(
     () =>
@@ -82,7 +62,11 @@ const useMyRequest = () => {
     [myRequests]
   )
 
-  return { myRequests, myOpenedRequestMap, updateMyRequests, createRequest }
+  return {
+    myRequests,
+    createRequest,
+    myOpenedRequestMap
+  }
 }
 
 export default useMyRequest
