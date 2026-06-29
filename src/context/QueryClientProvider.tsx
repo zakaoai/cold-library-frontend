@@ -8,12 +8,13 @@ import {
 } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 
-import { useCallback, type PropsWithChildren } from "react"
+import { useCallback, useRef, type PropsWithChildren } from "react"
 import { useNavigate } from "react-router"
 
 const QueryClientProvider = ({ children }: PropsWithChildren) => {
   const { enqueueSnackbar } = useSnackbar()
   const navigate = useNavigate()
+  const queryClientRef = useRef<QueryClient | null>(null)
 
   const onErrorConnection = useCallback(
     (error: ResponseError) => {
@@ -25,16 +26,23 @@ const QueryClientProvider = ({ children }: PropsWithChildren) => {
     [enqueueSnackbar, navigate]
   )
 
-  const queryClient = new QueryClient({
-    queryCache: new QueryCache({
-      onError: onErrorConnection
-    }),
-    mutationCache: new MutationCache({
-      onError: onErrorConnection
+  if (queryClientRef.current === null) {
+    queryClientRef.current = new QueryClient({
+      defaultOptions: {
+        queries: {
+          staleTime: Infinity
+        }
+      },
+      queryCache: new QueryCache({
+        onError: onErrorConnection
+      }),
+      mutationCache: new MutationCache({
+        onError: onErrorConnection
+      })
     })
-  })
+  }
 
-  return <ReactQueryClientProvider client={queryClient}>{children}</ReactQueryClientProvider>
+  return <ReactQueryClientProvider client={queryClientRef.current}>{children}</ReactQueryClientProvider>
 }
 
 export default QueryClientProvider

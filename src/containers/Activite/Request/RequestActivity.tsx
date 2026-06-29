@@ -3,7 +3,7 @@ import withAuthorization from "@/components/Secure/withAuthorization"
 import RequestStatus from "@/enums/RequestStatus"
 import type RequestType from "@/enums/RequestType"
 import useUpdateAnimeStorageStateLight from "@/hooks/components/useUpdateAnimeStorageStateLight"
-import useRequest from "@/hooks/containers/Activite/Request/useRequest"
+import useRequestActivity from "@/hooks/containers/Activite/Request/useRequestActivity"
 import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import useUserContext from "@/hooks/context/useUserContext"
 import usePagination from "@/hooks/usePagination"
@@ -33,7 +33,7 @@ import { NavLink } from "react-router"
 import RequestFilterBar from "./RequestFilterBar"
 
 const RequestActivity = () => {
-  const { requests, updateRequest, deleteRequest } = useRequest()
+  const { requests, updateRequest, deleteRequest } = useRequestActivity()
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination<RequestDTO>(requests ?? [])
   const { animes } = useLibrary()
