@@ -13,7 +13,7 @@ const useAnimeLibrary = (malId: number) => {
   const [anime, setAnime] = useState<AnimeDTO | undefined>(undefined)
 
   const { data, isFetched, isFetching } = useQuery({
-    queryKey: ["animeLibrary", malId],
+    queryKey: ["anime", malId],
     queryFn: async () => await AnimeServices.get(malId),
     retry: false
   })
