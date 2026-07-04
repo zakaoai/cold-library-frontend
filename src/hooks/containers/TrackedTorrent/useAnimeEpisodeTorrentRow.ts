@@ -1,4 +1,3 @@
-import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import useAppContext from "@/hooks/context/useAppContext"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
@@ -6,15 +5,14 @@ import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useCallback } from "react"
 
 const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDisplay) => {
+  const queryClient = useQueryClient()
   const { episodeNumber, torrentId, malId } = animeEpisodeTorrent
 
   const { setTorrentEpisodeLibrary } = useAppContext()
-
-  const { updateTrackedAnime } = useAnimeTorrentContext()
 
   const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode } = useAnimeTorrentRowContext()
 
@@ -25,9 +23,12 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
 
   const onSuccessUpdateLastEpisodeOnServer = useCallback(
     (updatedAnime: AnimeTorrentDTO) => {
-      updateTrackedAnime(updatedAnime)
+      queryClient.setQueryData<AnimeTorrentDTO[]>(["torrentLibrary"], old => {
+        if (!old) return old
+        return old.map(trackedTorrent => (trackedTorrent.malId === updatedAnime.malId ? updatedAnime : trackedTorrent))
+      })
     },
-    [updateTrackedAnime]
+    [queryClient]
   )
 
   const onErrorUpdateLastEpisodeOnServer = useCallback(

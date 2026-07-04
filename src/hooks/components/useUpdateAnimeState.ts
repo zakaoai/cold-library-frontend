@@ -2,7 +2,7 @@ import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeServices from "@/services/AnimeService"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 import useAppContext from "../context/useAppContext"
@@ -12,6 +12,7 @@ const useUpdateAnimeState = (
   defaultAnime: AnimeDTO,
   updateAnime: (updatedAnime: AnimeDTO | AnimeInServerDTO) => void
 ) => {
+  const queryClient = useQueryClient()
   const { enqueueSnackbar } = useSnackbar()
 
   const onSuccessUpdateAnimeInServer = useCallback(
@@ -23,7 +24,7 @@ const useUpdateAnimeState = (
   const onSuccesReset = useCallback(() => {
     updateAnime(defaultAnime)
   }, [defaultAnime, updateAnime])
-  const { setTorrentEpisodeLibrary, setTorrentLibrary, setAnimeLibrary } = useAppContext()
+  const { setTorrentEpisodeLibrary, setAnimeLibrary } = useAppContext()
 
   // Update Last Avaible Episode
   const updateLastAvaibleEpisodeCall = useCallback(
@@ -143,9 +144,9 @@ const useUpdateAnimeState = (
     (anime: AnimeInServerDTO) => {
       updateAnime(anime)
       setTorrentEpisodeLibrary([])
-      setTorrentLibrary([])
+      queryClient.invalidateQueries({ queryKey: ["torrentLibrary"] })
     },
-    [updateAnime, setTorrentEpisodeLibrary, setTorrentLibrary]
+    [updateAnime, setTorrentEpisodeLibrary, queryClient]
   )
 
   const { isPending: isUpdateIsDownloadingPending, mutate: setIsDownloading } = useMutation<

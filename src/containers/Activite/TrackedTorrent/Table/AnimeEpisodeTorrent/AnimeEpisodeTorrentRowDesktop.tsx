@@ -1,4 +1,5 @@
 import useAnimeEpisodeTorrentRow from "@/hooks/containers/TrackedTorrent/useAnimeEpisodeTorrentRow"
+import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
 import type AnimeEpisodeTorrentRow from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentRow"
 import DeleteIcon from "@mui/icons-material/Delete"
 import GetAppIcon from "@mui/icons-material/GetApp"
@@ -13,6 +14,9 @@ import { DateTime } from "luxon"
 import DownloadDelugeTableCell from "./DownloadDelugeTableCell"
 
 const AnimeEpisodeTorrentRowDesktop = ({ animeEpisodeTorrent }: AnimeEpisodeTorrentRow) => {
+  const {
+    animeTorrent: { lastEpisodeOnServer }
+  } = useAnimeTorrentRowContext()
   const { updateLastEpisodeOnServer, searchAlternate, deleteTorrent, nyaaLink } =
     useAnimeEpisodeTorrentRow(animeEpisodeTorrent)
   const { episodeNumber, title, dateObj, torrentLink, torrentId, displaySize, leechers, seeders, completed } =
@@ -21,14 +25,20 @@ const AnimeEpisodeTorrentRowDesktop = ({ animeEpisodeTorrent }: AnimeEpisodeTorr
   return (
     <TableRow key={torrentId}>
       <TableCell component="th" scope="row" align="center">
-        <Link
-          component="button"
-          variant="body2"
-          onClick={() => {
-            updateLastEpisodeOnServer()
-          }}>
-          {episodeNumber}
-        </Link>
+        {lastEpisodeOnServer === episodeNumber ? (
+          <Typography variant="body2" color="primary">
+            {episodeNumber}
+          </Typography>
+        ) : (
+          <Link
+            component="button"
+            variant="body2"
+            onClick={() => {
+              updateLastEpisodeOnServer()
+            }}>
+            {episodeNumber}
+          </Link>
+        )}
       </TableCell>
       <TableCell>
         <div style={{ overflow: "hidden", textOverflow: "ellipsis", width: "25rem" }}>

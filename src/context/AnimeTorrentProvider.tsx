@@ -6,7 +6,7 @@ import { useMemo, useState, type PropsWithChildren } from "react"
 import AnimeTorrentContext from "./AnimeTorrentContext"
 
 const AnimeTorrentProvider = ({ children }: PropsWithChildren) => {
-  const { updateTrackedAnime, isTorrentEpisodesFetching } = useTrackedTorrent()
+  const { isTorrentEpisodesFetching, animeTorrents } = useTrackedTorrent()
   const [showModal, setShowModal] = useState(false)
   const [doScan, setDoScan] = useState(false)
   const [doScanNext, setDoScanNext] = useState(false)
@@ -28,7 +28,7 @@ const AnimeTorrentProvider = ({ children }: PropsWithChildren) => {
 
   const value = useMemo(
     () => ({
-      updateTrackedAnime,
+      animeTorrents,
       showModal,
       setShowModal,
       doScan,
@@ -40,15 +40,7 @@ const AnimeTorrentProvider = ({ children }: PropsWithChildren) => {
       torrentEpisodesMap,
       isTorrentEpisodesFetching
     }),
-    [
-      doScan,
-      doScanNext,
-      editableTrackedAnime,
-      isTorrentEpisodesFetching,
-      showModal,
-      torrentEpisodesMap,
-      updateTrackedAnime
-    ]
+    [doScan, doScanNext, editableTrackedAnime, isTorrentEpisodesFetching, showModal, torrentEpisodesMap]
   )
 
   return <AnimeTorrentContext.Provider value={value}>{children}</AnimeTorrentContext.Provider>

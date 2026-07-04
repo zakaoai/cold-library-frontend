@@ -4,11 +4,11 @@ import TableCell from "@mui/material/TableCell"
 import TableHead from "@mui/material/TableHead"
 import TableRow from "@mui/material/TableRow"
 
-import useAppContext from "@/hooks/context/useAppContext"
+import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import AnimeTorrentRow from "./AnimeTorrentRow"
 
 const AnimeTorrentTable = () => {
-  const { torrentLibrary } = useAppContext()
+  const { animeTorrents } = useAnimeTorrentContext()
 
   return (
     <Table>
@@ -23,7 +23,7 @@ const AnimeTorrentTable = () => {
         </TableRow>
       </TableHead>
       <TableBody>
-        {torrentLibrary
+        {animeTorrents
           .sort((a, b) => a.title.localeCompare(b.title))
           .map(animeTorrent => (
             <AnimeTorrentRow key={animeTorrent.malId} animeTorrent={animeTorrent} />

@@ -3,19 +3,14 @@ import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 import { useForm } from "react-hook-form"
 
 const useModalEditTrackedTorrent = () => {
-  const {
-    editableTrackedAnime,
-    updateTrackedAnime: patchAnime,
-    setShowModal,
-    setEditableTrackedAnime,
-    showModal: open
-  } = useAnimeTorrentContext()
+  const queryClient = useQueryClient()
+  const { editableTrackedAnime, setShowModal, setEditableTrackedAnime, showModal: open } = useAnimeTorrentContext()
 
   const { enqueueSnackbar } = useSnackbar()
   const { animeLibrary } = useAppContext()
@@ -34,12 +29,14 @@ const useModalEditTrackedTorrent = () => {
     []
   )
 
-  const onSuccessUpdateTrackedTorrent = useCallback(
-    (updatedTrackedTorrent: AnimeTorrentDTO) => {
-      patchAnime(updatedTrackedTorrent)
-    },
-    [patchAnime]
-  )
+  const onSuccessUpdateTrackedTorrent = useCallback((updatedTrackedTorrent: AnimeTorrentDTO) => {
+    queryClient.setQueryData<AnimeTorrentDTO[]>(["torrentLibrary"], old => {
+      if (!old) return old
+      return old.map(trackedTorrent =>
+        trackedTorrent.malId === updatedTrackedTorrent.malId ? updatedTrackedTorrent : trackedTorrent
+      )
+    })
+  }, [])
 
   const onErrorUpdateTrackedTorrent = useCallback((error: ResponseError, trackedAnime: AnimeTorrentDTO) => {
     enqueueSnackbar({

@@ -3,7 +3,7 @@ import type { AnimeEpisodeTorrentDTO } from "../services/AnimeEpisodeTorrentServ
 import type { AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorrentDTO"
 
 export default interface AnimeTorrentContext {
-  updateTrackedAnime: (updatedTrackedAnime: AnimeTorrentDTO) => void
+  animeTorrents: AnimeTorrentDTO[]
   showModal: boolean
   setShowModal: Dispatch<SetStateAction<boolean>>
   doScan: boolean
