@@ -1,32 +1,23 @@
 import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
-import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
 import { useQuery } from "@tanstack/react-query"
-import { useCallback, useEffect, useRef } from "react"
+import { useEffect, useRef } from "react"
 
 const useTrackedTorrent = () => {
-  const { torrentLibrary, setTorrentLibrary, torrentEpisodeLibrary, setTorrentEpisodeLibrary } = useAppContext()
+  const { torrentEpisodeLibrary, setTorrentEpisodeLibrary } = useAppContext()
 
   // Anime Torrents
   const {
-    data: animeTorrents,
+    data: animeTorrents = [],
     isFetched: isAnimeTorrentsFetched,
     isFetching: isAnimeTorrentsFetching
   } = useQuery({
     queryKey: ["torrentLibrary"],
     queryFn: async () => await AnimeTorrentService.getAll(),
-    retry: false,
-    enabled: torrentLibrary === undefined || torrentLibrary.length === 0
+    retry: false
   })
-  const prevAnimeTorrents = useRef<AnimeTorrentDTO[]>(null)
-  useEffect(() => {
-    if (isAnimeTorrentsFetched && animeTorrents !== undefined && animeTorrents !== prevAnimeTorrents.current) {
-      prevAnimeTorrents.current = animeTorrents
-      setTorrentLibrary(animeTorrents)
-    }
-  }, [animeTorrents, isAnimeTorrentsFetched, setTorrentLibrary])
 
   // Anime Torrent Episodes
   const {
@@ -47,18 +38,12 @@ const useTrackedTorrent = () => {
     }
   }, [isTorrentEpisodesFetched, setTorrentEpisodeLibrary, torrentEpisodes])
 
-  const updateTrackedAnime = useCallback(
-    (updatedTrackedAnime: AnimeTorrentDTO) => {
-      setTorrentLibrary(trackedAnimes =>
-        trackedAnimes.map(trackedAnime =>
-          trackedAnime.malId === updatedTrackedAnime.malId ? { ...trackedAnime, ...updatedTrackedAnime } : trackedAnime
-        )
-      )
-    },
-    [setTorrentLibrary]
-  )
-
-  return { isAnimeTorrentsFetching, updateTrackedAnime, isTorrentEpisodesFetching }
+  return {
+    isAnimeTorrentsFetching,
+    animeTorrents,
+    isAnimeTorrentsFetched,
+    isTorrentEpisodesFetching
+  }
 }
 
 export default useTrackedTorrent

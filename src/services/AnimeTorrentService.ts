@@ -5,16 +5,17 @@ import { deleteRequest, get, patch, post, put } from "./request/request"
 
 const AnimeTorrentService = {
   getAll: async () => await get<AnimeTorrentDTO[]>(api.animeTorrent.getAll),
-  get: async (malId: number) => await get<AnimeTorrentDTO>(api.animeTorrent.get(malId)),
   update: async (malId: number, trackedAnime: AnimeTorrentDTO) =>
     await patch<AnimeTorrentDTO, AnimeTorrentDTO>(api.animeTorrent.update(malId), trackedAnime),
+  updateLastEpisodeOnServer: async (malId: number, LastEpisodeOnServer: number) =>
+    await put<number, AnimeTorrentDTO>(api.animeTorrent.updateLastEpisodeOnServer(malId), LastEpisodeOnServer),
+  // Currently not used, but could be useful in the future
+  get: async (malId: number) => await get<AnimeTorrentDTO>(api.animeTorrent.get(malId)),
   delete: async (malId: number) => {
     await deleteRequest(api.animeTorrent.delete(malId))
   },
   saveInLibrary: async (malId: number) =>
-    await post<undefined, AnimeTorrentDTO>(api.animeTorrent.saveInLibrary(malId), undefined),
-  updateLastEpisodeOnServer: async (malId: number, LastEpisodeOnServer: number) =>
-    await put<number, AnimeTorrentDTO>(api.animeTorrent.updateLastEpisodeOnServer(malId), LastEpisodeOnServer)
+    await post<undefined, AnimeTorrentDTO>(api.animeTorrent.saveInLibrary(malId), undefined)
 }
 
 export default AnimeTorrentService
