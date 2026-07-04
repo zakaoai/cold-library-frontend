@@ -9,7 +9,7 @@ const useAnimeEpisode = (malId: number) => {
   const getAllEpisodesCall = useCallback(async () => await AnimeEpisodeService.getAll(malId), [malId])
 
   const { data, isFetched, isFetching } = useQuery({
-    queryKey: ["api.animeEpisode.getAll", malId],
+    queryKey: ["anime", malId, "episodes"],
     queryFn: getAllEpisodesCall,
     retry: false
   })
