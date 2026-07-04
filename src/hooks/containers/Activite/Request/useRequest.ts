@@ -23,7 +23,11 @@ const useRequest = () => {
 
   const updateRequestInCache = useCallback(
     (updatedRequest: RequestDTO) => {
-      queryClient.setQueriesData<RequestDTO[]>({ queryKey: ["requests"] }, old => {
+      queryClient.setQueriesData<RequestDTO[]>({ queryKey: ["requests", "all"] }, old => {
+        if (!old) return old
+        return old.map(request => (request.id === updatedRequest.id ? updatedRequest : request))
+      })
+      queryClient.setQueriesData<RequestDTO[]>({ queryKey: ["requests", "me"] }, old => {
         if (!old) return old
         return old.map(request => (request.id === updatedRequest.id ? updatedRequest : request))
       })

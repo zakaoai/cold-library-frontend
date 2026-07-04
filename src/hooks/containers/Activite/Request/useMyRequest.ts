@@ -32,6 +32,10 @@ const useMyRequest = () => {
         if (!old) return [createdRequest]
         return [createdRequest, ...old]
       })
+      queryClient.setQueryData<RequestDTO[]>(["requests", "all"], old => {
+        if (!old) return [createdRequest]
+        return [createdRequest, ...old]
+      })
     },
     [queryClient]
   )
