@@ -1,5 +1,4 @@
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import useAppContext from "@/hooks/context/useAppContext"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
@@ -11,8 +10,6 @@ import { useCallback } from "react"
 const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDisplay) => {
   const queryClient = useQueryClient()
   const { episodeNumber, torrentId, malId } = animeEpisodeTorrent
-
-  const { setTorrentEpisodeLibrary } = useAppContext()
 
   const { setSelectedEpisodeAlternate, setShowModalAlternateEpisode } = useAnimeTorrentRowContext()
 
@@ -60,10 +57,11 @@ const useAnimeEpisodeTorrentRow = (animeEpisodeTorrent: AnimeEpisodeTorrentDispl
   }, [episodeNumber, malId])
 
   const onSuccessDeleteTorrent = useCallback(() => {
-    setTorrentEpisodeLibrary(episodes =>
-      episodes.filter(ep => !(ep.episodeNumber === episodeNumber && ep.malId === malId))
-    )
-  }, [episodeNumber, malId, setTorrentEpisodeLibrary])
+    queryClient.setQueryData<AnimeEpisodeTorrentDisplay[]>(["torrentEpisodesLibrary"], old => {
+      if (!old) return old
+      return old.filter(ep => !(ep.episodeNumber === episodeNumber && ep.malId === malId))
+    })
+  }, [episodeNumber, malId, queryClient])
 
   const onErrorDeleteTorrent = useCallback(
     (error: ResponseError) => {

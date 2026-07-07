@@ -14,6 +14,7 @@ const useUpdateAnimeState = (
 ) => {
   const queryClient = useQueryClient()
   const { enqueueSnackbar } = useSnackbar()
+  const { setAnimeLibrary } = useAppContext()
 
   const onSuccessUpdateAnimeInServer = useCallback(
     (anime: AnimeInServerDTO) => {
@@ -21,10 +22,10 @@ const useUpdateAnimeState = (
     },
     [updateAnime]
   )
+
   const onSuccesReset = useCallback(() => {
     updateAnime(defaultAnime)
   }, [defaultAnime, updateAnime])
-  const { setTorrentEpisodeLibrary, setAnimeLibrary } = useAppContext()
 
   // Update Last Avaible Episode
   const updateLastAvaibleEpisodeCall = useCallback(
@@ -143,10 +144,10 @@ const useUpdateAnimeState = (
   const onSucessUpdateIsDownloading = useCallback(
     (anime: AnimeInServerDTO) => {
       updateAnime(anime)
-      setTorrentEpisodeLibrary([])
+      queryClient.invalidateQueries({ queryKey: ["torrentEpisodesLibrary"] })
       queryClient.invalidateQueries({ queryKey: ["torrentLibrary"] })
     },
-    [updateAnime, setTorrentEpisodeLibrary, queryClient]
+    [updateAnime, queryClient]
   )
 
   const { isPending: isUpdateIsDownloadingPending, mutate: setIsDownloading } = useMutation<

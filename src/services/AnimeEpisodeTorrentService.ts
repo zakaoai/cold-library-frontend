@@ -4,8 +4,6 @@ import api from "./api"
 import { deleteRequest, get, put } from "./request/request"
 
 const AnimeEpisodeTorrentService = {
-  getAnimeEpisodesTorrents: async (malId: number) =>
-    await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAnimeEpisodesTorrents(malId)),
   searchAlternateEpisodeTorrent: async (malId: number, episodeNumber: number) =>
     await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.searchAlternateEpisodeTorrent(malId, episodeNumber)),
   replaceEpisodeTorrent: async (malId: number, animeEpisodeTorrent: AnimeEpisodeTorrentDTO) =>
@@ -29,7 +27,10 @@ const AnimeEpisodeTorrentService = {
   delugeUpdate: async (malId: number, episodeNumber: number) =>
     await get<DelugeEpisodeTorrent>(api.animeTorrentEpisode.delugeUpdate(malId, episodeNumber)),
   delugeUpdateAll: async () => await get<DelugeEpisodeTorrent[]>(api.animeTorrentEpisode.delugeUpdateAll),
-  getAllDownloading: async () => await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAllDownloadingEpisodes)
+  getAllDownloading: async () => await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAllDownloadingEpisodes),
+  // Currently not used, but could be useful in the future
+  getAnimeEpisodesTorrents: async (malId: number) =>
+    await get<AnimeEpisodeTorrentDTO[]>(api.animeTorrentEpisode.getAnimeEpisodesTorrents(malId))
 }
 
 export default AnimeEpisodeTorrentService

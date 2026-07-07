@@ -15,13 +15,11 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
   )
   const [showEpisodes, setShowEpisodes] = useState(false)
 
-  const { animeEpisodeTorrents, patchTrackedAnimeEpisode, setAnimeEpisodeTorrents, isFetching } =
-    useAnimeTorrentEpisodes(malId)
+  const { animeEpisodeTorrents, patchTrackedAnimeEpisode, isFetching } = useAnimeTorrentEpisodes(malId)
 
   const contextValue = useMemo(
     () => ({
       patchTrackedAnimeEpisode,
-      setAnimeEpisodeTorrents,
       selectedEpisodeAlternate,
       setSelectedEpisodeAlternate,
       showModalAlternateEpisode,
@@ -37,7 +35,6 @@ const AnimeTorrentRowProvider = ({ children, animeTorrent }: PropsWithChildren &
     }),
     [
       patchTrackedAnimeEpisode,
-      setAnimeEpisodeTorrents,
       selectedEpisodeAlternate,
       showModalAlternateEpisode,
       animeTorrent,
