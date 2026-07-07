@@ -1,7 +1,6 @@
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 import StorageState from "@/enums/StorageState"
-import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeDTO } from "@/interfaces/services/AnimeService/AnimeDTO"
 import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
@@ -12,7 +11,7 @@ import { useCallback } from "react"
 type AnimeLight = Partial<AnimeInServerDTO> & Pick<AnimeInServerDTO, "malId">
 
 const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLight) => void) => {
-  const { setAnimeLibrary } = useAppContext()
+  const queryClient = useQueryClient()
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -38,10 +37,12 @@ const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLigh
 
   const onSuccesReset = useCallback(
     (_: void, defaultAnime: AnimeLight) => {
-      setAnimeLibrary(prev => prev.filter(({ malId }) => defaultAnime.malId !== malId))
+      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], prev =>
+        prev?.filter(({ malId }) => defaultAnime.malId !== malId)
+      )
       callback?.(defaultAnime)
     },
-    [callback, setAnimeLibrary]
+    [callback, queryClient]
   )
 
   const { isPending: isDeletePending, mutate: deleteAnime } = useMutation<void, ResponseError, AnimeLight>({
@@ -55,10 +56,10 @@ const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLigh
 
   const onSuccessSaveInLibrary = useCallback(
     (anime: AnimeDTO) => {
-      setAnimeLibrary(prev => [...prev, anime])
+      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], prev => [...(prev ?? []), anime])
       callback?.(anime)
     },
-    [setAnimeLibrary, callback]
+    [queryClient, callback]
   )
 
   const onErrorSaveInLibrary = useCallback((error: ResponseError, malId: number) => {
@@ -100,10 +101,12 @@ const useUpdateAnimeStorageStateLight = (callback?: (anime: AnimeDTO | AnimeLigh
 
   const onSuccessUpdateAnimeInServer = useCallback(
     (anime: AnimeInServerDTO) => {
-      setAnimeLibrary(prev => prev.map(a => (a.malId === anime.malId ? { ...a, ...anime } : a)))
+      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], prev =>
+        prev?.map(a => (a.malId === anime.malId ? { ...a, ...anime } : a))
+      )
       callback?.(anime)
     },
-    [setAnimeLibrary, callback]
+    [queryClient, callback]
   )
 
   const { isPending: isUpdateStorageStatePending, mutate: setStorageState } = useMutation<

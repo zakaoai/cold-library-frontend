@@ -15,7 +15,7 @@ const useSeasonFilterBar = () => {
   } = useDisplayAnimeContext()
   const { data: seasons } = useQuery({
     staleTime: 3600000,
-    queryKey: ["myAnimeList"],
+    queryKey: ["myAnimeList", "seasons"],
     queryFn: async () => await SeasonService.getSeasonsList(),
     retry: false
   })

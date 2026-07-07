@@ -5,7 +5,6 @@ import AnimeServices from "@/services/AnimeService"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 import { useCallback } from "react"
-import useAppContext from "../context/useAppContext"
 
 const useUpdateAnimeState = (
   malId: number,
@@ -14,7 +13,6 @@ const useUpdateAnimeState = (
 ) => {
   const queryClient = useQueryClient()
   const { enqueueSnackbar } = useSnackbar()
-  const { setAnimeLibrary } = useAppContext()
 
   const onSuccessUpdateAnimeInServer = useCallback(
     (anime: AnimeInServerDTO) => {
@@ -192,12 +190,11 @@ const useUpdateAnimeState = (
   const onSuccessSaveInLibrary = useCallback(
     (anime: AnimeDTO) => {
       updateAnime(anime)
-
-      setAnimeLibrary(prev =>
-        anime.addedOnServer !== undefined ? [...prev, anime] : prev.filter(curr => curr.malId !== anime.malId)
+      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], prev =>
+        anime.addedOnServer !== undefined ? [...(prev ?? []), anime] : prev?.filter(curr => curr.malId !== anime.malId)
       )
     },
-    [setAnimeLibrary, updateAnime]
+    [queryClient, updateAnime]
   )
 
   const onErrorSaveInLibrary = useCallback(
