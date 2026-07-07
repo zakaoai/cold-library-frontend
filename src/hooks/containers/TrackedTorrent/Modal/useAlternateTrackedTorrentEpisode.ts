@@ -1,5 +1,4 @@
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import useAppContext from "@/hooks/context/useAppContext"
 import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
@@ -7,14 +6,15 @@ import { formatEpisode } from "@/utils/torrentEpisode"
 import usePagination from "@/hooks/usePagination"
 import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useState, type ChangeEvent } from "react"
 import useSortTable from "./useSortTable"
 
 const useAlternateTrackedTorrentEpisode = () => {
   const { enqueueSnackbar } = useSnackbar()
-  const { setTorrentEpisodeLibrary } = useAppContext()
+
+  const queryClient = useQueryClient()
 
   const {
     patchTrackedAnimeEpisode: updateTrackedEpisode,
@@ -61,12 +61,11 @@ const useAlternateTrackedTorrentEpisode = () => {
       episode: AnimeEpisodeTorrentDTO,
       { malId, episodeNumber }: Pick<AnimeEpisodeTorrentDTO, "malId" | "episodeNumber">
     ) => {
-      setUpdatedTrackedEpisode(formatEpisode(episode))
-      setTorrentEpisodeLibrary(episodes =>
-        episodes.map(ep => (ep.malId === malId && ep.episodeNumber === episodeNumber ? formatEpisode(episode) : ep))
+      queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], episodes =>
+        episodes?.map(ep => (ep.malId === malId && ep.episodeNumber === episodeNumber ? episode : ep))
       )
     },
-    [setTorrentEpisodeLibrary]
+    [queryClient]
   )
 
   const onErrorUpdateTorrent = useCallback(
@@ -137,7 +136,7 @@ const useAlternateTrackedTorrentEpisode = () => {
       updateTorrent({ malId, episodeNumber })
       searchAlternateEpisodeTorrent({ malId, episodeNumber })
     }
-  }, [searchAlternateEpisodeTorrent, selectedEpisodeAlternate, setTorrentEpisodeLibrary, updateTorrent])
+  }, [searchAlternateEpisodeTorrent, selectedEpisodeAlternate, updateTorrent])
 
   const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
     usePagination(alternateTrackedEpisodes)

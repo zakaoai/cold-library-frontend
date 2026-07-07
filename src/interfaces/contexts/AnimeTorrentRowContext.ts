@@ -6,7 +6,6 @@ import type { AnimeTorrentDTO } from "../services/AnimeTorrentService/AnimeTorre
 
 export default interface AnimeTorrentRowContext {
   patchTrackedAnimeEpisode: UseMutateFunction<AnimeEpisodeTorrentDTO, Error, AnimeEpisodeTorrentDTO>
-  setAnimeEpisodeTorrents: Dispatch<SetStateAction<AnimeEpisodeTorrentDisplay[]>>
   selectedEpisodeAlternate?: AnimeEpisodeTorrentDisplay
   setSelectedEpisodeAlternate: Dispatch<SetStateAction<AnimeEpisodeTorrentDisplay | undefined>>
   showModalAlternateEpisode: boolean

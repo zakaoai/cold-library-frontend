@@ -1,11 +1,9 @@
-import { useMutation } from "@tanstack/react-query"
+import { useQuery } from "@tanstack/react-query"
 
 import { useDisplayAnimeContext } from "@/components/DisplayAnime/hooks/useDisplayAnimeContext"
 import { AnimeType } from "@/enums/AnimeType"
-import type Season from "@/enums/Season"
 import { useSeasonContext } from "@/hooks/context/useSeasonContext"
 import type MALAnimeAnimeDTO from "@/interfaces/containers/Activite/MyAnimeList/MALAnimeAnimeDTO"
-import type ResponseError from "@/interfaces/services/ResponseError"
 import type MALAnime from "@/interfaces/services/UserService/MyAnimeList/MALAnime"
 import type MALGenre from "@/interfaces/services/UserService/MyAnimeList/MALGenre"
 import SeasonService from "@/services/SeasonService"
@@ -17,48 +15,27 @@ const useSeason = () => {
     selectedGenres,
     pagination: { handleChangePage }
   } = useDisplayAnimeContext()
-  const { seasonSelected, yearSelected, sortBySelected, typeSelected, animeList, setAnimeList } = useSeasonContext()
-
-  const getSeasonCall = useCallback(
-    async ({ year, season }: { year: number; season: Season }) => await SeasonService.getSeason(year, season),
-    []
-  )
-
-  const onErrorGetSeason = useCallback((error: ResponseError, { year, season }: { year: number; season: Season }) => {
-    console.error(
-      "Une erreur est survenue lors de la récupération de la saison %s - %s le status %s",
-      season,
-      year,
-      error.response?.status
-    )
-  }, [])
+  const { seasonSelected, yearSelected, sortBySelected, typeSelected } = useSeasonContext()
 
   const { mappedMALAnime } = useMyAnimeListMapper()
 
-  const onSucessGetSeason = useCallback(
-    (animes: MALAnime[]) => {
-      setAnimeList(animes.map(mappedMALAnime))
-      handleChangePage(null, 0)
-    },
-    [handleChangePage, mappedMALAnime, setAnimeList]
-  )
-
-  const { isPending: isGetSeasonPending, mutate: getSeason } = useMutation<
-    MALAnime[],
-    ResponseError,
-    { year: number; season: Season }
-  >({
-    mutationFn: getSeasonCall,
-    onSuccess: onSucessGetSeason,
-    onError: onErrorGetSeason
+  const {
+    data: animeList = [],
+    isPending: isGetSeasonPending,
+    isSuccess,
+    isFetching
+  } = useQuery({
+    queryKey: ["myAnimeList", "seasons", "animes", { year: yearSelected, season: seasonSelected }],
+    queryFn: async () => await SeasonService.getSeason(yearSelected, seasonSelected),
+    select: useCallback((data: MALAnime[]) => data.map(mappedMALAnime), []),
+    retry: false
   })
 
   useEffect(() => {
-    getSeason({
-      year: yearSelected,
-      season: seasonSelected
-    })
-  }, [getSeason, seasonSelected, yearSelected])
+    if (isSuccess && !isFetching) {
+      handleChangePage(null, 0)
+    }
+  }, [isSuccess, isFetching, handleChangePage])
 
   const filterByType = useCallback(
     (malAnimeDTO: MALAnimeAnimeDTO) =>

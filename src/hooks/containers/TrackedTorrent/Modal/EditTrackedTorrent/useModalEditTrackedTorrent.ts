@@ -1,5 +1,5 @@
+import useLibrary from "@/hooks/containers/AnimeLibrary/useLibrary"
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
-import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeTorrentDTO } from "@/interfaces/services/AnimeTorrentService/AnimeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeTorrentService from "@/services/AnimeTorrentService"
@@ -13,9 +13,9 @@ const useModalEditTrackedTorrent = () => {
   const { editableTrackedAnime, setShowModal, setEditableTrackedAnime, showModal: open } = useAnimeTorrentContext()
 
   const { enqueueSnackbar } = useSnackbar()
-  const { animeLibrary } = useAppContext()
+  const { animes } = useLibrary()
 
-  const anime = animeLibrary.find(anime => anime.malId === editableTrackedAnime?.malId)
+  const anime = animes.find(anime => anime.malId === editableTrackedAnime?.malId)
   const { title } = anime ?? {}
   const { searchWords, lastEpisodeOnServer, dayOfRelease, deltaEpisode, torrentPath } = editableTrackedAnime ?? {}
 

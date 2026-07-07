@@ -5,8 +5,8 @@ import CardActions from "@mui/material/CardActions"
 import Grid from "@mui/material/Grid"
 
 import useMyRequest from "@/hooks/containers/Activite/Request/useMyRequest"
-import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeInServerDTO } from "@/interfaces/services/AnimeService/AnimeInServerDTO"
+import { useQueryClient } from "@tanstack/react-query"
 import { useCallback, useMemo } from "react"
 import { ProtectedAdminActions } from "./AdminActions"
 
@@ -18,6 +18,7 @@ interface IAnimeBottomAction {
 const AnimeBottomAction = ({ anime, renderRow = false }: IAnimeBottomAction) => {
   const { episodes, storageState, isComplete, isDownloading } = anime
 
+  const queryClient = useQueryClient()
   const { createRequest, myOpenedRequestMap } = useMyRequest()
   const request = useMemo(() => myOpenedRequestMap[anime.malId], [anime.malId, myOpenedRequestMap])
 
@@ -30,15 +31,13 @@ const AnimeBottomAction = ({ anime, renderRow = false }: IAnimeBottomAction) => 
     addedOnServer: undefined
   }
 
-  const { setAnimeLibrary } = useAppContext()
-
   const updateAnime = useCallback(
     (updatedAnime: AnimeDTO | AnimeInServerDTO) => {
-      setAnimeLibrary(animes =>
-        animes.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
+      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], animes =>
+        animes?.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
       )
     },
-    [setAnimeLibrary]
+    [queryClient]
   )
 
   const updateAnimeState = useUpdateAnimeState(anime.malId, defaultAnime, updateAnime)
