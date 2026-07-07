@@ -1,13 +1,13 @@
-import useAppContext from "@/hooks/context/useAppContext"
+import { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type DelugeEpisodeTorrent from "@/interfaces/services/AnimeEpisodeTorrentService/DelugeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 import { useCallback } from "react"
 
 const useAnimeTorrentsAction = () => {
-  const { setTorrentEpisodeLibrary } = useAppContext()
+  const queryClient = useQueryClient()
 
   const { enqueueSnackbar } = useSnackbar()
 
@@ -16,8 +16,8 @@ const useAnimeTorrentsAction = () => {
 
   const onSuccessUpdateAllDeluge = useCallback(
     (delugeInformations: DelugeEpisodeTorrent[]) => {
-      setTorrentEpisodeLibrary(currentEpisodes =>
-        currentEpisodes.map(ep => {
+      queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], currentEpisodes =>
+        (currentEpisodes ?? []).map(ep => {
           const delugeInfo = delugeInformations.find(delugeInfo => delugeInfo.torrentId === ep.torrentId)
           if (delugeInfo !== undefined) {
             return { ...ep, progress: delugeInfo.progress }
@@ -26,7 +26,7 @@ const useAnimeTorrentsAction = () => {
         })
       )
     },
-    [setTorrentEpisodeLibrary]
+    [queryClient]
   )
 
   const onErrorUpdateAllDeluge = useCallback((error: ResponseError) => {

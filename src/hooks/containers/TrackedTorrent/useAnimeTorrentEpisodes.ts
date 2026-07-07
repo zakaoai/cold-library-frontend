@@ -1,25 +1,23 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
-import useAppContext from "@/hooks/context/useAppContext"
-import type AnimeEpisodeTorrentDisplay from "@/interfaces/containers/Activite/TrackedTorrent/AnimeEpisodeTorrentDisplay"
 import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useMemo } from "react"
 
 const useAnimeTorrentEpisodes = (malId: number) => {
   const { torrentEpisodesMap, isTorrentEpisodesFetching } = useAnimeTorrentContext()
-  const { setTorrentEpisodeLibrary } = useAppContext()
 
-  const [animeEpisodeTorrents, setAnimeEpisodeTorrents] = useState<AnimeEpisodeTorrentDisplay[]>([])
+  const queryClient = useQueryClient()
 
   const { enqueueSnackbar } = useSnackbar()
 
-  useEffect(() => {
-    setAnimeEpisodeTorrents(torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) ?? [])
-  }, [malId, torrentEpisodesMap])
+  const animeEpisodeTorrents = useMemo(
+    () => torrentEpisodesMap.get(malId)?.map(episode => formatEpisode(episode)) ?? [],
+    [malId, torrentEpisodesMap]
+  )
 
   // Patch Episode
   const patchTrackedAnimeEpisodeCall = useCallback(
@@ -30,19 +28,17 @@ const useAnimeTorrentEpisodes = (malId: number) => {
 
   const onSuccessPatchTrackedAnimeEpisode = useCallback(
     (updatedEpisode: AnimeEpisodeTorrentDTO) => {
-      setTorrentEpisodeLibrary(episodes => {
+      queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], episodes => {
+        episodes ??= []
+        if (episodes.length === 0) return episodes
         Object.assign(
           episodes.find(ep => ep.malId === malId && ep.episodeNumber === updatedEpisode.episodeNumber) ?? {},
           updatedEpisode
         )
         return episodes
       })
-      setAnimeEpisodeTorrents(episodes => [
-        ...episodes.filter(ep => ep.episodeNumber !== updatedEpisode.episodeNumber),
-        formatEpisode(updatedEpisode)
-      ])
     },
-    [setAnimeEpisodeTorrents]
+    [queryClient]
   )
 
   const onErrorPatchTrackedAnimeEpisode = useCallback(
@@ -72,8 +68,7 @@ const useAnimeTorrentEpisodes = (malId: number) => {
     animeEpisodeTorrents,
     isFetching: isTorrentEpisodesFetching,
     isPatchTrackedAnimeEpisodePending,
-    patchTrackedAnimeEpisode,
-    setAnimeEpisodeTorrents
+    patchTrackedAnimeEpisode
   }
 }
 

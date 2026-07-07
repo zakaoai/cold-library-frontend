@@ -1,11 +1,10 @@
 import { useAnimeTorrentContext } from "@/hooks/context/useAnimeTorrentContext"
 import { useAnimeTorrentRowContext } from "@/hooks/context/useAnimeTorrentRowContext"
-import useAppContext from "@/hooks/context/useAppContext"
 import type { AnimeEpisodeTorrentDTO } from "@/interfaces/services/AnimeEpisodeTorrentService/AnimeEpisodeTorrentDTO"
 import type ResponseError from "@/interfaces/services/ResponseError"
 import AnimeEpisodeTorrentService from "@/services/AnimeEpisodeTorrentService"
 import { formatEpisode } from "@/utils/torrentEpisode"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { useSnackbar } from "notistack"
 import { useCallback, useEffect, useMemo, useRef } from "react"
 
@@ -17,6 +16,8 @@ const useAnimeTorrentAction = () => {
     doScanNext
   } = useAnimeTorrentContext()
 
+  const queryClient = useQueryClient()
+
   const { enqueueSnackbar } = useSnackbar()
   const prevDoScan = useRef(doScan)
   const prevDoScanNext = useRef(doScanNext)
@@ -24,19 +25,17 @@ const useAnimeTorrentAction = () => {
   const { animeTorrent: trackedTorrent, animeEpisodeTorrents } = useAnimeTorrentRowContext()
   const { lastEpisodeOnServer, malId, isComplete, title } = trackedTorrent
 
-  const { setTorrentEpisodeLibrary } = useAppContext()
-
   // Scan All Episode
   const scanEpisodesCall = useCallback(async () => await AnimeEpisodeTorrentService.scanEpisodeTorrent(malId), [malId])
 
   const onSuccessScanEpisodes = useCallback(
     (newEpisodes: AnimeEpisodeTorrentDTO[]) => {
-      setTorrentEpisodeLibrary(currentEpisodes => [
-        ...currentEpisodes,
+      queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], currentEpisodes => [
+        ...(currentEpisodes ?? []),
         ...newEpisodes.map(episode => formatEpisode(episode))
       ])
     },
-    [setTorrentEpisodeLibrary]
+    [queryClient]
   )
 
   const onErrorScanEpisodes = useCallback(
@@ -65,10 +64,15 @@ const useAnimeTorrentAction = () => {
   const searchPackCall = useCallback(async () => await AnimeEpisodeTorrentService.scanPackTorrent(malId), [malId])
 
   const onSuccessSearchPack = useCallback(
-    (newEpisode: AnimeEpisodeTorrentDTO) => {
-      setTorrentEpisodeLibrary(currentEpisodes => [...currentEpisodes, formatEpisode(newEpisode)])
+    (newEpisode?: AnimeEpisodeTorrentDTO) => {
+      if (newEpisode !== undefined) {
+        queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], currentEpisodes => [
+          ...(currentEpisodes ?? []),
+          formatEpisode(newEpisode)
+        ])
+      }
     },
-    [setTorrentEpisodeLibrary]
+    [queryClient]
   )
 
   const onErrorSearchPack = useCallback(
@@ -105,10 +109,13 @@ const useAnimeTorrentAction = () => {
   const onSuccessScanNextEpisodeTorrent = useCallback(
     (animeEpisodeTorrent?: AnimeEpisodeTorrentDTO) => {
       if (animeEpisodeTorrent !== undefined) {
-        setTorrentEpisodeLibrary(currentEpisodes => [...currentEpisodes, formatEpisode(animeEpisodeTorrent)])
+        queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], currentEpisodes => [
+          ...(currentEpisodes ?? []),
+          formatEpisode(animeEpisodeTorrent)
+        ])
       }
     },
-    [setTorrentEpisodeLibrary]
+    [queryClient]
   )
 
   const onErrorScanNextEpisodeTorrent = useCallback(
