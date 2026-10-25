@@ -15,12 +15,12 @@ const useSeason = () => {
     selectedGenres,
     pagination: { handleChangePage }
   } = useDisplayAnimeContext()
-  const { seasonSelected, yearSelected, sortBySelected, typeSelected } = useSeasonContext()
+  const { seasonSelected, yearSelected, sortBySelected, typeSelected, animeList, setAnimeList } = useSeasonContext()
 
   const { mappedMALAnime } = useMyAnimeListMapper()
 
   const {
-    data: animeList = [],
+    data: fetchedAnimeList = [],
     isPending: isGetSeasonPending,
     isSuccess,
     isFetching
@@ -30,6 +30,12 @@ const useSeason = () => {
     select: useCallback((data: MALAnime[]) => data.map(mappedMALAnime), []),
     retry: false
   })
+
+  useEffect(() => {
+    if (fetchedAnimeList.length > 0) {
+      setAnimeList(fetchedAnimeList)
+    }
+  }, [fetchedAnimeList, setAnimeList])
 
   useEffect(() => {
     if (isSuccess && !isFetching) {
