@@ -12,14 +12,25 @@ const useLibrary = () => {
     queryKey: ["animeLibrary"],
     queryFn: async () => await AnimeServices.getAll(),
     retry: false,
-    select: useCallback((data: AnimeDTO[]) => data.reverse(), [])
+    select: useCallback((data: AnimeDTO[]) => [...data].reverse(), [])
   })
 
   const updateAnime = useCallback(
     (updatedAnime: AnimeDTO | AnimeInServerDTO) => {
-      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], animes =>
-        animes?.map(anime => (anime.malId === updatedAnime.malId ? { ...anime, ...updatedAnime } : anime))
-      )
+      queryClient.setQueryData<AnimeDTO[]>(["animeLibrary"], animes => {
+        if (!animes) {
+          return "title" in updatedAnime ? [updatedAnime] : animes
+        }
+
+        const index = animes.findIndex(anime => anime.malId === updatedAnime.malId)
+        if (index === -1) {
+          return "title" in updatedAnime ? [...animes, updatedAnime] : animes
+        }
+
+        const updatedAnimes = [...animes]
+        updatedAnimes[index] = { ...updatedAnimes[index], ...updatedAnime }
+        return updatedAnimes
+      })
     },
     [queryClient]
   )
