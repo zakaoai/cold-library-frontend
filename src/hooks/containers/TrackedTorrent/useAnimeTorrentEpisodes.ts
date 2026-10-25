@@ -29,16 +29,20 @@ const useAnimeTorrentEpisodes = (malId: number) => {
   const onSuccessPatchTrackedAnimeEpisode = useCallback(
     (updatedEpisode: AnimeEpisodeTorrentDTO) => {
       queryClient.setQueryData<AnimeEpisodeTorrentDTO[]>(["torrentEpisodesLibrary"], episodes => {
-        episodes ??= []
-        if (episodes.length === 0) return episodes
-        Object.assign(
-          episodes.find(ep => ep.malId === malId && ep.episodeNumber === updatedEpisode.episodeNumber) ?? {},
-          updatedEpisode
+        if (!episodes) return episodes
+
+        const index = episodes.findIndex(
+          episode => episode.malId === malId && episode.episodeNumber === updatedEpisode.episodeNumber
         )
-        return episodes
+
+        if (index === -1) return episodes
+
+        const nextEpisodes = [...episodes]
+        nextEpisodes[index] = { ...nextEpisodes[index], ...updatedEpisode }
+        return nextEpisodes
       })
     },
-    [queryClient]
+    [malId, queryClient]
   )
 
   const onErrorPatchTrackedAnimeEpisode = useCallback(

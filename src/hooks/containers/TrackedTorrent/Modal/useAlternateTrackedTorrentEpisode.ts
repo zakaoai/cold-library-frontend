@@ -23,9 +23,14 @@ const useAlternateTrackedTorrentEpisode = () => {
     selectedEpisodeAlternate,
     showModalAlternateEpisode
   } = useAnimeTorrentRowContext()
+
   const [alternateTrackedEpisodes, setAlternateTrackedEpisodes] = useState<AnimeEpisodeTorrentDisplay[]>([])
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(selectedEpisodeAlternate)
   const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
+
+  useEffect(() => {
+    setUpdatedTrackedEpisode(selectedEpisodeAlternate)
+  }, [selectedEpisodeAlternate])
 
   const handleClose = useCallback(() => {
     setShowModalAlternateEpisode(false)
