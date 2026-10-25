@@ -4,7 +4,7 @@ import { useCallback } from "react"
 import useLibrary from "../../AnimeLibrary/useLibrary"
 
 const useMyAnimeListMapper = () => {
-  const { animes: animeLibrary } = useLibrary()
+  const { animes } = useLibrary()
 
   const mappedMALAnime = useCallback(
     (malAnime: MALAnime) => {
@@ -19,12 +19,12 @@ const useMyAnimeListMapper = () => {
         season: malAnime.start_season?.season,
         year: malAnime.start_season?.year,
         broadcast: `${malAnime.broadcast?.day_of_the_week} ${malAnime.broadcast?.start_time}`,
-        ...(animeLibrary.find(({ malId }) => malAnime.id === malId) ?? {})
+        ...(animes.find(({ malId }) => malAnime.id === malId) ?? {})
       }
 
       return returnedAnime
     },
-    [animeLibrary]
+    [animes]
   )
 
   return { mappedMALAnime }
