@@ -28,6 +28,25 @@ const useAlternateTrackedTorrentEpisode = () => {
   const [updatedTrackedEpisode, setUpdatedTrackedEpisode] = useState(selectedEpisodeAlternate)
   const [selectedValue, setSelectedValue] = useState<string | undefined>(undefined)
 
+  const {
+    rowsPerPage,
+    page,
+    handleChangePage,
+    handleChangeRowsPerPage,
+    labelTemplate,
+    sliceBegin,
+    sliceEnd,
+    resetPagination
+  } = usePagination(alternateTrackedEpisodes)
+
+  const paginationProps = {
+    rowsPerPage,
+    page,
+    onPageChange: handleChangePage,
+    onRowsPerPageChange: handleChangeRowsPerPage,
+    labelDisplayedRows: labelTemplate
+  }
+
   useEffect(() => {
     setUpdatedTrackedEpisode(selectedEpisodeAlternate)
   }, [selectedEpisodeAlternate])
@@ -37,7 +56,8 @@ const useAlternateTrackedTorrentEpisode = () => {
     setSelectedEpisodeAlternate(undefined)
     setAlternateTrackedEpisodes([])
     setUpdatedTrackedEpisode(undefined)
-  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate])
+    resetPagination()
+  }, [setShowModalAlternateEpisode, setSelectedEpisodeAlternate, resetPagination])
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -142,16 +162,6 @@ const useAlternateTrackedTorrentEpisode = () => {
       searchAlternateEpisodeTorrent({ malId, episodeNumber })
     }
   }, [searchAlternateEpisodeTorrent, selectedEpisodeAlternate, updateTorrent])
-
-  const { rowsPerPage, page, handleChangePage, handleChangeRowsPerPage, labelTemplate, sliceBegin, sliceEnd } =
-    usePagination(alternateTrackedEpisodes)
-  const paginationProps = {
-    rowsPerPage,
-    page,
-    onPageChange: handleChangePage,
-    onRowsPerPageChange: handleChangeRowsPerPage,
-    labelDisplayedRows: labelTemplate
-  }
 
   const sortObj = useSortTable<AnimeEpisodeTorrentDisplay>()
 
