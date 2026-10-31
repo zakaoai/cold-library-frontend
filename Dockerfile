@@ -1,8 +1,11 @@
 #### Stage 1: Build the react application
-FROM node:lts-alpine as build
+FROM node:lts-alpine AS build
 
+RUN apk upgrade --no-cache
 RUN npm install -g npm@latest
-RUN corepack enable | corepack prepare yarn@stable --activate
+RUN npm install --global corepack \
+    && corepack enable \
+    && corepack prepare yarn@4.17.0 --activate
 
 # Configure the main working directory inside the docker image.
 # This is the base directory used in any further RUN, COPY, and ENTRYPOINT
@@ -24,6 +27,8 @@ RUN yarn run build
 
 #### Stage 2: Serve the React application from Nginx
 FROM nginx:alpine-slim
+
+RUN apk upgrade --no-cache
 
 # Copy the react build from Stage 1
 COPY --from=build /app/dist /var/www
