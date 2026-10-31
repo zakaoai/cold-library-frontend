@@ -63,7 +63,7 @@ const useRequest = () => {
   }, [])
 
   const onSuccessDeleteRequest = useCallback(
-    (_, id: number) => {
+    (_: any, id: number) => {
       queryClient.setQueriesData<RequestDTO[]>({ queryKey: ["requests"] }, old => {
         if (!old) return old
         return old.filter(request => request.id !== id)

@@ -24,6 +24,11 @@ const usePagination = <T>(animeEpisodes: T[], defaultRowPerPage = 5) => {
     [setRowsPerPage, setPage]
   )
 
+  const resetPagination = useCallback(() => {
+    setRowsPerPage(defaultRowPerPage)
+    setPage(0)
+  }, [defaultRowPerPage])
+
   return useMemo(
     () => ({
       rowsPerPage,
@@ -32,9 +37,10 @@ const usePagination = <T>(animeEpisodes: T[], defaultRowPerPage = 5) => {
       handleChangeRowsPerPage,
       labelTemplate,
       sliceBegin: rowsPerPage * page,
-      sliceEnd: rowsPerPage * (page + 1)
+      sliceEnd: rowsPerPage * (page + 1),
+      resetPagination
     }),
-    [handleChangePage, handleChangeRowsPerPage, labelTemplate, page, rowsPerPage]
+    [handleChangePage, handleChangeRowsPerPage, labelTemplate, page, rowsPerPage, resetPagination]
   )
 }
 
