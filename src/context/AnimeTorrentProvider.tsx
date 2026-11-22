@@ -39,7 +39,16 @@ const AnimeTorrentProvider = ({ children }: PropsWithChildren) => {
       torrentEpisodesMap,
       isTorrentEpisodesFetching
     }),
-    [doScan, doScanNext, editableTrackedAnime, isTorrentEpisodesFetching, showModal, torrentEpisodesMap]
+    [
+      doScan,
+      doScanNext,
+      editableTrackedAnime,
+      isTorrentEpisodesFetching,
+      showModal,
+      torrentEpisodesMap,
+      animeTorrents,
+      torrentEpisodes
+    ]
   )
 
   return <AnimeTorrentContext.Provider value={value}>{children}</AnimeTorrentContext.Provider>
